@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 license: CC BY-NC-ND
 
@@ -45,4 +46,3 @@ format:
     highlight-style: nord
 
 brand: _brand.yml
-

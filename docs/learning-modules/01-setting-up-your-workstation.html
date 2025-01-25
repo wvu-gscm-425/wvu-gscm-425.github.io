@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mr.&nbsp;Ozan Ozbeker">
+
+<title>01 | Setting Up Your
+Workstation – GSCM 425: Supply Chain Network Design</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../learning-modules/02-intro-to-python.html" rel="next">
+<link href="../course-information/policies.html" rel="prev">
+<link href="../images/flying-wv-gold.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fdd8e41e452522482f81c6f67b0e9110.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-656ac620b4633344b73e40acfecb79e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">01 | Setting Up Your Workstation</h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo-title-square.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course
+Information</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/grading-and-deliverables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grading &amp; Deliverables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/policies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Policies</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Learning
+Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/01-setting-up-your-workstation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">01
+| Setting Up Your Workstation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/02-intro-to-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02
+| Intro to Python</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#your-computer-and-the-command-line" id="toc-your-computer-and-the-command-line" class="nav-link" data-scroll-target="#your-computer-and-the-command-line">Your computer and the
+  command line</a>
+  <ul class="collapse">
+  <li><a href="#console" id="toc-console" class="nav-link" data-scroll-target="#console">Console</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal">Terminal</a></li>
+  <li><a href="#command-line-or-command-line-interface-cli" id="toc-command-line-or-command-line-interface-cli" class="nav-link" data-scroll-target="#command-line-or-command-line-interface-cli">Command line or
+  Command-Line Interface (CLI)</a></li>
+  <li><a href="#shell" id="toc-shell" class="nav-link" data-scroll-target="#shell">Shell</a></li>
+  <li><a href="#web-searching-as-an-analogy" id="toc-web-searching-as-an-analogy" class="nav-link" data-scroll-target="#web-searching-as-an-analogy">Web Searching as an
+  Analogy</a></li>
+  <li><a href="#why-are-we-using-the-cli" id="toc-why-are-we-using-the-cli" class="nav-link" data-scroll-target="#why-are-we-using-the-cli">Why are we using the CLI?</a></li>
+  <li><a href="#understanding-working-directories" id="toc-understanding-working-directories" class="nav-link" data-scroll-target="#understanding-working-directories">Understanding working
+  directories</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key
+  takeaways</a></li>
+  </ul></li>
+  <li><a href="#git-github-github-desktop" id="toc-git-github-github-desktop" class="nav-link" data-scroll-target="#git-github-github-desktop">Git, GitHub, &amp; GitHub
+  Desktop</a>
+  <ul class="collapse">
+  <li><a href="#setup-github" id="toc-setup-github" class="nav-link" data-scroll-target="#setup-github">Setup
+  GitHub</a></li>
+  <li><a href="#setup-github-desktop" id="toc-setup-github-desktop" class="nav-link" data-scroll-target="#setup-github-desktop">Setup GitHub Desktop</a></li>
+  </ul></li>
+  <li><a href="#uv" id="toc-uv" class="nav-link" data-scroll-target="#uv">uv</a>
+  <ul class="collapse">
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#using-uv" id="toc-using-uv" class="nav-link" data-scroll-target="#using-uv">Using uv</a></li>
+  </ul></li>
+  <li><a href="#ruff" id="toc-ruff" class="nav-link" data-scroll-target="#ruff">Ruff</a>
+  <ul class="collapse">
+  <li><a href="#installation-1" id="toc-installation-1" class="nav-link" data-scroll-target="#installation-1">Installation</a></li>
+  <li><a href="#using-ruff" id="toc-using-ruff" class="nav-link" data-scroll-target="#using-ruff">Using Ruff</a></li>
+  <li><a href="#ruffs-linter" id="toc-ruffs-linter" class="nav-link" data-scroll-target="#ruffs-linter">Ruff’s
+  linter</a></li>
+  <li><a href="#ruffs-formatter" id="toc-ruffs-formatter" class="nav-link" data-scroll-target="#ruffs-formatter">Ruff’s
+  formatter</a></li>
+  </ul></li>
+  <li><a href="#marimo" id="toc-marimo" class="nav-link" data-scroll-target="#marimo">marimo</a>
+  <ul class="collapse">
+  <li><a href="#installation-2" id="toc-installation-2" class="nav-link" data-scroll-target="#installation-2">Installation</a></li>
+  <li><a href="#why-marimo-over-vs-code" id="toc-why-marimo-over-vs-code" class="nav-link" data-scroll-target="#why-marimo-over-vs-code">Why marimo (over VS Code)</a></li>
+  <li><a href="#why-marimo-over-jupyter-notebook" id="toc-why-marimo-over-jupyter-notebook" class="nav-link" data-scroll-target="#why-marimo-over-jupyter-notebook">Why marimo (over Jupyter
+  Notebook)</a></li>
+  <li><a href="#learning-marimo" id="toc-learning-marimo" class="nav-link" data-scroll-target="#learning-marimo">Learning
+  marimo</a></li>
+  </ul></li>
+  <li><a href="#gurobi-optimizer" id="toc-gurobi-optimizer" class="nav-link" data-scroll-target="#gurobi-optimizer">Gurobi
+  Optimizer</a>
+  <ul class="collapse">
+  <li><a href="#licensing-and-academic-access" id="toc-licensing-and-academic-access" class="nav-link" data-scroll-target="#licensing-and-academic-access">Licensing and Academic
+  Access</a></li>
+  <li><a href="#installing-the-gurobi-python-api" id="toc-installing-the-gurobi-python-api" class="nav-link" data-scroll-target="#installing-the-gurobi-python-api">Installing the Gurobi Python
+  API</a></li>
+  <li><a href="#gurobi-docs-and-tutorials" id="toc-gurobi-docs-and-tutorials" class="nav-link" data-scroll-target="#gurobi-docs-and-tutorials">Gurobi Docs and Tutorials</a></li>
+  </ul></li>
+  <li><a href="#finish" id="toc-finish" class="nav-link" data-scroll-target="#finish">Finish</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">01 | Setting Up Your Workstation</h1>
+<p class="subtitle lead">Learn about and install the tools we will be
+using in this course.</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Mr.&nbsp;Ozan
+Ozbeker <a href="mailto:ozan.ozbeker@mail.wvu.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://business.wvu.edu/academics/management-information-systems/global-supply-chain-management">
+            Global Supply Chain Management
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In this course, we will spend time learning three critical tools for
+optimization:</p>
+<ol type="1">
+<li><strong>The Command Line</strong></li>
+<li><strong>Python / Gurobi Solver</strong></li>
+<li><strong>Excel Solver</strong> (which you should have some experience
+with by now)</li>
+</ol>
+<p><a href="https://www.python.org/">Python</a> is usually ranked as the
+first or second most popular programming language in the world and, just
+as importantly, it’s also one of the easiest to learn. It’s a general
+purpose language, which means it can perform a wide range of tasks. The
+joke goes that Python is the 2nd best language at everything, and
+there’s some truth to that (although Python is 1st at some tasks, like
+machine learning).</p>
+<p>Instead of re-writing the great documentation offered by the
+products, I will provide you with links to the sections that are most
+important, as well as some extra resources that you might find
+helpful.</p>
+<p>In the realm of software, documentation is your friend, you will not
+always have a teacher to tell you exactly what to do, so learning to go
+through documentation is an important skill of itself. Do not skim
+through the instructions provided. If there are any non-default options
+needed, I will mention them.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is going to be by far the most tedious of the lectures in this
+course. Setting up your computer and environment is a pain but it must
+be done. This module will comprise of a lot of reading and not a whole
+lot of doing, but it’s essential you understand the basics of these
+tools to be successful in class. The following modules will be much more
+hands on and interactive.</p>
+</div>
+</div>
+</section>
+<section id="your-computer-and-the-command-line" class="level2">
+<h2 class="anchored" data-anchor-id="your-computer-and-the-command-line">Your computer and the command line</h2>
+<p>Before we install these tools, we need to get comfortable using the
+command line. But what exactly is it? Let me explain.</p>
+<p>When people refer to the command line, you might hear terms like
+<strong>terminal</strong>, <strong>console</strong>, <strong>CLI
+(command-line interface)</strong>, and <strong>shell</strong> used
+interchangeably. While they’re related, they’re not exactly the same
+thing. For this course, you don’t need to fully understand every nuance,
+but having a general sense of these terms will help clear up
+confusion.</p>
+<section id="console" class="level3">
+<h3 class="anchored" data-anchor-id="console">Console</h3>
+<p>A console historically refers to the physical device used to interact
+with a computer. In modern terms, it includes the combination of your
+computer’s screen, keyboard, and mouse.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/console.png" class="img-fluid figure-img"></p>
+<figcaption>In the past, consoles were often standalone machines with
+built-in screens and keyboards. Today, the term is used less often, but
+it’s good to understand its origins.</figcaption>
+</figure>
+</div>
+</section>
+<section id="terminal" class="level3">
+<h3 class="anchored" data-anchor-id="terminal">Terminal</h3>
+<p>A <strong>terminal</strong> is a <strong>program</strong> that allows
+you to enter commands into your computer. Think of it as the “window” or
+“app” where you type the instructions that your computer processes.</p>
+<p>For example:</p>
+<ul>
+<li>On Windows, the terminal is called <a href="https://learn.microsoft.com/en-us/windows/terminal/">Windows
+Terminal</a>.</li>
+<li>On Mac, it’s simply called <a href="https://support.apple.com/guide/terminal/welcome/mac">Terminal</a>.</li>
+</ul>
+<p>The terminal is just like any other program on your computer, such as
+Word or Excel. You can even replace the default terminal with other
+options or use terminals built into tools like Visual Studio Code
+(<em>foreshadowing??</em>). While it may seem intimidating, it’s just a
+tool for interacting with your computer through text commands.</p>
+</section>
+<section id="command-line-or-command-line-interface-cli" class="level3">
+<h3 class="anchored" data-anchor-id="command-line-or-command-line-interface-cli">Command line or Command-Line Interface (CLI)</h3>
+<p>The <strong>command-line interface (CLI)</strong> is the actual
+<strong>interface</strong> where you type commands for your computer to
+process. It’s a way of interacting with your operating system using
+text, rather than clicking with a mouse (which is how you use a GUI, or
+graphical user interface).</p>
+<p>The CLI exists inside the terminal, and you can think of it as the
+engine running underneath. For simplicity, you can treat the terms
+terminal and CLI as interchangeable in this course.</p>
+</section>
+<section id="shell" class="level3">
+<h3 class="anchored" data-anchor-id="shell">Shell</h3>
+<p>A <strong>shell</strong> is a <strong>program</strong> that acts as
+the interpreter for the commands you enter into the CLI. It takes what
+you type, processes it, and returns the results.</p>
+<p>Your computer’s shell comes pre-installed:</p>
+<ul>
+<li>Linux: <a href="https://www.gnu.org/software/bash/">Bash</a> (Bourne
+Again Shell)</li>
+<li>Mac: <a href="https://zsh.sourceforge.io/">Zsh</a> (Z Shell)</li>
+<li>Windows: <a href="https://learn.microsoft.com/en-us/powershell/">PowerShell</a>
+(successor to Command Prompt)</li>
+</ul>
+<p>A shell also allows you to create <strong>scripts</strong>, which are
+files containing sets of commands to automate tasks. While scripting is
+similar to programming in languages like Python or R, it’s not the focus
+of this course. For now, we’ll stick to typing individual commands.</p>
+</section>
+<section id="web-searching-as-an-analogy" class="level3">
+<h3 class="anchored" data-anchor-id="web-searching-as-an-analogy">Web Searching as an Analogy</h3>
+<p>Let’s connect what we’ve learned so far with an example of searching
+the web:</p>
+<ol type="1">
+<li><strong>Terminal</strong>: the terminal is like your <strong>web
+browser</strong> (Chrome, Edge, or Safari). It’s the environment or
+“window” where everything happens.</li>
+<li><strong>CLI</strong>: The CLI is like the <strong>search
+bar</strong> inside your browser (or the one on the mage page of Google
+or Bing). It’s where you type in your commands (or search queries) for
+the system to process.</li>
+<li><strong>Shell</strong>: The Shell is the <strong>search engine
+itself</strong> (Google Search or Bing Search). It takes the query you
+entered, processes it, and returns the results.</li>
+</ol>
+</section>
+<section id="why-are-we-using-the-cli" class="level3">
+<h3 class="anchored" data-anchor-id="why-are-we-using-the-cli">Why are we using the CLI?</h3>
+<p>Simply put, many tools in the realm of data analytics, data science,
+and data engineering are designed with the command line in mind first.
+Graphical user interfaces (GUIs) may follow, but the command line often
+remains the most powerful and flexible way to interact with these tools.
+In this class, we need a basic understanding of the CLI to install and
+set up essential tools and occasionally run scripts.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t be intimidated by the command line! While you may be more
+familiar with tools or apps that have a visual interface, the command
+line provides a powerful way to control your computer. If it’s any
+solace, after this initial setup assignment, we will use the command
+line sparingly. It’s just essential for getting started.</p>
+</div>
+</div>
+</section>
+<section id="understanding-working-directories" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-working-directories">Understanding working directories</h3>
+<p>When you use the command line, the concept of a working directory is
+crucial. The working directory is the folder where your commands operate
+by default. It’s like being inside the room in a building, you can only
+interact with the items inside that room unless you explicitly move to a
+different room.</p>
+<p>For example, if you see this prompt on the command line:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="CLI"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>C<span class="op">:</span>\Users\oo0006\Desktop<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It means the current working directory is the <code>Desktop</code>
+folder inside the user directory of the user <code>oo0006</code>. If you
+type a command like <code>dir</code> (to list the files in the working
+directory), it will show the contents of the <code>Desktop</code>
+folder.</p>
+<section id="common-symbols-and-their-meaning" class="level4">
+<h4 class="anchored" data-anchor-id="common-symbols-and-their-meaning">Common symbols and their meaning</h4>
+<ul>
+<li><p><code>\</code> (Backslash): Used in Windows paths to separate
+folders (e.g., <code>C:\Users\oo0006\Desktop</code>).</p></li>
+<li><p><code>/</code> (Forward Slash): Used in Unix-like systems (Linux,
+macOS) for the same purpose (e.g.,
+<code>/home/user/Desktop</code>).</p></li>
+<li><p><code>$</code>: In many tutorials, this symbol represents the
+start of a command in the command line. It’s a convention to indicate
+you should enter a command into the terminal. <strong>For instance,
+following code cell means you should type <code>ls</code> into the
+terminal and press Enter.</strong>:</p></li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb2" data-filename="CLI"><pre class="sourceCode PowerShell code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>$ <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is the convention I will be following in my material.</p>
+</div>
+</div>
+<ul>
+<li><code>&gt;</code>: In Windows, this symbol is part of the prompt and
+indicates the terminal is ready for your input.</li>
+</ul>
+</section>
+<section id="changing-directories" class="level4">
+<h4 class="anchored" data-anchor-id="changing-directories">Changing directories</h4>
+<p>To navigate the file system in the command line, you use the
+<code>cd</code> (change directory) command:</p>
+<ul>
+<li>To move to a specific folder (if you’re in
+<code>C:\Users\oo0006\</code>, this will take you to
+<code>C:\Users\oo0006\Documents</code>):</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="CLI"><pre class="sourceCode PowerShell code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>$ <span class="fu">cd</span> Documents</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>To go up one level (if you’re in
+<code>C:\Users\oo0006\Documents</code>, this will take you back to
+<code>C:\Users\oo0006\</code>):</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb4" data-filename="CLI"><pre class="sourceCode PowerShell code-with-copy"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>$ <span class="fu">cd</span> <span class="op">..</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>To move directly to another folder:</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb5" data-filename="CLI"><pre class="sourceCode PowerShell code-with-copy"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>$ <span class="fu">cd</span> C<span class="op">:</span>\Program Files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This takes you straight to <code>C:\Program Files</code>, no matter
+where you were previously.</p>
+</section>
+</section>
+<section id="key-takeaways" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaways">Key takeaways</h3>
+<ol type="1">
+<li>The command line is a powerful tool, don’t let its simplicity fool
+you.</li>
+<li>The working directory determines where commands will execute by
+default.</li>
+<li>Understanding the prompt and basic navigation commands like
+<code>cd</code> can make the command line much less intimidating.</li>
+</ol>
+</section>
+</section>
+<section id="git-github-github-desktop" class="level2">
+<h2 class="anchored" data-anchor-id="git-github-github-desktop">Git, GitHub, &amp; GitHub Desktop</h2>
+<p><a href="https://docs.github.com/en/get-started/using-git/about-git">Git</a>
+is a version control system that intelligently tracks changes in files.
+Git is particularly useful when you and a group of people are all making
+changes to the same files at the same time.</p>
+<p>Typically, to do this in a Git-based workflow, you would:</p>
+<ul>
+<li><strong>Create a branch</strong> off from the main copy of files
+that you (and your collaborators) are working on.</li>
+<li><strong>Make edits</strong> to the files independently and safely on
+your own personal branch.</li>
+<li>Let Git intelligently <strong>merge</strong> your specific changes
+back into the main copy of files, so that your changes don’t impact
+other people’s updates.</li>
+<li>Let Git <strong>keep track</strong> of your and other people’s
+changes, so you all stay working on the most up-to-date version of the
+project.</li>
+</ul>
+<p><a href="https://github.com/">GitHub</a> is a cloud-based platform
+where you can store, share, and work together with others to write code.
+You can think of Git as the engine that GitHub runs on.</p>
+<p>Storing your code in a “repository” on GitHub allows you to:</p>
+<ul>
+<li>Showcase or share your work.</li>
+<li>Track and manage changes to your code over time.</li>
+<li>Let others review your code, and make suggestions to improve
+it.</li>
+<li>Collaborate on a shared project, without worrying that your changes
+will impact the work of your collaborators before you’re ready to
+integrate them.</li>
+</ul>
+<p>When you upload files to GitHub, you’ll store them in a “Git
+repository.” This means that when you make changes (or “commits”) to
+your files in GitHub, Git will automatically start to track and manage
+your changes.</p>
+<p>There are plenty of Git-related actions that you can complete on
+GitHub directly in your browser, such as creating a Git repository,
+creating branches, and uploading and editing files. But, most people
+work on their files locally (on their own computer), then continually
+sync these local changes—and all the related Git data—with the central
+“remote” repository on GitHub. This is how we will interact with GitHub
+in this course, with the help of <a href="https://github.com/apps/desktop">GitHub Desktop</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/github-desktop-screenshot.png" class="img-fluid figure-img"></p>
+<figcaption>GitHub Desktop Interface</figcaption>
+</figure>
+</div>
+<p>Once you start to collaborate with others and all need to work on the
+same repository at the same time, you’ll continually:</p>
+<ul>
+<li><strong>Pull</strong> all the latest changes made by your
+collaborators from the remote repository on GitHub.</li>
+<li><strong>Push</strong> back your own changes to the same remote
+repository on GitHub.</li>
+</ul>
+<p>Git figures out how to intelligently merge this flow of changes, and
+GitHub helps you manage the flow through features such as “pull
+requests.”</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We will be sticking to GitHub’s tools for using Git, so you do not
+need to install Git separately for this course. In the future, you may
+want to spend some time understanding Git on its own, but for this
+course and most companies, understanding GitHub’s (below) workflows is
+more important.</p>
+</div>
+</div>
+<section id="setup-github" class="level3">
+<h3 class="anchored" data-anchor-id="setup-github">Setup GitHub</h3>
+<p>Follow the guides in the order they are presented. Again, I recommend
+reading through the whole set of <a href="https://docs.github.com/en/get-started">Get Started</a> articles,
+but these are the essentials for this course.</p>
+<ol type="1">
+<li><a href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github">Creating
+an account on GitHub</a>
+<ul>
+<li>Use your Mix account for the email. Your username doesn’t matter; I
+used <code>Ozan Ozbeker - WVU</code>. In this course, we will be using
+private repositories, but I recommend creating a personal account to add
+projects for your resume. The final project of this class could be a
+good start.</li>
+</ul></li>
+<li><a href="https://docs.github.com/en/get-started/start-your-journey/hello-world">Hello
+World</a>
+<ul>
+<li>This is the critical GitHub workflow, make sure you understand
+it.</li>
+</ul></li>
+<li><a href="https://docs.github.com/en/get-started/start-your-journey/setting-up-your-profile">Setting
+up your profile</a>
+<ul>
+<li>This will introduce you to using Markdown, which will be essential
+later in this course and for formatting your READMEs.</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>GitHub also provides hands-on exercises for many of their articles at
+<a href="https://skills.github.com/">GitHub Skills</a> for free. I won’t
+require you to do any of these as I’m not sure how long they take, but
+these ones may be of benefit: <a href="https://github.com/skills/introduction-to-github">Introduction to
+GitHub</a>, <a href="https://github.com/skills/communicate-using-markdown">Communicate
+using Markdown</a>, <a href="https://github.com/skills/review-pull-requests">Review pull
+requests</a>, &amp; <a href="https://github.com/skills/review-pull-requests">Resolve merge
+conflicts</a>.</p>
+</div>
+</div>
+</section>
+<section id="setup-github-desktop" class="level3">
+<h3 class="anchored" data-anchor-id="setup-github-desktop">Setup GitHub Desktop</h3>
+<p>GitHub Desktop is a free, open source application that helps you to
+work with code hosted on GitHub or other Git hosting services. With
+GitHub Desktop, you can perform Git commands, such as committing and
+pushing changes, in a graphical user interface, rather than using the
+command line.</p>
+<p>A typical workflow is:</p>
+<ol type="1">
+<li>Use GitHub Desktop to download a GitHub repository to your computer
+and create a new branch.</li>
+<li>Use an editor such as Visual Studio Code to make changes to the
+code.</li>
+<li>Return to GitHub Desktop to commit and push the changes to
+GitHub.</li>
+</ol>
+<p>Again, follow the guides in the order they are presented. Again x 2,
+I recommend reading through the whole set of <a href="https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop">Get
+Started</a> articles, but these are the essentials for this course.</p>
+<ol type="1">
+<li>Parts 1 &amp; 2 of <a href="https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop">Getting
+started with GitHub Desktop</a>
+<ul>
+<li>This guide, and all the following, will have specific steps for Mac
+&amp; Windows.</li>
+</ul></li>
+<li>Parts 2-5 of <a href="https://docs.github.com/en/desktop/overview/creating-your-first-repository-using-github-desktop">Creating
+your first repository using GitHub Desktop</a>
+<ul>
+<li>This will be similar to some parts of the GitHub (website) guides
+above, that’s on purpose.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="uv" class="level2">
+<h2 class="anchored" data-anchor-id="uv">uv</h2>
+<p>So far, we’ve only installed VS Code &amp; GitHub Desktop, which are
+tools we need for this course, but they are not specific to Python. Now
+we will focus on installing Python as well as a few other tools that
+will make our coding lives easier.</p>
+<p><a href="https://docs.astral.sh/uv/">uv</a> is an extremely fast
+Python package and project manager. It is how we will manage our project
+dependencies, including Python itself.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>From this point, all of the installation will be done via the command
+line.</p>
+</div>
+</div>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>You can install uv using PowerShell on Windows:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb6" data-filename="CLI"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> powershell <span class="at">-ExecutionPolicy</span> ByPass <span class="at">-c</span> <span class="st">"irm https://astral.sh/uv/install.ps1 | iex"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And curl on macOS:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb7" data-filename="CLI"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> curl <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>At this point, you need to restart your shell, which means close your
+terminal and open it again.</p>
+</div>
+</div>
+<p>Now, we check to see that uv is available by running the
+<code>uv</code> command:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb8" data-filename="CLI"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uv <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>output</strong></pre>
+</div>
+<div class="sourceCode" id="cb9" data-filename="output"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>uv 0.5.20 (1c17662b3 2025-01-15)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With that confirmation, we will now install Python to be used across
+the system:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb10" data-filename="CLI"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uv python install 3.12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then you can use <code>uv python list</code> to verify the
+installation went through:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb11" data-filename="CLI"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uv python list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You will see list of the available versions of Python uv can download
+as well as where Python 3.12 was installed.</p>
+</section>
+<section id="using-uv" class="level3">
+<h3 class="anchored" data-anchor-id="using-uv">Using uv</h3>
+<p>To fully appreciate the benefits of uv and why we are using it, it’s
+essential to understand Python environments, virtual environments, and
+how uv simplifies these concepts through its <a href="https://docs.astral.sh/uv/concepts/projects/">Projects</a>
+interface.</p>
+<p>uv provides two ways to handle dependencies (a dependency is any
+extra package your project needs that doesn’t come with Python by
+default). The preferred approach is the <code>uv project</code>
+interface, which includes commands like <code>uv init</code>,
+<code>uv add</code>, <code>uv lock</code>, and more. While uv also
+includes an implementation of <a href="https://docs.astral.sh/uv/pip/">pip</a>, we will not be using it
+in this course.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using uv projects has fewer commands and guides you toward best
+practices, much like how GitHub Desktop simplifies workflows compared to
+the full Git CLI tools.</p>
+</div>
+</div>
+<p>When we installed Python 3.12 earlier using
+<code>uv python install 3.12</code>, we were not in a project. As a
+result, Python was installed into uv’s default environment. On most
+Windows systems, this environment is located at
+<code>AppData/Roaming/uv/python/cpython-3.12.8-windows-x86_64-none/python.exe</code>.
+However, you don’t need to worry about its location—uv manages it for
+you.</p>
+<p>To add dependencies to a project using uv, we use the command
+<code>uv add [package]</code>. Let’s try downloading <a href="https://pola.rs/">Polars</a>, a library we’ll use in the second
+half of this course:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>CLI</strong></pre>
+</div>
+<div class="sourceCode" id="cb12" data-filename="CLI"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uv add polars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>output</strong></pre>
+</div>
+<div class="sourceCode" id="cb13" data-filename="output"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>error: No `pyproject.toml` found in current directory or any parent directory</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We encountered an error! This happened because we’re not in a
+project. This is one of the many guardrails uv provides when using its
+project interface. If we had used <code>uv pip install polars</code>, we
+could have installed the package into the default (global) environment.
+However, since this is considered bad practice, uv actively discourages
+it.</p>
+<p>Instead, uv projects leverage <a href="https://docs.python.org/3/library/venv.html"><em>virtual
+environments</em></a> using Python’s built-in <code>venv</code> module.
+Essentially, each project has its own dependencies without interfering
+with others. This isolation prevents version conflicts and keeps your
+projects organized.</p>
+<p>uv projects also provide a significant advantage: caching. When you
+use the same dependency across multiple projects, uv only downloads it
+once and stores it in a cache. For future projects, it reuses the cached
+files instead of downloading and installing them again. This drastically
+reduces disk space usage and installation time, especially when working
+with large or repeated dependencies. For this course, where each Lab
+&amp; Test will be its own uv project, this feature will save us
+considerable time.</p>
+<p>We’ll get hands-on experience with uv projects in the the Lab, but
+you can look at the official <a href="https://docs.astral.sh/uv/guides/projects/">Working on
+projects</a> guide if you would like.</p>
+</section>
+</section>
+<section id="ruff" class="level2">
+<h2 class="anchored" data-anchor-id="ruff">Ruff</h2>
+<p>Many Python packages provide applications that can be used as tools.
+uv has specialized support for easily invoking and installing tools. <a href="https://docs.astral.sh/ruff/">Ruff</a> is an extremely fast Python
+linter and code formatter, made by the creators of uv.</p>
+<section id="installation-1" class="level3">
+<h3 class="anchored" data-anchor-id="installation-1">Installation</h3>
+<p>You can install Ruff with:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Command Line</strong></pre>
+</div>
+<div class="sourceCode" id="cb14" data-filename="Command Line"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uv tool install ruff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-ruff" class="level3">
+<h3 class="anchored" data-anchor-id="using-ruff">Using Ruff</h3>
+<p>Ruff’s two main features are its <a href="https://docs.astral.sh/ruff/linter/">linter</a> and <a href="https://docs.astral.sh/ruff/formatter/">formatter</a>.</p>
+<p>A <strong>linter</strong> analyzes your code for potential errors,
+bad practices, or violations of style rules. It can give warnings or
+errors, but it won’t change your code automatically. It’s essentially a
+spellchecker for your code, pointing out what’s wrong without fixing
+it.</p>
+<p>A <strong>formatter</strong> automatically adjusts the layout and
+style of your code to match a predefined set of rules. It produces
+clean, consistently styled code by modifying it directly.</p>
+</section>
+<section id="ruffs-linter" class="level3">
+<h3 class="anchored" data-anchor-id="ruffs-linter">Ruff’s linter</h3>
+<p><code>ruff check</code> is the primary entrypoint to the Ruff linter.
+It accepts a list of files or directories, and lints all discovered
+Python files, optionally fixing any fixable errors:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Command Line</strong></pre>
+</div>
+<div class="sourceCode" id="cb15" data-filename="Command Line"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ruff</span> check <span class="co"># Lint all files in the current directory.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ruff</span> check path/to/code/ <span class="co"># Lint all files in `path/to/code` (and any subdirectories).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ruff supports automatic fixes for a variety of lint errors. For
+example, Ruff can remove unused imports, reformat docstrings, rewrite
+type annotations to use newer Python syntax, and more.</p>
+<p>To enable fixes, pass the <code>--fix</code> flag to ruff check:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Command Line</strong></pre>
+</div>
+<div class="sourceCode" id="cb16" data-filename="Command Line"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ruff</span> check <span class="at">--fix</span> <span class="co"># Lint all files in the current directory, and fix any fixable errors.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I don’t recommend using automatic fixes as it can help develop bad
+habits in coding. Using the Ruff linter to find mistakes is good, but
+you should work on not making the mistakes to begin with.</p>
+</section>
+<section id="ruffs-formatter" class="level3">
+<h3 class="anchored" data-anchor-id="ruffs-formatter">Ruff’s formatter</h3>
+<p><code>ruff format</code> is the primary entrypoint to the formatter.
+It accepts a list of files or directories, and formats all discovered
+Python files:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Command Line</strong></pre>
+</div>
+<div class="sourceCode" id="cb17" data-filename="Command Line"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ruff</span> format <span class="co"># Format all files in the current directory.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ruff</span> format path/to/code/ <span class="co"># Format all files in `path/to/code` (and any subdirectories).</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ruff</span> format path/to/file.py <span class="co"># Format a single file.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run the linter first to identify and fix any errors, then use the
+formatter to clean up your code’s style. While you’re free to choose any
+code style (as long as it’s syntactically valid), adhering to a standard
+makes it easier to learn best practices and collaborate with others.
+Following a standard format also helps minimize unnecessary diffs in
+your GitHub changes.</p>
+</section>
+</section>
+<section id="marimo" class="level2">
+<h2 class="anchored" data-anchor-id="marimo">marimo</h2>
+<p>The final tool we’ll be installing is marimo. <a href="https://marimo.io/">marimo</a> is an open-source reactive notebook
+for Python — reproducible, git-friendly, executable as a script, and
+shareable as an app.</p>
+<section id="installation-2" class="level3">
+<h3 class="anchored" data-anchor-id="installation-2">Installation</h3>
+<p>You can install marimo with:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Command Line</strong></pre>
+</div>
+<div class="sourceCode" id="cb18" data-filename="Command Line"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> uv tool install marimo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="why-marimo-over-vs-code" class="level3">
+<h3 class="anchored" data-anchor-id="why-marimo-over-vs-code">Why marimo (over VS Code)</h3>
+<p>We already installed VS Code, why am I making you install another
+tool to use Python with? I’m glad you asked.</p>
+<p>The main difference between traditional Python programming in tools
+like VS Code vs interactive notebooks like marimo (or Jupyter Notebook)
+is how you write and run your code. In VS Code, you typically write your
+entire script in a <code>.py</code> file and run the whole program at
+once, with the output appearing in a terminal or console. This approach
+is great for building full applications, like downloading data,
+automatically refreshing a dashboard, or scraping a website. On the
+other hand, interactive notebooks allow you to write and execute code in
+smaller chunks, or cells, and see the results (including graphs or
+tables) immediately beside the code. This makes notebooks ideal for data
+analysis, visualization, prototyping, and/or teaching, as they encourage
+experimentation and provide instant feedback.</p>
+<p>While VS Code is better suited for maintaining well-organized,
+modular code, notebooks excel in scenarios that involve step-by-step
+exploration and explanation. They serve different purposes, but are
+complementary.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A typical workflow in industry is using notebooks to explore new
+data, experiment with visuals, try models, and so on. Once the code is
+in a stable state, the code in the notebook will be turned into a Python
+<a href="https://www.sitepoint.com/python-modules-packages/">package or
+module</a> to be used in <a href="https://stackoverflow.com/a/490299">production</a> (software
+engineering loves to use manufacturing terms.).</p>
+</div>
+</div>
+</section>
+<section id="why-marimo-over-jupyter-notebook" class="level3">
+<h3 class="anchored" data-anchor-id="why-marimo-over-jupyter-notebook">Why marimo (over Jupyter Notebook)</h3>
+<p>We already covered why we may want to use a notebook instead of a
+regular IDE like VS Code, so why marimo over Jupyter?</p>
+<p>marimo is the new kid on the block when it comes to comes to coding
+notebooks. <a href="https://jupyter.org/">Jupyter</a> has been the
+standard for interactive computing for years now, and absolutely
+deserves its flowers.</p>
+<p>From the marimo <a href="https://docs.marimo.io/faq/">FAQ</a>: marimo
+is a reinvention of the Python notebook as a reproducible, interactive,
+and shareable Python program that can be executed as scripts or deployed
+as interactive web apps.</p>
+<ul>
+<li><strong>Consistent state</strong>: In marimo, your notebook code,
+outputs, and program state are guaranteed to be consistent. Run a cell
+and marimo reacts by automatically running the cells that reference its
+variables. Delete a cell and marimo scrubs its variables from program
+memory, eliminating hidden state.</li>
+<li><strong>Built-in interactivity</strong>: marimo also comes with UI
+elements like sliders, a DataFrame transformer, and interactive plots
+that are automatically synchronized with Python. Interact with an
+element and the cells that use it are automatically re-run with its
+latest value.</li>
+<li><strong>Pure Python programs</strong>: Unlike Jupyter notebooks,
+marimo notebooks are stored as pure Python files that can be executed as
+scripts, deployed as interactive web apps, and versioned easily with
+Git.</li>
+</ul>
+</section>
+<section id="learning-marimo" class="level3">
+<h3 class="anchored" data-anchor-id="learning-marimo">Learning marimo</h3>
+<p>Feel free to look at the <a href="https://docs.marimo.io/guides/">User Guide</a>, but we will be
+going through their interactive tutorials in a later Lab.</p>
+<p>You can see some examples of marimo notebooks at their <a href="https://marimo.io/gallery">gallery</a>.</p>
+</section>
+</section>
+<section id="gurobi-optimizer" class="level2">
+<h2 class="anchored" data-anchor-id="gurobi-optimizer">Gurobi Optimizer</h2>
+<p>So far, you’ve set up your environment for Python development with
+uv, installed GitHub Desktop for version control, and learned about
+marimo for notebooks. The final piece in our optimization puzzle is
+<strong>Gurobi</strong>, a leading commercial solver that is free for
+academic use.</p>
+<p><a href="https://www.gurobi.com/">Gurobi</a> is a powerful
+mathematical programming solver capable of handling linear, integer, and
+other advanced optimization models. In this course, we’ll use Gurobi
+primarily through its Python API, <code>gurobipy</code>, to solve supply
+chain network design problems more efficiently than is possible with
+Excel Solver alone.</p>
+<section id="licensing-and-academic-access" class="level3">
+<h3 class="anchored" data-anchor-id="licensing-and-academic-access">Licensing and Academic Access</h3>
+<p>Gurobi is commercial software, but it’s <strong>free</strong> for
+students and faculty at degree-granting institutions. To obtain a
+license:</p>
+<ol type="1">
+<li>Create a Gurobi Account
+<ul>
+<li>Go to Gurobi’s Academic License page and sign up using your
+university email.</li>
+<li>Wait for an email verifying your academic license. Gurobi usually
+grants these licenses quickly, but it can sometimes take a day or
+two.</li>
+</ul></li>
+<li>Download and Install Gurobi
+<ul>
+<li>Once you have a Gurobi account, log in to the Gurobi Download Center
+to download the installer for your operating system (Windows, macOS, or
+Linux).</li>
+<li>Run the installer and follow the on-screen prompts. By default,
+Gurobi installs to a folder like <code>C:\gurobi\</code> on Windows or
+<code>/Library/gurobi/</code> on macOS.</li>
+</ul></li>
+<li>Activate Your License
+<ul>
+<li>After installation, open a terminal (PowerShell on Windows or the
+Terminal on macOS) and run:</li>
+</ul></li>
+</ol>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Command Line</strong></pre>
+</div>
+<div class="sourceCode" id="cb19" data-filename="Command Line"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> grbgetkey YOUR-LICENSE-KEY</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Replace <code>YOUR-LICENSE-KEY</code> with the key from your Gurobi
+account’s “My Account” page or from the email you received.</li>
+<li>This will create a <code>gurobi.lic</code> file on your system,
+typically located in your home directory.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make sure you keep your <code>gurobi.lic</code> file in a safe
+location and don’t share it publicly. It contains your license
+credentials.</p>
+</div>
+</div>
+</section>
+<section id="installing-the-gurobi-python-api" class="level3">
+<h3 class="anchored" data-anchor-id="installing-the-gurobi-python-api">Installing the Gurobi Python API</h3>
+<p>In older versions, you had to rely on Gurobi’s custom installer for
+the Python bindings. Fortunately, modern versions (Gurobi 9.5+) are also
+available on PyPI under the name <code>gurobipy</code>. This means we
+can install the Python API the same way we add other Python packages
+(covered in <strong>Lab 1</strong>). However, remember that you must
+still install the main Gurobi solver (the previous step) for
+<code>gurobipy</code> to function.</p>
+</section>
+<section id="gurobi-docs-and-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="gurobi-docs-and-tutorials">Gurobi Docs and Tutorials</h3>
+<p>Gurobi’s own documentation is excellent and well worth exploring:</p>
+<ul>
+<li><a href="https://docs.gurobi.com/">Gurobi Documentation</a> –
+official API references, tutorials, parameter guides.</li>
+<li><a href="https://gurobi.github.io/modeling-examples/">Gurobi
+Modeling Examples</a> – real-world examples demonstrating how to set up
+and solve diverse optimization problems.</li>
+</ul>
+<p>In later modules and labs, we’ll walk through building facility
+location, transportation, and transshipment models in Python using
+Gurobi. For now, ensure you have the solver installed, licensed, and
+ready to go so that you can focus on actual modeling in upcoming
+lessons.</p>
+</section>
+</section>
+<section id="finish" class="level2">
+<h2 class="anchored" data-anchor-id="finish">Finish</h2>
+<p><strong>That’s it!</strong> With Gurobi in place, you now have the
+complete environment for writing and running optimization models in
+Python. The next modules will be more hands-on, so don’t worry if the
+setup process feels tedious. Proper installation and licensing of Gurobi
+is crucial to ensure everything runs smoothly later.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("wvu-gscm-425\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../course-information/policies.html" class="pagination-link" aria-label="Policies">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Policies</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../learning-modules/02-intro-to-python.html" class="pagination-link" aria-label="02 | Intro to Python">
+        <span class="nav-page-text">02 | Intro to Python</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
