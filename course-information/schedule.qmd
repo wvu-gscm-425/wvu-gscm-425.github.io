@@ -1,0 +1,55 @@
+---
+title: "Schedule"
+format: html
+order: 1
+---
+
+Course weeks with modules follow a consistent cycle:
+
+| Tuesday                                                  | Thursday                                |
+|:--------------------------------------------------------:|:---------------------------------------:|
+| In class review & peer instruction of Learning Module(s) | Hands-on Lab work in class              |
+| In class quiz (for bonus) of Learning Module(s)          | Lab(s) due following Monday at 11:59 PM |
+
+::: {.callout-tip}
+All Learning Modules will be available by the start of the week. It is expected that you review the week's Learning Module(s) before class on the respective Tuesday.
+:::
+
+## Calendar
+
+- Individual Learning Modules are in **bold**.
+- **Labs**: due on Monday at 11:59 PM of the following week.
+  - **Example - Week 5**:
+    - Tuesday (2025-02-11), we will go over the exercises from **Data Structures & Control Flow**.
+    - Thursday (2025-02-13), you will work on **Lab 4** in class.
+    - Monday (2025-02-17), **Lab 4** is due.
+- **Tests**: due on Wednesday at 11:59PM of the test week.
+  - **Example - Test 1**:
+    - Tuesday (2025-02-25): No new lecture material for this week, give time to ask questions for test.
+    - Wednesday (2025-02-26): Test is due at 11:50 PM.
+    - Thursday (2025-02-27): We will go through the test problems in class.
+- **Final Project**: due at 11:59 PM on Monday, April 28th, 2025.
+
+*Schedule subject to change, changes will be announced in class and on eCampus.*
+
+::: {.column-body-outset-right}
+| Week | Start      | Learning Module(s)                             | Course Deliverable(s) Due                                  |
+|:----:|:----------:|------------------------------------------------|------------------------------------------------------------|
+| 1    | 2025-01-13 | Course Intro                                   |                                                            |
+| 2    | 2025-01-20 | **Setting Up Your Workstation**                |                                                            |
+| 3    | 2025-01-27 | **Python Basics**                              | **Lab 1** (Environment Setup)                              |
+| 4    | 2025-02-03 | **Data Structures & Control Flow**             | **Lab 2** (Variables & Basic Scripting)                    |
+| 5    | 2025-02-10 | **Functions & Basic I/O**                      | **Lab 3** (Lists, Dicts, Loops, Conditionals)              |
+| 6    | 2025-02-17 | **Intro to Gurobi & Simple Optimization**      | **Lab 4** (Custom Functions, File I/O)                     |
+| 7    | 2025-02-24 | Test 1 (on Weeks 3-6) Prep & Review            | **Lab 5** (First Gurobi Model + Excel Compare), **Test 1** |
+| 8    | 2025-03-03 | **Intro to Supply Chain Network Design**       |                                                            |
+| 9    | 2025-03-10 | **Facility Location Models**                   | **Lab 6** (Single-Facility Location)                       |
+| 10   | 2025-03-17 | **Transportation & Transshipment**             | **Lab 7** (Capacitated vs. Uncapacitated)                  |
+| 11   | 2025-03-24 | Spring Recess (No Class / No Work)             | **Lab 8** (Multi-Echelon Flow Model)                       |
+| 12   | 2025-03-31 | **Network Design with Uncertainty**            |                                                            |
+| 13   | 2025-04-07 | **Multi-Objective Optimization & Sensitivity** | **Lab 9** (Scenario Analysis)                              |
+| 14   | 2025-04-14 | Test 2 (on Weeks 8-14) Prep & Review           | **Lab 10** (Two-Objective / Sensitivity), **Test 2**       |
+| 15   | 2025-04-21 | Open Lab Week, Work on Final Project           |                                                            |
+| 16   | 2025-04-28 | Presentations                                  | Final Project                                              |
+| 17   | 2025-05-05 | Finals Week (No Final Exam)                    |                                                            |
+:::

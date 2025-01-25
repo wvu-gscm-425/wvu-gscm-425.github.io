@@ -1,0 +1,156 @@
+---
+title: "Grading & Deliverables"
+format: html
+order: 3
+---
+
+If you are new to using specifications grading, here's what you can expect:
+
+- For each assignment you will be given a set of specifications. Meeting all/most of those will earn the highest grade. This is described in detail below, but aims to allow you to focus on learning and not on the difference between an `89` and a `90` on an assignment. (It also more closely resembles how work is evaluated in most workplaces.)
+- We will allow a limited amount of [*Resubmissions*](#resubmissions) of Labs to learn from mistakes.
+
+Labs & Test Questions are assigned one of three marks:
+
+- **S (Satisfactory)**: Meets or exceeds all outlined specifications (specs) in completeness, clarity/quality, and relevance.
+- **N (Needs Improvement)**: Partially meets the specs but has notable issues. Additional revision, clarity, or corrections needed.
+- **U (Ungradable)**: Does not meet the basic specs; significantly incomplete or non-functional.
+
+These will be assessed on:
+
+1. **Completeness**
+    - **Theory**: Does the submission thoroughly address each part of the question(s)?
+    - **Coding**: Does the code accomplish **all** required tasks and functionalities?
+2. **Conceptual Clarity & Code Quality**
+    - **Theory**: Are explanations accurate, logically structured, and well-supported by examples or evidence?
+    - **Coding**:
+      - Is the code readable and well-styled (e.g., PEP 8)?
+      - Are chosen algorithms/data structures appropriate for the problem?
+      - Does the solution exhibit clear organization (functions, classes, modules)?
+
+An assignment's specs will be provided with the instructions.
+
+### Labs
+
+There will be a Lab for each Learning Module. Multiple Labs can be due in a single week if multiple Learning Modules are covered.
+
+The Labs will be a mix of Theory & Coding questions designed to gauge students' understanding of topics discussed in the Learning Module(s).
+  
+**Each Lab will receive one S/N/U mark**.
+
+### Test Questions
+
+There will be two tests, aligned with major textbooks/readings:
+
+- **Test 1**: Python Foundations
+- **Test 2**: Supply Chain Network Design
+
+The test format will be **Take Home** with a single submission by team.
+
+Tests will consist of a mix of 3 problem sets:
+
+- **Theory** problems which will be short answer and open-ended.
+- **Coding** problems which will comprise of analysis, coding solutions, & interpretation of results.
+
+**Each problem will receive its own S/N/U mark** based on **completeness** and **clarity**.
+
+### Final Project
+
+- **Comprehensive group project** applying the full range of skills from the course.
+
+Students will work in teams on unique supply chain problems. Each team will:
+
+- Solve a network design problem using Excel Solver and Python/Gurobi.
+- Write a comparative report discussing the tools' pros and cons.
+- Present their findings to the class.
+
+**Project Grade** `P` will be used in the final letter grade matrix.
+
+### Final Grade Calculation
+
+Your final grade will be determined by your **16 SNU** grades (Labs: 10,  Test 1: 3, Test 2: 3) and your final project score:
+
+- **S**: The total number of *Satisfactory* marks you received.
+- **U**: The maximum number of *Ungradable* marks you received.
+- **P**: Your exam grade, `P`, which will be between 0-100.
+
+Below is the table for your **Final Grade** calculation.
+
+|  S >=  |  U <=  | 50 <= P < 70 | 70 <= P < 80 | 80 <= P < 90 | P >= 90 |
+|:------:|:------:|:------------:|:------------:|:------------:|:-------:|
+|   14   |    0   |       B      |       B      |       A      |    A    |
+|   12   |    2   |       B      |       B      |       B      |    A    |
+|   10   |    3   |       C      |       B      |       B      |    B    |
+|    9   |    4   |       C      |       C      |       B      |    B    |
+|    8   |    5   |       C      |       C      |       C      |    B    |
+|    7   |    6   |       D      |       C      |       C      |    C    |
+
+**Examples:**
+
+- If you have **14 S**, **3 N**, **0 U**: then you are in the top row. An `80` on the final project will earn you an `A`.
+- If you miss two labs and earn **2 U**, but have at least **12 S**: you are in the second row. An 80 on the final project would earn you an `B` overall.
+
+Anything lower than what is represented in the chart will need to be addressed on a case-by-case basis.
+
+::: {.callout-note}
+Remember: "C" is a passing grade for GSCM courses.
+:::
+
+### Midterm Grade Calculation
+
+The **midterm grade** uses a similar approach but only includes:
+
+1. Labs 1 through 5 (one S/N/U mark per Lab).
+2. Test 1 (one S/N/U mark per Test Problem).
+3. This table *assumes* a final project grade of **P >= 90** for the sake of calculating a provisional grade. This assumption simply provides a midpoint reference for where students stand.
+
+Below is the table for your **Midterm Grade** calculation.
+
+|  S >=  |  U <=  | Midterm |
+|:------:|:------:|:-------:|
+|    8   |    2   |    A    |
+|    6   |    4   |    B    |
+|    4   |    6   |    C    |
+|    2   |    8   |    D    |
+|    0   |   10   |    F    |
+
+### Resubmissions
+
+I will allow **5 Lab revisions** to change a **Needs Improvement** mark to a **Satisfactory** mark. 
+
+Once a Lab is graded and returned to you, there will be a **one week window** for you to resubmit that Lab. This means that, if you produce work that needs some improvement, you will have a chance to address the grader's feedback to improve your score on that Lab.
+
+There will be no revisions for Quizzes or Test Questions.
+
+::: {.callout-note}
+Resubmissions should be submitted via email to the instructor with "*Lab # Resubmission*" as the `{Concise Question}`.
+:::
+
+### Late Submissions
+
+Late submissions will not be accepted in this class, except under extraordinary circumstances. Please bear in mind that the grading scheme will be set up to absorb a reasonable amount of sub-par work, and also allows you to resubmit at most one programming homework (no tests or final project).
+
+That said, to be clear: **if you encounter some sort of emergency (medical, family, etc.) please reach out to your instructor as soon as you are able to do so.** I am more than happy to find ways to provide additional flexibility in these situations. Ideally, you should notify me of these circumstances before the work is due so we can discuss options with you.
+
+In other words, the late submission policy applies to *ordinary* circumstances: if you are having a busy week, you have an event that overlaps with a deadline, etc., then the grading scheme will have some built-in flexibility for this. Instead of trying to argue for a few extra days to work on a homework, you should just submit the work you have completed by the deadline, so you can get feedback on that work and use that feedback to improve your work in future assignments, or even to resubmit the homework as described above.
+
+### Grading Disputes
+
+Except in very specific cases (described below), you cannot dispute the score assigned to you on a piece of work. There is one exception to this: if a grader made an factual mistake in your grading. Please note that this only includes cases where a grader makes an erroneous statement about your code in their feedback. It does not include cases where you simply disagree with whether something deserves to be flagged as incorrect.
+
+For example, suppose you receive a piece of feedback that says “Incorrect: Function X did not check that parameter Y is greater than zero”. If function X in your code did perform this check, and the grader missed this fact (and erroneously gave you that feedback), you can ask us to review this decision. Please note that, even if the feedback is amended, it may not affect your actual SNU score.
+
+We ask that you keep these requests brief and to the point: no more than a few sentences identifying the exact statement that the grader made and the reasons you believe the statement was mistaken, including references to specific parts of your code (e.g., “I did check the value of the parameter in line 107”). Focus on laying out the facts, and nothing else.
+
+Finally, it is also your responsibility to make these requests in a timely manner. Requests to review grading mistakes must be submitted no later than **one week** after a graded piece of work is returned to you. After that time, we will not consider any such requests, regardless of whether the request is reasonable and justified.
+
+::: {.callout-note}
+Disputes should be submitted via email to the instructor with "*Lab # | Test # Grading Dispute*" as the `{Concise Question}`.
+:::
+
+### Academic Integrity Violation
+
+The minimum penalty for an [*Academic Integrity*](#academic-integrity) violation is a **U** for all grades on the assignment in question and a drop in a letter grade for each violation.
+
+### Curving
+
+In lieu of traditional curving, I reserve the right to lower the thresholds for each grade. I will not raise the thresholds. (So if you earn an B according to the above chart, you will get an B or better.)

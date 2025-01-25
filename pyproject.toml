@@ -1,0 +1,12 @@
+[project]
+name = "wvu-gscm-425-github-io"
+version = "0.1.0"
+description = "Course website for GSCM 425: Supply Chain Network Design"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipython>=8.31.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.0",
+    "plotly>=5.24.1",
+]

@@ -1,0 +1,88 @@
+---
+title: "Policies"
+format: html
+order: 4
+---
+
+## Academic Integrity
+
+The integrity of the classes offered by any academic institution solidifies the foundation of its mission and cannot be sacrificed to expediency, ignorance, or blatant fraud. Therefore, instructors will enforce rigorous standards of academic integrity in all aspects and assignments of their courses. For the detailed policy of West Virginia University regarding the definitions of acts considered to fall under academic dishonesty and possible ensuing sanctions, please see the West Virginia University [Academic Standards Policy](http://catalog.wvu.edu/undergraduate/coursecreditstermsclassification/). Should you have any questions about possibly improper research citations or references, or any other activity that may be interpreted as an attempt at academic dishonesty, please see your instructor before the assignment is due to discuss the matter.
+
+---
+
+It is common to have questions about what amount of collaboration and reliance on tools is acceptable, simply put: **In this course, you are expected to primarily turn in code you wrote.**
+
+Code written by a peer, TA, stranger on the internet, or [LLM](https://www.computerworld.com/article/1627101/what-are-large-language-models-and-how-are-they-used-in-generative-ai.html) is **not code you wrote**. While you may use code written by others within reason, you must give proper credit, and it will not be considered your own work for evaluation purposes.
+
+::: {.callout-warning}
+Please also see [*Artificial Intelligence (AI)*](#artificial-intelligence) for specifics of how this policy relates to the use of AI tools in this course.
+:::
+
+While outside of the classroom programming is often a very collaborative process, you should be working on coming up with your own solutions to problems, to ensure you are learning what you came here to learn. 
+You may generally use outside resources, talk to peers, etc. so long as the significant majority of your code is your own work and all sources are properly credited. 
+Furthermore, if you use code from the internet, you are expected to understand and adhere to the license of that code. Failure to do so may result in a significant penalty to a grade. 
+Finally, if you have any questions regarding what would or would not be considered academic dishonesty in this course, please don’t hesitate to ask me.
+
+## Adverse Weather
+
+In the event of inclement or threatening weather, everyone should use his or her best judgment regarding travel to and from campus. Safety should be the main concern. If you cannot get to class because of adverse weather conditions, you should contact your instructor as soon as possible. Similarly, if your instructor(s) are unable to reach the class location, they will notify you of any cancellation or change as soon as possible, using agreed upon methods to prevent students from embarking on any unnecessary travel. If you cannot get to class because of weather conditions, instructors will make allowances relative to required attendance policies, as well as any scheduled tests, quizzes, or other assessments. [adopted 9-8-2014]
+
+## Appropriate Use of Technology
+
+Use of technology in the classroom should always be directly related to class activities and/or course learning outcomes. Inappropriate technology use can be an impediment to learning and a distraction to all members of the class. As such, inappropriate use of technology in the classroom may be considered a disruption of the class and constitute a violation of the [WVU Student Conduct Code](https://studentresponsibility.wvu.edu/campus-student-code) and could potentially result in a referral to the Office of Student Rights and Responsibilities. Use of technology in the classroom when specifically prohibited by the instructor may also constitute a violation of WVU’s [Academic Integrity](http://catalog.wvu.edu/undergraduate/coursecreditstermsclassification/) policy.
+
+## Artificial Intelligence
+
+Artificial intelligence (AI) tools that can create and develop academic content are not allowed unless permission is given by an instructor. Students must receive instructor permission prior to utilizing AI tools. Unauthorized use of AI tools may result in academic dishonesty charges.
+
+In this course, we will be developing foundational skills and knowledge that are very important to discover and practice on your own. At this stage of learning, it is far too easy to overuse these tools and not gain the skills and understanding you came here for. Only as the problems you aim to solve grow in complexity will the extent to which the gaps in your understanding start to become a problem.
+
+As a result, and to help avoid potential academic honesty issues **— the use of AI tools, such as ChatGPT or CoPilot, to write code submitted for this course is not allowed.**
+
+As stated in the [*Academic Integrity*](#academic-integrity) policy, the code you turn in should be your own creation, not code that AI originated or in any way modified.
+
+::: {.callout-important}
+Using AI tools to generate code for assignments in this course will violate [WVU’s Academic Integrity](http://catalog.wvu.edu/undergraduate/coursecreditstermsclassification/) policy.
+:::
+
+In general, this means pasting your code into an AI tool or copying any code from it should be avoided.
+
+### What you may do with AI tools:
+
+-   Use these tools to ask questions unrelated to the assignment. While I only have time in class to provide 1-2 examples on a topic, you may find it useful to explore additional ones by asking AI for them. This tends to work quite well and avoids any academic honestly issues.
+-   Ask AI to explain an error message to you. Instead of pasting in your code and saying "fix this", instead pasting just the error message and asking the AI how to diagnose the problem.
+If in doubt, ask me before using any tools if you are unsure about this policy.
+
+## Attendance & Participation
+
+Attendance is not *required*; however, in-class benefits include live guidance, interactive practice, and exercises reviewed only in class. Students who prefer or need additional help will find regular attendance invaluable.
+
+The WVU Catalog contains the full [Attendance Policy](http://catalog.wvu.edu/undergraduate/enrollmentandregistration/#enrollmenttext).
+
+## Inclusivity Statement
+
+The West Virginia University community is committed to creating and fostering a positive learning and working environment based on open communication, mutual respect, and inclusion.
+
+If you are a person with a disability and anticipate needing any type of accommodation in order to participate in your classes, please advise your instructors and make appropriate arrangements with [the Office of Student Accommodations](http://osa.wvu.edu/).
+
+More information is available at the [Division of Diversity, Equity, and Inclusion](http://diversity.wvu.edu/) website as well. [adopted 2-11-2013]
+
+## Incomplete Policy
+
+The WVU Catalog contains the full [Incomplete Policy](http://catalog.wvu.edu/undergraduate/enrollmentandregistration/#gradestext).
+
+## Sale of Course Material Statement
+
+All course materials, including lectures, class notes, quizzes, exams, handouts, presentations, and other course materials provided to students for their courses are protected intellectual property. As such, the unauthorized purchase or sale of these materials may result in disciplinary sanctions under the [Student Conduct Code](https://studentresponsibility.wvu.edu/campus-student-code). [adopted 5-11-2015]
+
+## Sexual Misconduct Statement
+
+West Virginia University does not tolerate sexual misconduct, including harassment, stalking, sexual assault, sexual exploitation, or relationship violence: [BOG Rule 1.6](https://policies.wvu.edu/finalized-bog-rules/bog-governance-rule-1-6-rule). It is important for you to know that there are resources available if you or someone you know needs assistance. You may speak to a member of university administration, faculty, or staff; keep in mind that they have an obligation to report the incident to the [Title IX Coordinator](http://titleix.wvu.edu/what-is-title-ix/who-is-the-title-ix-coordinator).
+
+If you want to speak to someone who is permitted to keep your disclosure confidential, please seek assistance from the [Carruth Center](http://carruth.wvu.edu/), `304-293-9355` or `304-293-4431` (24-hour hotline), and locally within the community at the [Rape and Domestic Violence Information Center](http://www.rdvic.org/) (RDVIC), `304-292-5100` or `304-292-4431` (24-hour hotline).
+
+For more information, please consult [WVU's Title IX Office](https://titleix.wvu.edu/resources-offices).
+
+## Student Evaluation of Instruction Statement
+
+Effective teaching is a primary mission of West Virginia University. Student evaluation of instruction provides the university and the instructor with feedback about your experiences in the course for review and course improvement. Your participation in the evaluation of course instruction is both strongly encouraged and highly valued. Results are strictly confidential, anonymous, and not available to the instructor until after final grades are released by Admissions and Records. Information about how you can complete this evaluation will provided by your instructor. [adopted 4-14-2008]

@@ -1,0 +1,50 @@
+---
+title: "GSCM 425: Supply Chain Network Design"
+format:
+    html: 
+        toc: false
+about: 
+    image: images/reynolds-hall.jpg
+    image-shape: rounded
+    template: marquee
+---
+
+## Course Info
+
+**Prerequisite Courses:** GSCM 360 and GSCM 370 with minimum of C- in each
+
+**Class Meets:** Tuesday/Thursday 8:30 AM - 9:45 AM
+
+**Class Location:** Reynolds Hall | Room 5205
+
+**Instructor**: [Ozan Ozbeker](https://www.linkedin.com/in/ozanozbeker/) (<ozan.ozbeker@mail.wvu.edu>)
+
+**Office Hours**: Tuesday/Thursday 9:45 AM - 10:30 AM
+
+::: {.callout-note title="Instructor Note"}
+In addition to teaching, I work full-time in industry. As a result, my availability for school-related matters will primarily be on Tuesdays and Thursdays. While I may occasionally check my email on other days, please plan to contact me during these designated times for the most timely responses.
+
+I can meet by appointment (schedule via email) on Tuesday/Thursday after 4:00 PM, *sparingly*. Must show proof that you could not attend regular office hours.
+:::
+
+:::{.callout-important}
+All emails related to the course must have the following subject format: 
+
+`{Course} - {Term} - {WVU ID} - {Concise Question}` 
+
+For example: `GSCM 425 - Spring 2025 - oo0006 - Question about Lab 3`. You can put more details in the email body.
+:::
+
+## Course Description
+
+This course offers a deep dive into supply chain network design, guiding students through the process of formulating real-world supply chain problems, gathering and validating data, and applying mathematical programming techniques to find optimal solutions. Students will develop basic yet practical Python programming skills to use Gurobi’s optimizer and will also leverage Excel Solver for comparative analysis. Core topics include facility location, transportation and transshipment models, multi-objective and scenario-based optimization, and sensitivity analysis in the face of uncertainty. Emphasis is placed on the practical implementation of these tools and the communication of results in a managerial context.
+
+## Learning Objectives
+
+Upon successful completion of this course, students will be able to:
+
+1. **Demonstrate Fundamental Python Skills**: Use Python effectively for data handling and basic scripting in preparation for optimization tasks.
+2. **Formulate and Solve Supply Chain Network Problems**: Model and solve facility location, transportation, and other network design challenges using both Gurobi and Excel Solver.
+3. **Evaluate and Compare Optimization Tools**: Interpret results produced by different solvers, comparing solution quality, run times, and applicability in real-world supply chain scenarios.
+4. **Apply Advanced Analysis Techniques**: Incorporate scenario analysis, multi-objective optimization, and sensitivity testing to account for uncertainty and trade-offs in decision making.
+5. **Communicate and Collaborate**: Work in teams to analyze data, develop optimization models, and present solution insights and recommendations to stakeholders.

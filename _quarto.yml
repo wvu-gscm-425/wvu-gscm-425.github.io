@@ -1,0 +1,48 @@
+project:
+  type: website
+
+license: CC BY-NC-ND
+
+execute: 
+  freeze: auto
+
+editor: source
+wrap: auto
+
+website:
+  title: "GSCM 425: Supply Chain Network Design"
+  image: woodburn.jpg
+  favicon: images/flying-wv-gold.png
+  
+  page-navigation: true
+  back-to-top-navigation: true
+  bread-crumbs: false
+  site-url: wvu-gscm-425.github.io
+  
+  sidebar: 
+    style: docked
+    search: true
+    contents: auto
+    logo: images/logo-title-square.png
+
+format:
+  html:
+    theme:
+      - simplex
+      - brand
+    smooth-scroll: true
+    link-external-icon: true
+    link-external-newwindow: true
+    other-links: false
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-expand: true
+    page-layout: article
+    code-overflow: scroll
+    code-line-numbers: false
+    code-copy: true
+    highlight-style: nord
+
+brand: _brand.yml
+

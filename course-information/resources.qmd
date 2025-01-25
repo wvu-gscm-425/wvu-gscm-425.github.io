@@ -1,0 +1,82 @@
+---
+title: "Resources"
+format: html
+order: 2
+---
+
+Most of the materials for the course are open-source and freely available online. You do not need to purchase any literature or software to succeed in this class. Textbook examples from "Introduction to Operations Research, 11E by Hillier" will be provided in lecture notes.
+
+## Readings
+
+While there are no required textbooks for this course, the Learnings are adapted from the following books:
+
+- [Think Python, 3E](https://allendowney.github.io/ThinkPython/)
+- Introduction to Operations Research, 11E by Hillier (Chapters 3, 9, 10, & 12)
+
+While not directly referenced, these may aid in understanding course material as well as in future endeavors:
+
+- [Elements of Data Science](https://allendowney.github.io/ElementsOfDataScience/)
+- [Think Stats, 3E](https://allendowney.github.io/ThinkStats/)
+- [Data Structures and Information Retrieval in Python](https://allendowney.github.io/DSIRP/)
+- [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
+- [Modeling and Simulation in Python](https://allendowney.github.io/ModSimPy/)
+- [Automate The Boring Stuff with Python](https://automatetheboringstuff.com/)
+- [Beyond the Basic Stuff with Python](https://inventwithpython.com/beyond/)
+- [The Big Book of Small Python Projects](https://inventwithpython.com/bigbookpython/)
+
+## Software
+
+Required software, with references and documentation:
+
+- [GitHub Desktop](https://desktop.github.com)
+- [uv](https://docs.astral.sh/uv/)
+- [Ruff](https://docs.astral.sh/ruff/)
+- [marimo](https://docs.marimo.io/)
+
+These will be explained & installed in **Lab 1**.
+
+## eCampus Discussion Board
+
+The discussion board is a forum that you may use to ask questions that can be answered by course staff and you fellow students. Asking technical questions is an important skill and you'll be asking your colleagues and friends technical questions in your job. Best to get some practice now.
+
+### Search Before Asking
+
+Before posting a question, check whether it has already been answered in a previous post. For example, suppose you are  an `IndexError`; you could search just for that word to see if any other students have encountered that same error.
+
+**Make sure to always check the "pinned" posts.** We will often "pin" a post about a particular assignment that might contain the information you are looking for. Be sure to read these first.
+
+### Ask A Question
+
+**Make sure you’re going to ask an actual question.** You need to tell us about a specific issue you’re encountering, and why you’re stuck on it (e.g., you are not getting the expected result, the tests are failing in a way you do not understand, etc.). Writing a post that says “I can’t get Task 4 to work, I’ve pushed my code. Please look at it.” is not a question.
+
+It may be helpful to write your question in the format of "I did {X}, expecting {Y}, but {Z} happened instead." This can help us understand the source of the error and reduce the time it takes to get you a high quality answer.
+
+### Public vs. Private
+
+All questions about coursework, course logistics, etc. should be asked publicly (please note that you do have the option of asking the question anonymously if you prefer). If you ask such a question privately, we will not answer it: we will ask you to ask it publicly, and will answer it once you do. This way, everyone can benefit from the answer to the question and, if someone runs into the same issue you do, we can refer them to the answer we provided in your post.
+
+### The more information, the better!
+
+Sometimes people are brief to avoid wasting people's time. With code, the opposite is usually true — the more information you provide the more easily we can solve your problem.
+
+In particular, it will be much easier for us to help you if we are able to reproduce the exact issue you are encountering (i.e., when we run your code, we must be able to observe the exact same issue you’re encountering). And to do so, we need as much information as possible from you:
+
+- If your question relates to your code, make sure you push your code to GitHub before asking for help.
+- Include a detailed description of the exact chain of events that lead to the issue you’re encountering (Are you testing a specific function? If so, with what inputs? Etc.).
+- If you encounter an error message (or any other unexpected output) when running a command (like a Python program, Ruff, marimo, etc.) or when testing a piece of code in the interpreter, please make sure you include the full and unabridged error message (or unexpected output). Summarizing the message (e.g., “Python says something about a KeyError”) makes it harder for us to figure out what the issue is.
+- If something is “wrong”, please describe in what way it seems wrong to you. For example, were you expecting a particular output but got a different one? Is a piece of code behaving in a way you were not expecting? Etc. It can be useful to tell us what you were expecting the code to do, and what you encountered instead.
+
+### No Code or Screenshots
+
+- **Never post your code in the discussion board.** As noted in our Academic Integrity policies, you should never share your code with other students (unless they are on your team), which means you should never post it on the discussion board. If you need us to look at your code, just push it to the GitHub and we will look at it there. Please note that, if a test prints out a few lines of code as part of its output, that’s ok.
+- **No screenshots or phone pictures.** Do not post screenshots of the output. Screenshots are not searchable, and may pose readability issues for some people. Instructor/TAs may also want to copy-paste that output somewhere else, which is not possible if you post a screenshot.
+
+If you need to share some output with us, copy-paste from the terminal and use the discussion board’s “code block” formatting. To copy something on the terminal, just select it (the same way you would do in a word processor: click, and then drag until the end of the output) and press Control-Shift-C.
+
+### Other Discussion Board Tips
+
+- **Avoid posts that have multiple unrelated questions**: Instead, write a separate post for each question. Please note that it is ok to ask multiple questions in one post if they all relate to the same issue.
+
+- **When to use follow-ups and when to post a new question**: If you need to provide additional information (say, because we pointed you to this page), please use a follow-up in the same thread. If, on the other hand, you have an entirely new question, please write a new post for it. That way, if others have that same question, it will be easier for them to find your post (and our answer to it), instead of having to dig through the followup discussions of unrelated posts. Do not edit the original question: it is unlikely that we will notice your change.
+
+- **Found the answer yourself?**: If you solved your problem before we got around to helping you, please note that the issue is resolved. If the solution is not specific to your implementation, please add a brief explanation of how you solved the problem in case anyone else runs into the same issue.

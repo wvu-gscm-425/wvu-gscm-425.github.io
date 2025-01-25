@@ -1,0 +1,98 @@
+color:
+  palette:
+    # WVU | https://designsystem.wvu.edu/utilities/color
+    ## Primary Palette
+    wvu-blue: "#002855"
+    wvu-gold: "#EAAA00"
+    ## Accent Palette
+    wvu-accent--blue-dark: "#1C2B39"
+    wvu-accent--blue-light: "#9DDAE6"
+    wvu-accent--blue: "#0062A3"
+    wvu-accent--yellow: "#FFE539"
+    wvu-accent--old-gold: "#7F6310"
+    wvu-accent--sunset: "#F58672"
+    ## Neutral Palette
+    wvu-neutral--off-white: "#F7F7F7"
+    wvu-neutral--warm-gray-light: "#BEB7B3"
+    wvu-neutral--warm-gray-dark: "#554741"
+    wvu-neutral--warm-gray-medium: "#988E8B"
+    wvu-neutral--cream: "#F2E6C2"
+    wvu-neutral--tan: "#B3A169"
+    # Nord | https://www.nordtheme.com/docs/colors-and-palettes
+    ## Polar Night
+    nord0: "#2e3440" 
+    nord1: "#3b4252"
+    nord2: "#434c5e"
+    nord3: "#4c566a"
+    ## Polar Night/Snow Storm Extended | ChatGPT
+    nord3-1: "#6b7a8d"
+    nord3-2: "#a5b3c4"
+    ## Snow Storm
+    nord4: "#d8dee9"
+    nord5: "#e5e9f0"
+    nord6: "#eceff4"
+    ## Frost
+    nord7: "#8fbcbb" # Teal
+    nord8: "#88c0d0" # Cyan
+    nord9: "#81a1c1" # Blue
+    nord10: "#5e81ac" # Indigo
+    ## Aurora
+    nord11: "#bf616a" # Red
+    nord12: "#d08770" # Orange
+    nord13: "#ebcb8b" # Yellow
+    nord14: "#a3be8c" # Green
+    nord15: "#b48ead" # Purple
+    ## Aurora Extended | ChatGPT
+    nord15-1: "#bf6195" # Pink
+    # Bootstrap Variables
+    blue:    nord9
+    indigo:  nord10
+    purple:  nord15
+    pink:    nord15-1
+    red:     nord11
+    orange:  nord12
+    yellow:  nord13
+    green:   nord14
+    teal:    nord7
+    cyan:    nord8
+    white:    "#ffffff" # White
+    gray-100: nord6
+    gray-200: nord5
+    gray-300: nord4
+    gray-400: nord3-2
+    gray-500: nord3-1
+    gray-600: nord3
+    gray-700: nord2
+    gray-800: nord1
+    gray-900: nord0
+    black:    "#000000" # Black
+  foreground:	nord0   # The main text color. Typically will be close to black and must have high contrast with the background color.
+  background: white   # The main background color. Typically will be close to white and must have high contrast with the foreground color.
+  primary:    wvu-accent--old-gold  # The primary accent color, used for hyperlinks, active states, and primary action buttons.
+  secondary:  nord3-1 # The secondary accent color, often used for lighter text or disabled states.
+  tertiary:	  nord8   # The tertiary accent color, used for hover states, accents, and wells.
+  success:    nord14  # The color used for positive or successful actions and information.
+  info:       nord9 	# The color used for neutral or informational actions and information.
+  warning:    nord13  # The color used for warning or cautionary actions and information.
+  danger:	    nord11  # The color used for errors, dangerous actions, or negative information.
+  light:      white   # A bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.
+  dark:	      nord2   # A dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.
+
+typography: 
+  fonts: 
+    - family: Roboto
+      source: google
+    - family: Roboto Mono
+      source: google
+    - family: Roboto Serif
+      source: google
+  base: Roboto
+  headings:
+    family: Roboto Serif
+    weight: 100
+  monospace: Roboto Mono
+  monospace-inline:
+    color: nord1
+    background-color: nord6
+  link:
+    decoration: underline
