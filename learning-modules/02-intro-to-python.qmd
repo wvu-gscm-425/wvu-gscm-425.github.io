@@ -1,14 +1,10 @@
 ---
 title: "02 | Intro to Python"
-subtitle: "Learn about and install the tools we will be using in this course."
+subtitle: "Learn about the basics of Python as well as how to use marimo."
 format: html
 order: 2
 ---
 
 ## Overview
 
-In this course, we will spend time learning three critical tools for optimization:
-
-1. **The Command Line**
-2. **Python / Gurobi Solver**
-3. **Excel Solver** (which you should have some experience with by now)
+Texts

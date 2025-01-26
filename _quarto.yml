@@ -12,7 +12,6 @@ wrap: auto
 
 website:
   title: "GSCM 425: Supply Chain Network Design"
-  image: woodburn.jpg
   favicon: images/flying-wv-gold.png
   
   page-navigation: true
@@ -23,14 +22,15 @@ website:
   sidebar: 
     style: docked
     search: true
+    logo: images/logo-gscm-425.png
     contents: auto
-    logo: images/logo-title-square.png
 
 format:
   html:
     theme:
       - simplex
       - brand
+    css: styles.css
     smooth-scroll: true
     link-external-icon: true
     link-external-newwindow: true

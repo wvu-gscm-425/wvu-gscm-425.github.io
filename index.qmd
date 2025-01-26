@@ -1,12 +1,6 @@
 ---
 title: "GSCM 425: Supply Chain Network Design"
-format:
-    html: 
-        toc: false
-about: 
-    image: images/reynolds-hall.jpg
-    image-shape: rounded
-    template: marquee
+format: html
 ---
 
 ## Course Info
