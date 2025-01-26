@@ -1,0 +1,417 @@
+---
+title: "GSCM 425: Supply Chain Network Design"
+subtitle: Spring 2025
+format: html
+execute: 
+  echo: false
+output-file: "gscm-425-syllabus-2025-spring"
+---
+
+## Course Information
+
+**Prerequisite Courses:** GSCM 360 and GSCM 370 with minimum of C- in each
+
+**Class Meets:** Tuesday/Thursday 8:30 AM - 9:45 AM
+
+**Class Location:** Reynolds Hall | Room 5205
+
+**Instructor**: [Ozan Ozbeker](https://www.linkedin.com/in/ozanozbeker/) (<ozan.ozbeker@mail.wvu.edu>)
+
+**Office Hours**: Tuesday/Thursday 9:45 AM - 10:30 AM
+
+::: {.callout-note title="Instructor Note"}
+In addition to teaching, I work full-time in industry. As a result, my availability for school-related matters will primarily be on Tuesdays and Thursdays. While I may occasionally check my email on other days, please plan to contact me during these designated times for the most timely responses.
+
+I can meet by appointment (schedule via email) on Tuesday/Thursday after 4:00 PM, *sparingly*. Must show proof that you could not attend regular office hours.
+:::
+
+:::{.callout-important}
+All emails related to the course must have the following subject format: 
+
+`{Course} - {Term} - {WVU ID} - {Concise Question}` 
+
+For example: `GSCM 425 - Spring 2025 - oo0006 - Question about Lab 3`. You can put more details in the email body.
+:::
+
+## Course Description
+
+This course offers a deep dive into supply chain network design, guiding students through the process of formulating real-world supply chain problems, gathering and validating data, and applying mathematical programming techniques to find optimal solutions. Students will develop basic yet practical Python programming skills to use Gurobi’s optimizer and will also leverage Excel Solver for comparative analysis. Core topics include facility location, transportation and transshipment models, multi-objective and scenario-based optimization, and sensitivity analysis in the face of uncertainty. Emphasis is placed on the practical implementation of these tools and the communication of results in a managerial context.
+
+### Learning Objectives
+
+Upon successful completion of this course, students will be able to:
+
+1. **Demonstrate Fundamental Python Skills**: Use Python effectively for data handling and basic scripting in preparation for optimization tasks.
+2. **Formulate and Solve Supply Chain Network Problems**: Model and solve facility location, transportation, and other network design challenges using both Gurobi and Excel Solver.
+3. **Evaluate and Compare Optimization Tools**: Interpret results produced by different solvers, comparing solution quality, run times, and applicability in real-world supply chain scenarios.
+4. **Apply Advanced Analysis Techniques**: Incorporate scenario analysis, multi-objective optimization, and sensitivity testing to account for uncertainty and trade-offs in decision making.
+5. **Communicate and Collaborate**: Work in teams to analyze data, develop optimization models, and present solution insights and recommendations to stakeholders.
+
+## Course Schedule
+
+Course weeks with modules follow a consistent cycle:
+
+| Tuesday                                                  | Thursday                                |
+|:--------------------------------------------------------:|:---------------------------------------:|
+| In class review & peer instruction of Learning Module(s) | Hands-on Lab work in class              |
+| In class quiz (for bonus) of Learning Module(s)          | Lab(s) due following Monday at 11:59 PM |
+
+::: {.callout-tip}
+All Learning Modules will be available by the start of the week. It is expected that you review the week's Learning Module(s) before class on the respective Tuesday.
+:::
+
+### Calendar
+
+- Individual Learning Modules are in **bold**.
+- **Labs**: due on Monday at 11:59 PM of the following week.
+  - **Example - Week 5**:
+    - Tuesday (2025-02-11), we will go over the exercises from **Data Structures & Control Flow**.
+    - Thursday (2025-02-13), you will work on **Lab 4** in class.
+    - Monday (2025-02-17), **Lab 4** is due.
+- **Tests**: due on Wednesday at 11:59PM of the test week.
+  - **Example - Test 1**:
+    - Tuesday (2025-02-25): No new lecture material for this week, give time to ask questions for test.
+    - Wednesday (2025-02-26): Test is due at 11:50 PM.
+    - Thursday (2025-02-27): We will go through the test problems in class.
+- **Final Project**: due at 11:59 PM on Monday, April 28th, 2025.
+
+*Schedule subject to change, changes will be announced in class and on eCampus.*
+
+::: {.column-body-outset}
+| Week | Start      | Learning Module(s)                             | Course Deliverable(s) Due                                  |
+|:----:|:----------:|------------------------------------------------|------------------------------------------------------------|
+| 1    | 2025-01-13 | Course Intro                                   |                                                            |
+| 2    | 2025-01-20 | **Setting Up Your Workstation**                |                                                            |
+| 3    | 2025-01-27 | **Python Basics**                              | **Lab 1** (Environment Setup)                              |
+| 4    | 2025-02-03 | **Data Structures & Control Flow**             | **Lab 2** (Variables & Basic Scripting)                    |
+| 5    | 2025-02-10 | **Functions & Basic I/O**                      | **Lab 3** (Lists, Dicts, Loops, Conditionals)              |
+| 6    | 2025-02-17 | **Intro to Gurobi & Simple Optimization**      | **Lab 4** (Custom Functions, File I/O)                     |
+| 7    | 2025-02-24 | Test 1 (on Weeks 3-6) Prep & Review            | **Lab 5** (First Gurobi Model + Excel Compare), **Test 1** |
+| 8    | 2025-03-03 | **Intro to Supply Chain Network Design**       |                                                            |
+| 9    | 2025-03-10 | **Facility Location Models**                   | **Lab 6** (Single-Facility Location)                       |
+| 10   | 2025-03-17 | **Transportation & Transshipment**             | **Lab 7** (Capacitated vs. Uncapacitated)                  |
+| 11   | 2025-03-24 | Spring Recess (No Class / No Work)             | **Lab 8** (Multi-Echelon Flow Model)                       |
+| 12   | 2025-03-31 | **Network Design with Uncertainty**            |                                                            |
+| 13   | 2025-04-07 | **Multi-Objective Optimization & Sensitivity** | **Lab 9** (Scenario Analysis)                              |
+| 14   | 2025-04-14 | Test 2 (on Weeks 8-14) Prep & Review           | **Lab 10** (Two-Objective / Sensitivity), **Test 2**       |
+| 15   | 2025-04-21 | Open Lab Week, Work on Final Project           |                                                            |
+| 16   | 2025-04-28 | Presentations                                  | Final Project                                              |
+| 17   | 2025-05-05 | Finals Week (No Final Exam)                    |                                                            |
+:::
+
+## Course Grading & Deliverables
+
+If you are new to using specifications grading, here's what you can expect:
+
+- For each assignment you will be given a set of specifications. Meeting all/most of those will earn the highest grade. This is described in detail below, but aims to allow you to focus on learning and not on the difference between an `89` and a `90` on an assignment. (It also more closely resembles how work is evaluated in most workplaces.)
+- We will allow a limited amount of [*Resubmissions*](#resubmissions) of Labs to learn from mistakes.
+
+Labs & Test Questions are assigned one of three marks:
+
+- **S (Satisfactory)**: Meets or exceeds all outlined specifications (specs) in completeness, clarity/quality, and relevance.
+- **N (Needs Improvement)**: Partially meets the specs but has notable issues. Additional revision, clarity, or corrections needed.
+- **U (Ungradable)**: Does not meet the basic specs; significantly incomplete or non-functional.
+
+These will be assessed on:
+
+1. **Completeness**
+    - **Theory**: Does the submission thoroughly address each part of the question(s)?
+    - **Coding**: Does the code accomplish **all** required tasks and functionalities?
+2. **Conceptual Clarity & Code Quality**
+    - **Theory**: Are explanations accurate, logically structured, and well-supported by examples or evidence?
+    - **Coding**:
+      - Is the code readable and well-styled (e.g., PEP 8)?
+      - Are chosen algorithms/data structures appropriate for the problem?
+      - Does the solution exhibit clear organization (functions, classes, modules)?
+
+An assignment's specs will be provided with the instructions.
+
+### Labs
+
+There will be a Lab for each Learning Module. Multiple Labs can be due in a single week if multiple Learning Modules are covered.
+
+The Labs will be a mix of Theory & Coding questions designed to gauge students' understanding of topics discussed in the Learning Module(s).
+  
+**Each Lab will receive one S/N/U mark**.
+
+### Test Questions
+
+There will be two tests, aligned with major textbooks/readings:
+
+- **Test 1**: Python Foundations
+- **Test 2**: Supply Chain Network Design
+
+The test format will be **Take Home** with a single submission by team.
+
+Tests will consist of a mix of 3 problem sets:
+
+- **Theory** problems which will be short answer and open-ended.
+- **Coding** problems which will comprise of analysis, coding solutions, & interpretation of results.
+
+**Each problem will receive its own S/N/U mark** based on **completeness** and **clarity**.
+
+### Final Project
+
+- **Comprehensive group project** applying the full range of skills from the course.
+
+Students will work in teams on unique supply chain problems. Each team will:
+
+- Solve a network design problem using Excel Solver and Python/Gurobi.
+- Write a comparative report discussing the tools' pros and cons.
+- Present their findings to the class.
+
+**Project Grade** `P` will be used in the final letter grade matrix.
+
+### Final Grade Calculation
+
+Your final grade will be determined by your **16 SNU** grades (Labs: 10,  Test 1: 3, Test 2: 3) and your final project score:
+
+- **S**: The total number of *Satisfactory* marks you received.
+- **U**: The maximum number of *Ungradable* marks you received.
+- **P**: Your exam grade, `P`, which will be between 0-100.
+
+Below is the table for your **Final Grade** calculation.
+
+|  S >=  |  U <=  | 50 <= P < 70 | 70 <= P < 80 | 80 <= P < 90 | P >= 90 |
+|:------:|:------:|:------------:|:------------:|:------------:|:-------:|
+|   14   |    0   |       B      |       B      |       A      |    A    |
+|   12   |    2   |       B      |       B      |       B      |    A    |
+|   10   |    3   |       C      |       B      |       B      |    B    |
+|    9   |    4   |       C      |       C      |       B      |    B    |
+|    8   |    5   |       C      |       C      |       C      |    B    |
+|    7   |    6   |       D      |       C      |       C      |    C    |
+
+**Examples:**
+
+- If you have **14 S**, **3 N**, **0 U**: then you are in the top row. An `80` on the final project will earn you an `A`.
+- If you miss two labs and earn **2 U**, but have at least **12 S**: you are in the second row. An 80 on the final project would earn you an `B` overall.
+
+Anything lower than what is represented in the chart will need to be addressed on a case-by-case basis.
+
+::: {.callout-note}
+Remember: "C" is a passing grade for GSCM courses.
+:::
+
+### Midterm Grade Calculation
+
+The **midterm grade** uses a similar approach but only includes:
+
+1. Labs 1 through 5 (one S/N/U mark per Lab).
+2. Test 1 (one S/N/U mark per Test Problem).
+3. This table *assumes* a final project grade of **P >= 90** for the sake of calculating a provisional grade. This assumption simply provides a midpoint reference for where students stand.
+
+Below is the table for your **Midterm Grade** calculation.
+
+|  S >=  |  U <=  | Midterm |
+|:------:|:------:|:-------:|
+|    8   |    2   |    A    |
+|    6   |    4   |    B    |
+|    4   |    6   |    C    |
+|    2   |    8   |    D    |
+|    0   |   10   |    F    |
+
+### Resubmissions
+
+I will allow **5 Lab revisions** to change a **Needs Improvement** mark to a **Satisfactory** mark. 
+
+Once a Lab is graded and returned to you, there will be a **one week window** for you to resubmit that Lab. This means that, if you produce work that needs some improvement, you will have a chance to address the grader's feedback to improve your score on that Lab.
+
+There will be no revisions for Quizzes or Test Questions.
+
+::: {.callout-note}
+Resubmissions should be submitted via email to the instructor with "*Lab # Resubmission*" as the `{Concise Question}`.
+:::
+
+### Late Submissions
+
+Late submissions will not be accepted in this class, except under extraordinary circumstances. Please bear in mind that the grading scheme will be set up to absorb a reasonable amount of sub-par work, and also allows you to resubmit at most one programming homework (no tests or final project).
+
+That said, to be clear: **if you encounter some sort of emergency (medical, family, etc.) please reach out to your instructor as soon as you are able to do so.** I am more than happy to find ways to provide additional flexibility in these situations. Ideally, you should notify me of these circumstances before the work is due so we can discuss options with you.
+
+In other words, the late submission policy applies to *ordinary* circumstances: if you are having a busy week, you have an event that overlaps with a deadline, etc., then the grading scheme will have some built-in flexibility for this. Instead of trying to argue for a few extra days to work on a homework, you should just submit the work you have completed by the deadline, so you can get feedback on that work and use that feedback to improve your work in future assignments, or even to resubmit the homework as described above.
+
+### Grading Disputes
+
+Except in very specific cases (described below), you cannot dispute the score assigned to you on a piece of work. There is one exception to this: if a grader made an factual mistake in your grading. Please note that this only includes cases where a grader makes an erroneous statement about your code in their feedback. It does not include cases where you simply disagree with whether something deserves to be flagged as incorrect.
+
+For example, suppose you receive a piece of feedback that says “Incorrect: Function X did not check that parameter Y is greater than zero”. If function X in your code did perform this check, and the grader missed this fact (and erroneously gave you that feedback), you can ask us to review this decision. Please note that, even if the feedback is amended, it may not affect your actual SNU score.
+
+We ask that you keep these requests brief and to the point: no more than a few sentences identifying the exact statement that the grader made and the reasons you believe the statement was mistaken, including references to specific parts of your code (e.g., “I did check the value of the parameter in line 107”). Focus on laying out the facts, and nothing else.
+
+Finally, it is also your responsibility to make these requests in a timely manner. Requests to review grading mistakes must be submitted no later than **one week** after a graded piece of work is returned to you. After that time, we will not consider any such requests, regardless of whether the request is reasonable and justified.
+
+::: {.callout-note}
+Disputes should be submitted via email to the instructor with "*Lab # | Test # Grading Dispute*" as the `{Concise Question}`.
+:::
+
+### Academic Integrity Violation
+
+The minimum penalty for an [*Academic Integrity*](#academic-integrity) violation is a **U** for all grades on the assignment in question and a drop in a letter grade for each violation.
+
+### Curving
+
+In lieu of traditional curving, I reserve the right to lower the thresholds for each grade. I will not raise the thresholds. (So if you earn an B according to the above chart, you will get an B or better.)
+
+## Course Resources
+
+Most of the materials for the course are open-source and freely available online. You do not need to purchase any literature or software to succeed in this class. Textbook examples from "Introduction to Operations Research, 11E by Hillier" will be provided in lecture notes.
+
+### Readings
+
+While there are no required textbooks for this course, the Learnings are adapted from the following books:
+
+- [Think Python, 3E](https://allendowney.github.io/ThinkPython/)
+- Introduction to Operations Research, 11E by Hillier (Chapters 3, 9, 10, & 12)
+
+While not directly referenced, these may aid in understanding course material as well as in future endeavors:
+
+- [Elements of Data Science](https://allendowney.github.io/ElementsOfDataScience/)
+- [Think Stats, 3E](https://allendowney.github.io/ThinkStats/)
+- [Data Structures and Information Retrieval in Python](https://allendowney.github.io/DSIRP/)
+- [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
+- [Modeling and Simulation in Python](https://allendowney.github.io/ModSimPy/)
+- [Automate The Boring Stuff with Python](https://automatetheboringstuff.com/)
+- [Beyond the Basic Stuff with Python](https://inventwithpython.com/beyond/)
+- [The Big Book of Small Python Projects](https://inventwithpython.com/bigbookpython/)
+
+### Software
+
+Required software, with references and documentation:
+
+- [GitHub Desktop](https://desktop.github.com)
+- [uv](https://docs.astral.sh/uv/)
+- [Ruff](https://docs.astral.sh/ruff/)
+- [marimo](https://docs.marimo.io/)
+
+These will be explained & installed in **Lab 1**.
+
+### eCampus Discussion Board
+
+The discussion board is a forum that you may use to ask questions that can be answered by course staff and you fellow students. Asking technical questions is an important skill and you'll be asking your colleagues and friends technical questions in your job. Best to get some practice now.
+
+#### Search Before Asking
+
+Before posting a question, check whether it has already been answered in a previous post. For example, suppose you are  an `IndexError`; you could search just for that word to see if any other students have encountered that same error.
+
+**Make sure to always check the "pinned" posts.** We will often "pin" a post about a particular assignment that might contain the information you are looking for. Be sure to read these first.
+
+##### Ask A Question
+
+**Make sure you’re going to ask an actual question.** You need to tell us about a specific issue you’re encountering, and why you’re stuck on it (e.g., you are not getting the expected result, the tests are failing in a way you do not understand, etc.). Writing a post that says “I can’t get Task 4 to work, I’ve pushed my code. Please look at it.” is not a question.
+
+It may be helpful to write your question in the format of "I did {X}, expecting {Y}, but {Z} happened instead." This can help us understand the source of the error and reduce the time it takes to get you a high quality answer.
+
+#### Public vs. Private
+
+All questions about coursework, course logistics, etc. should be asked publicly (please note that you do have the option of asking the question anonymously if you prefer). If you ask such a question privately, we will not answer it: we will ask you to ask it publicly, and will answer it once you do. This way, everyone can benefit from the answer to the question and, if someone runs into the same issue you do, we can refer them to the answer we provided in your post.
+
+#### The more information, the better!
+
+Sometimes people are brief to avoid wasting people's time. With code, the opposite is usually true — the more information you provide the more easily we can solve your problem.
+
+In particular, it will be much easier for us to help you if we are able to reproduce the exact issue you are encountering (i.e., when we run your code, we must be able to observe the exact same issue you’re encountering). And to do so, we need as much information as possible from you:
+
+- If your question relates to your code, make sure you push your code to GitHub before asking for help.
+- Include a detailed description of the exact chain of events that lead to the issue you’re encountering (Are you testing a specific function? If so, with what inputs? Etc.).
+- If you encounter an error message (or any other unexpected output) when running a command (like a Python program, Ruff, marimo, etc.) or when testing a piece of code in the interpreter, please make sure you include the full and unabridged error message (or unexpected output). Summarizing the message (e.g., “Python says something about a KeyError”) makes it harder for us to figure out what the issue is.
+- If something is “wrong”, please describe in what way it seems wrong to you. For example, were you expecting a particular output but got a different one? Is a piece of code behaving in a way you were not expecting? Etc. It can be useful to tell us what you were expecting the code to do, and what you encountered instead.
+
+#### No Code or Screenshots
+
+- **Never post your code in the discussion board.** As noted in our Academic Integrity policies, you should never share your code with other students (unless they are on your team), which means you should never post it on the discussion board. If you need us to look at your code, just push it to the GitHub and we will look at it there. Please note that, if a test prints out a few lines of code as part of its output, that’s ok.
+- **No screenshots or phone pictures.** Do not post screenshots of the output. Screenshots are not searchable, and may pose readability issues for some people. Instructor/TAs may also want to copy-paste that output somewhere else, which is not possible if you post a screenshot.
+
+If you need to share some output with us, copy-paste from the terminal and use the discussion board’s “code block” formatting. To copy something on the terminal, just select it (the same way you would do in a word processor: click, and then drag until the end of the output) and press Control-Shift-C.
+
+#### Other Discussion Board Tips
+
+- **Avoid posts that have multiple unrelated questions**: Instead, write a separate post for each question. Please note that it is ok to ask multiple questions in one post if they all relate to the same issue.
+
+- **When to use follow-ups and when to post a new question**: If you need to provide additional information (say, because we pointed you to this page), please use a follow-up in the same thread. If, on the other hand, you have an entirely new question, please write a new post for it. That way, if others have that same question, it will be easier for them to find your post (and our answer to it), instead of having to dig through the followup discussions of unrelated posts. Do not edit the original question: it is unlikely that we will notice your change.
+
+- **Found the answer yourself?**: If you solved your problem before we got around to helping you, please note that the issue is resolved. If the solution is not specific to your implementation, please add a brief explanation of how you solved the problem in case anyone else runs into the same issue.
+
+## Course Policies
+
+### Academic Integrity
+
+The integrity of the classes offered by any academic institution solidifies the foundation of its mission and cannot be sacrificed to expediency, ignorance, or blatant fraud. Therefore, instructors will enforce rigorous standards of academic integrity in all aspects and assignments of their courses. For the detailed policy of West Virginia University regarding the definitions of acts considered to fall under academic dishonesty and possible ensuing sanctions, please see the West Virginia University [Academic Standards Policy](http://catalog.wvu.edu/undergraduate/coursecreditstermsclassification/). Should you have any questions about possibly improper research citations or references, or any other activity that may be interpreted as an attempt at academic dishonesty, please see your instructor before the assignment is due to discuss the matter.
+
+---
+
+It is common to have questions about what amount of collaboration and reliance on tools is acceptable, simply put: **In this course, you are expected to primarily turn in code you wrote.**
+
+Code written by a peer, TA, stranger on the internet, or [LLM](https://www.computerworld.com/article/1627101/what-are-large-language-models-and-how-are-they-used-in-generative-ai.html) is **not code you wrote**. While you may use code written by others within reason, you must give proper credit, and it will not be considered your own work for evaluation purposes.
+
+::: {.callout-warning}
+Please also see [*Artificial Intelligence (AI)*](#artificial-intelligence) for specifics of how this policy relates to the use of AI tools in this course.
+:::
+
+While outside of the classroom programming is often a very collaborative process, you should be working on coming up with your own solutions to problems, to ensure you are learning what you came here to learn. 
+You may generally use outside resources, talk to peers, etc. so long as the significant majority of your code is your own work and all sources are properly credited. 
+Furthermore, if you use code from the internet, you are expected to understand and adhere to the license of that code. Failure to do so may result in a significant penalty to a grade. 
+Finally, if you have any questions regarding what would or would not be considered academic dishonesty in this course, please don’t hesitate to ask me.
+
+### Adverse Weather
+
+In the event of inclement or threatening weather, everyone should use his or her best judgment regarding travel to and from campus. Safety should be the main concern. If you cannot get to class because of adverse weather conditions, you should contact your instructor as soon as possible. Similarly, if your instructor(s) are unable to reach the class location, they will notify you of any cancellation or change as soon as possible, using agreed upon methods to prevent students from embarking on any unnecessary travel. If you cannot get to class because of weather conditions, instructors will make allowances relative to required attendance policies, as well as any scheduled tests, quizzes, or other assessments. [adopted 9-8-2014]
+
+### Appropriate Use of Technology
+
+Use of technology in the classroom should always be directly related to class activities and/or course learning outcomes. Inappropriate technology use can be an impediment to learning and a distraction to all members of the class. As such, inappropriate use of technology in the classroom may be considered a disruption of the class and constitute a violation of the [WVU Student Conduct Code](https://studentresponsibility.wvu.edu/campus-student-code) and could potentially result in a referral to the Office of Student Rights and Responsibilities. Use of technology in the classroom when specifically prohibited by the instructor may also constitute a violation of WVU’s [Academic Integrity](http://catalog.wvu.edu/undergraduate/coursecreditstermsclassification/) policy.
+
+### Artificial Intelligence
+
+Artificial intelligence (AI) tools that can create and develop academic content are not allowed unless permission is given by an instructor. Students must receive instructor permission prior to utilizing AI tools. Unauthorized use of AI tools may result in academic dishonesty charges.
+
+In this course, we will be developing foundational skills and knowledge that are very important to discover and practice on your own. At this stage of learning, it is far too easy to overuse these tools and not gain the skills and understanding you came here for. Only as the problems you aim to solve grow in complexity will the extent to which the gaps in your understanding start to become a problem.
+
+As a result, and to help avoid potential academic honesty issues **— the use of AI tools, such as ChatGPT or CoPilot, to write code submitted for this course is not allowed.**
+
+As stated in the [*Academic Integrity*](#academic-integrity) policy, the code you turn in should be your own creation, not code that AI originated or in any way modified.
+
+::: {.callout-important}
+Using AI tools to generate code for assignments in this course will violate [WVU’s Academic Integrity](http://catalog.wvu.edu/undergraduate/coursecreditstermsclassification/) policy.
+:::
+
+In general, this means pasting your code into an AI tool or copying any code from it should be avoided.
+
+#### What you may do with AI tools:
+
+-   Use these tools to ask questions unrelated to the assignment. While I only have time in class to provide 1-2 examples on a topic, you may find it useful to explore additional ones by asking AI for them. This tends to work quite well and avoids any academic honestly issues.
+-   Ask AI to explain an error message to you. Instead of pasting in your code and saying "fix this", instead pasting just the error message and asking the AI how to diagnose the problem.
+If in doubt, ask me before using any tools if you are unsure about this policy.
+
+### Attendance & Participation
+
+Attendance is not *required*; however, in-class benefits include live guidance, interactive practice, and exercises reviewed only in class. Students who prefer or need additional help will find regular attendance invaluable.
+
+The WVU Catalog contains the full [Attendance Policy](http://catalog.wvu.edu/undergraduate/enrollmentandregistration/#enrollmenttext).
+
+### Inclusivity Statement
+
+The West Virginia University community is committed to creating and fostering a positive learning and working environment based on open communication, mutual respect, and inclusion.
+
+If you are a person with a disability and anticipate needing any type of accommodation in order to participate in your classes, please advise your instructors and make appropriate arrangements with [the Office of Student Accommodations](http://osa.wvu.edu/).
+
+More information is available at the [Division of Diversity, Equity, and Inclusion](http://diversity.wvu.edu/) website as well. [adopted 2-11-2013]
+
+### Incomplete Policy
+
+The WVU Catalog contains the full [Incomplete Policy](http://catalog.wvu.edu/undergraduate/enrollmentandregistration/#gradestext).
+
+### Sale of Course Material Statement
+
+All course materials, including lectures, class notes, quizzes, exams, handouts, presentations, and other course materials provided to students for their courses are protected intellectual property. As such, the unauthorized purchase or sale of these materials may result in disciplinary sanctions under the [Student Conduct Code](https://studentresponsibility.wvu.edu/campus-student-code). [adopted 5-11-2015]
+
+### Sexual Misconduct Statement
+
+West Virginia University does not tolerate sexual misconduct, including harassment, stalking, sexual assault, sexual exploitation, or relationship violence: [BOG Rule 1.6](https://policies.wvu.edu/finalized-bog-rules/bog-governance-rule-1-6-rule). It is important for you to know that there are resources available if you or someone you know needs assistance. You may speak to a member of university administration, faculty, or staff; keep in mind that they have an obligation to report the incident to the [Title IX Coordinator](http://titleix.wvu.edu/what-is-title-ix/who-is-the-title-ix-coordinator).
+
+If you want to speak to someone who is permitted to keep your disclosure confidential, please seek assistance from the [Carruth Center](http://carruth.wvu.edu/), `304-293-9355` or `304-293-4431` (24-hour hotline), and locally within the community at the [Rape and Domestic Violence Information Center](http://www.rdvic.org/) (RDVIC), `304-292-5100` or `304-292-4431` (24-hour hotline).
+
+For more information, please consult [WVU's Title IX Office](https://titleix.wvu.edu/resources-offices).
+
+### Student Evaluation of Instruction Statement
+
+Effective teaching is a primary mission of West Virginia University. Student evaluation of instruction provides the university and the instructor with feedback about your experiences in the course for review and course improvement. Your participation in the evaluation of course instruction is both strongly encouraged and highly valued. Results are strictly confidential, anonymous, and not available to the instructor until after final grades are released by Admissions and Records. Information about how you can complete this evaluation will provided by your instructor. [adopted 4-14-2008]
