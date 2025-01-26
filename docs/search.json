@@ -26,14 +26,14 @@
     "href": "index.html",
     "title": "GSCM 425: Supply Chain Network Design",
     "section": "",
-    "text": "Prerequisite Courses: GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nOffice Hours: Tuesday/Thursday 9:45 AM - 10:30\nAM\n\n\n\n\n\n\nInstructor Note\n\n\n\nIn addition to teaching, I work full-time in industry. As a result,\nmy availability for school-related matters will primarily be on Tuesdays\nand Thursdays. While I may occasionally check my email on other days,\nplease plan to contact me during these designated times for the most\ntimely responses.\nI can meet by appointment (schedule via email) on Tuesday/Thursday\nafter 4:00 PM, sparingly. Must show proof that you could not\nattend regular office hours.\n\n\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about Lab 3. You\ncan put more details in the email body."
+    "text": "WVU Catalog: An in-depth study of how to parse\nsupply chain problems into a network design formulation and how to\ncollect appropriate data to use on these models. Students will also\nlearn how to validate, debug, and test the sensitivity of models to\nvarious input and model assumptions.\nPrerequisite Course(s): GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nTeaching Assistants: None\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about XYZ. You\ncan put more details in the email body."
   },
   {
     "objectID": "index.html#course-info",
     "href": "index.html#course-info",
     "title": "GSCM 425: Supply Chain Network Design",
     "section": "",
-    "text": "Prerequisite Courses: GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nOffice Hours: Tuesday/Thursday 9:45 AM - 10:30\nAM\n\n\n\n\n\n\nInstructor Note\n\n\n\nIn addition to teaching, I work full-time in industry. As a result,\nmy availability for school-related matters will primarily be on Tuesdays\nand Thursdays. While I may occasionally check my email on other days,\nplease plan to contact me during these designated times for the most\ntimely responses.\nI can meet by appointment (schedule via email) on Tuesday/Thursday\nafter 4:00 PM, sparingly. Must show proof that you could not\nattend regular office hours.\n\n\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about Lab 3. You\ncan put more details in the email body."
+    "text": "WVU Catalog: An in-depth study of how to parse\nsupply chain problems into a network design formulation and how to\ncollect appropriate data to use on these models. Students will also\nlearn how to validate, debug, and test the sensitivity of models to\nvarious input and model assumptions.\nPrerequisite Course(s): GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nTeaching Assistants: None\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about XYZ. You\ncan put more details in the email body."
   },
   {
     "objectID": "index.html#course-description",
@@ -54,7 +54,18 @@
     "href": "course-information/resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Most of the materials for the course are open-source and freely\navailable online. You do not need to purchase any literature or software\nto succeed in this class. Textbook examples from “Introduction to\nOperations Research, 11E by Hillier” will be provided in lecture\nnotes.",
+    "text": "Office Hours: Tuesday/Thursday 9:45 AM - 10:30\nAM",
+    "crumbs": [
+      "Course Information",
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "course-information/resources.html#office-hours",
+    "href": "course-information/resources.html#office-hours",
+    "title": "Resources",
+    "section": "Office Hours",
+    "text": "Office Hours\nOffice Hours are regular time that course staff sets aside for you to\nget help on concepts and assignments.\nYou can come by at an point during this period and we’ll do our best\nto answer your question. Please come with your laptop and questions\nprepared ahead of time as sometimes there will be a line and it’s\nimportant we make time for everyone.\n\n\n\nWho\nWhere\nWhen\n\n\n\n\nOzan Ozbeker\nClassroom\nTuesday/Thursday 9:45 AM - 10:30 AM\n\n\n\n\n\n\n\n\n\nInstructor Note\n\n\n\nIn addition to teaching, I work full-time in industry. As a result,\nmy availability for school-related matters will primarily be on Tuesdays\nand Thursdays. While I may occasionally check my email on other days,\nplease plan to contact me during these designated times for the most\ntimely responses.\nI can meet by appointment (schedule via email) on Tuesday/Thursday\nafter 4:00 PM, sparingly. Must show proof that you could not\nattend regular office hours.",
     "crumbs": [
       "Course Information",
       "Resources"
@@ -65,7 +76,7 @@
     "href": "course-information/resources.html#readings",
     "title": "Resources",
     "section": "Readings",
-    "text": "Readings\nWhile there are no required textbooks for this course, the Learnings\nare adapted from the following books:\n\nThink Python,\n3E\nIntroduction to Operations Research, 11E by Hillier (Chapters 3, 9,\n10, & 12)\n\nWhile not directly referenced, these may aid in understanding course\nmaterial as well as in future endeavors:\n\nElements of\nData Science\nThink Stats,\n3E\nData Structures and\nInformation Retrieval in Python\nTidy\nData\nModeling and\nSimulation in Python\nAutomate The Boring\nStuff with Python\nBeyond the Basic\nStuff with Python\nThe Big Book\nof Small Python Projects",
+    "text": "Readings\nMost of the materials for the course are open-source and freely\navailable online. You do not need to purchase any literature or software\nto succeed in this class.\nWhile there are no required textbooks for this course, the Learnings\nare adapted from the following books:\n\nThink Python,\n3E\nIntroduction to Operations Research, 11E by Hillier (Chapters 3, 9,\n10, & 12)\n\nWhile not directly referenced, these may aid in understanding course\nmaterial as well as in future endeavors:\n\nElements of\nData Science\nThink Stats,\n3E\nData Structures and\nInformation Retrieval in Python\nTidy\nData\nModeling and\nSimulation in Python\nAutomate The Boring\nStuff with Python\nBeyond the Basic\nStuff with Python\nThe Big Book\nof Small Python Projects",
     "crumbs": [
       "Course Information",
       "Resources"

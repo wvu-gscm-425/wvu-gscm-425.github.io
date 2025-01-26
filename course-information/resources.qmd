@@ -4,9 +4,27 @@ format: html
 order: 2
 ---
 
-Most of the materials for the course are open-source and freely available online. You do not need to purchase any literature or software to succeed in this class. Textbook examples from "Introduction to Operations Research, 11E by Hillier" will be provided in lecture notes.
+**Office Hours**: Tuesday/Thursday 9:45 AM - 10:30 AM
+
+## Office Hours
+
+Office Hours are regular time that course staff sets aside for you to get help on concepts and assignments.
+
+You can come by at an point during this period and we'll do our best to answer your question. Please come with your laptop and questions prepared ahead of time as sometimes there will be a line and it's important we make time for everyone.
+
+| Who          | Where     | When                                |
+|:-------------|:----------|:------------------------------------|
+| Ozan Ozbeker | Classroom | Tuesday/Thursday 9:45 AM - 10:30 AM |
+
+::: {.callout-note title="Instructor Note"}
+In addition to teaching, I work full-time in industry. As a result, my availability for school-related matters will primarily be on Tuesdays and Thursdays. While I may occasionally check my email on other days, please plan to contact me during these designated times for the most timely responses.
+
+I can meet by appointment (schedule via email) on Tuesday/Thursday after 4:00 PM, *sparingly*. Must show proof that you could not attend regular office hours.
+:::
 
 ## Readings
+
+Most of the materials for the course are open-source and freely available online. You do not need to purchase any literature or software to succeed in this class.
 
 While there are no required textbooks for this course, the Learnings are adapted from the following books:
 

@@ -6,7 +6,9 @@ format: html
 
 ## Course Info
 
-**Prerequisite Courses:** GSCM 360 and GSCM 370 with minimum of C- in each
+**WVU Catalog:** *An in-depth study of how to parse supply chain problems into a network design formulation and how to collect appropriate data to use on these models. Students will also learn how to validate, debug, and test the sensitivity of models to various input and model assumptions.*
+
+**Prerequisite Course(s):** GSCM 360 and GSCM 370 with minimum of C- in each
 
 **Class Meets:** Tuesday/Thursday 8:30 AM - 9:45 AM
 
@@ -14,20 +16,14 @@ format: html
 
 **Instructor**: [Ozan Ozbeker](https://www.linkedin.com/in/ozanozbeker/) (<ozan.ozbeker@mail.wvu.edu>)
 
-**Office Hours**: Tuesday/Thursday 9:45 AM - 10:30 AM
-
-::: {.callout-note title="Instructor Note"}
-In addition to teaching, I work full-time in industry. As a result, my availability for school-related matters will primarily be on Tuesdays and Thursdays. While I may occasionally check my email on other days, please plan to contact me during these designated times for the most timely responses.
-
-I can meet by appointment (schedule via email) on Tuesday/Thursday after 4:00 PM, *sparingly*. Must show proof that you could not attend regular office hours.
-:::
+**Teaching Assistants:** *None*
 
 :::{.callout-important}
 All emails related to the course must have the following subject format: 
 
 `{Course} - {Term} - {WVU ID} - {Concise Question}` 
 
-For example: `GSCM 425 - Spring 2025 - oo0006 - Question about Lab 3`. You can put more details in the email body.
+For example: `GSCM 425 - Spring 2025 - oo0006 - Question about XYZ`. You can put more details in the email body.
 :::
 
 ## Course Description
