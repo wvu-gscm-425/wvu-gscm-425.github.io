@@ -20,7 +20,7 @@ website:
   site-url: wvu-gscm-425.github.io
   
   sidebar: 
-    style: docked
+    style: floating
     search: true
     logo: images/logo-gscm-425.png
     contents: auto

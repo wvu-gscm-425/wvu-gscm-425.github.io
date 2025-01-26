@@ -1,5 +1,6 @@
 ---
 title: "GSCM 425: Supply Chain Network Design"
+subtitle: "Spring 2025"
 format: html
 ---
 
