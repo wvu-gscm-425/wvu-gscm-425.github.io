@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -72,6 +106,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -183,6 +246,45 @@ Modules</span></a>
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#arithmetic-operators" id="toc-arithmetic-operators" class="nav-link" data-scroll-target="#arithmetic-operators">Arithmetic operators</a></li>
+  <li><a href="#expressions" id="toc-expressions" class="nav-link" data-scroll-target="#expressions">Expressions</a></li>
+  <li><a href="#arithmetic-functions" id="toc-arithmetic-functions" class="nav-link" data-scroll-target="#arithmetic-functions">Arithmetic functions</a></li>
+  <li><a href="#strings" id="toc-strings" class="nav-link" data-scroll-target="#strings">Strings</a></li>
+  <li><a href="#values-and-types" id="toc-values-and-types" class="nav-link" data-scroll-target="#values-and-types">Values and
+  types</a></li>
+  <li><a href="#formal-and-natural-languages" id="toc-formal-and-natural-languages" class="nav-link" data-scroll-target="#formal-and-natural-languages">Formal and natural
+  languages</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#variable-names" id="toc-variable-names" class="nav-link" data-scroll-target="#variable-names">Variable
+  names</a></li>
+  <li><a href="#the-import-statement" id="toc-the-import-statement" class="nav-link" data-scroll-target="#the-import-statement">The
+  <code>import</code> statement</a></li>
+  <li><a href="#expressions-vs-statements" id="toc-expressions-vs-statements" class="nav-link" data-scroll-target="#expressions-vs-statements">Expressions vs statements</a></li>
+  <li><a href="#the-print-function" id="toc-the-print-function" class="nav-link" data-scroll-target="#the-print-function">The
+  <code>print()</code> function</a></li>
+  <li><a href="#function-arguments" id="toc-function-arguments" class="nav-link" data-scroll-target="#function-arguments">Function
+  Arguments</a></li>
+  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
+  <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging">Debugging</a>
+  <ul class="collapse">
+  <li><a href="#common-errors" id="toc-common-errors" class="nav-link" data-scroll-target="#common-errors">Common
+  Errors</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#rounding-behavior" id="toc-rounding-behavior" class="nav-link" data-scroll-target="#rounding-behavior">Rounding
+  Behavior</a></li>
+  <li><a href="#deliberate-mistakes" id="toc-deliberate-mistakes" class="nav-link" data-scroll-target="#deliberate-mistakes">Deliberate Mistakes</a></li>
+  <li><a href="#type-checking" id="toc-type-checking" class="nav-link" data-scroll-target="#type-checking">Type
+  Checking</a></li>
+  <li><a href="#more-arithmetic" id="toc-more-arithmetic" class="nav-link" data-scroll-target="#more-arithmetic">More
+  Arithmetic</a></li>
+  <li><a href="#intentional-errors" id="toc-intentional-errors" class="nav-link" data-scroll-target="#intentional-errors">Intentional Errors</a></li>
+  <li><a href="#volume-of-a-sphere" id="toc-volume-of-a-sphere" class="nav-link" data-scroll-target="#volume-of-a-sphere">Volume
+  of a Sphere</a></li>
+  <li><a href="#trigonometry" id="toc-trigonometry" class="nav-link" data-scroll-target="#trigonometry">Trigonometry</a></li>
+  <li><a href="#exploring-e" id="toc-exploring-e" class="nav-link" data-scroll-target="#exploring-e">Exploring <span class="math inline">\(e\)</span></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -192,8 +294,7 @@ Modules</span></a>
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title d-none d-lg-block">02 | Intro to Python</h1>
-<p class="subtitle lead">Learn about the basics of Python as well as how
-to use marimo.</p>
+<p class="subtitle lead">Learn about the basics of Python.</p>
 </div>
 
 
@@ -228,9 +329,910 @@ Ozbeker <a href="mailto:ozan.ozbeker@mail.wvu.edu" class="quarto-title-author-em
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>WIP</p>
+<p>This module covers the Python basics you need for this course. It
+isn’t an exhaustive guide to Python, but it’s enough for anyone with
+previous coding experience (see <a href="../index.html#course-info">Prerequisite Course(s)</a>).</p>
+<p>You will learn how Python represents numbers, letters, and words,
+followed by arithmetic operations. We’ll also build important
+programming vocabulary. I won’t test you on these terms, but you’ll need
+them for future lessons.</p>
+<p>Next, we’ll learn about variables, statements, the
+<code>import</code> statement, and the <code>print()</code> function.
+We’ll also discuss function arguments and Python modules.</p>
+</section>
+<section id="arithmetic-operators" class="level2">
+<h2 class="anchored" data-anchor-id="arithmetic-operators">Arithmetic operators</h2>
+<p>An <strong>arithmetic operator</strong> is a symbol that represents a
+computation. For example:</p>
+<ul>
+<li><code>+</code> performs addition:</li>
+</ul>
+<div id="f0ab2616" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2000</span> <span class="op">+</span> <span class="dv">25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>2025</code></pre>
+</div>
+</div>
+<ul>
+<li><code>-</code> performs subtraction:</li>
+</ul>
+<div id="a1fb5953" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2030</span> <span class="op">-</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>2025</code></pre>
+</div>
+</div>
+<ul>
+<li><code>*</code> performs multiplication:</li>
+</ul>
+<div id="a5bcebca" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">405</span> <span class="op">*</span> <span class="dv">25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>10125</code></pre>
+</div>
+</div>
+<ul>
+<li><code>/</code> performs division:</li>
+</ul>
+<div id="1c837a86" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10125</span> <span class="op">/</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>2025.0</code></pre>
+</div>
+</div>
+<p>Notice that the result of division is <code>42.0</code> vs
+<code>42</code>. Python recognizes two numeric types:</p>
+<ol type="1">
+<li><strong>integers</strong>: numbers without a decimal part</li>
+<li><strong>floating-point numbers (float)</strong>: numbers with a
+decimal point (including integer-like values stored in floating
+form)</li>
+</ol>
+<p>If you add, subtract, or multiply two integers, the result remains an
+integer. However, dividing two integers produces a floating-point
+result.</p>
+<p>Python also supports <strong>integer division</strong> with the
+operator <code>//</code>, which always return an integer:</p>
+<div id="b077ed30" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4050</span> <span class="op">//</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>2025</code></pre>
+</div>
+</div>
+<p>This operator is called “floor division” because it always rounds
+down:</p>
+<div id="e1170b8a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4051</span> <span class="op">//</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>2025</code></pre>
+</div>
+</div>
+<p>The <strong>modulus</strong> operator <code>%</code> returns the
+remainder after dividing two numbers:</p>
+<div id="d54f7843" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4051</span> <span class="op">%</span> <span class="dv">2</span> <span class="co"># remainder is 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p>If a number divides evenly, <code>%</code> returns
+<code>0</code>:</p>
+<div id="8c0359bc" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4050</span> <span class="op">%</span> <span class="dv">2</span> <span class="co"># remainder is 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>0</code></pre>
+</div>
+</div>
+<p>Finally, <code>**</code> performs exponentiation (raising a number to
+a power):</p>
+<div id="3d85437d" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fl">4.58442641</span> <span class="op">**</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>2025.0000056375889</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In other languages, like <strong>R</strong>, you use the caret
+<code>^</code> for exponentiation, but in Python <code>^</code> is the
+“XOR” operator, which we won’t cover here.</p>
+</div>
+</div>
+</section>
+<section id="expressions" class="level2">
+<h2 class="anchored" data-anchor-id="expressions">Expressions</h2>
+<p>An <strong>expression</strong> is a combination of operators and
+values:</p>
+<div id="10d0a59d" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="op">+</span> <span class="dv">6</span> <span class="op">**</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>42</code></pre>
+</div>
+</div>
+<p>Python follows standard order of operations:</p>
+<div id="dc736746" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span> <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span><span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>42</code></pre>
+</div>
+</div>
+<p>Use parentheses to change that order:</p>
+<div id="ff415bd5" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">12</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>102</code></pre>
+</div>
+</div>
+<p>Every expression evaluates to a <strong>value</strong>, so
+<code>6 * 7</code> becomes <code>42</code>.</p>
+</section>
+<section id="arithmetic-functions" class="level2">
+<h2 class="anchored" data-anchor-id="arithmetic-functions">Arithmetic functions</h2>
+<p>Python provides <strong>functions</strong> that work with numbers,
+such as:</p>
+<ul>
+<li><code>round()</code> rounds a float to the nearest integer:</li>
+</ul>
+<div id="e02052a7" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(<span class="fl">4.58442641</span> <span class="op">**</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>2025</code></pre>
+</div>
+</div>
+<ul>
+<li><code>abs()</code> returns the absolute value</li>
+</ul>
+<div id="e59e968d" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span>(<span class="op">-</span><span class="dv">2025</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>2025</code></pre>
+</div>
+</div>
+<p>When you <strong>call</strong> a function, you must use parentheses.
+Omitting them causes a syntax error:</p>
+<div id="10d755da" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span> <span class="dv">42</span> <span class="co"># correct usage: abs(42)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[15], line 1</span>
+<span class="ansi-yellow-fg ansi-bold">    abs 42 # correct usage: abs(42)</span>
+<span class="ansi-white-fg ansi-bold">        ^</span>
+<span class="ansi-red-fg ansi-bold">SyntaxError</span><span class="ansi-red-fg ansi-bold">:</span> invalid syntax
+</pre>
+</div>
+</div>
+</div>
+<p>If you type only the function name:</p>
+<div id="7e502aa4" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>&lt;function abs(x, /)&gt;</code></pre>
+</div>
+</div>
+<p>Python tells you that <code>abs</code> is indeed a function, along
+with some extra details.</p>
+</section>
+<section id="strings" class="level2">
+<h2 class="anchored" data-anchor-id="strings">Strings</h2>
+<p>A <strong>string</strong> is a sequence of characters. You can
+enclose them in single or double quotes:</p>
+<div id="011c67e3" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hello'</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"World"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello
+World</code></pre>
+</div>
+</div>
+<p>Use double quotes if you need an apostrophe, or single quotes if you
+need a double quote:</p>
+<div id="8cd11592" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"That's her book"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'"I see," he said'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>That's her book
+"I see," he said</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Python treats single and double quotes the same; you can choose
+either as long as you’re consistent.</p>
+</div>
+</div>
+<p><strong>Triple-quoted strings</strong> can span multiple lines or
+contain both single and double quotes:</p>
+<div id="ce239487" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'''"That's great", she said.'''</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"""</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="st">To be,</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st">or not to be,</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">that is definitely a question.</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>"That's great", she said.
+
+To be,
+or not to be,
+that is definitely a question.
+</code></pre>
+</div>
+</div>
+<p>Strings can hold spaces, punctuation, and digits:</p>
+<div id="34736b87" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"How the turn tables... uhh wait. What was line 5?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>How the turn tables... uhh wait. What was line 5?</code></pre>
+</div>
+</div>
+<p>Use the <code>+</code> operator to <strong>concatenate</strong>
+(join) strings:</p>
+<div id="6dfc1974" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Well, '</span> <span class="op">+</span> <span class="st">"it's a small "</span> <span class="op">+</span> <span class="st">'world.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Well, it's a small world.</code></pre>
+</div>
+</div>
+<p>Use the <code>*</code> operator to repeat strings:</p>
+<div id="ba465a20" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'RA'</span> <span class="op">+</span> <span class="st">'TA'</span> <span class="op">*</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>RATATATA</code></pre>
+</div>
+</div>
+<p>Other arithmetic operators don’t work on strings.</p>
+<p>You can use <code>len()</code> to find a string’s length:</p>
+<div id="821d5dfc" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="st">'12345'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>5</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Notice that <code>len()</code> counts the the letters between the
+quotes, but not the quotes themselves.</p>
+</div>
+</div>
+<p>Avoid backticks <code>`</code> or curly quotes <code>“ ”</code>
+because they cause syntax errors:</p>
+<div id="ec74785a" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(`hello`)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[24], line 1</span>
+<span class="ansi-yellow-fg ansi-bold">    print(`hello`)</span>
+<span class="ansi-white-fg ansi-bold">          ^</span>
+<span class="ansi-red-fg ansi-bold">SyntaxError</span><span class="ansi-red-fg ansi-bold">:</span> invalid syntax
+</pre>
+</div>
+</div>
+</div>
+<div id="66d80870" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(“hello”)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[25], line 1</span>
+<span class="ansi-yellow-fg ansi-bold">    print(“hello”)</span>
+<span class="ansi-white-fg ansi-bold">          ^</span>
+<span class="ansi-red-fg ansi-bold">SyntaxError</span><span class="ansi-red-fg ansi-bold">:</span> invalid character '“' (U+201C)
+</pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most code editors color valid strings differently, so keep an eye on
+syntax highlighting to avoid mistakes.</p>
+</div>
+</div>
+</section>
+<section id="values-and-types" class="level2">
+<h2 class="anchored" data-anchor-id="values-and-types">Values and types</h2>
+<p>We’ve encountered three kinds of values:</p>
+<ol type="1">
+<li><code>2</code> (integer)</li>
+<li><code>42.0</code> (float)</li>
+<li><code>"text"</code> (string)</li>
+</ol>
+<p>A kind of value is called a <strong>type</strong>. Every value has a
+type, also referred to as “belongs to” a type.</p>
+<p>Python provides a function, <code>type()</code>, that tells you the
+type of any value:</p>
+<div id="6a834f42" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>int</code></pre>
+</div>
+</div>
+<div id="1517a96a" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="fl">42.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>float</code></pre>
+</div>
+</div>
+<div id="05b62819" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>str</code></pre>
+</div>
+</div>
+<p><code>int</code>, <code>float</code>, and <code>str</code> can also
+convert values:</p>
+<div id="4e67cd56" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="fl">42.9</span>) <span class="co"># rounds down to 42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>42</code></pre>
+</div>
+</div>
+<div id="a1adb85b" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="bu">float</span>(<span class="dv">42</span>) <span class="co"># converts integer 42 to float 42.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>42.0</code></pre>
+</div>
+</div>
+<div id="5c285446" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(<span class="dv">123</span>) <span class="co"># converts number 123 to the string "123"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>'123'</code></pre>
+</div>
+</div>
+<p>If you try arithmetic on a string, you get an error:</p>
+<div id="cb4ff8dd" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">123</span> <span class="op">*</span> <span class="dv">3</span>)   <span class="co"># numeric multiplication</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"123"</span> <span class="op">*</span> <span class="dv">3</span>) <span class="co"># string repetition</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>369
+123123123</code></pre>
+</div>
+</div>
+<div id="52159f02" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"500"</span> <span class="op">/</span> <span class="dv">5</span>) <span class="co"># TypeError: can't divide a string by an integer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg ansi-bold">In[33], line 1</span>
+<span class="ansi-green-fg ansi-bold">----&gt; 1</span> <span style="color:rgb(0,135,0)">print</span>(<span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">500</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">/</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">5</span>) <span style="font-style:italic;color:rgb(95,135,135)"># TypeError: can't divide a string by an integer</span>
+
+<span class="ansi-red-fg ansi-bold">TypeError</span>: unsupported operand type(s) for /: 'str' and 'int'</pre>
+</div>
+</div>
+</div>
+<p>To fix this, <strong>cast</strong> to the right type:</p>
+<div id="9675cc77" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="st">"126"</span>) <span class="op">*</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>378</code></pre>
+</div>
+</div>
+<p>If you have a large integer, you may type it like
+<code>1,000,000</code>. This is a legal expression in Python, but the
+value is not what you would expect:</p>
+<div id="9a9b6388" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>,<span class="dv">000</span>,<span class="dv">000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>(1, 0, 0)</code></pre>
+</div>
+</div>
+<p>Python interprets <code>1,000,000</code> as a comma-separated
+sequence of integers. We’ll learn about this kind of sequence later.</p>
+<p>You can use underscores to make large numbers easier to read:</p>
+<div id="6245a6b8" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1_000_000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>1000000</code></pre>
+</div>
+</div>
+</section>
+<section id="formal-and-natural-languages" class="level2">
+<h2 class="anchored" data-anchor-id="formal-and-natural-languages">Formal and natural languages</h2>
+<p>Natural languages (English, Spanish, etc.) evolved over time and rely
+on context, idioms, and sometimes ambiguity. Formal languages like
+Python are precise and unambiguous. Python does exactly what you write,
+so details matter. Small mistakes in spelling or punctuation can cause
+big errors. You might find this rigid at first, but you’ll adapt with
+practice.</p>
+</section>
+<section id="variables" class="level2">
+<h2 class="anchored" data-anchor-id="variables">Variables</h2>
+<p>A <strong>variable</strong> is a name that refers to a value. Create
+one with an <strong>assignment statement</strong>:</p>
+<div id="7f4145b6" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">17</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The assignment has three parts:</p>
+<ol type="1">
+<li>The variable name</li>
+<li>The <code>=</code> operator</li>
+<li>An expression (<code>17</code> here)</li>
+</ol>
+<div id="fbf5b01c" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="fl">3.141592653589793</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> <span class="st">"pie &gt; π"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once assigned, you can use these variables:</p>
+<div id="28b9396e" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n <span class="op">+</span> <span class="dv">5</span>)</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">2</span> <span class="op">*</span> pi)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(pi))</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(message))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>pie &gt; π
+22
+6.283185307179586
+3
+7</code></pre>
+</div>
+</div>
+</section>
+<section id="variable-names" class="level2">
+<h2 class="anchored" data-anchor-id="variable-names">Variable names</h2>
+<p>You can use letters and digits in a variable name but cannot start
+with a digit. Although uppercase letters are allowed, most Python code
+uses lowercase. Use underscores to connect words: <code>your_name</code>
+or <code>airspeed_of_unladen_swallow</code>.</p>
+<p>A name containing punctuation (<code>million!</code>) or starting
+with a number (<code>76trombones</code>) triggers a syntax error. Some
+words, like <code>class</code>, are keywords and cannot be variable
+names.</p>
+<div id="e3a7ac20" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>million<span class="op">!</span> <span class="op">=</span> <span class="dv">1000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[40], line 1</span>
+<span class="ansi-yellow-fg ansi-bold">    million! = 1000000</span>
+<span class="ansi-white-fg ansi-bold">           ^</span>
+<span class="ansi-red-fg ansi-bold">SyntaxError</span><span class="ansi-red-fg ansi-bold">:</span> invalid syntax
+</pre>
+</div>
+</div>
+</div>
+<p><code>76trombones</code> is illegal because it starts with a
+number.</p>
+<div id="346b69fb" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="dv">76</span><span class="er">trombones</span> <span class="op">=</span> <span class="st">'big parade'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[41], line 1</span>
+<span class="ansi-yellow-fg ansi-bold">    76trombones = 'big parade'</span>
+<span class="ansi-white-fg ansi-bold">     ^</span>
+<span class="ansi-red-fg ansi-bold">SyntaxError</span><span class="ansi-red-fg ansi-bold">:</span> invalid decimal literal
+</pre>
+</div>
+</div>
+</div>
+<p><code>class</code> is also illegal, but it might not be obvious
+why.</p>
+<div id="3befdb69" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="op">=</span> <span class="st">'Defense Against the Dark Arts'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[42], line 1</span>
+<span class="ansi-yellow-fg ansi-bold">    class = 'Defense Against the Dark Arts'</span>
+<span class="ansi-white-fg ansi-bold">          ^</span>
+<span class="ansi-red-fg ansi-bold">SyntaxError</span><span class="ansi-red-fg ansi-bold">:</span> invalid syntax
+</pre>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Your editor will often highlight keywords in a different color so you
+can recognize them.</p>
+</div>
+</div>
+</section>
+<section id="the-import-statement" class="level2">
+<h2 class="anchored" data-anchor-id="the-import-statement">The <code>import</code> statement</h2>
+<p>Some features require <strong>importing</strong>. For example, to use
+the <code>math</code> module:</p>
+<div id="1bdac94d" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A <strong>module</strong> is a collection of variables and functions.
+<a href="https://docs.python.org/3/library/math.html">Python’s math
+module</a> provides a variable called <code>pi</code> that contains the
+value of the mathematical constant π:</p>
+<div id="244472fb" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>math.pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>3.141592653589793</code></pre>
+</div>
+</div>
+<p>Use the <strong>dot</strong> to access module features:</p>
+<div id="919e488b" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.sqrt(<span class="dv">25</span>))</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.<span class="bu">pow</span>(<span class="dv">5</span>, <span class="dv">2</span>)) <span class="co"># 5 ** 2 behaves the same as math.pow(5, 2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5.0
+25.0</code></pre>
+</div>
+</div>
+</section>
+<section id="expressions-vs-statements" class="level2">
+<h2 class="anchored" data-anchor-id="expressions-vs-statements">Expressions vs statements</h2>
+<p>An <strong>expression</strong> calculates a value, regardless of its
+complexity:</p>
+<div id="2c2e1fa2" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span> <span class="op">+</span> n <span class="op">+</span> <span class="bu">round</span>(math.pi) <span class="op">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<pre><code>42</code></pre>
+</div>
+</div>
+<p>A <strong>statement</strong> performs an action without producing a
+value you can use:</p>
+<div id="f053b122" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">17</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We <strong>evaluate</strong> expressions to get their value and
+<strong>execute</strong> statements to perform actions.</p>
+</section>
+<section id="the-print-function" class="level2">
+<h2 class="anchored" data-anchor-id="the-print-function">The <code>print()</code> function</h2>
+<p>When you type an expression in many Python environments, it displays
+the result. But if you have multiple expressions in a single cell (or
+script), only the last one appears. Use <code>print()</code> to display
+more than one item:</p>
+<div id="6e704abb" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n <span class="op">+</span> <span class="dv">2</span>)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n <span class="op">+</span> <span class="dv">3</span>)</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The value of pi is approximately"</span>, math.pi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>19
+20
+The value of pi is approximately 3.141592653589793</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>print()</code> separates arguments with a space by default.</p>
+</div>
+</div>
+</section>
+<section id="function-arguments" class="level2">
+<h2 class="anchored" data-anchor-id="function-arguments">Function Arguments</h2>
+<p>The expressions inside a function call’s parentheses are
+<strong>arguments</strong>. Different functions accept different numbers
+of arguments:</p>
+<ul>
+<li><code>int()</code> can take one required argument and an optional
+base:</li>
+</ul>
+<div id="2969b202" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="st">"101"</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<pre><code>5</code></pre>
+</div>
+</div>
+<ul>
+<li><code>math.pow()</code> takes two arguments:</li>
+</ul>
+<div id="27208bb8" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>math.<span class="bu">pow</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<pre><code>25.0</code></pre>
+</div>
+</div>
+<ul>
+<li><code>round()</code> can take an optional second argument (decimals
+to round):</li>
+</ul>
+<div id="9a689d7b" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(math.pi, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<pre><code>3.142</code></pre>
+</div>
+</div>
+<ul>
+<li><code>print()</code> accepts any number of arguments:</li>
+</ul>
+<div id="54558758" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Any"</span>, <span class="st">"number"</span>, <span class="st">"of"</span>, <span class="st">"arguments"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Any number of arguments</code></pre>
+</div>
+</div>
+<p>If you supply too many or too few arguments, or if the arguments are
+the wrong type, Python raises a TypeError:</p>
+<div id="64caebd1" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="bu">float</span>(<span class="st">"123"</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg ansi-bold">In[53], line 1</span>
+<span class="ansi-green-fg ansi-bold">----&gt; 1</span> <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">float</span><span class="ansi-yellow-bg">(</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">123</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">2</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-red-fg ansi-bold">TypeError</span>: float expected at most 1 argument, got 2</pre>
+</div>
+</div>
+</div>
+<div id="9e80dcae" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>math.<span class="bu">pow</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg ansi-bold">In[54], line 1</span>
+<span class="ansi-green-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">math</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">pow</span><span class="ansi-yellow-bg">(</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">2</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-red-fg ansi-bold">TypeError</span>: pow expected 2 arguments, got 1</pre>
+</div>
+</div>
+</div>
+<div id="220ab0d2" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>math.sqrt(<span class="st">"25"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg ansi-bold">In[55], line 1</span>
+<span class="ansi-green-fg ansi-bold">----&gt; 1</span> <span class="ansi-yellow-bg">math</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">sqrt</span><span class="ansi-yellow-bg">(</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">25</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-red-fg ansi-bold">TypeError</span>: must be real number, not str</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="comments" class="level2">
+<h2 class="anchored" data-anchor-id="comments">Comments</h2>
+<p>As code grows, <strong>comments</strong> clarify your reasoning or
+record important details. Python ignores text after a
+<code>#</code>:</p>
+<div id="db019d7a" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>force <span class="op">=</span> <span class="dv">500</span> <span class="co"># Force in Newtons (N)</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="fl">0.01</span> <span class="co"># Cross-sectional area in square meters (m²)</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Formula</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>stress <span class="op">=</span> force <span class="op">/</span> area</span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Output</span></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Stress:"</span>, stress, <span class="st">"in (Pa)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Stress: 50000.0 in (Pa)</code></pre>
+</div>
+</div>
+<p><strong>Good comments</strong> explain why you wrote the code in a
+certain way (especially if it’s not obvious):</p>
+<div id="df63073f" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use SI units for consistency throughout the program</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="fl">0.01</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bad comments restate the obvious:</p>
+<div id="d191e37e" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="fl">0.01</span>  <span class="co"># set area to 0.01</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Well-chosen variable names can reduce the need for comments, but
+avoid names so long that they make expressions unreadable.</p>
+</section>
+<section id="debugging" class="level2">
+<h2 class="anchored" data-anchor-id="debugging">Debugging</h2>
+<p>We call mistakes in code bugs, and the process of finding and fixing
+them debugging. You might feel frustrated when things break, but
+remember it’s normal and part of learning.</p>
+<p>Think of the computer as precise but inflexible. You must provide
+exact instructions because it doesn’t infer or guess what you mean.</p>
+<section id="common-errors" class="level3">
+<h3 class="anchored" data-anchor-id="common-errors">Common Errors</h3>
+<ol type="1">
+<li><strong>Syntax erros</strong>: The code violates Python’s structure
+rules. Python refuses to run the code and points out where it got
+stuck:</li>
+</ol>
+<div id="8fcc5b20" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>million<span class="op">!</span> <span class="op">=</span> <span class="dv">1000000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-cyan-fg ansi-bold">  Cell </span><span class="ansi-green-fg ansi-bold">In[59], line 1</span>
+<span class="ansi-yellow-fg ansi-bold">    million! = 1000000</span>
+<span class="ansi-white-fg ansi-bold">           ^</span>
+<span class="ansi-red-fg ansi-bold">SyntaxError</span><span class="ansi-red-fg ansi-bold">:</span> invalid syntax
+</pre>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><strong>Runtime errors</strong>: The code starts running but fails
+during execution, like dividing a string by an integer:</li>
+</ol>
+<div id="b6fc34fa" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co">"126"</span> <span class="op">/</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+Cell <span class="ansi-green-fg ansi-bold">In[60], line 1</span>
+<span class="ansi-green-fg ansi-bold">----&gt; 1</span> <span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">126</span><span style="color:rgb(175,0,0)" class="ansi-yellow-bg">"</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">/</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">3</span>
+
+<span class="ansi-red-fg ansi-bold">TypeError</span>: unsupported operand type(s) for /: 'str' and 'int'</pre>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li><strong>Semantic errors</strong>: The code runs but does something
+unintended. For example, mixing up units might produce the wrong numeric
+result without an obvious error:</li>
+</ol>
+<div id="844627c3" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This uses area in cm² instead of m²</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>force <span class="op">=</span> <span class="dv">500</span>       <span class="co"># Newtons</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="dv">10</span>         <span class="co"># cm² (wrong units)</span></span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>stress <span class="op">=</span> force <span class="op">/</span> area</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stress)     <span class="co"># No error, but incorrect value =&gt; semantic error</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>50.0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<section id="rounding-behavior" class="level3">
+<h3 class="anchored" data-anchor-id="rounding-behavior">Rounding Behavior</h3>
+<p>Experiment with <code>round()</code> when a number ends in
+<code>0.5</code>. It sometimes rounds up and sometimes down. Figure out
+the pattern:</p>
+<div id="8572183f" class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(<span class="fl">42.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<pre><code>42</code></pre>
+</div>
+</div>
+<div id="24e9ad77" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(<span class="fl">43.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
+<pre><code>44</code></pre>
+</div>
+</div>
+</section>
+<section id="deliberate-mistakes" class="level3">
+<h3 class="anchored" data-anchor-id="deliberate-mistakes">Deliberate Mistakes</h3>
+<ol type="a">
+<li>What happens if you use a <code>+</code> sign before a number
+(<code>+2</code>) or repeat it (<code>2++2</code>)? What about
+<code>2--2</code>?</li>
+<li>What if you write two values without an operator
+(<code>4 2</code>)?</li>
+<li>What if you call <code>round(42.5)</code> but remove one or both
+parentheses?</li>
+</ol>
+</section>
+<section id="type-checking" class="level3">
+<h3 class="anchored" data-anchor-id="type-checking">Type Checking</h3>
+<p>Guess each expression’s type and then use <code>type()</code> to
+check:</p>
+<ul>
+<li><code>765</code></li>
+<li><code>2.718</code></li>
+<li><code>"2 pi"</code></li>
+<li><code>abs(-7)</code></li>
+<li><code>abs</code></li>
+<li><code>int</code></li>
+<li><code>type</code></li>
+</ul>
+</section>
+<section id="more-arithmetic" class="level3">
+<h3 class="anchored" data-anchor-id="more-arithmetic">More Arithmetic</h3>
+<ul>
+<li>How many seconds are there in 42 minutes 42 seconds?</li>
+<li>How many miles are there in 10 kilometers
+(<code>1.61 kilometers/mile</code>)?</li>
+<li>If you run a 10 kilometer race in 42 minutes 42 seconds, what is
+your average pace in seconds per mile?</li>
+</ul>
+</section>
+<section id="intentional-errors" class="level3">
+<h3 class="anchored" data-anchor-id="intentional-errors">Intentional Errors</h3>
+<ul>
+<li>We’ve seen <code>n = 17</code> is legal, what about
+<code>17 = n</code>?</li>
+<li>What about <code>x = y = 1</code>?</li>
+<li>In some languages every statement ends with a semi-colon
+(<code>;</code>). What happens if you put a semi-colon at the end of a
+Python statement?</li>
+<li>What if you put a period at the end of a statement?</li>
+<li>What happens if you spell the name of a module wrong and try to
+<code>import maath</code>?</li>
+</ul>
+</section>
+<section id="volume-of-a-sphere" class="level3">
+<h3 class="anchored" data-anchor-id="volume-of-a-sphere">Volume of a Sphere</h3>
+<p>The formula for the volume of a sphere with radius <span class="math inline">\(r\)</span> is <span class="math inline">\(\frac{4}{3} \pi r^3\)</span>. Compute it for <span class="math inline">\(r = 5\)</span>.</p>
+<ul>
+<li>Start with a variable names <code>radius</code> (in
+centimeters)</li>
+<li>Compute <code>volume</code> (in cubic centimeters)</li>
+<li>Print the result and include comments</li>
+</ul>
+</section>
+<section id="trigonometry" class="level3">
+<h3 class="anchored" data-anchor-id="trigonometry">Trigonometry</h3>
+<p>According to a trig identity, <span class="math inline">\((\cos x)^2
++ (\sin x)^2 = 1\)</span>. Test this for <code>x = 42</code>.</p>
+<ul>
+<li>Create a variable named <code>x</code> to <code>42</code></li>
+<li>Use <code>math.cos()</code> and <code>math.sin()</code> to
+compute</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It might not be exactly 1 because of floating-point imprecision.</p>
+</div>
+</div>
+</section>
+<section id="exploring-e" class="level3">
+<h3 class="anchored" data-anchor-id="exploring-e">Exploring <span class="math inline">\(e\)</span></h3>
+<p>The <code>math</code> module defines <code>e</code>. Compute <span class="math inline">\(e^2\)</span> in three ways:</p>
+<ul>
+<li>Use <code>math.e</code> and the exponentiation operator.</li>
+<li>Use <code>math.pow</code> to raise <code>math.e</code> to the power
+<code>2</code>.</li>
+<li>Use <code>math.exp</code>, which takes as an argument a value, <span class="math inline">\(x\)</span>, and computes <span class="math inline">\(e^x\)</span>.</li>
+</ul>
+<p>Compare the results and see which appears most accurate.</p>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></div></div></section></div></main> <!-- /main -->

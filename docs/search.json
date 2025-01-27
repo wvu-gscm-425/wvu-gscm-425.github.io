@@ -4,7 +4,7 @@
     "href": "learning-modules/02-intro-to-python.html",
     "title": "02 | Intro to Python",
     "section": "",
-    "text": "WIP",
+    "text": "This module covers the Python basics you need for this course. It\nisn’t an exhaustive guide to Python, but it’s enough for anyone with\nprevious coding experience (see Prerequisite Course(s)).\nYou will learn how Python represents numbers, letters, and words,\nfollowed by arithmetic operations. We’ll also build important\nprogramming vocabulary. I won’t test you on these terms, but you’ll need\nthem for future lessons.\nNext, we’ll learn about variables, statements, the\nimport statement, and the print() function.\nWe’ll also discuss function arguments and Python modules.",
     "crumbs": [
       "Learning Modules",
       "02 | Intro to Python"
@@ -15,7 +15,172 @@
     "href": "learning-modules/02-intro-to-python.html#overview",
     "title": "02 | Intro to Python",
     "section": "",
-    "text": "WIP",
+    "text": "This module covers the Python basics you need for this course. It\nisn’t an exhaustive guide to Python, but it’s enough for anyone with\nprevious coding experience (see Prerequisite Course(s)).\nYou will learn how Python represents numbers, letters, and words,\nfollowed by arithmetic operations. We’ll also build important\nprogramming vocabulary. I won’t test you on these terms, but you’ll need\nthem for future lessons.\nNext, we’ll learn about variables, statements, the\nimport statement, and the print() function.\nWe’ll also discuss function arguments and Python modules.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#arithmetic-operators",
+    "href": "learning-modules/02-intro-to-python.html#arithmetic-operators",
+    "title": "02 | Intro to Python",
+    "section": "Arithmetic operators",
+    "text": "Arithmetic operators\nAn arithmetic operator is a symbol that represents a\ncomputation. For example:\n\n+ performs addition:\n\n\n2000 + 25\n\n2025\n\n\n\n- performs subtraction:\n\n\n2030 - 5\n\n2025\n\n\n\n* performs multiplication:\n\n\n405 * 25\n\n10125\n\n\n\n/ performs division:\n\n\n10125 / 5\n\n2025.0\n\n\nNotice that the result of division is 42.0 vs\n42. Python recognizes two numeric types:\n\nintegers: numbers without a decimal part\nfloating-point numbers (float): numbers with a\ndecimal point (including integer-like values stored in floating\nform)\n\nIf you add, subtract, or multiply two integers, the result remains an\ninteger. However, dividing two integers produces a floating-point\nresult.\nPython also supports integer division with the\noperator //, which always return an integer:\n\n4050 // 2\n\n2025\n\n\nThis operator is called “floor division” because it always rounds\ndown:\n\n4051 // 2\n\n2025\n\n\nThe modulus operator % returns the\nremainder after dividing two numbers:\n\n4051 % 2 # remainder is 1\n\n1\n\n\nIf a number divides evenly, % returns\n0:\n\n4050 % 2 # remainder is 0\n\n0\n\n\nFinally, ** performs exponentiation (raising a number to\na power):\n\n4.58442641 ** 5\n\n2025.0000056375889\n\n\n\n\n\n\n\n\nTip\n\n\n\nIn other languages, like R, you use the caret\n^ for exponentiation, but in Python ^ is the\n“XOR” operator, which we won’t cover here.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#expressions",
+    "href": "learning-modules/02-intro-to-python.html#expressions",
+    "title": "02 | Intro to Python",
+    "section": "Expressions",
+    "text": "Expressions\nAn expression is a combination of operators and\nvalues:\n\n6 + 6 ** 2\n\n42\n\n\nPython follows standard order of operations:\n\n12 + 5 *6\n\n42\n\n\nUse parentheses to change that order:\n\n(12 + 5) * 6\n\n102\n\n\nEvery expression evaluates to a value, so\n6 * 7 becomes 42.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#arithmetic-functions",
+    "href": "learning-modules/02-intro-to-python.html#arithmetic-functions",
+    "title": "02 | Intro to Python",
+    "section": "Arithmetic functions",
+    "text": "Arithmetic functions\nPython provides functions that work with numbers,\nsuch as:\n\nround() rounds a float to the nearest integer:\n\n\nround(4.58442641 ** 5)\n\n2025\n\n\n\nabs() returns the absolute value\n\n\nabs(-2025)\n\n2025\n\n\nWhen you call a function, you must use parentheses.\nOmitting them causes a syntax error:\n\nabs 42 # correct usage: abs(42)\n\n\n  Cell In[15], line 1\n    abs 42 # correct usage: abs(42)\n        ^\nSyntaxError: invalid syntax\n\n\n\n\nIf you type only the function name:\n\nabs\n\n&lt;function abs(x, /)&gt;\n\n\nPython tells you that abs is indeed a function, along\nwith some extra details.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#strings",
+    "href": "learning-modules/02-intro-to-python.html#strings",
+    "title": "02 | Intro to Python",
+    "section": "Strings",
+    "text": "Strings\nA string is a sequence of characters. You can\nenclose them in single or double quotes:\n\nprint('Hello')\nprint(\"World\")\n\nHello\nWorld\n\n\nUse double quotes if you need an apostrophe, or single quotes if you\nneed a double quote:\n\nprint(\"That's her book\")\nprint('\"I see,\" he said')\n\nThat's her book\n\"I see,\" he said\n\n\n\n\n\n\n\n\nTip\n\n\n\nPython treats single and double quotes the same; you can choose\neither as long as you’re consistent.\n\n\nTriple-quoted strings can span multiple lines or\ncontain both single and double quotes:\n\nprint('''\"That's great\", she said.''')\n\nprint(\"\"\"\nTo be,\nor not to be,\nthat is definitely a question.\n\"\"\")\n\n\"That's great\", she said.\n\nTo be,\nor not to be,\nthat is definitely a question.\n\n\n\nStrings can hold spaces, punctuation, and digits:\n\nprint(\"How the turn tables... uhh wait. What was line 5?\")\n\nHow the turn tables... uhh wait. What was line 5?\n\n\nUse the + operator to concatenate\n(join) strings:\n\nprint('Well, ' + \"it's a small \" + 'world.')\n\nWell, it's a small world.\n\n\nUse the * operator to repeat strings:\n\nprint('RA' + 'TA' * 3)\n\nRATATATA\n\n\nOther arithmetic operators don’t work on strings.\nYou can use len() to find a string’s length:\n\nlen('12345')\n\n5\n\n\n\n\n\n\n\n\nNote\n\n\n\nNotice that len() counts the the letters between the\nquotes, but not the quotes themselves.\n\n\nAvoid backticks ` or curly quotes “ ”\nbecause they cause syntax errors:\n\nprint(`hello`)\n\n\n  Cell In[24], line 1\n    print(`hello`)\n          ^\nSyntaxError: invalid syntax\n\n\n\n\n\nprint(“hello”)\n\n\n  Cell In[25], line 1\n    print(“hello”)\n          ^\nSyntaxError: invalid character '“' (U+201C)\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nMost code editors color valid strings differently, so keep an eye on\nsyntax highlighting to avoid mistakes.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#values-and-types",
+    "href": "learning-modules/02-intro-to-python.html#values-and-types",
+    "title": "02 | Intro to Python",
+    "section": "Values and types",
+    "text": "Values and types\nWe’ve encountered three kinds of values:\n\n2 (integer)\n42.0 (float)\n\"text\" (string)\n\nA kind of value is called a type. Every value has a\ntype, also referred to as “belongs to” a type.\nPython provides a function, type(), that tells you the\ntype of any value:\n\ntype(2)\n\nint\n\n\n\ntype(42.0)\n\nfloat\n\n\n\ntype(\"text\")\n\nstr\n\n\nint, float, and str can also\nconvert values:\n\nint(42.9) # rounds down to 42\n\n42\n\n\n\nfloat(42) # converts integer 42 to float 42.0\n\n42.0\n\n\n\nstr(123) # converts number 123 to the string \"123\"\n\n'123'\n\n\nIf you try arithmetic on a string, you get an error:\n\nprint(123 * 3)   # numeric multiplication\nprint(\"123\" * 3) # string repetition\n\n369\n123123123\n\n\n\nprint(\"500\" / 5) # TypeError: can't divide a string by an integer\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[33], line 1\n----&gt; 1 print(\"500\" / 5) # TypeError: can't divide a string by an integer\n\nTypeError: unsupported operand type(s) for /: 'str' and 'int'\n\n\n\nTo fix this, cast to the right type:\n\nint(\"126\") * 3\n\n378\n\n\nIf you have a large integer, you may type it like\n1,000,000. This is a legal expression in Python, but the\nvalue is not what you would expect:\n\n1,000,000\n\n(1, 0, 0)\n\n\nPython interprets 1,000,000 as a comma-separated\nsequence of integers. We’ll learn about this kind of sequence later.\nYou can use underscores to make large numbers easier to read:\n\n1_000_000\n\n1000000",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#formal-and-natural-languages",
+    "href": "learning-modules/02-intro-to-python.html#formal-and-natural-languages",
+    "title": "02 | Intro to Python",
+    "section": "Formal and natural languages",
+    "text": "Formal and natural languages\nNatural languages (English, Spanish, etc.) evolved over time and rely\non context, idioms, and sometimes ambiguity. Formal languages like\nPython are precise and unambiguous. Python does exactly what you write,\nso details matter. Small mistakes in spelling or punctuation can cause\nbig errors. You might find this rigid at first, but you’ll adapt with\npractice.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#variables",
+    "href": "learning-modules/02-intro-to-python.html#variables",
+    "title": "02 | Intro to Python",
+    "section": "Variables",
+    "text": "Variables\nA variable is a name that refers to a value. Create\none with an assignment statement:\n\nn = 17\n\nThe assignment has three parts:\n\nThe variable name\nThe = operator\nAn expression (17 here)\n\n\npi = 3.141592653589793\nmessage = \"pie &gt; π\"\n\nOnce assigned, you can use these variables:\n\nprint(message)\nprint(n + 5)\nprint(2 * pi)\nprint(round(pi))\nprint(len(message))\n\npie &gt; π\n22\n6.283185307179586\n3\n7",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#variable-names",
+    "href": "learning-modules/02-intro-to-python.html#variable-names",
+    "title": "02 | Intro to Python",
+    "section": "Variable names",
+    "text": "Variable names\nYou can use letters and digits in a variable name but cannot start\nwith a digit. Although uppercase letters are allowed, most Python code\nuses lowercase. Use underscores to connect words: your_name\nor airspeed_of_unladen_swallow.\nA name containing punctuation (million!) or starting\nwith a number (76trombones) triggers a syntax error. Some\nwords, like class, are keywords and cannot be variable\nnames.\n\nmillion! = 1000000\n\n\n  Cell In[40], line 1\n    million! = 1000000\n           ^\nSyntaxError: invalid syntax\n\n\n\n\n76trombones is illegal because it starts with a\nnumber.\n\n76trombones = 'big parade'\n\n\n  Cell In[41], line 1\n    76trombones = 'big parade'\n     ^\nSyntaxError: invalid decimal literal\n\n\n\n\nclass is also illegal, but it might not be obvious\nwhy.\n\nclass = 'Defense Against the Dark Arts'\n\n\n  Cell In[42], line 1\n    class = 'Defense Against the Dark Arts'\n          ^\nSyntaxError: invalid syntax\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nYour editor will often highlight keywords in a different color so you\ncan recognize them.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#the-import-statement",
+    "href": "learning-modules/02-intro-to-python.html#the-import-statement",
+    "title": "02 | Intro to Python",
+    "section": "The import statement",
+    "text": "The import statement\nSome features require importing. For example, to use\nthe math module:\n\nimport math\n\nA module is a collection of variables and functions.\nPython’s math\nmodule provides a variable called pi that contains the\nvalue of the mathematical constant π:\n\nmath.pi\n\n3.141592653589793\n\n\nUse the dot to access module features:\n\nprint(math.sqrt(25))\nprint(math.pow(5, 2)) # 5 ** 2 behaves the same as math.pow(5, 2)\n\n5.0\n25.0",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#expressions-vs-statements",
+    "href": "learning-modules/02-intro-to-python.html#expressions-vs-statements",
+    "title": "02 | Intro to Python",
+    "section": "Expressions vs statements",
+    "text": "Expressions vs statements\nAn expression calculates a value, regardless of its\ncomplexity:\n\n19 + n + round(math.pi) * 2\n\n42\n\n\nA statement performs an action without producing a\nvalue you can use:\n\nn = 17\n\nWe evaluate expressions to get their value and\nexecute statements to perform actions.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#the-print-function",
+    "href": "learning-modules/02-intro-to-python.html#the-print-function",
+    "title": "02 | Intro to Python",
+    "section": "The print() function",
+    "text": "The print() function\nWhen you type an expression in many Python environments, it displays\nthe result. But if you have multiple expressions in a single cell (or\nscript), only the last one appears. Use print() to display\nmore than one item:\n\nprint(n + 2)\nprint(n + 3)\nprint(\"The value of pi is approximately\", math.pi)\n\n19\n20\nThe value of pi is approximately 3.141592653589793\n\n\n\n\n\n\n\n\nNote\n\n\n\nprint() separates arguments with a space by default.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#function-arguments",
+    "href": "learning-modules/02-intro-to-python.html#function-arguments",
+    "title": "02 | Intro to Python",
+    "section": "Function Arguments",
+    "text": "Function Arguments\nThe expressions inside a function call’s parentheses are\narguments. Different functions accept different numbers\nof arguments:\n\nint() can take one required argument and an optional\nbase:\n\n\nint(\"101\", 2)\n\n5\n\n\n\nmath.pow() takes two arguments:\n\n\nmath.pow(5, 2)\n\n25.0\n\n\n\nround() can take an optional second argument (decimals\nto round):\n\n\nround(math.pi, 3)\n\n3.142\n\n\n\nprint() accepts any number of arguments:\n\n\nprint(\"Any\", \"number\", \"of\", \"arguments\")\n\nAny number of arguments\n\n\nIf you supply too many or too few arguments, or if the arguments are\nthe wrong type, Python raises a TypeError:\n\nfloat(\"123\", 2)\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[53], line 1\n----&gt; 1 float(\"123\", 2)\n\nTypeError: float expected at most 1 argument, got 2\n\n\n\n\nmath.pow(2)\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[54], line 1\n----&gt; 1 math.pow(2)\n\nTypeError: pow expected 2 arguments, got 1\n\n\n\n\nmath.sqrt(\"25\")\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[55], line 1\n----&gt; 1 math.sqrt(\"25\")\n\nTypeError: must be real number, not str",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#comments",
+    "href": "learning-modules/02-intro-to-python.html#comments",
+    "title": "02 | Intro to Python",
+    "section": "Comments",
+    "text": "Comments\nAs code grows, comments clarify your reasoning or\nrecord important details. Python ignores text after a\n#:\n\n# Variables\nforce = 500 # Force in Newtons (N)\narea = 0.01 # Cross-sectional area in square meters (m²)\n\n# Formula\nstress = force / area\n\n# Output\nprint(\"Stress:\", stress, \"in (Pa)\")\n\nStress: 50000.0 in (Pa)\n\n\nGood comments explain why you wrote the code in a\ncertain way (especially if it’s not obvious):\n\n# Use SI units for consistency throughout the program\narea = 0.01\n\nBad comments restate the obvious:\n\narea = 0.01  # set area to 0.01\n\nWell-chosen variable names can reduce the need for comments, but\navoid names so long that they make expressions unreadable.",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#debugging",
+    "href": "learning-modules/02-intro-to-python.html#debugging",
+    "title": "02 | Intro to Python",
+    "section": "Debugging",
+    "text": "Debugging\nWe call mistakes in code bugs, and the process of finding and fixing\nthem debugging. You might feel frustrated when things break, but\nremember it’s normal and part of learning.\nThink of the computer as precise but inflexible. You must provide\nexact instructions because it doesn’t infer or guess what you mean.\n\nCommon Errors\n\nSyntax erros: The code violates Python’s structure\nrules. Python refuses to run the code and points out where it got\nstuck:\n\n\nmillion! = 1000000\n\n\n  Cell In[59], line 1\n    million! = 1000000\n           ^\nSyntaxError: invalid syntax\n\n\n\n\n\nRuntime errors: The code starts running but fails\nduring execution, like dividing a string by an integer:\n\n\n\"126\" / 3\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[60], line 1\n----&gt; 1 \"126\" / 3\n\nTypeError: unsupported operand type(s) for /: 'str' and 'int'\n\n\n\n\nSemantic errors: The code runs but does something\nunintended. For example, mixing up units might produce the wrong numeric\nresult without an obvious error:\n\n\n# This uses area in cm² instead of m²\nforce = 500       # Newtons\narea = 10         # cm² (wrong units)\nstress = force / area\nprint(stress)     # No error, but incorrect value =&gt; semantic error\n\n50.0",
+    "crumbs": [
+      "Learning Modules",
+      "02 | Intro to Python"
+    ]
+  },
+  {
+    "objectID": "learning-modules/02-intro-to-python.html#exercises",
+    "href": "learning-modules/02-intro-to-python.html#exercises",
+    "title": "02 | Intro to Python",
+    "section": "Exercises",
+    "text": "Exercises\n\nRounding Behavior\nExperiment with round() when a number ends in\n0.5. It sometimes rounds up and sometimes down. Figure out\nthe pattern:\n\nround(42.5)\n\n42\n\n\n\nround(43.5)\n\n44\n\n\n\n\nDeliberate Mistakes\n\nWhat happens if you use a + sign before a number\n(+2) or repeat it (2++2)? What about\n2--2?\nWhat if you write two values without an operator\n(4 2)?\nWhat if you call round(42.5) but remove one or both\nparentheses?\n\n\n\nType Checking\nGuess each expression’s type and then use type() to\ncheck:\n\n765\n2.718\n\"2 pi\"\nabs(-7)\nabs\nint\ntype\n\n\n\nMore Arithmetic\n\nHow many seconds are there in 42 minutes 42 seconds?\nHow many miles are there in 10 kilometers\n(1.61 kilometers/mile)?\nIf you run a 10 kilometer race in 42 minutes 42 seconds, what is\nyour average pace in seconds per mile?\n\n\n\nIntentional Errors\n\nWe’ve seen n = 17 is legal, what about\n17 = n?\nWhat about x = y = 1?\nIn some languages every statement ends with a semi-colon\n(;). What happens if you put a semi-colon at the end of a\nPython statement?\nWhat if you put a period at the end of a statement?\nWhat happens if you spell the name of a module wrong and try to\nimport maath?\n\n\n\nVolume of a Sphere\nThe formula for the volume of a sphere with radius \\(r\\) is \\(\\frac{4}{3} \\pi r^3\\). Compute it for \\(r = 5\\).\n\nStart with a variable names radius (in\ncentimeters)\nCompute volume (in cubic centimeters)\nPrint the result and include comments\n\n\n\nTrigonometry\nAccording to a trig identity, \\((\\cos x)^2\n+ (\\sin x)^2 = 1\\). Test this for x = 42.\n\nCreate a variable named x to 42\nUse math.cos() and math.sin() to\ncompute\n\n\n\n\n\n\n\nNote\n\n\n\nIt might not be exactly 1 because of floating-point imprecision.\n\n\n\n\nExploring \\(e\\)\nThe math module defines e. Compute \\(e^2\\) in three ways:\n\nUse math.e and the exponentiation operator.\nUse math.pow to raise math.e to the power\n2.\nUse math.exp, which takes as an argument a value, \\(x\\), and computes \\(e^x\\).\n\nCompare the results and see which appears most accurate.",
     "crumbs": [
       "Learning Modules",
       "02 | Intro to Python"
