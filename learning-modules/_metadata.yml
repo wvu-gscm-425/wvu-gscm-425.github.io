@@ -4,3 +4,7 @@ author:
     affiliation:
       - name: Global Supply Chain Management
         url: https://business.wvu.edu/academics/management-information-systems/global-supply-chain-management
+
+format: 
+  html:
+    number-sections: true
