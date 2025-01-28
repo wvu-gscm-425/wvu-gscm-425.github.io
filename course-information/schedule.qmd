@@ -6,10 +6,10 @@ order: 1
 
 Course weeks with modules follow a consistent cycle:
 
-| Tuesday                                                  | Thursday                                |
-|:--------------------------------------------------------:|:---------------------------------------:|
-| In class review & peer instruction of Learning Module(s) | Hands-on Lab work in class              |
-| In class quiz (for bonus) of Learning Module(s)          | Lab(s) due following Monday at 11:59 PM |
+| Tuesday                                                  | Thursday                                   |
+|:--------------------------------------------------------:|:------------------------------------------:|
+| In class review & peer instruction of Learning Module(s) | Hands-on Lab work in class                 |
+| In class quiz (for bonus) of Learning Module(s)          | Lab(s) due following Wednesday at 11:59 PM |
 
 ::: {.callout-tip}
 All Learning Modules will be available by the start of the week. It is expected that you review the week's Learning Module(s) before class on the respective Tuesday.
@@ -18,15 +18,15 @@ All Learning Modules will be available by the start of the week. It is expected 
 ## Calendar
 
 - Individual Learning Modules are in **bold**.
-- **Labs**: due on Monday at 11:59 PM of the following week.
+- **Labs**: due on Wednesday at 11:59 PM of the following week.
   - **Example - Week 5**:
     - Tuesday (2025-02-11), we will go over the exercises from **Data Structures & Control Flow**.
     - Thursday (2025-02-13), you will work on **Lab 4** in class.
-    - Monday (2025-02-17), **Lab 4** is due.
-- **Tests**: due on Wednesday at 11:59PM of the test week.
+    - Wednesday (2025-02-19), **Lab 4** is due.
+- **Tests**: due on Wednesday at 11:59 PM of the test week.
   - **Example - Test 1**:
     - Tuesday (2025-02-25): No new lecture material for this week, give time to ask questions for test.
-    - Wednesday (2025-02-26): Test is due at 11:50 PM.
+    - Wednesday (2025-02-26): Test is due at 11:59 PM.
     - Thursday (2025-02-27): We will go through the test problems in class.
 - **Final Project**: due at 11:59 PM on Monday, April 28th, 2025.
 
