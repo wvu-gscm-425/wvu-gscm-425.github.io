@@ -1,5 +1,594 @@
 [
   {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "",
+    "text": "So far, we’ve used Python’s built-in functions. In this module,\nyou’ll learn to create and run your own functions, and see how one\nfunction can call another. We’ll also introduce the for\nloop to repeat computations and the if statement to execute different\ncode based on program state. Finally, we’ll learn how to handle external\nfiles, update variables, and perform searches in strings.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#overview",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#overview",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "",
+    "text": "So far, we’ve used Python’s built-in functions. In this module,\nyou’ll learn to create and run your own functions, and see how one\nfunction can call another. We’ll also introduce the for\nloop to repeat computations and the if statement to execute different\ncode based on program state. Finally, we’ll learn how to handle external\nfiles, update variables, and perform searches in strings.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#defining-new-functions",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#defining-new-functions",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "2\nDefining new functions",
+    "text": "2\nDefining new functions\nA function definition specifies the name of a new\nfunction and the sequence of statements that run when the function is\ncalled:\n\ndef print_lyrics():\n    print(\"Almost Heaven, West Virginia\")\n    print(\"Blue Ridge Mountains, Shenandoah River\")\n\ndef is a keyword that indicates a function definition.\nThe name of this function is print_lyrics. The empty\nparentheses after the name indicate that this function doesn’t take any\narguments.\nThe first line of the function definition is the\nheader, and the rest is the body. The\nheader must end with a colon, and the body must be indented (by\nconvention, four spaces). The body of this function is two\nprint() statements, but in general, the body can include\nany number of statements.\nDefining a function creates a function object, which\nyou can display:\n\nprint_lyrics\n\n&lt;function __main__.print_lyrics()&gt;\n\n\nThe output shows that print_lyrics takes no arguments.\n__main__ is the name of the module that contains\nprint_lyrics.\nYou can call this function the same way as any other Python\nfunction:\n\nprint_lyrics()\n\nAlmost Heaven, West Virginia\nBlue Ridge Mountains, Shenandoah River",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#parameters",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#parameters",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "3\nParameters",
+    "text": "3\nParameters\nSome of the functions we’ve seen require arguments:\nabs() takes a number, and math.pow() takes two\narguments (the base and the exponent). We can make our own:\n\ndef print_twice(string):\n    print(string)\n    print(string)\n\nThe variable in parentheses is called a parameter.\nWhen the function is called, the value of the argument is assigned to\nthe parameter. For example:\n\nprint_twice(\"Hail WV!\")\n\nHail WV!\nHail WV!\n\n\nThis has the same effect as assigning the argument to the parameter\nand then executing the body:\n\nstring = \"Hail WV!\"\nprint(string)\nprint(string)\n\nHail WV!\nHail WV!\n\n\nYou can also pass a variable as an argument:\n\nline = \"Hail WV!\"\nprint_twice(line)\n\nHail WV!\nHail WV!",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#calling-functions",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#calling-functions",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "4 Calling\nfunctions",
+    "text": "4 Calling\nfunctions\nOnce you define a function, you can use it inside another. Here’s a\nplayful example of printing lyrics for “Turn\nDown For What” by DJ Snake & Lil Jon:\nVerse:\nFire up that loud\nAnother round of shots\n\nChorus:\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\n\nBuild:\nshots! shots! shots! shots!\nshots! shots! shots! shots!\nshots! shots! shots! shots!\nshots! shots! shots! shots!\nAs Lil Jon suggests, we need to buy a lot of rounds of shots. We can\nstart with a helper function:\n\ndef repeat(word, n):\n    print(word * n)\n\n\nrepeat(\"shots! \", 3)\n\nshots! shots! shots! \n\n\n\ndef print_build():\n    repeat(\"shots! \", 4)\n    repeat(\"shots! \", 4)\n    repeat(\"shots! \", 4)\n    repeat(\"shots! \", 4)\n\nprint_build()\n\nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \n\n\nprint_build() calls repeat(), which then\ncalls print(). We could do the same with fewer functions,\nbut this illustrates how functions can work together.\nIf we want to control how many times repeat() repeats,\nwe add a parameter to print_build():\n\ndef print_build(n):\n    repeat(\"shots! \", n)\n    repeat(\"shots! \", n)\n    repeat(\"shots! \", n)\n    repeat(\"shots! \", n)\n\nThen we can call:\n\nprint_build(4)\n\nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \n\n\nNext, let’s add verse and chorus functions:\n\ndef print_verse():\n    print(\"Fire up that loud\")\n    print(\"Another round of shots\")\n\nprint_verse()\n\nFire up that loud\nAnother round of shots\n\n\n\ndef print_chorus():\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n\nprint_chorus()\n\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\n\n\nNow bring it all together:\n\nprint_verse()\nprint_chorus()\nprint_verse()\nprint_chorus()\nprint_build(4)\n\nFire up that loud\nAnother round of shots\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nFire up that loud\nAnother round of shots\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \n\n\nWe’re repeating some lines of code explicitly, which isn’t ideal.\nWe’ll address that soon.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#repetition",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#repetition",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "5\nRepetition",
+    "text": "5\nRepetition\nTo print something multiple times, you can use a for\nloop. Here’s a simple example:\n\nfor i in range(2):\n    print(i)\n\n0\n1\n\n\nrange(2) creates a sequence of two values:\n0 and 1. The loop assigns each value to\ni and then runs the body. When the sequence ends, the loop\nends.\nHere’s a loop that prints the verse twice:\n\nfor i in range(2):\n    print(\"Verse\", i)\n    print_verse(),\n    print() # adds a blank line\n\nVerse 0\nFire up that loud\nAnother round of shots\n\nVerse 1\nFire up that loud\nAnother round of shots\n\n\n\nA for loop can appear inside a function, such as this\none that prints the verse m times:\n\ndef print_m_verse(m):\n    for i in range(m):\n        print_verse()\n\nprint_m_verse(4)\n\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\n\n\nIn this example, we don’t use i in the body of the loop,\nbut there has to be a variable in the header anyway.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#variables-and-parameters-are-local",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#variables-and-parameters-are-local",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "6\nVariables and parameters are local",
+    "text": "6\nVariables and parameters are local\nA variable created inside a function is local,\nmeaning it only exists inside that function. Here’s an example:\n\ndef cat_twice(part_1, part_2):\n    cat = part_1 + part_2\n    print_twice(cat)\n\n\nline_1 = \"Country roads, \"\nline_2 = \"take me home.\"\ncat_twice(line_1, line_2)\n\nCountry roads, take me home.\nCountry roads, take me home.\n\n\nInside cat_twice(), cat is created. Outside of it,\ncat doesn’t exist:\n\nprint(cat)\n\n\n---------------------------------------------------------------------------\nNameError                                 Traceback (most recent call last)\nCell In[21], line 1\n----&gt; 1 print(cat)\n\nNameError: name 'cat' is not defined\n\n\n\nParameters are also local. Outside cat_twice(),\npart_1 and part_2 don’t exist.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#tracebacks",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#tracebacks",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "7\nTracebacks",
+    "text": "7\nTracebacks\nWhen a runtime error occurs inside a function, Python shows a\ntraceback, listing the function that was running, the\nfunction that called it, and so on, up the “stack.” Here’s a\nprint_twice() that tries to print cat, which\nis a local variable in a different function:\n\ndef print_twice(string):\n    print(cat)              # NameError\n    print(cat)\n\n\ncat_twice(line_1, line_2)\n\n\n---------------------------------------------------------------------------\nNameError                                 Traceback (most recent call last)\nCell In[23], line 1\n----&gt; 1 cat_twice(line_1, line_2)\n\nCell In[19], line 3, in cat_twice(part_1, part_2)\n      1 def cat_twice(part_1, part_2):\n      2     cat = part_1 + part_2\n----&gt; 3     print_twice(cat)\n\nCell In[22], line 2, in print_twice(string)\n      1 def print_twice(string):\n----&gt; 2     print(cat)              # NameError\n      3     print(cat)\n\nNameError: name 'cat' is not defined\n\n\n\nThe traceback shows that cat_twice() called\nprint_twice(), which caused the error.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#refactoring",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#refactoring",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "8\nRefactoring",
+    "text": "8\nRefactoring\nLet’s reorganize our “Turn Down for What” example to avoid repeated\ncode. This is called refactoring.\n\n# Original\ndef print_build(n):\n    repeat(\"shots! \", n)\n    repeat(\"shots! \", n)\n    repeat(\"shots! \", n)\n    repeat(\"shots! \", n)\n\n# Improved\ndef print_build(repeats, shots):\n    for i in range(repeats):\n        repeat(\"shots! \", shots)\n\nprint_build(4, 4)\n\nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \n\n\n\n# Original\ndef print_verse():\n    print(\"Fire up that loud\")\n    print(\"Another round of shots\")\n\n# Improved\ndef print_verse(lines):\n    for i in range(lines):\n        print(\"Fire up that loud\")\n        print(\"Another round of shots\")\n\nprint_verse(4)\n\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\n\n\n\n# Original\ndef print_chorus():\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n    print(\"Turn down for what?\")\n\n# Improved\ndef print_chorus(lines):\n    for i in range(lines):\n        print(\"Turn down for what?\")\n\nprint_chorus(6)\n\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\n\n\nPutting it all together:\n\nprint_verse(1)\nprint()\nprint_chorus(5)\nprint()\nprint_verse(1)\nprint()\nprint_chorus(5)\nprint()\nprint_verse(4)\nprint()\nprint_build(6, 4)\nprint()\nprint_chorus(5)\n\nFire up that loud\nAnother round of shots\n\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\n\nFire up that loud\nAnother round of shots\n\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\n\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\nFire up that loud\nAnother round of shots\n\nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \n\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\nTurn down for what?\n\n\nRefactoring improves the code’s structure without changing its\nbehavior. If we had planned the structure from the start, we might have\navoided this step, but sometimes you only see a better design after you\nstart coding.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#why-functions",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#why-functions",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "9 Why\nfunctions?",
+    "text": "9 Why\nfunctions?\n\nReadability: Naming groups of statements makes code\neasier to read and debug.\nReusability: Functions eliminate repetitive code.\nChanges become easier to manage.\nModularity: Breaking down a program into functions\nlets you debug parts individually.\nReuse: Well-designed functions can be used by other\nprograms.\n\nWrapping code in a function is called encapsulation.\nOne advantage is that a name serves as documentation. Another is that\ncalling a function is more concise than copying and pasting its\nbody.\nAdding parameters to a function is called\ngeneralization, because it makes the function more\ngeneral – for example, printing \"shots!\" any number of\ntimes.\nWhen a function has several numerical arguments, it’s easy to mix\nthem up. You can use keyword arguments to specify each\nargument by name:\n\ndef print_build(repeats, shots):\n    for i in range(repeats):\n        repeat(\"shots! \", shots)\n\nprint_build(repeats=8, shots=4)\nprint()\nprint_build(shots=4, repeats=8)\n\nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \n\nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots! \nshots! shots! shots! shots!",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#docstrings",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#docstrings",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "10\nDocstrings",
+    "text": "10\nDocstrings\nA docstring is a string at the start of a function\nthat explains its interface:\n\ndef print_build(repeats, shots):\n    \"\"\"Prints \"shots\" for a custom amount of times and lines\n\n    repeats: number of lines of lyrics\n    shots: number of times \"shots\" is printed per line\n    \"\"\"\n    for i in range(repeats):\n        repeat(\"shots! \", shots)\n\nA good docstring explains what the function does and the effect of\neach parameter, without diving into internal details.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#if-statements",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#if-statements",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "11\nif statements",
+    "text": "11\nif statements\nConditional statements let you check conditions and\nchange the program’s behavior. The simplest form is the if\nstatement:\nif x &gt; 0:\n    print('x is positive')\nThe boolean expression after if is called the condition.\nIf it’s true, Python executes the indented block; otherwise, it skips\nit.\nIf you need a block that does nothing, use pass:\nif x &lt; 0:\n    pass          # TODO: need to handle negative values!",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#boolean-expressions-and-logical-operators",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#boolean-expressions-and-logical-operators",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "12\nBoolean expressions and logical operators",
+    "text": "12\nBoolean expressions and logical operators\nA boolean expression is either True or\nFalse. For instance:\n\n5 == 5\n\nTrue\n\n\n\n5 == 7\n\nFalse\n\n\nThe double equal sign == compares two values for\nequality.\n\n\n\n\n\n\nTip\n\n\n\nA common error is to use a single equal sign (=) instead\nof a double equal sign (==). Remember that =\nassigns a value to a variable and == compares two\nvalues.\n\n\nOther relational operators include:\nx != y # x is not equal to y\nx &gt; y  # x is greater than y\nx &lt; y  # x is less than to y\nx &gt;= y # x is greater than or equal to y\nx &lt;= y # x is less than or equal to y\nYou can combine boolean expressions with logical\noperators: and, or, and\nnot. For example:\nx &gt; 0 and x &lt; 10\nx % 2 == 0 or x % 3 == 0\nnot x &gt; y",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#the-else-clause",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#the-else-clause",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "13 The\nelse clause",
+    "text": "13 The\nelse clause\nif can include an else clause:\nif x % 2 == 0:\n    print('x is even')\nelse:\n    print('x is odd')\nOne branch runs if the condition is true, the other if it’s\nfalse.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#chained-conditionals",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#chained-conditionals",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "14\nChained conditionals",
+    "text": "14\nChained conditionals\nWhen you have more than two possibilities, use elif:\nif x &lt; y:\n    print('x is less than y')\nelif x &gt; y:\n    print('x is greater than y')\nelse:\n    print('x and y are equal')\nConditions are checked in order, and only the first true branch\nruns.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#nested-conditionals",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#nested-conditionals",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "15\nNested Conditionals",
+    "text": "15\nNested Conditionals\nOne conditional can be nested within another, but it can be harder to\nread:\nif 0 &lt; x:\n    if x &lt; 10:\n        print('x is a positive single-digit number.')\nLogical operators often simplify nested conditionals:\nif 0 &lt; x and x &lt; 10:\n    print('x is a positive single-digit number.')\nFor this kind of condition, Python provides a more concise\noption:\nif 0 &lt; x &lt; 10:\n    print('x is a positive single-digit number.')",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#some-functions-have-return-values",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#some-functions-have-return-values",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "16 Some\nfunctions have return values",
+    "text": "16 Some\nfunctions have return values\nFunctions like abs, round,\nmath.sqrt, and math.pow return a value. You\ncan assign that value to a variable or use it in an expression:\n\nimport math\nradius = math.sqrt(42 / math.pi)\narea = math.pi * radius**2\n\nYou can also write your own function with a return value:\n\ndef circle_area(radius):\n    area = math.pi * radius**2\n    return area\n\n\na = circle_area(radius)\na\n\n42.00000000000001\n\n\nHowever, local variables inside a function (like area)\ndon’t exist outside that function.\n\narea\n\n42.00000000000001",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#and-some-have-none",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#and-some-have-none",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "17 And\nsome have None",
+    "text": "17 And\nsome have None\nIf a function doesn’t use return, it returns\nNone, a special value:\n\ndef repeat(word, n):\n    print(word * n)\n\nThis function uses the print function to display a\nstring, but it does not use a return statement to return a\nvalue. If we assign the result to a variable, it displays the string\nanyway.\n\nresult = repeat('Shots! ', 3)\nprint(result)  # Displays None\n\nShots! Shots! Shots! \nNone\n\n\nIf you want a function that returns a string rather than prints it,\nyou can do:\n\ndef repeat_string(word, n):\n    return word * n\n\nNotice that we can use an expression in a return statement, not just\na variable.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#return-values-and-conditionals",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#return-values-and-conditionals",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "18\nReturn values and conditionals",
+    "text": "18\nReturn values and conditionals\nA function can have multiple return statements, such as a\nreimplementation of abs:\n\ndef absolute_value(x):\n    if x &lt; 0:\n        return -x\n    else:\n        return x\n\nMake sure thath every possible path hits a return statement:\n\ndef absolute_value_wrong(x):\n    if x &lt; 0:\n        return -x\n    if x &gt; 0:\n        return x\n    # If x is 0, returns None (missing a final else branch)",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#boolean-functions",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#boolean-functions",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "19\nBoolean functions",
+    "text": "19\nBoolean functions\nFunctions can return the boolean values True and\nFalse, which is often convenient for encapsulating a\ncomplex test in a function. For example, is_divisible\nchecks whether x is divisible by y with no remainder.\n\ndef is_divisible(x, y):\n    if x % y == 0:\n        return True\n    else:\n        return False\n\n\nis_divisible(6, 4)\n\nFalse\n\n\n\nis_divisible(6, 3)\n\nTrue\n\n\nInside the function, the result of the == operator is a\nboolean, so we can write the function more concisely by returning it\ndirectly:\n\ndef is_divisible(x, y):\n    return x % y == 0\n\nBoolean functions are often used in conditional statements:\n\nif is_divisible(6, 2):\n    print('divisible')\n\ndivisible\n\n\nIt might be tempting to write something like this:\n\nif is_divisible(6, 2) == True:\n    print('divisible')\n\ndivisible\n\n\nBut the comparison is unnecessary.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#input-validation",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#input-validation",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "20 Input\nvalidation",
+    "text": "20 Input\nvalidation\nWe now have all the tools we need to make sure that the programs we\nwrite will be executed fully, regardless of user error.\nRemember, if the end use can mess up your instructions they will.\nSound familiar?\nLet’s go back to the example of calculating the volume of a sphere\nwith a succinct function using what we’ve learned so far:\n\ndef volume_of_sphere(radius):\n    from math import pi\n    return (4/3) * pi * radius**3\n\nIf radius is an integer or float, no problem. But if we get a string,\nwe will get an error:\n\nprint(volume_of_sphere(4))\nprint(volume_of_sphere(\"4\"))\n\n268.082573106329\n\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[48], line 2\n      1 print(volume_of_sphere(4))\n----&gt; 2 print(volume_of_sphere(\"4\"))\n\nCell In[47], line 3, in volume_of_sphere(radius)\n      1 def volume_of_sphere(radius):\n      2     from math import pi\n----&gt; 3     return (4/3) * pi * radius**3\n\nTypeError: unsupported operand type(s) for ** or pow(): 'str' and 'int'\n\n\n\nWhile the default error message gives the user an idea of what’s\nwrong, we can handle this more gracefully:\n\ndef volume_of_sphere(radius):\n    if type(radius) == int or type(radius) == float:\n        from math import pi\n        return (4/3) * pi * radius**3\n    else:\n        print(\"Input was not a number, try again.\")\n        return None\n\nvolume_of_sphere(\"5\")\n\nInput was not a number, try again.\n\n\nIf this were a standalone program, it would return a result instead\nof stopping execution with an error.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#debugging",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#debugging",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "21\nDebugging",
+    "text": "21\nDebugging\nDebugging can be frustrating, but it is also challenging,\ninteresting, and sometimes even fun. And it is one of the most important\nskills you can learn.\nIn some ways debugging is like detective work. You are given clues\nand you have to infer the events that led to the results you see.\nDebugging is also like experimental science. Once you have an idea\nabout what is going wrong, you modify your program and try again. If\nyour hypothesis was correct, you can predict the result of the\nmodification, and you take a step closer to a working program. If your\nhypothesis was wrong, you have to come up with a new one.\nFor some people, programming and debugging are the same thing; that\nis, programming is the process of gradually debugging a program until it\ndoes what you want. The idea is that you should start with a working\nprogram and make small modifications, debugging them as you go.\nIf you find yourself spending a lot of time debugging, that is often\na sign that you are writing too much code before you start tests. If you\ntake smaller steps, you might find that you can move faster.\n\nWhen a syntax or runtime error occurs, the error message contains a\nlot of information, but it can be overwhelming. The most useful parts\nare usually:\n\nWhat kind of error it was, and\nWhere it occurred.\n\nSyntax errors are usually easy to find, but there are a few gotchas.\nErrors related to spaces and tabs can be tricky because they are\ninvisible and we are used to ignoring them.\n\nx = 5\n y = 6\n\n\n  Cell In[50], line 2\n    y = 6\n    ^\nIndentationError: unexpected indent\n\n\n\n\nIn this example, the problem is that the second line is indented by\none space. But the error message points to y, which is\nmisleading. Error messages indicate where the problem was discovered,\nbut the actual error might be earlier in the code.\nThe same is true of runtime errors. For example, suppose you are\ntrying to convert a ratio to decibels, like this:\n\nimport math\nnumerator = 9\ndenominator = 10\nratio = numerator // denominator\ndecibels = 10 * math.log10(ratio)\n\n\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nCell In[51], line 5\n      3 denominator = 10\n      4 ratio = numerator // denominator\n----&gt; 5 decibels = 10 * math.log10(ratio)\n\nValueError: math domain error\n\n\n\nThe error message indicates line 5, but there is nothing wrong with\nthat line. The problem is in line 4, which uses integer division instead\nof floating-point division – as a result, the value of\nratio is 0. When we call\nmath.log10, we get a ValueError with the\nmessage math domain error, because 0 is not in\nthe “domain” of valid arguments for math.log10, because the\nlogarithm of 0 is undefined.\nIn general, you should take the time to read error messages\ncarefully, but don’t assume that everything they say is correct.\n\nBreaking a large program into smaller functions creates natural\ncheckpoints for debugging. If a function is not working, there are three\npossibilities to consider:\n\nThere is something wrong with the arguments the function is getting\n– that is, a precondition is violated.\nThere is something wrong with the function – that is, a\npostcondition is violated.\nThe caller is doing something wrong with the return value.\n\nTo rule out the first possibility, you can add a print\nstatement at the beginning of the function that displays the values of\nthe parameters (and maybe their types). Or you can write code that\nchecks the preconditions explicitly.\n\n\n\n\n\n\nTip\n\n\n\nThis is a very basic version of logging.\n\n\nIf the parameters look good, you can add a print statement before\neach return statement and display the return value. If possible, call\nthe function with arguments that make it easy check the result.\nIf the function seems to be working, look at the function call to\nmake sure the return value is being used correctly – or used at all!\nAdding print statements at the beginning and end of a\nfunction can help make the flow of execution more visible for testing.\nFor example, here is a version of volume_of_sphere with\nprint statements:\n\ndef volume_of_sphere(radius):\n    if type(radius) == int or type(radius) == float:\n        print(f\"Radius is a valid type: {type(radius)}\") # Showing radius is fine\n        from math import pi\n        return (4/3) * pi * radius**3\n    else:\n        print(\"Input was not a number, try again.\") # In original example, showing radius was not fine\n        return None\n\n\nvol = volume_of_sphere(5)\nprint(vol)\n\nRadius is a valid type: &lt;class 'int'&gt;\n523.5987755982989\n\n\n\nvol = volume_of_sphere(\"5\")\nvol\n\nInput was not a number, try again.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/03-functions-flow-control-and-conditionals.html#exercises",
+    "href": "learning-modules/03-functions-flow-control-and-conditionals.html#exercises",
+    "title": "03 | Functions, Flow Control, & Conditionals",
+    "section": "22\nExercises",
+    "text": "22\nExercises\n\n22.1\nRight-Align Text\nWrite a function named print_right() that takes a string\nnamed text as a parameter and prints the string with enough\nleading spaces that the last letter of the string is in the 40th column\nof the display.\nHint: Use len(), +, and *.\nHere’s an example output:\nprint_right(\"Monty\")\nprint_right(\"Python's\")\nprint_right(\"Flying Circus\")\n                                   Monty\n                                Python's\n                           Flying Circus\n\n\n22.2\nDraw a Triangle\nWrite a function called triangle that takes a string and\nan integer, then draws a pyramid of the given height using copies of the\nstring. For example:\ntriangle(\"L\", 5)\nL\nLL\nLLL\nLLLL\nLLLLL\n\n\n22.3\nDraw a Rectangle\nWrite a function called rectangle that takes a string\nand two integers, then draws a rectangle of the given width and height\nusing copies of the string. For example:\nrectangle(\"[]\", 5, 4)\n[][][][][]\n[][][][][]\n[][][][][]\n[][][][][]\n\n\n22.4\nTriangle Tester\nWrite a function named is_triangle that takes three\nintegers as arguments and returns True or False depending on whether you\ncan form a triangle with those lengths. Use the rule:\n\nIf any of the three lengths is greater than the sum of the other two,\nthen you cannot form a triangle. Otherwise, you can. (If the sum of two\nlengths equals the third, they form what is called a “degenerate”\ntriangle.)\n\nHint: Use a chained conditional.\n\n\n22.5\nCheck “Between”\nWrite a boolean function is_between(x, y, z), that\nreturns True if \\(x &lt; y &lt;\nz\\) or if \\(z &lt; y &lt; x\\),\nand False otherwise.",
+    "crumbs": [
+      "Learning Modules",
+      "03 | Functions, Flow Control, & Conditionals"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html",
+    "href": "learning-modules/01-setting-up-your-workstation.html",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "",
+    "text": "In this course, we will spend time learning three critical tools for\noptimization:\n\nThe Command Line\nPython / Gurobi Solver\nExcel Solver (which you should have some experience\nwith by now)\n\nPython is usually ranked as the\nfirst or second most popular programming language in the world and, just\nas importantly, it’s also one of the easiest to learn. It’s a general\npurpose language, which means it can perform a wide range of tasks. The\njoke goes that Python is the 2nd best language at everything, and\nthere’s some truth to that (although Python is 1st at some tasks, like\nmachine learning).\nInstead of re-writing the great documentation offered by the\nproducts, I will provide you with links to the sections that are most\nimportant, as well as some extra resources that you might find\nhelpful.\nIn the realm of software, documentation is your friend, you will not\nalways have a teacher to tell you exactly what to do, so learning to go\nthrough documentation is an important skill of itself. Do not skim\nthrough the instructions provided. If there are any non-default options\nneeded, I will mention them.\n\n\n\n\n\n\nWarning\n\n\n\nThis is going to be by far the most tedious of the lectures in this\ncourse. Setting up your computer and environment is a pain but it must\nbe done. This module will comprise of a lot of reading and not a whole\nlot of doing, but it’s essential you understand the basics of these\ntools to be successful in class. The following modules will be much more\nhands on and interactive.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#overview",
+    "href": "learning-modules/01-setting-up-your-workstation.html#overview",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "",
+    "text": "In this course, we will spend time learning three critical tools for\noptimization:\n\nThe Command Line\nPython / Gurobi Solver\nExcel Solver (which you should have some experience\nwith by now)\n\nPython is usually ranked as the\nfirst or second most popular programming language in the world and, just\nas importantly, it’s also one of the easiest to learn. It’s a general\npurpose language, which means it can perform a wide range of tasks. The\njoke goes that Python is the 2nd best language at everything, and\nthere’s some truth to that (although Python is 1st at some tasks, like\nmachine learning).\nInstead of re-writing the great documentation offered by the\nproducts, I will provide you with links to the sections that are most\nimportant, as well as some extra resources that you might find\nhelpful.\nIn the realm of software, documentation is your friend, you will not\nalways have a teacher to tell you exactly what to do, so learning to go\nthrough documentation is an important skill of itself. Do not skim\nthrough the instructions provided. If there are any non-default options\nneeded, I will mention them.\n\n\n\n\n\n\nWarning\n\n\n\nThis is going to be by far the most tedious of the lectures in this\ncourse. Setting up your computer and environment is a pain but it must\nbe done. This module will comprise of a lot of reading and not a whole\nlot of doing, but it’s essential you understand the basics of these\ntools to be successful in class. The following modules will be much more\nhands on and interactive.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#your-computer-and-the-command-line",
+    "href": "learning-modules/01-setting-up-your-workstation.html#your-computer-and-the-command-line",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "2 Your\ncomputer and the command line",
+    "text": "2 Your\ncomputer and the command line\nBefore we install these tools, we need to get comfortable using the\ncommand line. But what exactly is it? Let me explain.\nWhen people refer to the command line, you might hear terms like\nterminal, console, CLI\n(command-line interface), and shell used\ninterchangeably. While they’re related, they’re not exactly the same\nthing. For this course, you don’t need to fully understand every nuance,\nbut having a general sense of these terms will help clear up\nconfusion.\n\n2.1\nConsole\nA console historically refers to the physical device used to interact\nwith a computer. In modern terms, it includes the combination of your\ncomputer’s screen, keyboard, and mouse.\n\n\n\nIn the past, consoles were often standalone machines with\nbuilt-in screens and keyboards. Today, the term is used less often, but\nit’s good to understand its origins.\n\n\n\n\n2.2\nTerminal\nA terminal is a program that allows\nyou to enter commands into your computer. Think of it as the “window” or\n“app” where you type the instructions that your computer processes.\nFor example:\n\nOn Windows, the terminal is called Windows\nTerminal.\nOn Mac, it’s simply called Terminal.\n\nThe terminal is just like any other program on your computer, such as\nWord or Excel. You can even replace the default terminal with other\noptions or use terminals built into tools like Visual Studio Code\n(foreshadowing??). While it may seem intimidating, it’s just a\ntool for interacting with your computer through text commands.\n\n\n2.3\nCommand line or Command-Line Interface (CLI)\nThe command-line interface (CLI) is the actual\ninterface where you type commands for your computer to\nprocess. It’s a way of interacting with your operating system using\ntext, rather than clicking with a mouse (which is how you use a GUI, or\ngraphical user interface).\nThe CLI exists inside the terminal, and you can think of it as the\nengine running underneath. For simplicity, you can treat the terms\nterminal and CLI as interchangeable in this course.\n\n\n2.4\nShell\nA shell is a program that acts as\nthe interpreter for the commands you enter into the CLI. It takes what\nyou type, processes it, and returns the results.\nYour computer’s shell comes pre-installed:\n\nLinux: Bash (Bourne\nAgain Shell)\nMac: Zsh (Z Shell)\nWindows: PowerShell\n(successor to Command Prompt)\n\nA shell also allows you to create scripts, which are\nfiles containing sets of commands to automate tasks. While scripting is\nsimilar to programming in languages like Python or R, it’s not the focus\nof this course. For now, we’ll stick to typing individual commands.\n\n\n2.5 Web\nSearching as an Analogy\nLet’s connect what we’ve learned so far with an example of searching\nthe web:\n\nTerminal: the terminal is like your web\nbrowser (Chrome, Edge, or Safari). It’s the environment or\n“window” where everything happens.\nCLI: The CLI is like the search\nbar inside your browser (or the one on the mage page of Google\nor Bing). It’s where you type in your commands (or search queries) for\nthe system to process.\nShell: The Shell is the search engine\nitself (Google Search or Bing Search). It takes the query you\nentered, processes it, and returns the results.\n\n\n\n2.6 Why\nare we using the CLI?\nSimply put, many tools in the realm of data analytics, data science,\nand data engineering are designed with the command line in mind first.\nGraphical user interfaces (GUIs) may follow, but the command line often\nremains the most powerful and flexible way to interact with these tools.\nIn this class, we need a basic understanding of the CLI to install and\nset up essential tools and occasionally run scripts.\n\n\n\n\n\n\nTip\n\n\n\nDon’t be intimidated by the command line! While you may be more\nfamiliar with tools or apps that have a visual interface, the command\nline provides a powerful way to control your computer. If it’s any\nsolace, after this initial setup assignment, we will use the command\nline sparingly. It’s just essential for getting started.\n\n\n\n\n2.7\nUnderstanding working directories\nWhen you use the command line, the concept of a working directory is\ncrucial. The working directory is the folder where your commands operate\nby default. It’s like being inside the room in a building, you can only\ninteract with the items inside that room unless you explicitly move to a\ndifferent room.\nFor example, if you see this prompt on the command line:\n\n\nCLI\n\nC:\\Users\\oo0006\\Desktop&gt;\n\nIt means the current working directory is the Desktop\nfolder inside the user directory of the user oo0006. If you\ntype a command like dir (to list the files in the working\ndirectory), it will show the contents of the Desktop\nfolder.\n\n2.7.1\nCommon symbols and their meaning\n\n\\ (Backslash): Used in Windows paths to separate\nfolders (e.g., C:\\Users\\oo0006\\Desktop).\n/ (Forward Slash): Used in Unix-like systems (Linux,\nmacOS) for the same purpose (e.g.,\n/home/user/Desktop).\n$: In many tutorials, this symbol represents the\nstart of a command in the command line. It’s a convention to indicate\nyou should enter a command into the terminal. For instance,\nfollowing code cell means you should type ls into the\nterminal and press Enter.:\n\n\n\nCLI\n\n$ ls\n\n\n\n\n\n\n\nTip\n\n\n\nThis is the convention I will be following in my material.\n\n\n\n&gt;: In Windows, this symbol is part of the prompt and\nindicates the terminal is ready for your input.\n\n\n\n2.7.2\nChanging directories\nTo navigate the file system in the command line, you use the\ncd (change directory) command:\n\nTo move to a specific folder (if you’re in\nC:\\Users\\oo0006\\, this will take you to\nC:\\Users\\oo0006\\Documents):\n\n\n\nCLI\n\n$ cd Documents\n\n\nTo go up one level (if you’re in\nC:\\Users\\oo0006\\Documents, this will take you back to\nC:\\Users\\oo0006\\):\n\n\n\nCLI\n\n$ cd ..\n\n\nTo move directly to another folder:\n\n\n\nCLI\n\n$ cd C:\\Program Files\n\nThis takes you straight to C:\\Program Files, no matter\nwhere you were previously.\n\n\n\n2.8 Key\ntakeaways\n\nThe command line is a powerful tool, don’t let its simplicity fool\nyou.\nThe working directory determines where commands will execute by\ndefault.\nUnderstanding the prompt and basic navigation commands like\ncd can make the command line much less intimidating.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#git-github-github-desktop",
+    "href": "learning-modules/01-setting-up-your-workstation.html#git-github-github-desktop",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "3 Git,\nGitHub, & GitHub Desktop",
+    "text": "3 Git,\nGitHub, & GitHub Desktop\nGit\nis a version control system that intelligently tracks changes in files.\nGit is particularly useful when you and a group of people are all making\nchanges to the same files at the same time.\nTypically, to do this in a Git-based workflow, you would:\n\nCreate a branch off from the main copy of files\nthat you (and your collaborators) are working on.\nMake edits to the files independently and safely on\nyour own personal branch.\nLet Git intelligently merge your specific changes\nback into the main copy of files, so that your changes don’t impact\nother people’s updates.\nLet Git keep track of your and other people’s\nchanges, so you all stay working on the most up-to-date version of the\nproject.\n\nGitHub is a cloud-based platform\nwhere you can store, share, and work together with others to write code.\nYou can think of Git as the engine that GitHub runs on.\nStoring your code in a “repository” on GitHub allows you to:\n\nShowcase or share your work.\nTrack and manage changes to your code over time.\nLet others review your code, and make suggestions to improve\nit.\nCollaborate on a shared project, without worrying that your changes\nwill impact the work of your collaborators before you’re ready to\nintegrate them.\n\nWhen you upload files to GitHub, you’ll store them in a “Git\nrepository.” This means that when you make changes (or “commits”) to\nyour files in GitHub, Git will automatically start to track and manage\nyour changes.\nThere are plenty of Git-related actions that you can complete on\nGitHub directly in your browser, such as creating a Git repository,\ncreating branches, and uploading and editing files. But, most people\nwork on their files locally (on their own computer), then continually\nsync these local changes—and all the related Git data—with the central\n“remote” repository on GitHub. This is how we will interact with GitHub\nin this course, with the help of GitHub Desktop.\n\n\n\nGitHub Desktop Interface\n\n\nOnce you start to collaborate with others and all need to work on the\nsame repository at the same time, you’ll continually:\n\nPull all the latest changes made by your\ncollaborators from the remote repository on GitHub.\nPush back your own changes to the same remote\nrepository on GitHub.\n\nGit figures out how to intelligently merge this flow of changes, and\nGitHub helps you manage the flow through features such as “pull\nrequests.”\n\n\n\n\n\n\nNote\n\n\n\nWe will be sticking to GitHub’s tools for using Git, so you do not\nneed to install Git separately for this course. In the future, you may\nwant to spend some time understanding Git on its own, but for this\ncourse and most companies, understanding GitHub’s (below) workflows is\nmore important.\n\n\n\n3.1\nSetup GitHub\nFollow the guides in the order they are presented. Again, I recommend\nreading through the whole set of Get Started articles,\nbut these are the essentials for this course.\n\nCreating\nan account on GitHub\n\nUse your Mix account for the email. Your username doesn’t matter; I\nused Ozan Ozbeker - WVU. In this course, we will be using\nprivate repositories, but I recommend creating a personal account to add\nprojects for your resume. The final project of this class could be a\ngood start.\n\nHello\nWorld\n\nThis is the critical GitHub workflow, make sure you understand\nit.\n\nSetting\nup your profile\n\nThis will introduce you to using Markdown, which will be essential\nlater in this course and for formatting your READMEs.\n\n\n\n\n\n\n\n\nNote\n\n\n\nGitHub also provides hands-on exercises for many of their articles at\nGitHub Skills for free. I won’t\nrequire you to do any of these as I’m not sure how long they take, but\nthese ones may be of benefit: Introduction to\nGitHub, Communicate\nusing Markdown, Review pull\nrequests, & Resolve merge\nconflicts.\n\n\n\n\n3.2\nSetup GitHub Desktop\nGitHub Desktop is a free, open source application that helps you to\nwork with code hosted on GitHub or other Git hosting services. With\nGitHub Desktop, you can perform Git commands, such as committing and\npushing changes, in a graphical user interface, rather than using the\ncommand line.\nA typical workflow is:\n\nUse GitHub Desktop to download a GitHub repository to your computer\nand create a new branch.\nUse an editor such as Visual Studio Code to make changes to the\ncode.\nReturn to GitHub Desktop to commit and push the changes to\nGitHub.\n\nAgain, follow the guides in the order they are presented. Again x 2,\nI recommend reading through the whole set of Get\nStarted articles, but these are the essentials for this course.\n\nParts 1 & 2 of Getting\nstarted with GitHub Desktop\n\nThis guide, and all the following, will have specific steps for Mac\n& Windows.\n\nParts 2-5 of Creating\nyour first repository using GitHub Desktop\n\nThis will be similar to some parts of the GitHub (website) guides\nabove, that’s on purpose.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#uv",
+    "href": "learning-modules/01-setting-up-your-workstation.html#uv",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "4 uv",
+    "text": "4 uv\nSo far, we’ve only installed VS Code & GitHub Desktop, which are\ntools we need for this course, but they are not specific to Python. Now\nwe will focus on installing Python as well as a few other tools that\nwill make our coding lives easier.\nuv is an extremely fast\nPython package and project manager. It is how we will manage our project\ndependencies, including Python itself.\n\n\n\n\n\n\nNote\n\n\n\nFrom this point, all of the installation will be done via the command\nline.\n\n\n\n4.1\nInstallation\nYou can install uv using PowerShell on Windows:\n\n\nCLI\n\n$ powershell -ExecutionPolicy ByPass -c \"irm https://astral.sh/uv/install.ps1 | iex\"\n\nAnd curl on macOS:\n\n\nCLI\n\n$ curl -LsSf https://astral.sh/uv/install.sh | sh\n\n\n\n\n\n\n\nImportant\n\n\n\nAt this point, you need to restart your shell, which means close your\nterminal and open it again.\n\n\nNow, we check to see that uv is available by running the\nuv command:\n\n\nCLI\n\n$ uv --version\n\n\n\noutput\n\nuv 0.5.20 (1c17662b3 2025-01-15)\n\nWith that confirmation, we will now install Python to be used across\nthe system:\n\n\nCLI\n\n$ uv python install 3.12\n\nThen you can use uv python list to verify the\ninstallation went through:\n\n\nCLI\n\n$ uv python list\n\nYou will see list of the available versions of Python uv can download\nas well as where Python 3.12 was installed.\n\n\n4.2\nUsing uv\nTo fully appreciate the benefits of uv and why we are using it, it’s\nessential to understand Python environments, virtual environments, and\nhow uv simplifies these concepts through its Projects\ninterface.\nuv provides two ways to handle dependencies (a dependency is any\nextra package your project needs that doesn’t come with Python by\ndefault). The preferred approach is the uv project\ninterface, which includes commands like uv init,\nuv add, uv lock, and more. While uv also\nincludes an implementation of pip, we will not be using it\nin this course.\n\n\n\n\n\n\nTip\n\n\n\nUsing uv projects has fewer commands and guides you toward best\npractices, much like how GitHub Desktop simplifies workflows compared to\nthe full Git CLI tools.\n\n\nWhen we installed Python 3.12 earlier using\nuv python install 3.12, we were not in a project. As a\nresult, Python was installed into uv’s default environment. On most\nWindows systems, this environment is located at\nAppData/Roaming/uv/python/cpython-3.12.8-windows-x86_64-none/python.exe.\nHowever, you don’t need to worry about its location—uv manages it for\nyou.\nTo add dependencies to a project using uv, we use the command\nuv add [package]. Let’s try downloading Polars, a library we’ll use in the second\nhalf of this course:\n\n\nCLI\n\n$ uv add polars\n\n\n\noutput\n\nerror: No `pyproject.toml` found in current directory or any parent directory\n\nWe encountered an error! This happened because we’re not in a\nproject. This is one of the many guardrails uv provides when using its\nproject interface. If we had used uv pip install polars, we\ncould have installed the package into the default (global) environment.\nHowever, since this is considered bad practice, uv actively discourages\nit.\nInstead, uv projects leverage virtual\nenvironments using Python’s built-in venv module.\nEssentially, each project has its own dependencies without interfering\nwith others. This isolation prevents version conflicts and keeps your\nprojects organized.\nuv projects also provide a significant advantage: caching. When you\nuse the same dependency across multiple projects, uv only downloads it\nonce and stores it in a cache. For future projects, it reuses the cached\nfiles instead of downloading and installing them again. This drastically\nreduces disk space usage and installation time, especially when working\nwith large or repeated dependencies. For this course, where each Lab\n& Test will be its own uv project, this feature will save us\nconsiderable time.\nWe’ll get hands-on experience with uv projects in the the Lab, but\nyou can look at the official Working on\nprojects guide if you would like.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#ruff",
+    "href": "learning-modules/01-setting-up-your-workstation.html#ruff",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "5\nRuff",
+    "text": "5\nRuff\nMany Python packages provide applications that can be used as tools.\nuv has specialized support for easily invoking and installing tools. Ruff is an extremely fast Python\nlinter and code formatter, made by the creators of uv.\n\n5.1\nInstallation\nYou can install Ruff with:\n\n\nCommand Line\n\n$ uv tool install ruff\n\n\n\n5.2\nUsing Ruff\nRuff’s two main features are its linter and formatter.\nA linter analyzes your code for potential errors,\nbad practices, or violations of style rules. It can give warnings or\nerrors, but it won’t change your code automatically. It’s essentially a\nspellchecker for your code, pointing out what’s wrong without fixing\nit.\nA formatter automatically adjusts the layout and\nstyle of your code to match a predefined set of rules. It produces\nclean, consistently styled code by modifying it directly.\n\n\n5.3\nRuff’s linter\nruff check is the primary entrypoint to the Ruff linter.\nIt accepts a list of files or directories, and lints all discovered\nPython files, optionally fixing any fixable errors:\n\n\nCommand Line\n\nruff check # Lint all files in the current directory.\nruff check path/to/code/ # Lint all files in `path/to/code` (and any subdirectories).\n\nRuff supports automatic fixes for a variety of lint errors. For\nexample, Ruff can remove unused imports, reformat docstrings, rewrite\ntype annotations to use newer Python syntax, and more.\nTo enable fixes, pass the --fix flag to ruff check:\n\n\nCommand Line\n\nruff check --fix # Lint all files in the current directory, and fix any fixable errors.\n\nI don’t recommend using automatic fixes as it can help develop bad\nhabits in coding. Using the Ruff linter to find mistakes is good, but\nyou should work on not making the mistakes to begin with.\n\n\n5.4\nRuff’s formatter\nruff format is the primary entrypoint to the formatter.\nIt accepts a list of files or directories, and formats all discovered\nPython files:\n\n\nCommand Line\n\nruff format # Format all files in the current directory.\nruff format path/to/code/ # Format all files in `path/to/code` (and any subdirectories).\nruff format path/to/file.py # Format a single file.\n\nRun the linter first to identify and fix any errors, then use the\nformatter to clean up your code’s style. While you’re free to choose any\ncode style (as long as it’s syntactically valid), adhering to a standard\nmakes it easier to learn best practices and collaborate with others.\nFollowing a standard format also helps minimize unnecessary diffs in\nyour GitHub changes.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#marimo",
+    "href": "learning-modules/01-setting-up-your-workstation.html#marimo",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "6\nmarimo",
+    "text": "6\nmarimo\nThe final tool we’ll be installing is marimo. marimo is an open-source reactive notebook\nfor Python — reproducible, git-friendly, executable as a script, and\nshareable as an app.\n\n6.1\nInstallation\nYou can install marimo with:\n\n\nCommand Line\n\n$ uv tool install marimo\n\n\n\n6.2 Why\nmarimo (over VS Code)\nWe already installed VS Code, why am I making you install another\ntool to use Python with? I’m glad you asked.\nThe main difference between traditional Python programming in tools\nlike VS Code vs interactive notebooks like marimo (or Jupyter Notebook)\nis how you write and run your code. In VS Code, you typically write your\nentire script in a .py file and run the whole program at\nonce, with the output appearing in a terminal or console. This approach\nis great for building full applications, like downloading data,\nautomatically refreshing a dashboard, or scraping a website. On the\nother hand, interactive notebooks allow you to write and execute code in\nsmaller chunks, or cells, and see the results (including graphs or\ntables) immediately beside the code. This makes notebooks ideal for data\nanalysis, visualization, prototyping, and/or teaching, as they encourage\nexperimentation and provide instant feedback.\nWhile VS Code is better suited for maintaining well-organized,\nmodular code, notebooks excel in scenarios that involve step-by-step\nexploration and explanation. They serve different purposes, but are\ncomplementary.\n\n\n\n\n\n\nNote\n\n\n\nA typical workflow in industry is using notebooks to explore new\ndata, experiment with visuals, try models, and so on. Once the code is\nin a stable state, the code in the notebook will be turned into a Python\npackage or\nmodule to be used in production (software\nengineering loves to use manufacturing terms.).\n\n\n\n\n6.3 Why\nmarimo (over Jupyter Notebook)\nWe already covered why we may want to use a notebook instead of a\nregular IDE like VS Code, so why marimo over Jupyter?\nmarimo is the new kid on the block when it comes to comes to coding\nnotebooks. Jupyter has been the\nstandard for interactive computing for years now, and absolutely\ndeserves its flowers.\nFrom the marimo FAQ: marimo\nis a reinvention of the Python notebook as a reproducible, interactive,\nand shareable Python program that can be executed as scripts or deployed\nas interactive web apps.\n\nConsistent state: In marimo, your notebook code,\noutputs, and program state are guaranteed to be consistent. Run a cell\nand marimo reacts by automatically running the cells that reference its\nvariables. Delete a cell and marimo scrubs its variables from program\nmemory, eliminating hidden state.\nBuilt-in interactivity: marimo also comes with UI\nelements like sliders, a DataFrame transformer, and interactive plots\nthat are automatically synchronized with Python. Interact with an\nelement and the cells that use it are automatically re-run with its\nlatest value.\nPure Python programs: Unlike Jupyter notebooks,\nmarimo notebooks are stored as pure Python files that can be executed as\nscripts, deployed as interactive web apps, and versioned easily with\nGit.\n\n\n\n6.4\nLearning marimo\nFeel free to look at the User Guide, but we will be\ngoing through their interactive tutorials in a later Lab.\nYou can see some examples of marimo notebooks at their gallery.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#gurobi-optimizer",
+    "href": "learning-modules/01-setting-up-your-workstation.html#gurobi-optimizer",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "7 Gurobi\nOptimizer",
+    "text": "7 Gurobi\nOptimizer\nSo far, you’ve set up your environment for Python development with\nuv, installed GitHub Desktop for version control, and learned about\nmarimo for notebooks. The final piece in our optimization puzzle is\nGurobi, a leading commercial solver that is free for\nacademic use.\nGurobi is a powerful\nmathematical programming solver capable of handling linear, integer, and\nother advanced optimization models. In this course, we’ll use Gurobi\nprimarily through its Python API, gurobipy, to solve supply\nchain network design problems more efficiently than is possible with\nExcel Solver alone.\n\n7.1\nLicensing and Academic Access\nGurobi is commercial software, but it’s free for\nstudents and faculty at degree-granting institutions. To obtain a\nlicense:\n\nCreate a Gurobi Account\n\nGo to Gurobi’s Academic License page and sign up using your\nuniversity email.\nWait for an email verifying your academic license. Gurobi usually\ngrants these licenses quickly, but it can sometimes take a day or\ntwo.\n\nDownload and Install Gurobi\n\nOnce you have a Gurobi account, log in to the Gurobi Download Center\nto download the installer for your operating system (Windows, macOS, or\nLinux).\nRun the installer and follow the on-screen prompts. By default,\nGurobi installs to a folder like C:\\gurobi\\ on Windows or\n/Library/gurobi/ on macOS.\n\nActivate Your License\n\nAfter installation, open a terminal (PowerShell on Windows or the\nTerminal on macOS) and run:\n\n\n\n\nCommand Line\n\n$ grbgetkey YOUR-LICENSE-KEY\n\n\nReplace YOUR-LICENSE-KEY with the key from your Gurobi\naccount’s “My Account” page or from the email you received.\nThis will create a gurobi.lic file on your system,\ntypically located in your home directory.\n\n\n\n\n\n\n\nWarning\n\n\n\nMake sure you keep your gurobi.lic file in a safe\nlocation and don’t share it publicly. It contains your license\ncredentials.\n\n\n\n\n7.2\nInstalling the Gurobi Python API\nIn older versions, you had to rely on Gurobi’s custom installer for\nthe Python bindings. Fortunately, modern versions (Gurobi 9.5+) are also\navailable on PyPI under the name gurobipy. This means we\ncan install the Python API the same way we add other Python packages\n(covered in Lab 1). However, remember that you must\nstill install the main Gurobi solver (the previous step) for\ngurobipy to function.\n\n\n7.3\nGurobi Docs and Tutorials\nGurobi’s own documentation is excellent and well worth exploring:\n\nGurobi Documentation –\nofficial API references, tutorials, parameter guides.\nGurobi\nModeling Examples – real-world examples demonstrating how to set up\nand solve diverse optimization problems.\n\nIn later modules and labs, we’ll walk through building facility\nlocation, transportation, and transshipment models in Python using\nGurobi. For now, ensure you have the solver installed, licensed, and\nready to go so that you can focus on actual modeling in upcoming\nlessons.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "learning-modules/01-setting-up-your-workstation.html#finish",
+    "href": "learning-modules/01-setting-up-your-workstation.html#finish",
+    "title": "01 | Setting Up Your Workstation",
+    "section": "8\nFinish",
+    "text": "8\nFinish\nThat’s it! With Gurobi in place, you now have the\ncomplete environment for writing and running optimization models in\nPython. The next modules will be more hands-on, so don’t worry if the\nsetup process feels tedious. Proper installation and licensing of Gurobi\nis crucial to ensure everything runs smoothly later.",
+    "crumbs": [
+      "Learning Modules",
+      "01 | Setting Up Your Workstation"
+    ]
+  },
+  {
+    "objectID": "course-information/schedule.html",
+    "href": "course-information/schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "Course weeks with modules follow a consistent cycle:",
+    "crumbs": [
+      "Course Information",
+      "Schedule"
+    ]
+  },
+  {
+    "objectID": "course-information/schedule.html#calendar",
+    "href": "course-information/schedule.html#calendar",
+    "title": "Schedule",
+    "section": "Calendar",
+    "text": "Calendar\n\nIndividual Learning Modules are in bold.\nLabs: due on Wednesday at 11:59 PM of the following\nweek.\n\nExample - Week 5:\n\nTuesday (2025-02-11), we will go over the exercises from\nData Structures & Control Flow.\nThursday (2025-02-13), you will work on Lab 4 in\nclass.\nWednesday (2025-02-19), Lab 4 is due.\n\n\nTests: due on Wednesday at 11:59 PM of the test\nweek.\n\nExample - Test 1:\n\nTuesday (2025-02-25): No new lecture material for this week, give\ntime to ask questions for test.\nWednesday (2025-02-26): Test is due at 11:59 PM.\nThursday (2025-02-27): We will go through the test problems in\nclass.\n\n\nFinal Project: due at 11:59 PM on Monday, April\n28th, 2025.\n\nSchedule subject to change, changes will be announced in class\nand on eCampus.\n\n\n\n\n\n\n\n\n\n\nWeek\nStart\nLearning Module(s)\nCourse Deliverable(s) Due\n\n\n\n\n1\n2025-01-13\nCourse Intro\n\n\n\n2\n2025-01-20\nSetting Up Your Workstation\n\n\n\n3\n2025-01-27\nPython Basics\nLab 1\n\n\n4\n2025-02-03\nData Structures & Control Flow\nLab 2\n\n\n5\n2025-02-10\nFunctions & Basic I/O\nLab 3\n\n\n6\n2025-02-17\nIntro to Gurobi & Simple Optimization\nLab 4\n\n\n7\n2025-02-24\nTest 1 (on Weeks 3-6) Prep & Review\nLab 5, Test 1\n\n\n8\n2025-03-03\nIntro to Supply Chain Network Design\n\n\n\n9\n2025-03-10\nFacility Location Models\nLab 6\n\n\n10\n2025-03-17\nTransportation & Transshipment\nLab 7\n\n\n11\n2025-03-24\nSpring Recess (No Class / No Work)\nLab 8\n\n\n12\n2025-03-31\nNetwork Design with Uncertainty\n\n\n\n13\n2025-04-07\nMulti-Objective Optimization & Sensitivity\nLab 9\n\n\n14\n2025-04-14\nTest 2 (on Weeks 8-14) Prep & Review\nLab 10, Test 2\n\n\n15\n2025-04-21\nOpen Lab Week, Work on Final Project\n\n\n\n16\n2025-04-28\nPresentations\nFinal Project\n\n\n17\n2025-05-05\nFinals Week (No Final Exam)",
+    "crumbs": [
+      "Course Information",
+      "Schedule"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html",
+    "href": "course-information/policies.html",
+    "title": "Policies",
+    "section": "",
+    "text": "The integrity of the classes offered by any academic institution\nsolidifies the foundation of its mission and cannot be sacrificed to\nexpediency, ignorance, or blatant fraud. Therefore, instructors will\nenforce rigorous standards of academic integrity in all aspects and\nassignments of their courses. For the detailed policy of West Virginia\nUniversity regarding the definitions of acts considered to fall under\nacademic dishonesty and possible ensuing sanctions, please see the West\nVirginia University Academic\nStandards Policy. Should you have any questions about possibly\nimproper research citations or references, or any other activity that\nmay be interpreted as an attempt at academic dishonesty, please see your\ninstructor before the assignment is due to discuss the matter.\n\nIt is common to have questions about what amount of collaboration and\nreliance on tools is acceptable, simply put: In this course, you\nare expected to primarily turn in code you wrote.\nCode written by a peer, TA, stranger on the internet, or LLM\nis not code you wrote. While you may use code written\nby others within reason, you must give proper credit, and it will not be\nconsidered your own work for evaluation purposes.\n\n\n\n\n\n\nWarning\n\n\n\nPlease also see Artificial\nIntelligence (AI) for specifics of how this policy relates to\nthe use of AI tools in this course.\n\n\nWhile outside of the classroom programming is often a very\ncollaborative process, you should be working on coming up with your own\nsolutions to problems, to ensure you are learning what you came here to\nlearn. You may generally use outside resources, talk to peers, etc. so\nlong as the significant majority of your code is your own work and all\nsources are properly credited. Furthermore, if you use code from the\ninternet, you are expected to understand and adhere to the license of\nthat code. Failure to do so may result in a significant penalty to a\ngrade. Finally, if you have any questions regarding what would or would\nnot be considered academic dishonesty in this course, please don’t\nhesitate to ask me.",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#academic-integrity",
+    "href": "course-information/policies.html#academic-integrity",
+    "title": "Policies",
+    "section": "",
+    "text": "The integrity of the classes offered by any academic institution\nsolidifies the foundation of its mission and cannot be sacrificed to\nexpediency, ignorance, or blatant fraud. Therefore, instructors will\nenforce rigorous standards of academic integrity in all aspects and\nassignments of their courses. For the detailed policy of West Virginia\nUniversity regarding the definitions of acts considered to fall under\nacademic dishonesty and possible ensuing sanctions, please see the West\nVirginia University Academic\nStandards Policy. Should you have any questions about possibly\nimproper research citations or references, or any other activity that\nmay be interpreted as an attempt at academic dishonesty, please see your\ninstructor before the assignment is due to discuss the matter.\n\nIt is common to have questions about what amount of collaboration and\nreliance on tools is acceptable, simply put: In this course, you\nare expected to primarily turn in code you wrote.\nCode written by a peer, TA, stranger on the internet, or LLM\nis not code you wrote. While you may use code written\nby others within reason, you must give proper credit, and it will not be\nconsidered your own work for evaluation purposes.\n\n\n\n\n\n\nWarning\n\n\n\nPlease also see Artificial\nIntelligence (AI) for specifics of how this policy relates to\nthe use of AI tools in this course.\n\n\nWhile outside of the classroom programming is often a very\ncollaborative process, you should be working on coming up with your own\nsolutions to problems, to ensure you are learning what you came here to\nlearn. You may generally use outside resources, talk to peers, etc. so\nlong as the significant majority of your code is your own work and all\nsources are properly credited. Furthermore, if you use code from the\ninternet, you are expected to understand and adhere to the license of\nthat code. Failure to do so may result in a significant penalty to a\ngrade. Finally, if you have any questions regarding what would or would\nnot be considered academic dishonesty in this course, please don’t\nhesitate to ask me.",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#adverse-weather",
+    "href": "course-information/policies.html#adverse-weather",
+    "title": "Policies",
+    "section": "Adverse Weather",
+    "text": "Adverse Weather\nIn the event of inclement or threatening weather, everyone should use\nhis or her best judgment regarding travel to and from campus. Safety\nshould be the main concern. If you cannot get to class because of\nadverse weather conditions, you should contact your instructor as soon\nas possible. Similarly, if your instructor(s) are unable to reach the\nclass location, they will notify you of any cancellation or change as\nsoon as possible, using agreed upon methods to prevent students from\nembarking on any unnecessary travel. If you cannot get to class because\nof weather conditions, instructors will make allowances relative to\nrequired attendance policies, as well as any scheduled tests, quizzes,\nor other assessments. [adopted 9-8-2014]",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#appropriate-use-of-technology",
+    "href": "course-information/policies.html#appropriate-use-of-technology",
+    "title": "Policies",
+    "section": "Appropriate Use of Technology",
+    "text": "Appropriate Use of Technology\nUse of technology in the classroom should always be directly related\nto class activities and/or course learning outcomes. Inappropriate\ntechnology use can be an impediment to learning and a distraction to all\nmembers of the class. As such, inappropriate use of technology in the\nclassroom may be considered a disruption of the class and constitute a\nviolation of the WVU\nStudent Conduct Code and could potentially result in a referral to\nthe Office of Student Rights and Responsibilities. Use of technology in\nthe classroom when specifically prohibited by the instructor may also\nconstitute a violation of WVU’s Academic\nIntegrity policy.",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#artificial-intelligence",
+    "href": "course-information/policies.html#artificial-intelligence",
+    "title": "Policies",
+    "section": "Artificial Intelligence",
+    "text": "Artificial Intelligence\nArtificial intelligence (AI) tools that can create and develop\nacademic content are not allowed unless permission is given by an\ninstructor. Students must receive instructor permission prior to\nutilizing AI tools. Unauthorized use of AI tools may result in academic\ndishonesty charges.\nIn this course, we will be developing foundational skills and\nknowledge that are very important to discover and practice on your own.\nAt this stage of learning, it is far too easy to overuse these tools and\nnot gain the skills and understanding you came here for. Only as the\nproblems you aim to solve grow in complexity will the extent to which\nthe gaps in your understanding start to become a problem.\nAs a result, and to help avoid potential academic honesty issues\n— the use of AI tools, such as ChatGPT or CoPilot, to write code\nsubmitted for this course is not allowed.\nAs stated in the Academic\nIntegrity policy, the code you turn in should be your own\ncreation, not code that AI originated or in any way modified.\n\n\n\n\n\n\nImportant\n\n\n\nUsing AI tools to generate code for assignments in this course will\nviolate WVU’s\nAcademic Integrity policy.\n\n\nIn general, this means pasting your code into an AI tool or copying\nany code from it should be avoided.\n\nWhat you may do with AI tools:\n\nUse these tools to ask questions unrelated to the assignment. While\nI only have time in class to provide 1-2 examples on a topic, you may\nfind it useful to explore additional ones by asking AI for them. This\ntends to work quite well and avoids any academic honestly issues.\nAsk AI to explain an error message to you. Instead of pasting in\nyour code and saying “fix this”, instead pasting just the error message\nand asking the AI how to diagnose the problem. If in doubt, ask me\nbefore using any tools if you are unsure about this policy.",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#attendance-participation",
+    "href": "course-information/policies.html#attendance-participation",
+    "title": "Policies",
+    "section": "Attendance & Participation",
+    "text": "Attendance & Participation\nAttendance is not required; however, in-class benefits\ninclude live guidance, interactive practice, and exercises reviewed only\nin class. Students who prefer or need additional help will find regular\nattendance invaluable.\nThe WVU Catalog contains the full Attendance\nPolicy.",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#inclusivity-statement",
+    "href": "course-information/policies.html#inclusivity-statement",
+    "title": "Policies",
+    "section": "Inclusivity Statement",
+    "text": "Inclusivity Statement\nThe West Virginia University community is committed to creating and\nfostering a positive learning and working environment based on open\ncommunication, mutual respect, and inclusion.\nIf you are a person with a disability and anticipate needing any type\nof accommodation in order to participate in your classes, please advise\nyour instructors and make appropriate arrangements with the Office of Student Accommodations.\nMore information is available at the Division of Diversity, Equity, and\nInclusion website as well. [adopted 2-11-2013]",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#incomplete-policy",
+    "href": "course-information/policies.html#incomplete-policy",
+    "title": "Policies",
+    "section": "Incomplete Policy",
+    "text": "Incomplete Policy\nThe WVU Catalog contains the full Incomplete\nPolicy.",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#sale-of-course-material-statement",
+    "href": "course-information/policies.html#sale-of-course-material-statement",
+    "title": "Policies",
+    "section": "Sale of Course Material Statement",
+    "text": "Sale of Course Material Statement\nAll course materials, including lectures, class notes, quizzes,\nexams, handouts, presentations, and other course materials provided to\nstudents for their courses are protected intellectual property. As such,\nthe unauthorized purchase or sale of these materials may result in\ndisciplinary sanctions under the Student\nConduct Code. [adopted 5-11-2015]",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#sexual-misconduct-statement",
+    "href": "course-information/policies.html#sexual-misconduct-statement",
+    "title": "Policies",
+    "section": "Sexual Misconduct Statement",
+    "text": "Sexual Misconduct Statement\nWest Virginia University does not tolerate sexual misconduct,\nincluding harassment, stalking, sexual assault, sexual exploitation, or\nrelationship violence: BOG\nRule 1.6. It is important for you to know that there are resources\navailable if you or someone you know needs assistance. You may speak to\na member of university administration, faculty, or staff; keep in mind\nthat they have an obligation to report the incident to the Title\nIX Coordinator.\nIf you want to speak to someone who is permitted to keep your\ndisclosure confidential, please seek assistance from the Carruth Center,\n304-293-9355 or 304-293-4431 (24-hour\nhotline), and locally within the community at the Rape and Domestic Violence Information\nCenter (RDVIC), 304-292-5100 or\n304-292-4431 (24-hour hotline).\nFor more information, please consult WVU’s Title IX\nOffice.",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/policies.html#student-evaluation-of-instruction-statement",
+    "href": "course-information/policies.html#student-evaluation-of-instruction-statement",
+    "title": "Policies",
+    "section": "Student Evaluation of Instruction Statement",
+    "text": "Student Evaluation of Instruction Statement\nEffective teaching is a primary mission of West Virginia University.\nStudent evaluation of instruction provides the university and the\ninstructor with feedback about your experiences in the course for review\nand course improvement. Your participation in the evaluation of course\ninstruction is both strongly encouraged and highly valued. Results are\nstrictly confidential, anonymous, and not available to the instructor\nuntil after final grades are released by Admissions and Records.\nInformation about how you can complete this evaluation will provided by\nyour instructor. [adopted 4-14-2008]",
+    "crumbs": [
+      "Course Information",
+      "Policies"
+    ]
+  },
+  {
+    "objectID": "course-information/grading-and-deliverables.html",
+    "href": "course-information/grading-and-deliverables.html",
+    "title": "Grading & Deliverables",
+    "section": "",
+    "text": "If you are new to using specifications grading, here’s what you can\nexpect:\n\nFor each assignment you will be given a set of specifications.\nMeeting all/most of those will earn the highest grade. This is described\nin detail below, but aims to allow you to focus on learning and not on\nthe difference between an 89 and a 90 on an\nassignment. (It also more closely resembles how work is evaluated in\nmost workplaces.)\nWe will allow a limited amount of Resubmissions of Labs to learn from\nmistakes.\n\nLabs & Test Questions are assigned one of three marks:\n\nS (Satisfactory): Meets or exceeds all outlined\nspecifications (specs) in completeness, clarity/quality, and\nrelevance.\nN (Needs Improvement): Partially meets the specs\nbut has notable issues. Additional revision, clarity, or corrections\nneeded.\nU (Ungradable): Does not meet the basic specs;\nsignificantly incomplete or non-functional.\n\nThese will be assessed on:\n\nCompleteness\n\nTheory: Does the submission thoroughly address each\npart of the question(s)?\nCoding: Does the code accomplish\nall required tasks and functionalities?\n\nConceptual Clarity & Code Quality\n\nTheory: Are explanations accurate, logically\nstructured, and well-supported by examples or evidence?\nCoding:\n\nIs the code readable and well-styled (e.g., PEP 8)?\nAre chosen algorithms/data structures appropriate for the\nproblem?\nDoes the solution exhibit clear organization (functions, classes,\nmodules)?\n\n\n\nAn assignment’s specs will be provided with the instructions.\n\nLabs\nThere will be a Lab for each Learning Module. Multiple Labs can be\ndue in a single week if multiple Learning Modules are covered.\nThe Labs will be a mix of Theory & Coding questions designed to\ngauge students’ understanding of topics discussed in the Learning\nModule(s).\nEach Lab will receive one S/N/U mark.\n\n\nTest Questions\nThere will be two tests, aligned with major textbooks/readings:\n\nTest 1: Python Foundations\nTest 2: Supply Chain Network Design\n\nThe test format will be Take Home with a single\nsubmission by team.\nTests will consist of a mix of 3 problem sets:\n\nTheory problems which will be short answer and\nopen-ended.\nCoding problems which will comprise of analysis,\ncoding solutions, & interpretation of results.\n\nEach problem will receive its own S/N/U mark based\non completeness and clarity.\n\n\nFinal Project\n\nComprehensive group project applying the full range\nof skills from the course.\n\nStudents will work in teams on unique supply chain problems. Each\nteam will:\n\nSolve a network design problem using Excel Solver and\nPython/Gurobi.\nWrite a comparative report discussing the tools’ pros and cons.\nPresent their findings to the class.\n\nProject Grade P will be used in the\nfinal letter grade matrix.\n\n\nFinal Grade Calculation\nYour final grade will be determined by your 16 SNU\ngrades (Labs: 10, Test 1: 3, Test 2: 3) and your final project\nscore:\n\nS: The total number of Satisfactory marks\nyou received.\nU: The maximum number of Ungradable marks\nyou received.\nP: Your exam grade, P, which will be\nbetween 0-100.\n\nBelow is the table for your Final Grade\ncalculation.\n\n\n\n\n\n\n\n\n\n\n\nS &gt;=\nU &lt;=\n50 &lt;= P &lt; 70\n70 &lt;= P &lt; 80\n80 &lt;= P &lt; 90\nP &gt;= 90\n\n\n\n\n14\n0\nB\nB\nA\nA\n\n\n12\n2\nB\nB\nB\nA\n\n\n10\n3\nC\nB\nB\nB\n\n\n9\n4\nC\nC\nB\nB\n\n\n8\n5\nC\nC\nC\nB\n\n\n7\n6\nD\nC\nC\nC\n\n\n\nExamples:\n\nIf you have 14 S, 3 N, 0\nU: then you are in the top row. An 80 on the final\nproject will earn you an A.\nIf you miss two labs and earn 2 U, but have at\nleast 12 S: you are in the second row. An 80 on the\nfinal project would earn you an B overall.\n\nAnything lower than what is represented in the chart will need to be\naddressed on a case-by-case basis.\n\n\n\n\n\n\nNote\n\n\n\nRemember: “C” is a passing grade for GSCM courses.\n\n\n\n\nMidterm Grade Calculation\nThe midterm grade uses a similar approach but only\nincludes:\n\nLabs 1 through 5 (one S/N/U mark per Lab).\nTest 1 (one S/N/U mark per Test Problem).\nThis table assumes a final project grade of P &gt;=\n90 for the sake of calculating a provisional grade. This\nassumption simply provides a midpoint reference for where students\nstand.\n\nBelow is the table for your Midterm Grade\ncalculation.\n\n\n\nS &gt;=\nU &lt;=\nMidterm\n\n\n\n\n8\n2\nA\n\n\n6\n4\nB\n\n\n4\n6\nC\n\n\n2\n8\nD\n\n\n0\n10\nF\n\n\n\n\n\nResubmissions\nI will allow 5 Lab revisions to change a\nNeeds Improvement mark to a\nSatisfactory mark.\nOnce a Lab is graded and returned to you, there will be a one\nweek window for you to resubmit that Lab. This means that, if\nyou produce work that needs some improvement, you will have a chance to\naddress the grader’s feedback to improve your score on that Lab.\nThere will be no revisions for Quizzes or Test Questions.\n\n\n\n\n\n\nNote\n\n\n\nResubmissions should be submitted via email to the instructor with\n“Lab # Resubmission” as the\n{Concise Question}.\n\n\n\n\nLate Submissions\nLate submissions will not be accepted in this class, except under\nextraordinary circumstances. Please bear in mind that the grading scheme\nwill be set up to absorb a reasonable amount of sub-par work, and also\nallows you to resubmit at most one programming homework (no tests or\nfinal project).\nThat said, to be clear: if you encounter some sort of\nemergency (medical, family, etc.) please reach out to your instructor as\nsoon as you are able to do so. I am more than happy to find\nways to provide additional flexibility in these situations. Ideally, you\nshould notify me of these circumstances before the work is due so we can\ndiscuss options with you.\nIn other words, the late submission policy applies to\nordinary circumstances: if you are having a busy week, you have\nan event that overlaps with a deadline, etc., then the grading scheme\nwill have some built-in flexibility for this. Instead of trying to argue\nfor a few extra days to work on a homework, you should just submit the\nwork you have completed by the deadline, so you can get feedback on that\nwork and use that feedback to improve your work in future assignments,\nor even to resubmit the homework as described above.\n\n\nGrading Disputes\nExcept in very specific cases (described below), you cannot dispute\nthe score assigned to you on a piece of work. There is one exception to\nthis: if a grader made an factual mistake in your grading. Please note\nthat this only includes cases where a grader makes an erroneous\nstatement about your code in their feedback. It does not include cases\nwhere you simply disagree with whether something deserves to be flagged\nas incorrect.\nFor example, suppose you receive a piece of feedback that says\n“Incorrect: Function X did not check that parameter Y is greater than\nzero”. If function X in your code did perform this check, and the grader\nmissed this fact (and erroneously gave you that feedback), you can ask\nus to review this decision. Please note that, even if the feedback is\namended, it may not affect your actual SNU score.\nWe ask that you keep these requests brief and to the point: no more\nthan a few sentences identifying the exact statement that the grader\nmade and the reasons you believe the statement was mistaken, including\nreferences to specific parts of your code (e.g., “I did check the value\nof the parameter in line 107”). Focus on laying out the facts, and\nnothing else.\nFinally, it is also your responsibility to make these requests in a\ntimely manner. Requests to review grading mistakes must be submitted no\nlater than one week after a graded piece of work is\nreturned to you. After that time, we will not consider any such\nrequests, regardless of whether the request is reasonable and\njustified.\n\n\n\n\n\n\nNote\n\n\n\nDisputes should be submitted via email to the instructor with\n“Lab # | Test # Grading Dispute” as the\n{Concise Question}.\n\n\n\n\nAcademic Integrity Violation\nThe minimum penalty for an Academic\nIntegrity violation is a U for all grades on\nthe assignment in question and a drop in a letter grade for each\nviolation.\n\n\nCurving\nIn lieu of traditional curving, I reserve the right to lower the\nthresholds for each grade. I will not raise the thresholds. (So if you\nearn an B according to the above chart, you will get an B or\nbetter.)\n\n\n\n\n Back to topReuseCC BY-NC-ND 4.0",
+    "crumbs": [
+      "Course Information",
+      "Grading & Deliverables"
+    ]
+  },
+  {
+    "objectID": "course-information/resources.html",
+    "href": "course-information/resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Office Hours: Tuesday/Thursday 9:45 AM - 10:30\nAM",
+    "crumbs": [
+      "Course Information",
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "course-information/resources.html#office-hours",
+    "href": "course-information/resources.html#office-hours",
+    "title": "Resources",
+    "section": "Office Hours",
+    "text": "Office Hours\nOffice Hours are regular time that course staff sets aside for you to\nget help on concepts and assignments.\nYou can come by at an point during this period and we’ll do our best\nto answer your question. Please come with your laptop and questions\nprepared ahead of time as sometimes there will be a line and it’s\nimportant we make time for everyone.\n\n\n\nWho\nWhere\nWhen\n\n\n\n\nOzan Ozbeker\nClassroom\nTuesday/Thursday 9:45 AM - 10:30 AM\n\n\n\n\n\n\n\n\n\nInstructor Note\n\n\n\nIn addition to teaching, I work full-time in industry. As a result,\nmy availability for school-related matters will primarily be on Tuesdays\nand Thursdays. While I may occasionally check my email on other days,\nplease plan to contact me during these designated times for the most\ntimely responses.\nI can meet by appointment (schedule via email) on Tuesday/Thursday\nafter 4:00 PM, sparingly. Must show proof that you could not\nattend regular office hours.",
+    "crumbs": [
+      "Course Information",
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "course-information/resources.html#readings",
+    "href": "course-information/resources.html#readings",
+    "title": "Resources",
+    "section": "Readings",
+    "text": "Readings\nMost of the materials for the course are open-source and freely\navailable online. You do not need to purchase any literature or software\nto succeed in this class.\nWhile there are no required textbooks for this course, the Learnings\nare adapted from the following books:\n\nThink Python,\n3E\nIntroduction to Operations Research, 11E by Hillier (Chapters 3, 9,\n10, & 12)\n\nWhile not directly referenced, these may aid in understanding course\nmaterial as well as in future endeavors:\n\nElements of\nData Science\nThink Stats,\n3E\nData Structures and\nInformation Retrieval in Python\nTidy\nData\nModeling and\nSimulation in Python\nAutomate The Boring\nStuff with Python\nBeyond the Basic\nStuff with Python\nThe Big Book\nof Small Python Projects",
+    "crumbs": [
+      "Course Information",
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "course-information/resources.html#software",
+    "href": "course-information/resources.html#software",
+    "title": "Resources",
+    "section": "Software",
+    "text": "Software\nRequired software, with references and documentation:\n\nGitHub Desktop\nuv\nRuff\nmarimo\n\nThese will be explained & installed in Lab\n1.",
+    "crumbs": [
+      "Course Information",
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "course-information/resources.html#ecampus-discussion-board",
+    "href": "course-information/resources.html#ecampus-discussion-board",
+    "title": "Resources",
+    "section": "eCampus Discussion Board",
+    "text": "eCampus Discussion Board\nThe discussion board is a forum that you may use to ask questions\nthat can be answered by course staff and you fellow students. Asking\ntechnical questions is an important skill and you’ll be asking your\ncolleagues and friends technical questions in your job. Best to get some\npractice now.\n\nSearch Before Asking\nBefore posting a question, check whether it has already been answered\nin a previous post. For example, suppose you are an\nIndexError; you could search just for that word to see if\nany other students have encountered that same error.\nMake sure to always check the “pinned” posts. We\nwill often “pin” a post about a particular assignment that might contain\nthe information you are looking for. Be sure to read these first.\n\n\nAsk A Question\nMake sure you’re going to ask an actual question.\nYou need to tell us about a specific issue you’re encountering, and why\nyou’re stuck on it (e.g., you are not getting the expected result, the\ntests are failing in a way you do not understand, etc.). Writing a post\nthat says “I can’t get Task 4 to work, I’ve pushed my code. Please look\nat it.” is not a question.\nIt may be helpful to write your question in the format of “I did {X},\nexpecting {Y}, but {Z} happened instead.” This can help us understand\nthe source of the error and reduce the time it takes to get you a high\nquality answer.\n\n\nPublic vs. Private\nAll questions about coursework, course logistics, etc. should be\nasked publicly (please note that you do have the option of asking the\nquestion anonymously if you prefer). If you ask such a question\nprivately, we will not answer it: we will ask you to ask it publicly,\nand will answer it once you do. This way, everyone can benefit from the\nanswer to the question and, if someone runs into the same issue you do,\nwe can refer them to the answer we provided in your post.\n\n\nThe more information, the better!\nSometimes people are brief to avoid wasting people’s time. With code,\nthe opposite is usually true — the more information you provide the more\neasily we can solve your problem.\nIn particular, it will be much easier for us to help you if we are\nable to reproduce the exact issue you are encountering (i.e., when we\nrun your code, we must be able to observe the exact same issue you’re\nencountering). And to do so, we need as much information as possible\nfrom you:\n\nIf your question relates to your code, make sure you push your code\nto GitHub before asking for help.\nInclude a detailed description of the exact chain of events that\nlead to the issue you’re encountering (Are you testing a specific\nfunction? If so, with what inputs? Etc.).\nIf you encounter an error message (or any other unexpected output)\nwhen running a command (like a Python program, Ruff, marimo, etc.) or\nwhen testing a piece of code in the interpreter, please make sure you\ninclude the full and unabridged error message (or unexpected output).\nSummarizing the message (e.g., “Python says something about a KeyError”)\nmakes it harder for us to figure out what the issue is.\nIf something is “wrong”, please describe in what way it seems wrong\nto you. For example, were you expecting a particular output but got a\ndifferent one? Is a piece of code behaving in a way you were not\nexpecting? Etc. It can be useful to tell us what you were expecting the\ncode to do, and what you encountered instead.\n\n\n\nNo Code or Screenshots\n\nNever post your code in the discussion board. As\nnoted in our Academic Integrity policies, you should never share your\ncode with other students (unless they are on your team), which means you\nshould never post it on the discussion board. If you need us to look at\nyour code, just push it to the GitHub and we will look at it there.\nPlease note that, if a test prints out a few lines of code as part of\nits output, that’s ok.\nNo screenshots or phone pictures. Do not post\nscreenshots of the output. Screenshots are not searchable, and may pose\nreadability issues for some people. Instructor/TAs may also want to\ncopy-paste that output somewhere else, which is not possible if you post\na screenshot.\n\nIf you need to share some output with us, copy-paste from the\nterminal and use the discussion board’s “code block” formatting. To copy\nsomething on the terminal, just select it (the same way you would do in\na word processor: click, and then drag until the end of the output) and\npress Control-Shift-C.\n\n\nOther Discussion Board Tips\n\nAvoid posts that have multiple unrelated\nquestions: Instead, write a separate post for each question.\nPlease note that it is ok to ask multiple questions in one post if they\nall relate to the same issue.\nWhen to use follow-ups and when to post a new\nquestion: If you need to provide additional information (say,\nbecause we pointed you to this page), please use a follow-up in the same\nthread. If, on the other hand, you have an entirely new question, please\nwrite a new post for it. That way, if others have that same question, it\nwill be easier for them to find your post (and our answer to it),\ninstead of having to dig through the followup discussions of unrelated\nposts. Do not edit the original question: it is unlikely that we will\nnotice your change.\nFound the answer yourself?: If you solved your\nproblem before we got around to helping you, please note that the issue\nis resolved. If the solution is not specific to your implementation,\nplease add a brief explanation of how you solved the problem in case\nanyone else runs into the same issue.",
+    "crumbs": [
+      "Course Information",
+      "Resources"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "GSCM 425: Supply Chain Network Design",
+    "section": "",
+    "text": "WVU Catalog: An in-depth study of how to parse\nsupply chain problems into a network design formulation and how to\ncollect appropriate data to use on these models. Students will also\nlearn how to validate, debug, and test the sensitivity of models to\nvarious input and model assumptions.\nPrerequisite Course(s): GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nTeaching Assistants: None\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about XYZ. You\ncan put more details in the email body."
+  },
+  {
+    "objectID": "index.html#course-info",
+    "href": "index.html#course-info",
+    "title": "GSCM 425: Supply Chain Network Design",
+    "section": "",
+    "text": "WVU Catalog: An in-depth study of how to parse\nsupply chain problems into a network design formulation and how to\ncollect appropriate data to use on these models. Students will also\nlearn how to validate, debug, and test the sensitivity of models to\nvarious input and model assumptions.\nPrerequisite Course(s): GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nTeaching Assistants: None\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about XYZ. You\ncan put more details in the email body."
+  },
+  {
+    "objectID": "index.html#course-description",
+    "href": "index.html#course-description",
+    "title": "GSCM 425: Supply Chain Network Design",
+    "section": "Course Description",
+    "text": "Course Description\nThis course offers a deep dive into supply chain network design,\nguiding students through the process of formulating real-world supply\nchain problems, gathering and validating data, and applying mathematical\nprogramming techniques to find optimal solutions. Students will develop\nbasic yet practical Python programming skills to use Gurobi’s optimizer\nand will also leverage Excel Solver for comparative analysis. Core\ntopics include facility location, transportation and transshipment\nmodels, multi-objective and scenario-based optimization, and sensitivity\nanalysis in the face of uncertainty. Emphasis is placed on the practical\nimplementation of these tools and the communication of results in a\nmanagerial context."
+  },
+  {
+    "objectID": "index.html#learning-objectives",
+    "href": "index.html#learning-objectives",
+    "title": "GSCM 425: Supply Chain Network Design",
+    "section": "Learning Objectives",
+    "text": "Learning Objectives\nUpon successful completion of this course, students will be able\nto:\n\nDemonstrate Fundamental Python Skills: Use Python\neffectively for data handling and basic scripting in preparation for\noptimization tasks.\nFormulate and Solve Supply Chain Network Problems:\nModel and solve facility location, transportation, and other network\ndesign challenges using both Gurobi and Excel Solver.\nEvaluate and Compare Optimization Tools: Interpret\nresults produced by different solvers, comparing solution quality, run\ntimes, and applicability in real-world supply chain scenarios.\nApply Advanced Analysis Techniques: Incorporate\nscenario analysis, multi-objective optimization, and sensitivity testing\nto account for uncertainty and trade-offs in decision making.\nCommunicate and Collaborate: Work in teams to\nanalyze data, develop optimization models, and present solution insights\nand recommendations to stakeholders."
+  },
+  {
     "objectID": "learning-modules/02-intro-to-python.html",
     "href": "learning-modules/02-intro-to-python.html",
     "title": "02 | Intro to Python",
@@ -184,342 +773,6 @@
     "crumbs": [
       "Learning Modules",
       "02 | Intro to Python"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "GSCM 425: Supply Chain Network Design",
-    "section": "",
-    "text": "WVU Catalog: An in-depth study of how to parse\nsupply chain problems into a network design formulation and how to\ncollect appropriate data to use on these models. Students will also\nlearn how to validate, debug, and test the sensitivity of models to\nvarious input and model assumptions.\nPrerequisite Course(s): GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nTeaching Assistants: None\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about XYZ. You\ncan put more details in the email body."
-  },
-  {
-    "objectID": "index.html#course-info",
-    "href": "index.html#course-info",
-    "title": "GSCM 425: Supply Chain Network Design",
-    "section": "",
-    "text": "WVU Catalog: An in-depth study of how to parse\nsupply chain problems into a network design formulation and how to\ncollect appropriate data to use on these models. Students will also\nlearn how to validate, debug, and test the sensitivity of models to\nvarious input and model assumptions.\nPrerequisite Course(s): GSCM 360 and GSCM 370 with\nminimum of C- in each\nClass Meets: Tuesday/Thursday 8:30 AM - 9:45 AM\nClass Location: Reynolds Hall | Room 5205\nInstructor: Ozan Ozbeker (ozan.ozbeker@mail.wvu.edu)\nTeaching Assistants: None\n\n\n\n\n\n\nImportant\n\n\n\nAll emails related to the course must have the following subject\nformat:\n{Course} - {Term} - {WVU ID} - {Concise Question}\nFor example:\nGSCM 425 - Spring 2025 - oo0006 - Question about XYZ. You\ncan put more details in the email body."
-  },
-  {
-    "objectID": "index.html#course-description",
-    "href": "index.html#course-description",
-    "title": "GSCM 425: Supply Chain Network Design",
-    "section": "Course Description",
-    "text": "Course Description\nThis course offers a deep dive into supply chain network design,\nguiding students through the process of formulating real-world supply\nchain problems, gathering and validating data, and applying mathematical\nprogramming techniques to find optimal solutions. Students will develop\nbasic yet practical Python programming skills to use Gurobi’s optimizer\nand will also leverage Excel Solver for comparative analysis. Core\ntopics include facility location, transportation and transshipment\nmodels, multi-objective and scenario-based optimization, and sensitivity\nanalysis in the face of uncertainty. Emphasis is placed on the practical\nimplementation of these tools and the communication of results in a\nmanagerial context."
-  },
-  {
-    "objectID": "index.html#learning-objectives",
-    "href": "index.html#learning-objectives",
-    "title": "GSCM 425: Supply Chain Network Design",
-    "section": "Learning Objectives",
-    "text": "Learning Objectives\nUpon successful completion of this course, students will be able\nto:\n\nDemonstrate Fundamental Python Skills: Use Python\neffectively for data handling and basic scripting in preparation for\noptimization tasks.\nFormulate and Solve Supply Chain Network Problems:\nModel and solve facility location, transportation, and other network\ndesign challenges using both Gurobi and Excel Solver.\nEvaluate and Compare Optimization Tools: Interpret\nresults produced by different solvers, comparing solution quality, run\ntimes, and applicability in real-world supply chain scenarios.\nApply Advanced Analysis Techniques: Incorporate\nscenario analysis, multi-objective optimization, and sensitivity testing\nto account for uncertainty and trade-offs in decision making.\nCommunicate and Collaborate: Work in teams to\nanalyze data, develop optimization models, and present solution insights\nand recommendations to stakeholders."
-  },
-  {
-    "objectID": "course-information/resources.html",
-    "href": "course-information/resources.html",
-    "title": "Resources",
-    "section": "",
-    "text": "Office Hours: Tuesday/Thursday 9:45 AM - 10:30\nAM",
-    "crumbs": [
-      "Course Information",
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "course-information/resources.html#office-hours",
-    "href": "course-information/resources.html#office-hours",
-    "title": "Resources",
-    "section": "Office Hours",
-    "text": "Office Hours\nOffice Hours are regular time that course staff sets aside for you to\nget help on concepts and assignments.\nYou can come by at an point during this period and we’ll do our best\nto answer your question. Please come with your laptop and questions\nprepared ahead of time as sometimes there will be a line and it’s\nimportant we make time for everyone.\n\n\n\nWho\nWhere\nWhen\n\n\n\n\nOzan Ozbeker\nClassroom\nTuesday/Thursday 9:45 AM - 10:30 AM\n\n\n\n\n\n\n\n\n\nInstructor Note\n\n\n\nIn addition to teaching, I work full-time in industry. As a result,\nmy availability for school-related matters will primarily be on Tuesdays\nand Thursdays. While I may occasionally check my email on other days,\nplease plan to contact me during these designated times for the most\ntimely responses.\nI can meet by appointment (schedule via email) on Tuesday/Thursday\nafter 4:00 PM, sparingly. Must show proof that you could not\nattend regular office hours.",
-    "crumbs": [
-      "Course Information",
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "course-information/resources.html#readings",
-    "href": "course-information/resources.html#readings",
-    "title": "Resources",
-    "section": "Readings",
-    "text": "Readings\nMost of the materials for the course are open-source and freely\navailable online. You do not need to purchase any literature or software\nto succeed in this class.\nWhile there are no required textbooks for this course, the Learnings\nare adapted from the following books:\n\nThink Python,\n3E\nIntroduction to Operations Research, 11E by Hillier (Chapters 3, 9,\n10, & 12)\n\nWhile not directly referenced, these may aid in understanding course\nmaterial as well as in future endeavors:\n\nElements of\nData Science\nThink Stats,\n3E\nData Structures and\nInformation Retrieval in Python\nTidy\nData\nModeling and\nSimulation in Python\nAutomate The Boring\nStuff with Python\nBeyond the Basic\nStuff with Python\nThe Big Book\nof Small Python Projects",
-    "crumbs": [
-      "Course Information",
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "course-information/resources.html#software",
-    "href": "course-information/resources.html#software",
-    "title": "Resources",
-    "section": "Software",
-    "text": "Software\nRequired software, with references and documentation:\n\nGitHub Desktop\nuv\nRuff\nmarimo\n\nThese will be explained & installed in Lab\n1.",
-    "crumbs": [
-      "Course Information",
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "course-information/resources.html#ecampus-discussion-board",
-    "href": "course-information/resources.html#ecampus-discussion-board",
-    "title": "Resources",
-    "section": "eCampus Discussion Board",
-    "text": "eCampus Discussion Board\nThe discussion board is a forum that you may use to ask questions\nthat can be answered by course staff and you fellow students. Asking\ntechnical questions is an important skill and you’ll be asking your\ncolleagues and friends technical questions in your job. Best to get some\npractice now.\n\nSearch Before Asking\nBefore posting a question, check whether it has already been answered\nin a previous post. For example, suppose you are an\nIndexError; you could search just for that word to see if\nany other students have encountered that same error.\nMake sure to always check the “pinned” posts. We\nwill often “pin” a post about a particular assignment that might contain\nthe information you are looking for. Be sure to read these first.\n\n\nAsk A Question\nMake sure you’re going to ask an actual question.\nYou need to tell us about a specific issue you’re encountering, and why\nyou’re stuck on it (e.g., you are not getting the expected result, the\ntests are failing in a way you do not understand, etc.). Writing a post\nthat says “I can’t get Task 4 to work, I’ve pushed my code. Please look\nat it.” is not a question.\nIt may be helpful to write your question in the format of “I did {X},\nexpecting {Y}, but {Z} happened instead.” This can help us understand\nthe source of the error and reduce the time it takes to get you a high\nquality answer.\n\n\nPublic vs. Private\nAll questions about coursework, course logistics, etc. should be\nasked publicly (please note that you do have the option of asking the\nquestion anonymously if you prefer). If you ask such a question\nprivately, we will not answer it: we will ask you to ask it publicly,\nand will answer it once you do. This way, everyone can benefit from the\nanswer to the question and, if someone runs into the same issue you do,\nwe can refer them to the answer we provided in your post.\n\n\nThe more information, the better!\nSometimes people are brief to avoid wasting people’s time. With code,\nthe opposite is usually true — the more information you provide the more\neasily we can solve your problem.\nIn particular, it will be much easier for us to help you if we are\nable to reproduce the exact issue you are encountering (i.e., when we\nrun your code, we must be able to observe the exact same issue you’re\nencountering). And to do so, we need as much information as possible\nfrom you:\n\nIf your question relates to your code, make sure you push your code\nto GitHub before asking for help.\nInclude a detailed description of the exact chain of events that\nlead to the issue you’re encountering (Are you testing a specific\nfunction? If so, with what inputs? Etc.).\nIf you encounter an error message (or any other unexpected output)\nwhen running a command (like a Python program, Ruff, marimo, etc.) or\nwhen testing a piece of code in the interpreter, please make sure you\ninclude the full and unabridged error message (or unexpected output).\nSummarizing the message (e.g., “Python says something about a KeyError”)\nmakes it harder for us to figure out what the issue is.\nIf something is “wrong”, please describe in what way it seems wrong\nto you. For example, were you expecting a particular output but got a\ndifferent one? Is a piece of code behaving in a way you were not\nexpecting? Etc. It can be useful to tell us what you were expecting the\ncode to do, and what you encountered instead.\n\n\n\nNo Code or Screenshots\n\nNever post your code in the discussion board. As\nnoted in our Academic Integrity policies, you should never share your\ncode with other students (unless they are on your team), which means you\nshould never post it on the discussion board. If you need us to look at\nyour code, just push it to the GitHub and we will look at it there.\nPlease note that, if a test prints out a few lines of code as part of\nits output, that’s ok.\nNo screenshots or phone pictures. Do not post\nscreenshots of the output. Screenshots are not searchable, and may pose\nreadability issues for some people. Instructor/TAs may also want to\ncopy-paste that output somewhere else, which is not possible if you post\na screenshot.\n\nIf you need to share some output with us, copy-paste from the\nterminal and use the discussion board’s “code block” formatting. To copy\nsomething on the terminal, just select it (the same way you would do in\na word processor: click, and then drag until the end of the output) and\npress Control-Shift-C.\n\n\nOther Discussion Board Tips\n\nAvoid posts that have multiple unrelated\nquestions: Instead, write a separate post for each question.\nPlease note that it is ok to ask multiple questions in one post if they\nall relate to the same issue.\nWhen to use follow-ups and when to post a new\nquestion: If you need to provide additional information (say,\nbecause we pointed you to this page), please use a follow-up in the same\nthread. If, on the other hand, you have an entirely new question, please\nwrite a new post for it. That way, if others have that same question, it\nwill be easier for them to find your post (and our answer to it),\ninstead of having to dig through the followup discussions of unrelated\nposts. Do not edit the original question: it is unlikely that we will\nnotice your change.\nFound the answer yourself?: If you solved your\nproblem before we got around to helping you, please note that the issue\nis resolved. If the solution is not specific to your implementation,\nplease add a brief explanation of how you solved the problem in case\nanyone else runs into the same issue.",
-    "crumbs": [
-      "Course Information",
-      "Resources"
-    ]
-  },
-  {
-    "objectID": "course-information/grading-and-deliverables.html",
-    "href": "course-information/grading-and-deliverables.html",
-    "title": "Grading & Deliverables",
-    "section": "",
-    "text": "If you are new to using specifications grading, here’s what you can\nexpect:\n\nFor each assignment you will be given a set of specifications.\nMeeting all/most of those will earn the highest grade. This is described\nin detail below, but aims to allow you to focus on learning and not on\nthe difference between an 89 and a 90 on an\nassignment. (It also more closely resembles how work is evaluated in\nmost workplaces.)\nWe will allow a limited amount of Resubmissions of Labs to learn from\nmistakes.\n\nLabs & Test Questions are assigned one of three marks:\n\nS (Satisfactory): Meets or exceeds all outlined\nspecifications (specs) in completeness, clarity/quality, and\nrelevance.\nN (Needs Improvement): Partially meets the specs\nbut has notable issues. Additional revision, clarity, or corrections\nneeded.\nU (Ungradable): Does not meet the basic specs;\nsignificantly incomplete or non-functional.\n\nThese will be assessed on:\n\nCompleteness\n\nTheory: Does the submission thoroughly address each\npart of the question(s)?\nCoding: Does the code accomplish\nall required tasks and functionalities?\n\nConceptual Clarity & Code Quality\n\nTheory: Are explanations accurate, logically\nstructured, and well-supported by examples or evidence?\nCoding:\n\nIs the code readable and well-styled (e.g., PEP 8)?\nAre chosen algorithms/data structures appropriate for the\nproblem?\nDoes the solution exhibit clear organization (functions, classes,\nmodules)?\n\n\n\nAn assignment’s specs will be provided with the instructions.\n\nLabs\nThere will be a Lab for each Learning Module. Multiple Labs can be\ndue in a single week if multiple Learning Modules are covered.\nThe Labs will be a mix of Theory & Coding questions designed to\ngauge students’ understanding of topics discussed in the Learning\nModule(s).\nEach Lab will receive one S/N/U mark.\n\n\nTest Questions\nThere will be two tests, aligned with major textbooks/readings:\n\nTest 1: Python Foundations\nTest 2: Supply Chain Network Design\n\nThe test format will be Take Home with a single\nsubmission by team.\nTests will consist of a mix of 3 problem sets:\n\nTheory problems which will be short answer and\nopen-ended.\nCoding problems which will comprise of analysis,\ncoding solutions, & interpretation of results.\n\nEach problem will receive its own S/N/U mark based\non completeness and clarity.\n\n\nFinal Project\n\nComprehensive group project applying the full range\nof skills from the course.\n\nStudents will work in teams on unique supply chain problems. Each\nteam will:\n\nSolve a network design problem using Excel Solver and\nPython/Gurobi.\nWrite a comparative report discussing the tools’ pros and cons.\nPresent their findings to the class.\n\nProject Grade P will be used in the\nfinal letter grade matrix.\n\n\nFinal Grade Calculation\nYour final grade will be determined by your 16 SNU\ngrades (Labs: 10, Test 1: 3, Test 2: 3) and your final project\nscore:\n\nS: The total number of Satisfactory marks\nyou received.\nU: The maximum number of Ungradable marks\nyou received.\nP: Your exam grade, P, which will be\nbetween 0-100.\n\nBelow is the table for your Final Grade\ncalculation.\n\n\n\n\n\n\n\n\n\n\n\nS &gt;=\nU &lt;=\n50 &lt;= P &lt; 70\n70 &lt;= P &lt; 80\n80 &lt;= P &lt; 90\nP &gt;= 90\n\n\n\n\n14\n0\nB\nB\nA\nA\n\n\n12\n2\nB\nB\nB\nA\n\n\n10\n3\nC\nB\nB\nB\n\n\n9\n4\nC\nC\nB\nB\n\n\n8\n5\nC\nC\nC\nB\n\n\n7\n6\nD\nC\nC\nC\n\n\n\nExamples:\n\nIf you have 14 S, 3 N, 0\nU: then you are in the top row. An 80 on the final\nproject will earn you an A.\nIf you miss two labs and earn 2 U, but have at\nleast 12 S: you are in the second row. An 80 on the\nfinal project would earn you an B overall.\n\nAnything lower than what is represented in the chart will need to be\naddressed on a case-by-case basis.\n\n\n\n\n\n\nNote\n\n\n\nRemember: “C” is a passing grade for GSCM courses.\n\n\n\n\nMidterm Grade Calculation\nThe midterm grade uses a similar approach but only\nincludes:\n\nLabs 1 through 5 (one S/N/U mark per Lab).\nTest 1 (one S/N/U mark per Test Problem).\nThis table assumes a final project grade of P &gt;=\n90 for the sake of calculating a provisional grade. This\nassumption simply provides a midpoint reference for where students\nstand.\n\nBelow is the table for your Midterm Grade\ncalculation.\n\n\n\nS &gt;=\nU &lt;=\nMidterm\n\n\n\n\n8\n2\nA\n\n\n6\n4\nB\n\n\n4\n6\nC\n\n\n2\n8\nD\n\n\n0\n10\nF\n\n\n\n\n\nResubmissions\nI will allow 5 Lab revisions to change a\nNeeds Improvement mark to a\nSatisfactory mark.\nOnce a Lab is graded and returned to you, there will be a one\nweek window for you to resubmit that Lab. This means that, if\nyou produce work that needs some improvement, you will have a chance to\naddress the grader’s feedback to improve your score on that Lab.\nThere will be no revisions for Quizzes or Test Questions.\n\n\n\n\n\n\nNote\n\n\n\nResubmissions should be submitted via email to the instructor with\n“Lab # Resubmission” as the\n{Concise Question}.\n\n\n\n\nLate Submissions\nLate submissions will not be accepted in this class, except under\nextraordinary circumstances. Please bear in mind that the grading scheme\nwill be set up to absorb a reasonable amount of sub-par work, and also\nallows you to resubmit at most one programming homework (no tests or\nfinal project).\nThat said, to be clear: if you encounter some sort of\nemergency (medical, family, etc.) please reach out to your instructor as\nsoon as you are able to do so. I am more than happy to find\nways to provide additional flexibility in these situations. Ideally, you\nshould notify me of these circumstances before the work is due so we can\ndiscuss options with you.\nIn other words, the late submission policy applies to\nordinary circumstances: if you are having a busy week, you have\nan event that overlaps with a deadline, etc., then the grading scheme\nwill have some built-in flexibility for this. Instead of trying to argue\nfor a few extra days to work on a homework, you should just submit the\nwork you have completed by the deadline, so you can get feedback on that\nwork and use that feedback to improve your work in future assignments,\nor even to resubmit the homework as described above.\n\n\nGrading Disputes\nExcept in very specific cases (described below), you cannot dispute\nthe score assigned to you on a piece of work. There is one exception to\nthis: if a grader made an factual mistake in your grading. Please note\nthat this only includes cases where a grader makes an erroneous\nstatement about your code in their feedback. It does not include cases\nwhere you simply disagree with whether something deserves to be flagged\nas incorrect.\nFor example, suppose you receive a piece of feedback that says\n“Incorrect: Function X did not check that parameter Y is greater than\nzero”. If function X in your code did perform this check, and the grader\nmissed this fact (and erroneously gave you that feedback), you can ask\nus to review this decision. Please note that, even if the feedback is\namended, it may not affect your actual SNU score.\nWe ask that you keep these requests brief and to the point: no more\nthan a few sentences identifying the exact statement that the grader\nmade and the reasons you believe the statement was mistaken, including\nreferences to specific parts of your code (e.g., “I did check the value\nof the parameter in line 107”). Focus on laying out the facts, and\nnothing else.\nFinally, it is also your responsibility to make these requests in a\ntimely manner. Requests to review grading mistakes must be submitted no\nlater than one week after a graded piece of work is\nreturned to you. After that time, we will not consider any such\nrequests, regardless of whether the request is reasonable and\njustified.\n\n\n\n\n\n\nNote\n\n\n\nDisputes should be submitted via email to the instructor with\n“Lab # | Test # Grading Dispute” as the\n{Concise Question}.\n\n\n\n\nAcademic Integrity Violation\nThe minimum penalty for an Academic\nIntegrity violation is a U for all grades on\nthe assignment in question and a drop in a letter grade for each\nviolation.\n\n\nCurving\nIn lieu of traditional curving, I reserve the right to lower the\nthresholds for each grade. I will not raise the thresholds. (So if you\nearn an B according to the above chart, you will get an B or\nbetter.)\n\n\n\n\n Back to topReuseCC BY-NC-ND 4.0",
-    "crumbs": [
-      "Course Information",
-      "Grading & Deliverables"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html",
-    "href": "course-information/policies.html",
-    "title": "Policies",
-    "section": "",
-    "text": "The integrity of the classes offered by any academic institution\nsolidifies the foundation of its mission and cannot be sacrificed to\nexpediency, ignorance, or blatant fraud. Therefore, instructors will\nenforce rigorous standards of academic integrity in all aspects and\nassignments of their courses. For the detailed policy of West Virginia\nUniversity regarding the definitions of acts considered to fall under\nacademic dishonesty and possible ensuing sanctions, please see the West\nVirginia University Academic\nStandards Policy. Should you have any questions about possibly\nimproper research citations or references, or any other activity that\nmay be interpreted as an attempt at academic dishonesty, please see your\ninstructor before the assignment is due to discuss the matter.\n\nIt is common to have questions about what amount of collaboration and\nreliance on tools is acceptable, simply put: In this course, you\nare expected to primarily turn in code you wrote.\nCode written by a peer, TA, stranger on the internet, or LLM\nis not code you wrote. While you may use code written\nby others within reason, you must give proper credit, and it will not be\nconsidered your own work for evaluation purposes.\n\n\n\n\n\n\nWarning\n\n\n\nPlease also see Artificial\nIntelligence (AI) for specifics of how this policy relates to\nthe use of AI tools in this course.\n\n\nWhile outside of the classroom programming is often a very\ncollaborative process, you should be working on coming up with your own\nsolutions to problems, to ensure you are learning what you came here to\nlearn. You may generally use outside resources, talk to peers, etc. so\nlong as the significant majority of your code is your own work and all\nsources are properly credited. Furthermore, if you use code from the\ninternet, you are expected to understand and adhere to the license of\nthat code. Failure to do so may result in a significant penalty to a\ngrade. Finally, if you have any questions regarding what would or would\nnot be considered academic dishonesty in this course, please don’t\nhesitate to ask me.",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#academic-integrity",
-    "href": "course-information/policies.html#academic-integrity",
-    "title": "Policies",
-    "section": "",
-    "text": "The integrity of the classes offered by any academic institution\nsolidifies the foundation of its mission and cannot be sacrificed to\nexpediency, ignorance, or blatant fraud. Therefore, instructors will\nenforce rigorous standards of academic integrity in all aspects and\nassignments of their courses. For the detailed policy of West Virginia\nUniversity regarding the definitions of acts considered to fall under\nacademic dishonesty and possible ensuing sanctions, please see the West\nVirginia University Academic\nStandards Policy. Should you have any questions about possibly\nimproper research citations or references, or any other activity that\nmay be interpreted as an attempt at academic dishonesty, please see your\ninstructor before the assignment is due to discuss the matter.\n\nIt is common to have questions about what amount of collaboration and\nreliance on tools is acceptable, simply put: In this course, you\nare expected to primarily turn in code you wrote.\nCode written by a peer, TA, stranger on the internet, or LLM\nis not code you wrote. While you may use code written\nby others within reason, you must give proper credit, and it will not be\nconsidered your own work for evaluation purposes.\n\n\n\n\n\n\nWarning\n\n\n\nPlease also see Artificial\nIntelligence (AI) for specifics of how this policy relates to\nthe use of AI tools in this course.\n\n\nWhile outside of the classroom programming is often a very\ncollaborative process, you should be working on coming up with your own\nsolutions to problems, to ensure you are learning what you came here to\nlearn. You may generally use outside resources, talk to peers, etc. so\nlong as the significant majority of your code is your own work and all\nsources are properly credited. Furthermore, if you use code from the\ninternet, you are expected to understand and adhere to the license of\nthat code. Failure to do so may result in a significant penalty to a\ngrade. Finally, if you have any questions regarding what would or would\nnot be considered academic dishonesty in this course, please don’t\nhesitate to ask me.",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#adverse-weather",
-    "href": "course-information/policies.html#adverse-weather",
-    "title": "Policies",
-    "section": "Adverse Weather",
-    "text": "Adverse Weather\nIn the event of inclement or threatening weather, everyone should use\nhis or her best judgment regarding travel to and from campus. Safety\nshould be the main concern. If you cannot get to class because of\nadverse weather conditions, you should contact your instructor as soon\nas possible. Similarly, if your instructor(s) are unable to reach the\nclass location, they will notify you of any cancellation or change as\nsoon as possible, using agreed upon methods to prevent students from\nembarking on any unnecessary travel. If you cannot get to class because\nof weather conditions, instructors will make allowances relative to\nrequired attendance policies, as well as any scheduled tests, quizzes,\nor other assessments. [adopted 9-8-2014]",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#appropriate-use-of-technology",
-    "href": "course-information/policies.html#appropriate-use-of-technology",
-    "title": "Policies",
-    "section": "Appropriate Use of Technology",
-    "text": "Appropriate Use of Technology\nUse of technology in the classroom should always be directly related\nto class activities and/or course learning outcomes. Inappropriate\ntechnology use can be an impediment to learning and a distraction to all\nmembers of the class. As such, inappropriate use of technology in the\nclassroom may be considered a disruption of the class and constitute a\nviolation of the WVU\nStudent Conduct Code and could potentially result in a referral to\nthe Office of Student Rights and Responsibilities. Use of technology in\nthe classroom when specifically prohibited by the instructor may also\nconstitute a violation of WVU’s Academic\nIntegrity policy.",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#artificial-intelligence",
-    "href": "course-information/policies.html#artificial-intelligence",
-    "title": "Policies",
-    "section": "Artificial Intelligence",
-    "text": "Artificial Intelligence\nArtificial intelligence (AI) tools that can create and develop\nacademic content are not allowed unless permission is given by an\ninstructor. Students must receive instructor permission prior to\nutilizing AI tools. Unauthorized use of AI tools may result in academic\ndishonesty charges.\nIn this course, we will be developing foundational skills and\nknowledge that are very important to discover and practice on your own.\nAt this stage of learning, it is far too easy to overuse these tools and\nnot gain the skills and understanding you came here for. Only as the\nproblems you aim to solve grow in complexity will the extent to which\nthe gaps in your understanding start to become a problem.\nAs a result, and to help avoid potential academic honesty issues\n— the use of AI tools, such as ChatGPT or CoPilot, to write code\nsubmitted for this course is not allowed.\nAs stated in the Academic\nIntegrity policy, the code you turn in should be your own\ncreation, not code that AI originated or in any way modified.\n\n\n\n\n\n\nImportant\n\n\n\nUsing AI tools to generate code for assignments in this course will\nviolate WVU’s\nAcademic Integrity policy.\n\n\nIn general, this means pasting your code into an AI tool or copying\nany code from it should be avoided.\n\nWhat you may do with AI tools:\n\nUse these tools to ask questions unrelated to the assignment. While\nI only have time in class to provide 1-2 examples on a topic, you may\nfind it useful to explore additional ones by asking AI for them. This\ntends to work quite well and avoids any academic honestly issues.\nAsk AI to explain an error message to you. Instead of pasting in\nyour code and saying “fix this”, instead pasting just the error message\nand asking the AI how to diagnose the problem. If in doubt, ask me\nbefore using any tools if you are unsure about this policy.",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#attendance-participation",
-    "href": "course-information/policies.html#attendance-participation",
-    "title": "Policies",
-    "section": "Attendance & Participation",
-    "text": "Attendance & Participation\nAttendance is not required; however, in-class benefits\ninclude live guidance, interactive practice, and exercises reviewed only\nin class. Students who prefer or need additional help will find regular\nattendance invaluable.\nThe WVU Catalog contains the full Attendance\nPolicy.",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#inclusivity-statement",
-    "href": "course-information/policies.html#inclusivity-statement",
-    "title": "Policies",
-    "section": "Inclusivity Statement",
-    "text": "Inclusivity Statement\nThe West Virginia University community is committed to creating and\nfostering a positive learning and working environment based on open\ncommunication, mutual respect, and inclusion.\nIf you are a person with a disability and anticipate needing any type\nof accommodation in order to participate in your classes, please advise\nyour instructors and make appropriate arrangements with the Office of Student Accommodations.\nMore information is available at the Division of Diversity, Equity, and\nInclusion website as well. [adopted 2-11-2013]",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#incomplete-policy",
-    "href": "course-information/policies.html#incomplete-policy",
-    "title": "Policies",
-    "section": "Incomplete Policy",
-    "text": "Incomplete Policy\nThe WVU Catalog contains the full Incomplete\nPolicy.",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#sale-of-course-material-statement",
-    "href": "course-information/policies.html#sale-of-course-material-statement",
-    "title": "Policies",
-    "section": "Sale of Course Material Statement",
-    "text": "Sale of Course Material Statement\nAll course materials, including lectures, class notes, quizzes,\nexams, handouts, presentations, and other course materials provided to\nstudents for their courses are protected intellectual property. As such,\nthe unauthorized purchase or sale of these materials may result in\ndisciplinary sanctions under the Student\nConduct Code. [adopted 5-11-2015]",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#sexual-misconduct-statement",
-    "href": "course-information/policies.html#sexual-misconduct-statement",
-    "title": "Policies",
-    "section": "Sexual Misconduct Statement",
-    "text": "Sexual Misconduct Statement\nWest Virginia University does not tolerate sexual misconduct,\nincluding harassment, stalking, sexual assault, sexual exploitation, or\nrelationship violence: BOG\nRule 1.6. It is important for you to know that there are resources\navailable if you or someone you know needs assistance. You may speak to\na member of university administration, faculty, or staff; keep in mind\nthat they have an obligation to report the incident to the Title\nIX Coordinator.\nIf you want to speak to someone who is permitted to keep your\ndisclosure confidential, please seek assistance from the Carruth Center,\n304-293-9355 or 304-293-4431 (24-hour\nhotline), and locally within the community at the Rape and Domestic Violence Information\nCenter (RDVIC), 304-292-5100 or\n304-292-4431 (24-hour hotline).\nFor more information, please consult WVU’s Title IX\nOffice.",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/policies.html#student-evaluation-of-instruction-statement",
-    "href": "course-information/policies.html#student-evaluation-of-instruction-statement",
-    "title": "Policies",
-    "section": "Student Evaluation of Instruction Statement",
-    "text": "Student Evaluation of Instruction Statement\nEffective teaching is a primary mission of West Virginia University.\nStudent evaluation of instruction provides the university and the\ninstructor with feedback about your experiences in the course for review\nand course improvement. Your participation in the evaluation of course\ninstruction is both strongly encouraged and highly valued. Results are\nstrictly confidential, anonymous, and not available to the instructor\nuntil after final grades are released by Admissions and Records.\nInformation about how you can complete this evaluation will provided by\nyour instructor. [adopted 4-14-2008]",
-    "crumbs": [
-      "Course Information",
-      "Policies"
-    ]
-  },
-  {
-    "objectID": "course-information/schedule.html",
-    "href": "course-information/schedule.html",
-    "title": "Schedule",
-    "section": "",
-    "text": "Course weeks with modules follow a consistent cycle:",
-    "crumbs": [
-      "Course Information",
-      "Schedule"
-    ]
-  },
-  {
-    "objectID": "course-information/schedule.html#calendar",
-    "href": "course-information/schedule.html#calendar",
-    "title": "Schedule",
-    "section": "Calendar",
-    "text": "Calendar\n\nIndividual Learning Modules are in bold.\nLabs: due on Wednesday at 11:59 PM of the following\nweek.\n\nExample - Week 5:\n\nTuesday (2025-02-11), we will go over the exercises from\nData Structures & Control Flow.\nThursday (2025-02-13), you will work on Lab 4 in\nclass.\nWednesday (2025-02-19), Lab 4 is due.\n\n\nTests: due on Wednesday at 11:59 PM of the test\nweek.\n\nExample - Test 1:\n\nTuesday (2025-02-25): No new lecture material for this week, give\ntime to ask questions for test.\nWednesday (2025-02-26): Test is due at 11:59 PM.\nThursday (2025-02-27): We will go through the test problems in\nclass.\n\n\nFinal Project: due at 11:59 PM on Monday, April\n28th, 2025.\n\nSchedule subject to change, changes will be announced in class\nand on eCampus.\n\n\n\n\n\n\n\n\n\n\nWeek\nStart\nLearning Module(s)\nCourse Deliverable(s) Due\n\n\n\n\n1\n2025-01-13\nCourse Intro\n\n\n\n2\n2025-01-20\nSetting Up Your Workstation\n\n\n\n3\n2025-01-27\nPython Basics\nLab 1\n\n\n4\n2025-02-03\nData Structures & Control Flow\nLab 2\n\n\n5\n2025-02-10\nFunctions & Basic I/O\nLab 3\n\n\n6\n2025-02-17\nIntro to Gurobi & Simple Optimization\nLab 4\n\n\n7\n2025-02-24\nTest 1 (on Weeks 3-6) Prep & Review\nLab 5, Test 1\n\n\n8\n2025-03-03\nIntro to Supply Chain Network Design\n\n\n\n9\n2025-03-10\nFacility Location Models\nLab 6\n\n\n10\n2025-03-17\nTransportation & Transshipment\nLab 7\n\n\n11\n2025-03-24\nSpring Recess (No Class / No Work)\nLab 8\n\n\n12\n2025-03-31\nNetwork Design with Uncertainty\n\n\n\n13\n2025-04-07\nMulti-Objective Optimization & Sensitivity\nLab 9\n\n\n14\n2025-04-14\nTest 2 (on Weeks 8-14) Prep & Review\nLab 10, Test 2\n\n\n15\n2025-04-21\nOpen Lab Week, Work on Final Project\n\n\n\n16\n2025-04-28\nPresentations\nFinal Project\n\n\n17\n2025-05-05\nFinals Week (No Final Exam)",
-    "crumbs": [
-      "Course Information",
-      "Schedule"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html",
-    "href": "learning-modules/01-setting-up-your-workstation.html",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "",
-    "text": "In this course, we will spend time learning three critical tools for\noptimization:\n\nThe Command Line\nPython / Gurobi Solver\nExcel Solver (which you should have some experience\nwith by now)\n\nPython is usually ranked as the\nfirst or second most popular programming language in the world and, just\nas importantly, it’s also one of the easiest to learn. It’s a general\npurpose language, which means it can perform a wide range of tasks. The\njoke goes that Python is the 2nd best language at everything, and\nthere’s some truth to that (although Python is 1st at some tasks, like\nmachine learning).\nInstead of re-writing the great documentation offered by the\nproducts, I will provide you with links to the sections that are most\nimportant, as well as some extra resources that you might find\nhelpful.\nIn the realm of software, documentation is your friend, you will not\nalways have a teacher to tell you exactly what to do, so learning to go\nthrough documentation is an important skill of itself. Do not skim\nthrough the instructions provided. If there are any non-default options\nneeded, I will mention them.\n\n\n\n\n\n\nWarning\n\n\n\nThis is going to be by far the most tedious of the lectures in this\ncourse. Setting up your computer and environment is a pain but it must\nbe done. This module will comprise of a lot of reading and not a whole\nlot of doing, but it’s essential you understand the basics of these\ntools to be successful in class. The following modules will be much more\nhands on and interactive.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#overview",
-    "href": "learning-modules/01-setting-up-your-workstation.html#overview",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "",
-    "text": "In this course, we will spend time learning three critical tools for\noptimization:\n\nThe Command Line\nPython / Gurobi Solver\nExcel Solver (which you should have some experience\nwith by now)\n\nPython is usually ranked as the\nfirst or second most popular programming language in the world and, just\nas importantly, it’s also one of the easiest to learn. It’s a general\npurpose language, which means it can perform a wide range of tasks. The\njoke goes that Python is the 2nd best language at everything, and\nthere’s some truth to that (although Python is 1st at some tasks, like\nmachine learning).\nInstead of re-writing the great documentation offered by the\nproducts, I will provide you with links to the sections that are most\nimportant, as well as some extra resources that you might find\nhelpful.\nIn the realm of software, documentation is your friend, you will not\nalways have a teacher to tell you exactly what to do, so learning to go\nthrough documentation is an important skill of itself. Do not skim\nthrough the instructions provided. If there are any non-default options\nneeded, I will mention them.\n\n\n\n\n\n\nWarning\n\n\n\nThis is going to be by far the most tedious of the lectures in this\ncourse. Setting up your computer and environment is a pain but it must\nbe done. This module will comprise of a lot of reading and not a whole\nlot of doing, but it’s essential you understand the basics of these\ntools to be successful in class. The following modules will be much more\nhands on and interactive.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#your-computer-and-the-command-line",
-    "href": "learning-modules/01-setting-up-your-workstation.html#your-computer-and-the-command-line",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "2 Your\ncomputer and the command line",
-    "text": "2 Your\ncomputer and the command line\nBefore we install these tools, we need to get comfortable using the\ncommand line. But what exactly is it? Let me explain.\nWhen people refer to the command line, you might hear terms like\nterminal, console, CLI\n(command-line interface), and shell used\ninterchangeably. While they’re related, they’re not exactly the same\nthing. For this course, you don’t need to fully understand every nuance,\nbut having a general sense of these terms will help clear up\nconfusion.\n\n2.1\nConsole\nA console historically refers to the physical device used to interact\nwith a computer. In modern terms, it includes the combination of your\ncomputer’s screen, keyboard, and mouse.\n\n\n\nIn the past, consoles were often standalone machines with\nbuilt-in screens and keyboards. Today, the term is used less often, but\nit’s good to understand its origins.\n\n\n\n\n2.2\nTerminal\nA terminal is a program that allows\nyou to enter commands into your computer. Think of it as the “window” or\n“app” where you type the instructions that your computer processes.\nFor example:\n\nOn Windows, the terminal is called Windows\nTerminal.\nOn Mac, it’s simply called Terminal.\n\nThe terminal is just like any other program on your computer, such as\nWord or Excel. You can even replace the default terminal with other\noptions or use terminals built into tools like Visual Studio Code\n(foreshadowing??). While it may seem intimidating, it’s just a\ntool for interacting with your computer through text commands.\n\n\n2.3\nCommand line or Command-Line Interface (CLI)\nThe command-line interface (CLI) is the actual\ninterface where you type commands for your computer to\nprocess. It’s a way of interacting with your operating system using\ntext, rather than clicking with a mouse (which is how you use a GUI, or\ngraphical user interface).\nThe CLI exists inside the terminal, and you can think of it as the\nengine running underneath. For simplicity, you can treat the terms\nterminal and CLI as interchangeable in this course.\n\n\n2.4\nShell\nA shell is a program that acts as\nthe interpreter for the commands you enter into the CLI. It takes what\nyou type, processes it, and returns the results.\nYour computer’s shell comes pre-installed:\n\nLinux: Bash (Bourne\nAgain Shell)\nMac: Zsh (Z Shell)\nWindows: PowerShell\n(successor to Command Prompt)\n\nA shell also allows you to create scripts, which are\nfiles containing sets of commands to automate tasks. While scripting is\nsimilar to programming in languages like Python or R, it’s not the focus\nof this course. For now, we’ll stick to typing individual commands.\n\n\n2.5 Web\nSearching as an Analogy\nLet’s connect what we’ve learned so far with an example of searching\nthe web:\n\nTerminal: the terminal is like your web\nbrowser (Chrome, Edge, or Safari). It’s the environment or\n“window” where everything happens.\nCLI: The CLI is like the search\nbar inside your browser (or the one on the mage page of Google\nor Bing). It’s where you type in your commands (or search queries) for\nthe system to process.\nShell: The Shell is the search engine\nitself (Google Search or Bing Search). It takes the query you\nentered, processes it, and returns the results.\n\n\n\n2.6 Why\nare we using the CLI?\nSimply put, many tools in the realm of data analytics, data science,\nand data engineering are designed with the command line in mind first.\nGraphical user interfaces (GUIs) may follow, but the command line often\nremains the most powerful and flexible way to interact with these tools.\nIn this class, we need a basic understanding of the CLI to install and\nset up essential tools and occasionally run scripts.\n\n\n\n\n\n\nTip\n\n\n\nDon’t be intimidated by the command line! While you may be more\nfamiliar with tools or apps that have a visual interface, the command\nline provides a powerful way to control your computer. If it’s any\nsolace, after this initial setup assignment, we will use the command\nline sparingly. It’s just essential for getting started.\n\n\n\n\n2.7\nUnderstanding working directories\nWhen you use the command line, the concept of a working directory is\ncrucial. The working directory is the folder where your commands operate\nby default. It’s like being inside the room in a building, you can only\ninteract with the items inside that room unless you explicitly move to a\ndifferent room.\nFor example, if you see this prompt on the command line:\n\n\nCLI\n\nC:\\Users\\oo0006\\Desktop&gt;\n\nIt means the current working directory is the Desktop\nfolder inside the user directory of the user oo0006. If you\ntype a command like dir (to list the files in the working\ndirectory), it will show the contents of the Desktop\nfolder.\n\n2.7.1\nCommon symbols and their meaning\n\n\\ (Backslash): Used in Windows paths to separate\nfolders (e.g., C:\\Users\\oo0006\\Desktop).\n/ (Forward Slash): Used in Unix-like systems (Linux,\nmacOS) for the same purpose (e.g.,\n/home/user/Desktop).\n$: In many tutorials, this symbol represents the\nstart of a command in the command line. It’s a convention to indicate\nyou should enter a command into the terminal. For instance,\nfollowing code cell means you should type ls into the\nterminal and press Enter.:\n\n\n\nCLI\n\n$ ls\n\n\n\n\n\n\n\nTip\n\n\n\nThis is the convention I will be following in my material.\n\n\n\n&gt;: In Windows, this symbol is part of the prompt and\nindicates the terminal is ready for your input.\n\n\n\n2.7.2\nChanging directories\nTo navigate the file system in the command line, you use the\ncd (change directory) command:\n\nTo move to a specific folder (if you’re in\nC:\\Users\\oo0006\\, this will take you to\nC:\\Users\\oo0006\\Documents):\n\n\n\nCLI\n\n$ cd Documents\n\n\nTo go up one level (if you’re in\nC:\\Users\\oo0006\\Documents, this will take you back to\nC:\\Users\\oo0006\\):\n\n\n\nCLI\n\n$ cd ..\n\n\nTo move directly to another folder:\n\n\n\nCLI\n\n$ cd C:\\Program Files\n\nThis takes you straight to C:\\Program Files, no matter\nwhere you were previously.\n\n\n\n2.8 Key\ntakeaways\n\nThe command line is a powerful tool, don’t let its simplicity fool\nyou.\nThe working directory determines where commands will execute by\ndefault.\nUnderstanding the prompt and basic navigation commands like\ncd can make the command line much less intimidating.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#git-github-github-desktop",
-    "href": "learning-modules/01-setting-up-your-workstation.html#git-github-github-desktop",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "3 Git,\nGitHub, & GitHub Desktop",
-    "text": "3 Git,\nGitHub, & GitHub Desktop\nGit\nis a version control system that intelligently tracks changes in files.\nGit is particularly useful when you and a group of people are all making\nchanges to the same files at the same time.\nTypically, to do this in a Git-based workflow, you would:\n\nCreate a branch off from the main copy of files\nthat you (and your collaborators) are working on.\nMake edits to the files independently and safely on\nyour own personal branch.\nLet Git intelligently merge your specific changes\nback into the main copy of files, so that your changes don’t impact\nother people’s updates.\nLet Git keep track of your and other people’s\nchanges, so you all stay working on the most up-to-date version of the\nproject.\n\nGitHub is a cloud-based platform\nwhere you can store, share, and work together with others to write code.\nYou can think of Git as the engine that GitHub runs on.\nStoring your code in a “repository” on GitHub allows you to:\n\nShowcase or share your work.\nTrack and manage changes to your code over time.\nLet others review your code, and make suggestions to improve\nit.\nCollaborate on a shared project, without worrying that your changes\nwill impact the work of your collaborators before you’re ready to\nintegrate them.\n\nWhen you upload files to GitHub, you’ll store them in a “Git\nrepository.” This means that when you make changes (or “commits”) to\nyour files in GitHub, Git will automatically start to track and manage\nyour changes.\nThere are plenty of Git-related actions that you can complete on\nGitHub directly in your browser, such as creating a Git repository,\ncreating branches, and uploading and editing files. But, most people\nwork on their files locally (on their own computer), then continually\nsync these local changes—and all the related Git data—with the central\n“remote” repository on GitHub. This is how we will interact with GitHub\nin this course, with the help of GitHub Desktop.\n\n\n\nGitHub Desktop Interface\n\n\nOnce you start to collaborate with others and all need to work on the\nsame repository at the same time, you’ll continually:\n\nPull all the latest changes made by your\ncollaborators from the remote repository on GitHub.\nPush back your own changes to the same remote\nrepository on GitHub.\n\nGit figures out how to intelligently merge this flow of changes, and\nGitHub helps you manage the flow through features such as “pull\nrequests.”\n\n\n\n\n\n\nNote\n\n\n\nWe will be sticking to GitHub’s tools for using Git, so you do not\nneed to install Git separately for this course. In the future, you may\nwant to spend some time understanding Git on its own, but for this\ncourse and most companies, understanding GitHub’s (below) workflows is\nmore important.\n\n\n\n3.1\nSetup GitHub\nFollow the guides in the order they are presented. Again, I recommend\nreading through the whole set of Get Started articles,\nbut these are the essentials for this course.\n\nCreating\nan account on GitHub\n\nUse your Mix account for the email. Your username doesn’t matter; I\nused Ozan Ozbeker - WVU. In this course, we will be using\nprivate repositories, but I recommend creating a personal account to add\nprojects for your resume. The final project of this class could be a\ngood start.\n\nHello\nWorld\n\nThis is the critical GitHub workflow, make sure you understand\nit.\n\nSetting\nup your profile\n\nThis will introduce you to using Markdown, which will be essential\nlater in this course and for formatting your READMEs.\n\n\n\n\n\n\n\n\nNote\n\n\n\nGitHub also provides hands-on exercises for many of their articles at\nGitHub Skills for free. I won’t\nrequire you to do any of these as I’m not sure how long they take, but\nthese ones may be of benefit: Introduction to\nGitHub, Communicate\nusing Markdown, Review pull\nrequests, & Resolve merge\nconflicts.\n\n\n\n\n3.2\nSetup GitHub Desktop\nGitHub Desktop is a free, open source application that helps you to\nwork with code hosted on GitHub or other Git hosting services. With\nGitHub Desktop, you can perform Git commands, such as committing and\npushing changes, in a graphical user interface, rather than using the\ncommand line.\nA typical workflow is:\n\nUse GitHub Desktop to download a GitHub repository to your computer\nand create a new branch.\nUse an editor such as Visual Studio Code to make changes to the\ncode.\nReturn to GitHub Desktop to commit and push the changes to\nGitHub.\n\nAgain, follow the guides in the order they are presented. Again x 2,\nI recommend reading through the whole set of Get\nStarted articles, but these are the essentials for this course.\n\nParts 1 & 2 of Getting\nstarted with GitHub Desktop\n\nThis guide, and all the following, will have specific steps for Mac\n& Windows.\n\nParts 2-5 of Creating\nyour first repository using GitHub Desktop\n\nThis will be similar to some parts of the GitHub (website) guides\nabove, that’s on purpose.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#uv",
-    "href": "learning-modules/01-setting-up-your-workstation.html#uv",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "4 uv",
-    "text": "4 uv\nSo far, we’ve only installed VS Code & GitHub Desktop, which are\ntools we need for this course, but they are not specific to Python. Now\nwe will focus on installing Python as well as a few other tools that\nwill make our coding lives easier.\nuv is an extremely fast\nPython package and project manager. It is how we will manage our project\ndependencies, including Python itself.\n\n\n\n\n\n\nNote\n\n\n\nFrom this point, all of the installation will be done via the command\nline.\n\n\n\n4.1\nInstallation\nYou can install uv using PowerShell on Windows:\n\n\nCLI\n\n$ powershell -ExecutionPolicy ByPass -c \"irm https://astral.sh/uv/install.ps1 | iex\"\n\nAnd curl on macOS:\n\n\nCLI\n\n$ curl -LsSf https://astral.sh/uv/install.sh | sh\n\n\n\n\n\n\n\nImportant\n\n\n\nAt this point, you need to restart your shell, which means close your\nterminal and open it again.\n\n\nNow, we check to see that uv is available by running the\nuv command:\n\n\nCLI\n\n$ uv --version\n\n\n\noutput\n\nuv 0.5.20 (1c17662b3 2025-01-15)\n\nWith that confirmation, we will now install Python to be used across\nthe system:\n\n\nCLI\n\n$ uv python install 3.12\n\nThen you can use uv python list to verify the\ninstallation went through:\n\n\nCLI\n\n$ uv python list\n\nYou will see list of the available versions of Python uv can download\nas well as where Python 3.12 was installed.\n\n\n4.2\nUsing uv\nTo fully appreciate the benefits of uv and why we are using it, it’s\nessential to understand Python environments, virtual environments, and\nhow uv simplifies these concepts through its Projects\ninterface.\nuv provides two ways to handle dependencies (a dependency is any\nextra package your project needs that doesn’t come with Python by\ndefault). The preferred approach is the uv project\ninterface, which includes commands like uv init,\nuv add, uv lock, and more. While uv also\nincludes an implementation of pip, we will not be using it\nin this course.\n\n\n\n\n\n\nTip\n\n\n\nUsing uv projects has fewer commands and guides you toward best\npractices, much like how GitHub Desktop simplifies workflows compared to\nthe full Git CLI tools.\n\n\nWhen we installed Python 3.12 earlier using\nuv python install 3.12, we were not in a project. As a\nresult, Python was installed into uv’s default environment. On most\nWindows systems, this environment is located at\nAppData/Roaming/uv/python/cpython-3.12.8-windows-x86_64-none/python.exe.\nHowever, you don’t need to worry about its location—uv manages it for\nyou.\nTo add dependencies to a project using uv, we use the command\nuv add [package]. Let’s try downloading Polars, a library we’ll use in the second\nhalf of this course:\n\n\nCLI\n\n$ uv add polars\n\n\n\noutput\n\nerror: No `pyproject.toml` found in current directory or any parent directory\n\nWe encountered an error! This happened because we’re not in a\nproject. This is one of the many guardrails uv provides when using its\nproject interface. If we had used uv pip install polars, we\ncould have installed the package into the default (global) environment.\nHowever, since this is considered bad practice, uv actively discourages\nit.\nInstead, uv projects leverage virtual\nenvironments using Python’s built-in venv module.\nEssentially, each project has its own dependencies without interfering\nwith others. This isolation prevents version conflicts and keeps your\nprojects organized.\nuv projects also provide a significant advantage: caching. When you\nuse the same dependency across multiple projects, uv only downloads it\nonce and stores it in a cache. For future projects, it reuses the cached\nfiles instead of downloading and installing them again. This drastically\nreduces disk space usage and installation time, especially when working\nwith large or repeated dependencies. For this course, where each Lab\n& Test will be its own uv project, this feature will save us\nconsiderable time.\nWe’ll get hands-on experience with uv projects in the the Lab, but\nyou can look at the official Working on\nprojects guide if you would like.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#ruff",
-    "href": "learning-modules/01-setting-up-your-workstation.html#ruff",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "5\nRuff",
-    "text": "5\nRuff\nMany Python packages provide applications that can be used as tools.\nuv has specialized support for easily invoking and installing tools. Ruff is an extremely fast Python\nlinter and code formatter, made by the creators of uv.\n\n5.1\nInstallation\nYou can install Ruff with:\n\n\nCommand Line\n\n$ uv tool install ruff\n\n\n\n5.2\nUsing Ruff\nRuff’s two main features are its linter and formatter.\nA linter analyzes your code for potential errors,\nbad practices, or violations of style rules. It can give warnings or\nerrors, but it won’t change your code automatically. It’s essentially a\nspellchecker for your code, pointing out what’s wrong without fixing\nit.\nA formatter automatically adjusts the layout and\nstyle of your code to match a predefined set of rules. It produces\nclean, consistently styled code by modifying it directly.\n\n\n5.3\nRuff’s linter\nruff check is the primary entrypoint to the Ruff linter.\nIt accepts a list of files or directories, and lints all discovered\nPython files, optionally fixing any fixable errors:\n\n\nCommand Line\n\nruff check # Lint all files in the current directory.\nruff check path/to/code/ # Lint all files in `path/to/code` (and any subdirectories).\n\nRuff supports automatic fixes for a variety of lint errors. For\nexample, Ruff can remove unused imports, reformat docstrings, rewrite\ntype annotations to use newer Python syntax, and more.\nTo enable fixes, pass the --fix flag to ruff check:\n\n\nCommand Line\n\nruff check --fix # Lint all files in the current directory, and fix any fixable errors.\n\nI don’t recommend using automatic fixes as it can help develop bad\nhabits in coding. Using the Ruff linter to find mistakes is good, but\nyou should work on not making the mistakes to begin with.\n\n\n5.4\nRuff’s formatter\nruff format is the primary entrypoint to the formatter.\nIt accepts a list of files or directories, and formats all discovered\nPython files:\n\n\nCommand Line\n\nruff format # Format all files in the current directory.\nruff format path/to/code/ # Format all files in `path/to/code` (and any subdirectories).\nruff format path/to/file.py # Format a single file.\n\nRun the linter first to identify and fix any errors, then use the\nformatter to clean up your code’s style. While you’re free to choose any\ncode style (as long as it’s syntactically valid), adhering to a standard\nmakes it easier to learn best practices and collaborate with others.\nFollowing a standard format also helps minimize unnecessary diffs in\nyour GitHub changes.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#marimo",
-    "href": "learning-modules/01-setting-up-your-workstation.html#marimo",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "6\nmarimo",
-    "text": "6\nmarimo\nThe final tool we’ll be installing is marimo. marimo is an open-source reactive notebook\nfor Python — reproducible, git-friendly, executable as a script, and\nshareable as an app.\n\n6.1\nInstallation\nYou can install marimo with:\n\n\nCommand Line\n\n$ uv tool install marimo\n\n\n\n6.2 Why\nmarimo (over VS Code)\nWe already installed VS Code, why am I making you install another\ntool to use Python with? I’m glad you asked.\nThe main difference between traditional Python programming in tools\nlike VS Code vs interactive notebooks like marimo (or Jupyter Notebook)\nis how you write and run your code. In VS Code, you typically write your\nentire script in a .py file and run the whole program at\nonce, with the output appearing in a terminal or console. This approach\nis great for building full applications, like downloading data,\nautomatically refreshing a dashboard, or scraping a website. On the\nother hand, interactive notebooks allow you to write and execute code in\nsmaller chunks, or cells, and see the results (including graphs or\ntables) immediately beside the code. This makes notebooks ideal for data\nanalysis, visualization, prototyping, and/or teaching, as they encourage\nexperimentation and provide instant feedback.\nWhile VS Code is better suited for maintaining well-organized,\nmodular code, notebooks excel in scenarios that involve step-by-step\nexploration and explanation. They serve different purposes, but are\ncomplementary.\n\n\n\n\n\n\nNote\n\n\n\nA typical workflow in industry is using notebooks to explore new\ndata, experiment with visuals, try models, and so on. Once the code is\nin a stable state, the code in the notebook will be turned into a Python\npackage or\nmodule to be used in production (software\nengineering loves to use manufacturing terms.).\n\n\n\n\n6.3 Why\nmarimo (over Jupyter Notebook)\nWe already covered why we may want to use a notebook instead of a\nregular IDE like VS Code, so why marimo over Jupyter?\nmarimo is the new kid on the block when it comes to comes to coding\nnotebooks. Jupyter has been the\nstandard for interactive computing for years now, and absolutely\ndeserves its flowers.\nFrom the marimo FAQ: marimo\nis a reinvention of the Python notebook as a reproducible, interactive,\nand shareable Python program that can be executed as scripts or deployed\nas interactive web apps.\n\nConsistent state: In marimo, your notebook code,\noutputs, and program state are guaranteed to be consistent. Run a cell\nand marimo reacts by automatically running the cells that reference its\nvariables. Delete a cell and marimo scrubs its variables from program\nmemory, eliminating hidden state.\nBuilt-in interactivity: marimo also comes with UI\nelements like sliders, a DataFrame transformer, and interactive plots\nthat are automatically synchronized with Python. Interact with an\nelement and the cells that use it are automatically re-run with its\nlatest value.\nPure Python programs: Unlike Jupyter notebooks,\nmarimo notebooks are stored as pure Python files that can be executed as\nscripts, deployed as interactive web apps, and versioned easily with\nGit.\n\n\n\n6.4\nLearning marimo\nFeel free to look at the User Guide, but we will be\ngoing through their interactive tutorials in a later Lab.\nYou can see some examples of marimo notebooks at their gallery.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#gurobi-optimizer",
-    "href": "learning-modules/01-setting-up-your-workstation.html#gurobi-optimizer",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "7 Gurobi\nOptimizer",
-    "text": "7 Gurobi\nOptimizer\nSo far, you’ve set up your environment for Python development with\nuv, installed GitHub Desktop for version control, and learned about\nmarimo for notebooks. The final piece in our optimization puzzle is\nGurobi, a leading commercial solver that is free for\nacademic use.\nGurobi is a powerful\nmathematical programming solver capable of handling linear, integer, and\nother advanced optimization models. In this course, we’ll use Gurobi\nprimarily through its Python API, gurobipy, to solve supply\nchain network design problems more efficiently than is possible with\nExcel Solver alone.\n\n7.1\nLicensing and Academic Access\nGurobi is commercial software, but it’s free for\nstudents and faculty at degree-granting institutions. To obtain a\nlicense:\n\nCreate a Gurobi Account\n\nGo to Gurobi’s Academic License page and sign up using your\nuniversity email.\nWait for an email verifying your academic license. Gurobi usually\ngrants these licenses quickly, but it can sometimes take a day or\ntwo.\n\nDownload and Install Gurobi\n\nOnce you have a Gurobi account, log in to the Gurobi Download Center\nto download the installer for your operating system (Windows, macOS, or\nLinux).\nRun the installer and follow the on-screen prompts. By default,\nGurobi installs to a folder like C:\\gurobi\\ on Windows or\n/Library/gurobi/ on macOS.\n\nActivate Your License\n\nAfter installation, open a terminal (PowerShell on Windows or the\nTerminal on macOS) and run:\n\n\n\n\nCommand Line\n\n$ grbgetkey YOUR-LICENSE-KEY\n\n\nReplace YOUR-LICENSE-KEY with the key from your Gurobi\naccount’s “My Account” page or from the email you received.\nThis will create a gurobi.lic file on your system,\ntypically located in your home directory.\n\n\n\n\n\n\n\nWarning\n\n\n\nMake sure you keep your gurobi.lic file in a safe\nlocation and don’t share it publicly. It contains your license\ncredentials.\n\n\n\n\n7.2\nInstalling the Gurobi Python API\nIn older versions, you had to rely on Gurobi’s custom installer for\nthe Python bindings. Fortunately, modern versions (Gurobi 9.5+) are also\navailable on PyPI under the name gurobipy. This means we\ncan install the Python API the same way we add other Python packages\n(covered in Lab 1). However, remember that you must\nstill install the main Gurobi solver (the previous step) for\ngurobipy to function.\n\n\n7.3\nGurobi Docs and Tutorials\nGurobi’s own documentation is excellent and well worth exploring:\n\nGurobi Documentation –\nofficial API references, tutorials, parameter guides.\nGurobi\nModeling Examples – real-world examples demonstrating how to set up\nand solve diverse optimization problems.\n\nIn later modules and labs, we’ll walk through building facility\nlocation, transportation, and transshipment models in Python using\nGurobi. For now, ensure you have the solver installed, licensed, and\nready to go so that you can focus on actual modeling in upcoming\nlessons.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
-    ]
-  },
-  {
-    "objectID": "learning-modules/01-setting-up-your-workstation.html#finish",
-    "href": "learning-modules/01-setting-up-your-workstation.html#finish",
-    "title": "01 | Setting Up Your Workstation",
-    "section": "8\nFinish",
-    "text": "8\nFinish\nThat’s it! With Gurobi in place, you now have the\ncomplete environment for writing and running optimization models in\nPython. The next modules will be more hands-on, so don’t worry if the\nsetup process feels tedious. Proper installation and licensing of Gurobi\nis crucial to ensure everything runs smoothly later.",
-    "crumbs": [
-      "Learning Modules",
-      "01 | Setting Up Your Workstation"
     ]
   }
 ]
