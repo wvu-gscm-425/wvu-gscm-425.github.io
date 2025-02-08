@@ -913,26 +913,26 @@ Product ID: FF-333 Price: $2.99
 
 Write a regex that captures `(ProductID, Price)` as groups. Use `re.findall()` to produce a list of tuples.
 
-## Anagrams
+### Anagrams
 
 Two words are anagrams if one can be rearranged to form the other. Write `is_anagram` that returns `True` if two strings are anagrams. Then find all anagrams of `"takes"` in a given word list.
 
-## Palindromes
+### Palindromes
 
 A palindrome reads the same forward and backward. Write `is_palindrome` that checks if a string is a palindrome. Use `reversed` or slice notation to reverse strings.
 
-## Using `get` in a dictionary
+### Using `get` in a dictionary
 
 Rewrite the `value_counts` function to eliminate the `if` statement by using `dict.get(key, default)`.
 
-## Longest word with all unique letters
+### Longest word with all unique letters
 
 Write `has_duplicates(sequence)` that returns `True` if any element appears more than once. Test it to see if you can find a word longer than `"unpredictably"` with all unique letters.
 
-## Finding repeats
+### Finding repeats
 
 Write `find_repeats(counter)` that takes a dictionary mapping from keys to counts and returns a list of keys appearing more than once.
 
-## Most frequent letters
+### Most frequent letters
 
 Write `most_frequent_letters(string)` that prints letters in decreasing order of frequency. You can use `reversed(sorted(...))` or `sorted(..., reverse=True)`.
