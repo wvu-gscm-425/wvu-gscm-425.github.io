@@ -17,39 +17,39 @@ All Learning Modules will be available by the start of the week. It is expected 
 
 ## Calendar
 
-- Individual Learning Modules are in **bold**.
-- **Labs**: due on Wednesday at 11:59 PM of the following week.
-  - **Example - Week 5**:
-    - Tuesday (2025-02-11), we will go over the exercises from **Data Structures & Control Flow**.
-    - Thursday (2025-02-13), you will work on **Lab 4** in class.
-    - Wednesday (2025-02-19), **Lab 4** is due.
-- **Tests**: due on Wednesday at 11:59 PM of the test week.
-  - **Example - Test 1**:
-    - Tuesday (2025-02-25): No new lecture material for this week, give time to ask questions for test.
-    - Wednesday (2025-02-26): Test is due at 11:59 PM.
-    - Thursday (2025-02-27): We will go through the test problems in class.
-- **Final Project**: due at 11:59 PM on Monday, April 28th, 2025.
-
 *Schedule subject to change, changes will be announced in class and on eCampus.*
 
-::: {.column-body-outset-right}
-| Week | Start      | Learning Module(s)                             | Course Deliverable(s) Due |
-|:----:|:----------:|------------------------------------------------|---------------------------|
-| 1    | 2025-01-13 | Course Intro                                   |                           |
-| 2    | 2025-01-20 | **Setting Up Your Workstation**                |                           |
-| 3    | 2025-01-27 | **Python Basics**                              | **Lab 1**                 |
-| 4    | 2025-02-03 | **Data Structures & Control Flow**             | **Lab 2**                 |
-| 5    | 2025-02-10 | **Functions & Basic I/O**                      | **Lab 3**                 |
-| 6    | 2025-02-17 | **Intro to Gurobi & Simple Optimization**      | **Lab 4**                 |
-| 7    | 2025-02-24 | Test 1 (on Weeks 3-6) Prep & Review            | **Lab 5**, **Test 1**     |
-| 8    | 2025-03-03 | **Intro to Supply Chain Network Design**       |                           |
-| 9    | 2025-03-10 | **Facility Location Models**                   | **Lab 6**                 |
-| 10   | 2025-03-17 | **Transportation & Transshipment**             | **Lab 7**                 |
-| 11   | 2025-03-24 | Spring Recess (No Class / No Work)             | **Lab 8**                 |
-| 12   | 2025-03-31 | **Network Design with Uncertainty**            |                           |
-| 13   | 2025-04-07 | **Multi-Objective Optimization & Sensitivity** | **Lab 9**                 |
-| 14   | 2025-04-14 | Test 2 (on Weeks 8-14) Prep & Review           | **Lab 10**, **Test 2**    |
-| 15   | 2025-04-21 | Open Lab Week, Work on Final Project           |                           |
-| 16   | 2025-04-28 | Presentations                                  | Final Project             |
-| 17   | 2025-05-05 | Finals Week (No Final Exam)                    |                           |
+- **Labs**: due on Wednesday at 11:59 PM of the following week.
+  - **Example - Week 3**:
+    - Tuesday (2025-02-04), we will go over the exercises from **Flow Control and Functions**.
+    - Thursday (2025-02-06), you will work on **Lab 3** in class.
+    - Wednesday (2025-02-12), **Lab 3** is due.
+- **Tests**: due on Wednesday at 11:59 PM following the prep week.
+  - **Example - Test 1**:
+    - Tuesday (2025-02-18): No new lecture material for this week, give time to ask questions for test.
+    - Thursday (2025-02-20): No new lecture material for this week, give time to ask questions for test.
+    - Wednesday (2025-02-26): Test is due at 11:59 PM. 
+    - Note: New material will start on Tuesday, 2025-02-25, and I will not be helping with tests outside of technical issues.
+- **Final Project**: due at 11:59 PM on Monday, April 28th, 2025.
+
+::: {.column-body-outset}
+| Week | Start      | Learning Module(s)                                   | Course Deliverable(s) Due |
+|:----:|:----------:|------------------------------------------------------|---------------------------|
+| 1    | 2025-01-13 | Course Intro                                         |                           |
+| 2    | 2025-01-20 | **01 \| Setting Up Your Workstation**                |                           |
+| 3    | 2025-01-27 | **02 \| Intro to Python**                            | Lab 01                    |
+| 4    | 2025-02-03 | **03 \| Flow Control and Functions**                 | Lab 02                    |
+| 5    | 2025-02-10 | **04 \| Data Structures**                            | Lab 03                    |
+| 6    | 2025-02-17 | Test 1 (Modules 01-04) Prep                          | Lab 04                    |
+| 7    | 2025-02-24 | **05 \| Intro to Gurobi & Optimization**             | **Test 1**                |
+| 8    | 2025-03-03 | **06 \| Supply Chain Network Design**                | Lab 05                    |
+| 9    | 2025-03-10 | **07 \| Facility Location Models**                   | Lab 06                    |
+| 10   | 2025-03-17 | **08 \| Transportation & Transshipment**             | Lab 07                    |
+| 11   | 2025-03-24 | *Spring Recess*                                      | *Recess*                  |
+| 12   | 2025-03-31 | Test 2 (Modules 05-08) Prep                          | Lab 08                    |
+| 13   | 2025-04-07 | **09 \| Network Design with Uncertainty**            | **Test 2**                |
+| 14   | 2025-04-14 | **10 \| Multi-Objective Optimization & Sensitivity** | Lab 09                    |
+| 15   | 2025-04-21 | Final Project Prep                                   | Lab 10                    |
+| 16   | 2025-04-28 | Presentations                                        | **Final Project**         |
+| 17   | 2025-05-05 | Finals Week (No Final Exam)                          |                           |
 :::
