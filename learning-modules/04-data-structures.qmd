@@ -1,0 +1,938 @@
+---
+title: "04 | Strings, Lists, Dictionaries, and Tuples"
+subtitle: "Understanding Core Python Data Structures and Patterns"
+format: html
+order: 4
+---
+
+## Overview
+
+In this module, you will learn about Python’s most commonly used **data structures**: **strings**, **lists**, **dictionaries**, and **tuples**. You will also explore how to leverage **regular expressions** to search for patterns in text. Finally, you will see examples that combine these structures to solve more advanced tasks, followed by tips for debugging and practice exercises.
+
+Why are these data structures important?
+
+- **Strings** handle textual data, which is central to user input, file processing, and general communication in software.
+- **Lists** store ordered collections, perfect for dynamic or changing sets of elements.
+- **Dictionaries** map from *keys* to *values* for fast lookups and flexible data storage.
+- **Tuples** group multiple items into a single, immutable structure (and can serve as dictionary keys).
+- **Regular expressions** simplify complex text matching and replacement tasks.
+
+## Strings
+
+Strings store text and are **immutable** sequences of characters. In Python, they form the foundation of almost all user-facing output and file processing.
+
+### A string is a sequence
+
+A **string** is a sequence of characters in a specific order. A character can be a letter, digit, punctuation mark, or whitespace. You can select any character in a string using the bracket operator:
+
+```{python}
+fruit = "banana"
+letter = fruit[1]
+letter
+```
+
+The **index** in brackets starts at `0`, so `fruit[0]` is the first character (`'b'`), `fruit[1]` is the second character (`'a'`), and so on.
+
+```{python}
+fruit[0]
+```
+
+You can use variables or expressions as indices:
+
+```{python}
+i = 1
+fruit[i+1]  # fruit[2]
+```
+
+If you use a non-integer index, you get a `TypeError`. You can use `len()` to determine a string’s length:
+
+```{python}
+n = len(fruit)  # 6 for "banana"
+```
+
+Because indices start at `0`, the last character is at position `len(fruit) - 1`, which is `fruit[n-1]`. Alternatively, negative indices let you count backward:
+
+```{python}
+print(fruit[-1])  # last character
+print(fruit[-2])  # second to last
+```
+
+You can quickly access any position in the string without manual loops.
+
+### String slices
+
+A **slice** selects a substring by indicating a range of indices with `[start:end]`. It includes the `start` index but excludes the `end`.
+
+```{python}
+fruit = 'banana'
+print(fruit[0:3])  # 'ban'
+print(fruit[3:6])  # 'ana'
+```
+
+Omitting `start` means "from the beginning", and omitting `end` means "to the end":
+
+```{python}
+print(fruit[:3])   # 'ban'
+print(fruit[3:])   # 'ana'
+```
+
+If the first index is greater than or equal to the second, you get an empty string. For example, `fruit[3:3]` returns `''`.
+
+Use slices to easily extract segments of text, such as prefixes, suffixes, or partial filenames.
+
+### Strings are immutable
+
+Strings are **immutable**, so you cannot modify them in place. An assignment like `greeting[0] = 'J'` causes a `TypeError`. Instead, create a new string:
+
+```{python}
+greeting = 'Hello, world!'
+new_greeting = 'J' + greeting[1:]
+```
+
+This prevents accidental data corruption, making string handling more predictable.
+
+### String comparison
+
+You can compare strings using **relational operators**:
+
+```{python}
+word = 'banana'
+
+if word == 'banana':
+    print('All right, banana.')
+```
+
+Other operators let you determine alphabetical ordering:
+
+```{python}
+def compare_word(word):
+    if word < 'banana':
+        print(word, 'comes before banana.')
+    elif word > 'banana':
+        print(word, 'comes after banana.')
+    else:
+        print('All right, banana.')
+
+compare_word("apple")
+compare_word("Orange")
+```
+
+Uppercase letters come before lowercase letters in Python’s default sort order, so be mindful of case differences. You can convert strings to lowercase or uppercase for case-insensitive comparisons.
+
+### String methods
+
+A **method** is like a function but follows the object-dot-method syntax. For example:
+
+```{python}
+text = "Hello World"
+print(text.lower())
+print(text.upper())
+print(text.replace("Hello", "Hi"))
+print(text.split())
+```
+
+These help easily perform text transformations for data cleaning or user-facing output.
+
+### Regular expressions
+
+**Regular expressions** (regex) help you search for complex patterns in text. Python’s built-in `re` module provides powerful tools for matching and manipulating text. 
+
+For example, you can verify formats (phone numbers, emails), capture specific bits of text, or do advanced replacements.
+
+#### A simple search example
+
+```{python}
+import re
+
+text = "Hello, my name is Jane. It's nice to meet you."
+pattern = 'Jane'
+
+result = re.search(pattern, text)
+if result:
+    print("Found:", result.group())
+else:
+    print("Not found.")
+```
+
+- If the pattern is found, `re.search` returns a **Match** object with `.group()`, `.span()`, etc.
+- If not found, it returns `None`.
+
+This allows very fast pattern matching in large strings, flexible for partial matches (e.g., 'Jan[eE]*' to allow slight variations).
+
+#### Using raw strings
+
+When writing regex, prefix patterns with `r` to create raw strings, which interpret backslashes literally:
+
+```{python}
+normal_str = "Hello\nWorld"  # \n is a newline
+raw_str = r"Hello\nWorld"    # keeps the literal \n
+
+print(normal_str)
+print(raw_str)
+```
+
+Prefix strings with `r` to avoid having to escape backslashes, e.g. `r"\d+"` instead of `"\\d+"`.
+
+#### Searching in a file
+
+For the following examples, we will use this file:
+
+```{python}
+for line in open('data/sample_text.txt'):
+    print(line)
+```
+
+You might loop over each line in a file and call `re.search`:
+
+```{python}
+def find_first(pattern, filename='data/sample_text.txt'):
+    import re
+    for line in open(filename):
+        result = re.search(pattern, line)
+        if result is not None:
+            return result
+
+find_first("Hello")
+```
+
+#### Using the "OR" operator (`|`)
+
+Use the | symbol for logical OR within a regex. For example, to find either "Alice" or "Bob":
+
+```{python}
+pattern = 'Alice|Bob'
+result = find_first(pattern)
+print(result)
+```
+
+You can also loop through lines, counting matches. For instance:
+
+```{python}
+def count_matches(pattern, filename='data/sample_text.txt'):
+    import re
+    count = 0
+    for line in open(filename):
+        if re.search(pattern, line) is not None:
+            count += 1
+    return count
+
+mentions = count_matches('Alice|Bob')
+print(mentions)
+```
+
+#### Matching start/end of lines
+
+- `^`: start of a line
+- `$`: end of a line
+
+```{python}
+find_first('^Hello')
+```
+
+```{python}
+find_first('world!$')
+```
+
+#### More on regex syntax
+
+Regex includes special metacharacters and quantifiers:
+
+- `.` matches any character (except newline).
+- `*` matches 0 or more of the preceding element.
+- `+` matches 1 or more of the preceding element.
+- `?` makes the preceding element optional (0 or 1).
+- `[...]` matches any one character in the brackets.
+- `(...)` captures the matched text as a group.
+- `\` escapes special characters or denotes special sequences like \d, \s, etc.
+
+#### String substitution
+
+Use `re.sub(pattern, replacement, text)` to substitute matches:
+
+```{python}
+text_line = "This is the centre of the city."
+pattern = r'cent(er|re)'
+updated_line = re.sub(pattern, 'center', text_line)
+print(updated_line)
+```
+
+This allows you to clean up strings in powerful ways, such as normalizing different spellings or removing special characters.
+
+Use `re.findall` to get all matches, `re.split` to split a string by a regex, and various flags (e.g., `re.IGNORECASE`) to alter matching behavior.
+
+Regex is extremely powerful for tasks like extracting email addresses, validating formats, or searching logs.
+
+## Lists
+
+Lists are **mutable** sequences that can store elements of any type (including other lists). They form the workhorse for many data-processing tasks due to their flexibility.
+
+### A list is a sequence
+
+A **list** is a sequence of values (of any type). Create one with square brackets:
+
+```{python}
+numbers = [42, 123]
+cheeses = ['Cheddar', 'Edam', 'Gouda']
+mixed = ['spam', 2.0, 5, [10, 20]]  # nested list
+empty = []
+```
+
+`len(cheeses)` returns the length of a list. The length of an empty list is `0`.
+
+### Lists are mutable
+
+Use the bracket operator to read or write an element:
+
+```{python}
+numbers[1] = 17  # modifies the list
+print(numbers)
+```
+
+Unlike strings, lists allow you to assign directly to their indices. You can still use negative indices to count backward.
+
+Use the `in` operator to check membership:
+
+```{python}
+'Edam' in cheeses
+```
+
+### List slices
+
+Lists support slicing with the same `[start:end]` syntax as strings:
+
+```{python}
+letters = ['a', 'b', 'c', 'd']
+```
+
+```{python}
+letters[1:3]
+```
+
+```{python}
+letters[:2]
+```
+
+```{python}
+letters[2:]
+```
+
+```{python}
+letters[:] # copy of the list
+```
+
+### List operations
+
+`+` concatenates, `*` repeats:
+
+```{python}
+[1, 2] + [3, 4] 
+```
+
+```{python}
+['spam'] * 4
+```
+
+```{python}
+sum([1, 2, 3])
+```
+
+```{python}
+min([3, 1, 4])
+```
+
+```{python}
+max([3, 1, 4])
+```
+
+### List methods
+
+- `append(x)` adds an item at the end.
+- `extend([x, y])` adds multiple items.
+- `pop(index)` removes and returns the item at `index`.
+- `remove(x)` removes the first occurrence of `x`.
+
+```{python}
+letters = ['a', 'b', 'c']
+```
+
+```{python}
+letters.append('d')      # modifies letters
+print(letters)
+```
+
+```{python}
+letters.extend(['e', 'f'])
+print(letters)
+```
+
+```{python}
+letters.pop(1)           # removes 'b'
+print(letters)
+```
+
+```{python}
+letters.remove('e')      # removes 'e'
+print(letters)
+```
+
+These list methods help manage growing or shrinking lists without extra variables.
+
+---
+
+List methods often modify a list **in place** and return `None`. This can confuse people who expect them to behave like string methods. For instance:
+
+```{python}
+t = [1, 2, 3]
+t = t.remove(3)  # WRONG!
+
+print(t)
+# Expect: [1, 2]
+# Return: None
+```
+
+`remove(3)` modifies `t` and returns `None`, so assigning it back to `t` loses the original list. If you see an error like `NoneType object has no attribute 'remove'`, check whether you accidentally assigned a list method’s return value to the list.
+
+For the example above, you would do this:
+
+```{python}
+t = [1, 2, 3]
+t.remove(3)  # CORRECT!
+
+print(t)
+```
+
+### Lists and strings
+
+a **list of characters** is not the same as a **string**. To convert a string to a list of characters, use `list()`:
+
+```{python}
+s = 'coal'
+t = list(s)
+print(t)
+```
+
+To split a string by whitespace into a list of words:
+
+```{python}
+s = "The children yearn for the mines"
+words = s.split()
+print(words)
+```
+
+You can specify a delimiter for `split`, and you can use `''.join(list_of_strings)` to rebuild a single string from a list. These are useful for text tokenization, splitting logs, or reconstructing messages.
+
+### Looping through a list
+
+a `for` loop iterates over each element:
+
+```{python}
+for cheese in cheeses:
+    print(cheese)
+```
+
+### Sorting lists
+
+Use `sorted()` to return a new sorted list without modifying the original:
+
+```{python}
+scrambled_list = ["c", "a", "b"]
+sorted_list = sorted(scrambled_list)
+
+print(sorted_list)
+print(scrambled_list)
+```
+
+`sorted('letters')` returns a list of characters. Combine with `"".join()` to build a sorted string:
+
+```{python}
+"".join(sorted('letters'))
+```
+
+### Objects and values
+
+Variables can refer to the same **object** or different objects that have the same **value**. For example:
+
+```{python}
+a = 'banana'
+b = 'banana'
+a is b  # often True (same object)
+```
+
+In this example, Python only created one string object, and both `a` and `b` refer to it. But when you create two lists, you get two objects.
+
+```{python}
+x = [1, 2, 3]
+y = [1, 2, 3]
+x is y  # False (different objects)
+```
+
+In this case we would say that the two lists are **equivalent**, because they have the same elements, but not **identical**, because they are not the same object. If two objects are identical, they are also equivalent, but if they are equivalent, they are not necessarily identical.
+
+### Aliasing
+
+When you assign one variable to another, both variables **reference** the same object:
+
+```{python}
+a = [1, 2, 3]
+b = a
+b is a
+```
+
+If an object is mutable, changes made via one variable affect the other:
+
+```{python}
+print(a)
+b[0] = 5
+print(a)
+```
+
+Avoid aliasing unless it’s intentional.
+
+### List arguments
+
+When you pass a list to a function, you pass a reference to that list. The function can modify the original list:
+
+```{python}
+def pop_first(lst):
+    return lst.pop(0)
+
+letters = ['a', 'b', 'c']
+pop_first(letters)
+print(letters)
+```
+
+If you do not want a function to modify the original list, pass a copy:
+
+```{python}
+pop_first(list(letters))  # or pop_first(letters[:])
+```
+
+## Dictionaries
+
+A **dictionary** maps keys to values and offers very fast lookups. Keys must be *immutable*, while values can be anything (including lists).
+
+### A dictionary is a mapping
+
+Instead of using integer indices, a dictionary can use almost any **hashable** type as a **key**. You create a dictionary with curly braces:
+
+```{python}
+numbers = {}
+numbers['zero'] = 0
+numbers['one'] = 1
+numbers
+```
+
+Access a value using its key:
+
+```{python}
+numbers['one']
+```
+
+Dictionary keys must be unique and immutable. Lists cannot serve as keys because they are mutable. These are useful for fast lookup by label (e.g., “user_id” -> user info) instead of by integer position.
+
+### Creating dictionaries
+
+You can create a dictionary all at once:
+
+```{python}
+numbers = {'zero': 0, 'one': 1, 'two': 2}
+```
+
+or use `dict()`:
+
+```{python}
+numbers_copy = dict(numbers)
+print(numbers_copy)
+
+empty = dict()
+print(empty)
+```
+
+### The `in` operator
+
+`in` checks for keys in the dictionary for membership without searching through all entries:
+
+```{python}
+'one' in numbers
+```
+
+```{python}
+'three' in numbers
+```
+
+To check if something appears as a **value**, use `numbers.values()`:
+
+```{python}
+1 in numbers.values()
+```
+
+### Counting with dictionaries
+
+Use a dictionary to count how often each character appears in a string:
+
+```{python}
+def value_counts(string):
+    counter = {}
+    for letter in string:
+        if letter not in counter:
+            counter[letter] = 1
+        else:
+            counter[letter] += 1
+    return counter
+
+value_counts('brontosaurus')
+```
+
+### Looping with dictionaries
+
+When you loop over a dictionary, you traverse its keys:
+
+```{python}
+counter = value_counts('banana')
+```
+
+```{python}
+for key in counter:
+    print(key)
+```
+
+Use `counter.values()` to loop over values:
+
+```{python}
+for value in counter.values():
+    print(value)
+```
+
+Or you can use the bracket operator to get the key and value:
+
+```{python}
+for key in counter:
+    print(key, counter[key])
+```
+
+This method searches the `counter` dictionary in every loop, and we will see more efficient version of this loop in the tuples section.
+
+### Lists and dictionaries
+
+A dictionary’s **values** can be lists (or other dictionaries), but keys must be hashable:
+
+```{python}
+d = {
+    "fruits": ["apple", "banana", "cherry"],
+    "numbers": [10, 20, 30],
+    "colors": {
+        "red": [True, False, True],
+        "yellow": [True, True, False],
+        "green": [True, False, False]
+    }
+}
+
+print(d)
+```
+
+This allows you to combine structures for more complex data representations, such as JSON-like objects. **You cannot use a list as a key**. Python uses a **hash table** for quick lookups, and hash values must not change.
+
+## Tuples
+
+Tuples are immutable sequences that can hold multiple items. They’re often used where immutability is helpful (e.g., as dictionary keys).
+
+### Tuples are sequences
+
+Tuples work like lists but cannot be modified once created. You create a tuple with comma-separated values, usually enclosed in parentheses:
+
+```{python}
+t = ('l', 'u', 'p', 'i', 'n')
+t_2 = 'l', 'u', 'p', 'i', 'n'
+
+print(type(t))
+print(type(t_2))
+```
+
+You can create a single element tuple:
+
+```{python}
+t_single = "a",
+print(t_single)
+```
+
+Wrapping a single element with parenthesis does not make a single-element tuple:
+
+```{python}
+t_single_bad = ("a")
+print(t_single_bad)
+print(type(t_single_bad))
+```
+
+### Tuples are immutable
+
+Like strings, tuples are **immutable**. Attempting to modify a tuple directly causes an error. Tuples do not have list-like methods such as `append` or `remove`.
+
+```{python}
+#| error: true
+
+t[0] = "L"
+```
+
+Because they are immutable, tuples are **hashable** and can serve as keys in a dictionary:
+
+```{python}
+coords = {}
+coords[(1, 2)] = "Location A"
+coords[(3, 4)] = "Location B"
+print(coords)
+```
+
+You cannot alter tuple contents after creation.
+
+### Tuple assignment
+
+You can assign multiple variables at once with tuple unpacking:
+
+```{python}
+a, b = 1, 2 # could also use: (a, b) = (1, 2) or any combo of parenthesis
+print(a, b)
+```
+
+If the right side has the wrong number of values, Python raises a `ValueError`. 
+
+```{python}
+#| error: true
+
+a, b = 1, 2, 3
+```
+
+You can also swap variables in one line. This allows you to swap variables without an extra temporary variable and return multiple values elegantly:
+
+```{python}
+print(a, b)
+a, b = b, a # swap
+print(a, b)
+```
+
+You often use tuple assignment to iterate over `(key, value)` pairs from a dictionary:
+
+```{python}
+d = {'one': 1, 'two': 2, 'three': 3}
+
+for item in d.items():
+    key, value = item
+    print(key, '->', value)
+```
+
+Each time through the loop, `item` is assigned a tuple that contains a key and the corresponding value.
+
+We can write this loop more concisely, like this:
+
+```{python}
+for key, value in d.items():
+    print(key, '->', value)
+```
+
+### Tuples as return values
+
+A function can return a single tuple, effectively returning multiple values:
+
+```{python}
+def min_max(t):
+    return min(t), max(t) # could also write: (min(t), max(t))
+
+low, high = min_max([2, 4, 1, 3])
+print(low, high)
+```
+
+This offers a clean way to return more than one piece of information from a function.
+
+### Argument packing and unpacking
+
+If a function parameter starts with `*`, Python **packs** extra arguments into a tuple:
+
+```{python}
+def mean(*args):
+    return sum(args) / len(args)
+
+mean(1, 2, 3)
+```
+
+Here is an example you are already familiar with, `print`:
+
+```{.python}
+def print(*args, sep=' ', end='\n', file=None, flush=False):
+    """print code"""
+```
+
+```{python}
+print(1, 2, 3, sep=", ")
+```
+
+You can **unpack** a sequence by using `*` when calling a function:
+
+```{python}
+divmod(*[7, 3])  # same as divmod(7, 3)
+```
+
+Consider a function that calculates a “trimmed” mean by removing the lowest and highest values:
+
+```{python}
+def trimmed_mean(*args):
+    low, high = min_max(args)
+    trimmed = list(args)
+    trimmed.remove(low)
+    trimmed.remove(high)
+    return mean(*trimmed)
+
+trimmed_mean(1, 2, 3, 4, 5)
+```
+
+While this is a bit more advanced than we will need for this course, it allows flexible argument passing and returning, which helps build utility functions that accept varying numbers of inputs.
+
+### Zip
+
+The built-in `zip` function pairs up corresponding elements from multiple sequences:
+
+```{python}
+scores1 = [1, 2, 4, 5, 1, 5, 2]
+scores2 = [5, 5, 2, 5, 5, 2, 3]
+
+for s1, s2 in zip(scores1, scores2):
+    if s1 > s2:
+        print("Team1 wins this game!")
+    elif s1 < s2:
+        print("Team2 wins this game!")
+    else:
+        print("It's a tie!")
+```
+
+`list(zip(a, b))` returns a list of tuples. You can also combine `zip` with `dict` to create dictionaries from two parallel lists:
+
+```{python}
+letters = 'abc'
+numbers = [0, 1, 2]
+dict(zip(letters, numbers)) # try list(zip(letters, numbers)) on your own
+```
+
+Use `enumerate` to loop over the indices and elements of a sequence at the same time:
+
+```{python}
+for index, element in enumerate('abcefghijk'):
+    print(index, element)
+```
+
+To see the values `enumerate` creates, you need to turn the `enumerate` object into either a list, tuple, or dictionary:
+
+```{python}
+enumerate('abcefghijk')
+```
+
+```{python}
+list(enumerate('abcefghijk'))
+```
+
+```{python}
+tuple(enumerate('abcefghijk'))
+```
+
+```{python}
+dict(enumerate('abcefghijk'))
+```
+
+This is true for many Python functions that create objects, so remember to experiment with new code.
+
+### Inverting a dictionary
+
+To invert a dictionary that maps a key to a value, you might need to map each value to a list of keys (because multiple keys can share the same value). For example:
+
+```{python}
+def invert_dict(d):
+    new_d = {}
+    for key, val in d.items():
+        if val not in new_d:
+            new_d[val] = [key]
+        else:
+            new_d[val].append(key)
+    return new_d
+```
+
+This is useful for reverse lookups when multiple keys share the same value:
+
+```{python}
+counts = {
+    "a": 1,
+    "b": 23,
+    "c": 1,
+    "d": 4,
+    "e": 4
+}
+
+invert_dict(counts)
+```
+
+### Dictionaries with tuple keys
+
+Tuples are hashable, so we can use them as dictionary keys:
+
+```{python}
+locations = {}
+locations[(1, 2)] = "Start"
+locations[(3, 4)] = "Goal"
+print(locations[(3, 4)]) 
+```
+
+This could be useful for coordinate-based lookups (e.g., board games or grid-based apps).
+
+##  Exercises
+
+### Checking for a word in a sentence
+
+Write a program that checks if the word `"apple"` appears in the sentence "`I bought some apples and oranges at the market."` Print `"Found"` or `"Not Found"` accordingly. Consider using `re.search()` with a pattern allowing an optional `s`.
+
+### Finding phone numbers with different formats
+
+Given:
+
+```{python}
+text = """
+Call me at 123-456-7890 or at (123) 456-7890.
+Alternatively, reach me at 123.456.7890.
+"""
+```
+
+Write a single regex that matches all three phone formats. Use `re.findall()` to capture them.
+
+### Extracting captured groups
+
+For a product catalog:
+
+```{python}
+catalog = """Product ID: ABC-123 Price: $29.99
+Product ID: XY-999 Price: $199.95
+Product ID: TT-100 Price: $10.50
+Product ID: ZZ-777 Price: $777.00
+Product ID: FF-333 Price: $2.99
+"""
+```
+
+Write a regex that captures `(ProductID, Price)` as groups. Use `re.findall()` to produce a list of tuples.
+
+## Anagrams
+
+Two words are anagrams if one can be rearranged to form the other. Write `is_anagram` that returns `True` if two strings are anagrams. Then find all anagrams of `"takes"` in a given word list.
+
+## Palindromes
+
+A palindrome reads the same forward and backward. Write `is_palindrome` that checks if a string is a palindrome. Use `reversed` or slice notation to reverse strings.
+
+## Using `get` in a dictionary
+
+Rewrite the `value_counts` function to eliminate the `if` statement by using `dict.get(key, default)`.
+
+## Longest word with all unique letters
+
+Write `has_duplicates(sequence)` that returns `True` if any element appears more than once. Test it to see if you can find a word longer than `"unpredictably"` with all unique letters.
+
+## Finding repeats
+
+Write `find_repeats(counter)` that takes a dictionary mapping from keys to counts and returns a list of keys appearing more than once.
+
+## Most frequent letters
+
+Write `most_frequent_letters(string)` that prints letters in decreasing order of frequency. You can use `reversed(sorted(...))` or `sorted(..., reverse=True)`.

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/03-functions-flow-control-and-conditionals.html</loc>
-    <lastmod>2025-02-04T04:22:35.818Z</lastmod>
+    <loc>wvu-gscm-425.github.io/learning-modules/04-data-structures.html</loc>
+    <lastmod>2025-02-08T16:13:49.472Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/01-setting-up-your-workstation.html</loc>
+    <loc>wvu-gscm-425.github.io/learning-modules/02-intro-to-python.html</loc>
     <lastmod>2025-02-04T04:21:22.664Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/course-information/schedule.html</loc>
-    <lastmod>2025-02-04T04:21:22.437Z</lastmod>
+    <loc>wvu-gscm-425.github.io/index.html</loc>
+    <lastmod>2025-02-04T04:21:22.663Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/course-information/policies.html</loc>
+    <loc>wvu-gscm-425.github.io/course-information/resources.html</loc>
     <lastmod>2025-02-04T04:21:22.437Z</lastmod>
   </url>
   <url>
@@ -21,15 +21,19 @@
     <lastmod>2025-02-04T04:21:22.436Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/course-information/resources.html</loc>
+    <loc>wvu-gscm-425.github.io/course-information/policies.html</loc>
     <lastmod>2025-02-04T04:21:22.437Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/index.html</loc>
-    <lastmod>2025-02-04T04:21:22.663Z</lastmod>
+    <loc>wvu-gscm-425.github.io/course-information/schedule.html</loc>
+    <lastmod>2025-02-04T04:21:22.437Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/02-intro-to-python.html</loc>
+    <loc>wvu-gscm-425.github.io/learning-modules/01-setting-up-your-workstation.html</loc>
     <lastmod>2025-02-04T04:21:22.664Z</lastmod>
+  </url>
+  <url>
+    <loc>wvu-gscm-425.github.io/learning-modules/03-functions-flow-control-and-conditionals.html</loc>
+    <lastmod>2025-02-04T04:22:35.818Z</lastmod>
   </url>
 </urlset>
