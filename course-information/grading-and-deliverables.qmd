@@ -99,23 +99,22 @@ Remember: "C" is a passing grade for GSCM courses.
 
 The **midterm grade** uses a similar approach but only includes:
 
-1. Labs 1 through 4 (one S/N/U mark per Lab).
-2. Test 1 (one S/N/U mark per Test Problem).
+1. Labs 01 through 04 (one S/N/U mark per Lab).
+2. Test 01 (one S/N/U mark per Test Problem).
 3. This table *assumes* a final project grade of **P >= 90** for the sake of calculating a provisional grade. This assumption simply provides a midpoint reference for where students stand.
 
 Below is the table for your **Midterm Grade** calculation.
 
 |  S >=  |  U <=  | Midterm |
 |:------:|:------:|:-------:|
-|    8   |    2   |    A    |
-|    6   |    4   |    B    |
-|    4   |    6   |    C    |
-|    2   |    8   |    D    |
-|    0   |   10   |    F    |
+|    6   |    2   |    A    |
+|    4   |    4   |    B    |
+|    2   |    6   |    C    |
+|    0   |    8   |    D    |
 
-### Resubmissions
+## Resubmissions
 
-I will allow **5 Lab revisions** to change a **Needs Improvement** mark to a **Satisfactory** mark. 
+I will allow **5 Lab revisions** to change a **Needs Improvement** mark to a **Satisfactory** mark.
 
 Once a Lab is graded and returned to you, there will be a **one week window** for you to resubmit that Lab. This means that, if you produce work that needs some improvement, you will have a chance to address the grader's feedback to improve your score on that Lab.
 
