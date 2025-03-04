@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  resources: 
+    - /**/data/*
+    - /**/resources/*
+    - /**/images/*
 
 license: CC BY-NC-ND
 

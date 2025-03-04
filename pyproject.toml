@@ -5,8 +5,11 @@ description = "Course website for GSCM 425: Supply Chain Network Design"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "gurobipy>=12.0.1",
     "ipython>=8.31.0",
     "jupyter>=1.1.1",
+    "marimo>=0.11.13",
     "matplotlib>=3.10.0",
     "plotly>=5.24.1",
+    "polars[all]>=1.24.0",
 ]
