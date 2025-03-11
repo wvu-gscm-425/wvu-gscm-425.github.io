@@ -2530,6 +2530,7 @@ dependencies = [
     { name = "jupyter" },
     { name = "marimo" },
     { name = "matplotlib" },
+    { name = "pandas" },
     { name = "plotly" },
     { name = "polars", extra = ["all"] },
 ]
@@ -2541,6 +2542,7 @@ requires-dist = [
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "marimo", specifier = ">=0.11.13" },
     { name = "matplotlib", specifier = ">=3.10.0" },
+    { name = "pandas", specifier = ">=2.2.3" },
     { name = "plotly", specifier = ">=5.24.1" },
     { name = "polars", extras = ["all"], specifier = ">=1.24.0" },
 ]

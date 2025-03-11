@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mr.&nbsp;Ozan Ozbeker">
+
+<title>06 | Minimum Cost Network Flow
+Models – GSCM 425: Supply Chain Network Design</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../learning-modules/05-intro-to-gurobipy.html" rel="prev">
+<link href="../images/flying-wv-gold.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fdd8e41e452522482f81c6f67b0e9110.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7a1606e66d82e84606b9c82b411ee8d3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">06 | Minimum Cost Network Flow Models</h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo-gscm-425.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course
+Information</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/grading-and-deliverables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grading &amp; Deliverables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/policies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Policies</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Learning
+Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/01-setting-up-your-workstation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01
+| Setting Up Your Workstation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/02-intro-to-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02
+| Intro to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/03-functions-flow-control-and-conditionals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 | Functions, Flow Control, &amp; Conditionals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/04-data-structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04
+| Strings, Lists, Dictionaries, and Tuples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/05-intro-to-gurobipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05
+| Introduction to Optimization with Gurobi (gurobipy)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/06-minimum-cost-network-flow-modeling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">06
+| Minimum Cost Network Flow Models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a></li>
+  <li><a href="#key-components-of-network-flow-problems" id="toc-key-components-of-network-flow-problems" class="nav-link" data-scroll-target="#key-components-of-network-flow-problems"><span class="header-section-number">2</span> Key Components of Network Flow
+  Problems</a>
+  <ul class="collapse">
+  <li><a href="#mathematical-formulation" id="toc-mathematical-formulation" class="nav-link" data-scroll-target="#mathematical-formulation"><span class="header-section-number">2.1</span> Mathematical
+  Formulation</a></li>
+  </ul></li>
+  <li><a href="#example-01-distribution-unlimited-co." id="toc-example-01-distribution-unlimited-co." class="nav-link" data-scroll-target="#example-01-distribution-unlimited-co."><span class="header-section-number">3</span> Example 01: Distribution
+  Unlimited Co.</a>
+  <ul class="collapse">
+  <li><a href="#handling-supply-demand-imbalance" id="toc-handling-supply-demand-imbalance" class="nav-link" data-scroll-target="#handling-supply-demand-imbalance"><span class="header-section-number">3.1</span> Handling Supply-Demand
+  Imbalance</a></li>
+  <li><a href="#excel-implementation" id="toc-excel-implementation" class="nav-link" data-scroll-target="#excel-implementation"><span class="header-section-number">3.2</span> Excel Implementation</a></li>
+  <li><a href="#step-by-step-excel-implementation" id="toc-step-by-step-excel-implementation" class="nav-link" data-scroll-target="#step-by-step-excel-implementation"><span class="header-section-number">3.3</span> Step-by-Step Excel
+  Implementation</a></li>
+  <li><a href="#excel-solution" id="toc-excel-solution" class="nav-link" data-scroll-target="#excel-solution"><span class="header-section-number">3.4</span> Excel Solution</a></li>
+  <li><a href="#python-implementation" id="toc-python-implementation" class="nav-link" data-scroll-target="#python-implementation"><span class="header-section-number">3.5</span> Python
+  Implementation</a></li>
+  </ul></li>
+  <li><a href="#example-2-oil-transport-problem" id="toc-example-2-oil-transport-problem" class="nav-link" data-scroll-target="#example-2-oil-transport-problem"><span class="header-section-number">4</span> Example 2: Oil Transport
+  Problem</a>
+  <ul class="collapse">
+  <li><a href="#optimal-solution-to-oil-transport-problem" id="toc-optimal-solution-to-oil-transport-problem" class="nav-link" data-scroll-target="#optimal-solution-to-oil-transport-problem"><span class="header-section-number">4.1</span> Optimal Solution to Oil
+  Transport Problem</a></li>
+  </ul></li>
+  <li><a href="#understanding-flow-conservation-constraints" id="toc-understanding-flow-conservation-constraints" class="nav-link" data-scroll-target="#understanding-flow-conservation-constraints"><span class="header-section-number">5</span> Understanding Flow Conservation
+  Constraints</a></li>
+  <li><a href="#scenario-analysis" id="toc-scenario-analysis" class="nav-link" data-scroll-target="#scenario-analysis"><span class="header-section-number">6</span> Scenario Analysis</a>
+  <ul class="collapse">
+  <li><a href="#scenario-1-route-closure" id="toc-scenario-1-route-closure" class="nav-link" data-scroll-target="#scenario-1-route-closure"><span class="header-section-number">6.1</span> Scenario 1: Route
+  Closure</a></li>
+  <li><a href="#scenario-2-demand-change" id="toc-scenario-2-demand-change" class="nav-link" data-scroll-target="#scenario-2-demand-change"><span class="header-section-number">6.2</span> Scenario 2: Demand
+  Change</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">7</span> Key Takeaways</a></li>
+  <li><a href="#practice-exercises" id="toc-practice-exercises" class="nav-link" data-scroll-target="#practice-exercises"><span class="header-section-number">8</span> Practice Exercises</a></li>
+  <li><a href="#references-and-resources" id="toc-references-and-resources" class="nav-link" data-scroll-target="#references-and-resources"><span class="header-section-number">9</span> References and
+  Resources</a></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="data/min_cost_ex_arcs.csv"><i class="bi bi-file-earmark-spreadsheet"></i>min_cost_ex_arcs.csv</a></li><li><a href="data/min_cost_ex_nodes.csv"><i class="bi bi-file-earmark-spreadsheet"></i>min_cost_ex_nodes.csv</a></li><li><a href="data/min_cost_ex_solution.csv"><i class="bi bi-file-earmark-spreadsheet"></i>min_cost_ex_solution.csv</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">06 | Minimum Cost Network Flow Models</h1>
+<p class="subtitle lead">Optimizing Transportation in Supply Chain
+Networks</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Mr.&nbsp;Ozan
+Ozbeker <a href="mailto:ozan.ozbeker@mail.wvu.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://business.wvu.edu/academics/management-information-systems">
+            Management Information Systems and Supply Chain
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1</span>
+Overview</h2>
+<p>Network flow models are powerful tools for optimizing the movement of
+goods through a supply chain network. The minimum cost network flow
+model helps determine the most cost-effective way to transport products
+from origins (like factories) to destinations (like warehouses).</p>
+<p>In this module, you will learn how to:</p>
+<ol type="1">
+<li>Understand the key components of network flow problems</li>
+<li>Formulate these as linear programming models</li>
+<li>Implement and solve them using both Excel Solver and
+Python/Gurobi</li>
+<li>Analyze different scenarios to make better supply chain
+decisions</li>
+</ol>
+</section>
+<section id="key-components-of-network-flow-problems" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="key-components-of-network-flow-problems"><span class="header-section-number">2</span> Key
+Components of Network Flow Problems</h2>
+<p>A minimum cost network flow problem has three main components:</p>
+<ol type="1">
+<li><strong>Nodes</strong>: Points in the network representing locations
+<ul>
+<li><strong>Supply nodes</strong>: Where products originate (factories,
+plants)</li>
+<li><strong>Transshipment nodes</strong>: Intermediate points
+(distribution centers)</li>
+<li><strong>Demand nodes</strong>: Where products are required
+(warehouses, customers)</li>
+</ul></li>
+<li><strong>Arcs</strong>: Connections between nodes representing
+possible flow paths
+<ul>
+<li>Each arc has a <strong>cost per unit</strong> of flow</li>
+<li>Each arc may have a <strong>capacity limit</strong></li>
+</ul></li>
+<li><strong>Flows</strong>: The amount of resource moving along each arc
+<ul>
+<li>Flow must be conserved at each node (total inflow = total outflow,
+except at supply/demand nodes)</li>
+<li>Total supply must equal total demand for the problem to have
+feasible solutions</li>
+</ul></li>
+</ol>
+<section id="mathematical-formulation" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="mathematical-formulation"><span class="header-section-number">2.1</span>
+Mathematical Formulation</h3>
+<p>Let’s define:</p>
+<ul>
+<li><span class="math inline">\(x_{ij}\)</span> = flow from node <span class="math inline">\(i\)</span> to node <span class="math inline">\(j\)</span></li>
+<li><span class="math inline">\(c_{ij}\)</span> = cost per unit flow
+from node <span class="math inline">\(i\)</span> to node <span class="math inline">\(j\)</span></li>
+<li><span class="math inline">\(u_{ij}\)</span> = capacity of arc from
+node <span class="math inline">\(i\)</span> to node <span class="math inline">\(j\)</span></li>
+<li><span class="math inline">\(b_i\)</span> = net flow at node <span class="math inline">\(i\)</span> (positive for supply, negative for
+demand, zero for transshipment)</li>
+</ul>
+<p>The general formulation is:</p>
+<p><strong>Objective</strong>: Minimize <span class="math inline">\(\sum_{(i,j)} c_{ij} \cdot x_{ij}\)</span></p>
+<p><strong>Subject to</strong>:</p>
+<ol type="1">
+<li>Flow Conservation: <span class="math inline">\(\sum_{j:(i,j)} x_{ij}
+- \sum_{j:(j,i)} x_{ji} = b_i\)</span> for all nodes <span class="math inline">\(i\)</span></li>
+<li>Capacity Constraints: <span class="math inline">\(0 \leq x_{ij} \leq
+u_{ij}\)</span> for all arcs <span class="math inline">\((i,j)\)</span></li>
+</ol>
+</section>
+</section>
+<section id="example-01-distribution-unlimited-co." class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="example-01-distribution-unlimited-co."><span class="header-section-number">3</span> Example
+01: Distribution Unlimited Co.</h2>
+<p>Let’s apply this to a concrete example. Distribution Unlimited
+Co.&nbsp;has two factories (F1, F2) that need to ship products to two
+warehouses (W1, W2). There’s also a distribution center (DC) that can be
+used as an intermediate point.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    F1(Factory 1&lt;br/&gt;80 units)
+    F2(Factory 2&lt;br/&gt;40 units)
+    DC(Distribution Center)
+    W1(Warehouse 1&lt;br/&gt;-60 units)
+    W2(Warehouse 2&lt;br/&gt;-90 units)
+    
+    F1 --&gt;|$7/unit| W1
+    F1 --&gt;|$3/unit&lt;br/&gt;Max 50 units| DC
+    F2 --&gt;|$4/unit&lt;br/&gt;Max 50 units| DC
+    DC --&gt;|$0/unit| W1
+    DC --&gt;|$2/unit&lt;br/&gt;Max 60 units| W2
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>The network includes:</p>
+<ul>
+<li>Factory 1 (F1) produces 80 units</li>
+<li>Factory 2 (F2) produces 40 units</li>
+<li>Warehouse 1 (W1) requires 60 units</li>
+<li>Warehouse 2 (W2) requires 90 units</li>
+</ul>
+<p>Notice that total demand (150 units) exceeds total supply (120
+units). This means we’ll need to handle unfulfilled demand in our
+model.</p>
+<section id="handling-supply-demand-imbalance" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="handling-supply-demand-imbalance"><span class="header-section-number">3.1</span>
+Handling Supply-Demand Imbalance</h3>
+<p>When total supply doesn’t equal total demand, we can:</p>
+<ol type="1">
+<li><strong>Add a dummy supply node</strong> (if supply &lt;
+demand)</li>
+<li><strong>Add a dummy demand node</strong> (if supply &gt;
+demand)</li>
+</ol>
+<p>For Distribution Unlimited Co., we’ll add a dummy supply of 30 units
+with zero transportation cost to make the problem feasible:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    F1(Factory 1&lt;br/&gt;80 units)
+    F2(Factory 2&lt;br/&gt;40 units)
+    DC(Distribution Center)
+    W1(Warehouse 1&lt;br/&gt;-60 units)
+    W2(Warehouse 2&lt;br/&gt;-90 units)
+    DS(Dummy Supply&lt;br/&gt;30 units)
+    
+    F1 --&gt;|$7/unit| W1
+    F1 --&gt;|$3/unit&lt;br/&gt;Max 50 units| DC
+    F2 --&gt;|$4/unit&lt;br/&gt;Max 50 units| DC
+    DC --&gt;|$0/unit| W1
+    DC --&gt;|$2/unit&lt;br/&gt;Max 60 units| W2
+    DS --&gt;|$0/unit| W2
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="excel-implementation" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="excel-implementation"><span class="header-section-number">3.2</span>
+Excel Implementation</h3>
+<p>For Excel implementation, we’ll set up a table structure:</p>
+<ol type="1">
+<li>Create a transportation table showing all possible routes</li>
+<li>Add columns for costs, capacities, and flow variables</li>
+<li>Set up flow conservation constraints for each node</li>
+<li>Use Solver to find the optimal solution</li>
+</ol>
+</section>
+<section id="step-by-step-excel-implementation" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="step-by-step-excel-implementation"><span class="header-section-number">3.3</span>
+Step-by-Step Excel Implementation</h3>
+<ol type="1">
+<li><p><strong>Decision Variables Table</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 16%">
+<col style="width: 18%">
+<col style="width: 15%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>From</th>
+<th>To</th>
+<th>Flow</th>
+<th>Cost/Unit</th>
+<th>Total Cost</th>
+<th>Capacity</th>
+<th>At Capacity?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>F1</td>
+<td>W1</td>
+<td>?</td>
+<td>7</td>
+<td>?</td>
+<td>999</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>F1</td>
+<td>DC</td>
+<td>?</td>
+<td>3</td>
+<td>?</td>
+<td>50</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>F2</td>
+<td>DC</td>
+<td>?</td>
+<td>4</td>
+<td>?</td>
+<td>50</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>DC</td>
+<td>W1</td>
+<td>?</td>
+<td>0</td>
+<td>?</td>
+<td>999</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>DC</td>
+<td>W2</td>
+<td>?</td>
+<td>2</td>
+<td>?</td>
+<td>60</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Dummy</td>
+<td>W2</td>
+<td>?</td>
+<td>0</td>
+<td>?</td>
+<td>999</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Node Flow Summary</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Node</th>
+<th>Supply/Demand</th>
+<th>Inflow</th>
+<th>Outflow</th>
+<th>Net Flow</th>
+<th>Constraint Met?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>F1</td>
+<td>80</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>F2</td>
+<td>40</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>DC</td>
+<td>0</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>W1</td>
+<td>-60</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>W2</td>
+<td>-90</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>Dummy</td>
+<td>30</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>Set Up Excel Solver</strong>:</p>
+<ul>
+<li>Objective: Minimize total cost</li>
+<li>By changing: Flow variables</li>
+<li>Subject to: Flow conservation, capacity constraints,
+non-negativity</li>
+</ul></li>
+</ol>
+</section>
+<section id="excel-solution" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="excel-solution"><span class="header-section-number">3.4</span>
+Excel Solution</h3>
+<p>When we solve this using Excel Solver, we get the following optimal
+flows:</p>
+<ul>
+<li>F1 → DC: 50 units (at capacity)</li>
+<li>F1 → W1: 30 units</li>
+<li>F2 → DC: 40 units</li>
+<li>DC → W1: 30 units</li>
+<li>DC → W2: 60 units (at capacity)</li>
+<li>Dummy → W2: 30 units (unfulfilled demand)</li>
+</ul>
+<p>Total cost = $640</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    F1(Factory 1&lt;br/&gt;80 units)
+    F2(Factory 2&lt;br/&gt;40 units)
+    DC(Distribution Center)
+    W1(Warehouse 1&lt;br/&gt;-60 units)
+    W2(Warehouse 2&lt;br/&gt;-90 units)
+    DS(Dummy Supply&lt;br/&gt;30 units)
+    
+    F1 --&gt;|30 units&lt;br/&gt;$7/unit| W1
+    F1 --&gt;|50 units&lt;br/&gt;$3/unit| DC
+    F2 --&gt;|40 units&lt;br/&gt;$4/unit| DC
+    DC --&gt;|30 units&lt;br/&gt;$0/unit| W1
+    DC --&gt;|60 units&lt;br/&gt;$2/unit| W2
+    DS --&gt;|30 units&lt;br/&gt;$0/unit| W2
+    
+    style F1 fill:#d4f1c5
+    style F2 fill:#d4f1c5
+    style DS fill:#d4f1c5
+    style W1 fill:#c5daf1
+    style W2 fill:#c5daf1
+    style DC fill:#f1e9c5
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="python-implementation" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="python-implementation"><span class="header-section-number">3.5</span>
+Python Implementation</h3>
+<p>The Python implementation uses Gurobi Optimizer through its Python
+interface, <code>gurobipy</code>. Unlike Excel, which uses a tabular
+format, Python builds the model programmatically. Let’s break down how
+this works step by step.</p>
+<p>Here’s the basic structure:</p>
+<ol type="1">
+<li>Define nodes and their supply/demand values</li>
+<li>Define arcs with costs and capacities</li>
+<li>Create decision variables for flows</li>
+<li>Add flow conservation constraints</li>
+<li>Add capacity constraints</li>
+<li>Set the objective and solve the model</li>
+</ol>
+<section id="setting-up-the-environment" class="level4" data-number="3.5.1">
+<h4 data-number="3.5.1" class="anchored" data-anchor-id="setting-up-the-environment"><span class="header-section-number">3.5.1</span>
+Setting up the Environment</h4>
+<p>First, we need to import the necessary libraries:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> GRB</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Gurobipy is Gurobi’s Python API, and GRB provides constants like
+GRB.MINIMIZE for setting the optimization direction.</p>
+</section>
+<section id="defining-the-problem-structure" class="level4" data-number="3.5.2">
+<h4 data-number="3.5.2" class="anchored" data-anchor-id="defining-the-problem-structure"><span class="header-section-number">3.5.2</span>
+Defining the Problem Structure</h4>
+<p>Next, we define our network structure using Python data
+structures:</p>
+<div id="d495dce0" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define nodes</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> [<span class="st">'F1'</span>, <span class="st">'F2'</span>, <span class="st">'DC'</span>, <span class="st">'W1'</span>, <span class="st">'W2'</span>, <span class="st">'Dummy'</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define supply/demand at each node</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>supply_demand <span class="op">=</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'F1'</span>: <span class="dv">80</span>,    <span class="co"># Supply of 80 units</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'F2'</span>: <span class="dv">40</span>,    <span class="co"># Supply of 40 units</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'DC'</span>: <span class="dv">0</span>,     <span class="co"># Transshipment node (no net supply/demand)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'W1'</span>: <span class="op">-</span><span class="dv">60</span>,   <span class="co"># Demand of 60 units</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'W2'</span>: <span class="op">-</span><span class="dv">90</span>,   <span class="co"># Demand of 90 units</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Dummy'</span>: <span class="dv">30</span>  <span class="co"># Dummy supply of 30 units</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Define arcs with costs and capacities</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>arcs <span class="op">=</span> {</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'F1'</span>, <span class="st">'W1'</span>): (<span class="dv">7</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)),  <span class="co"># Direct route from F1 to W1</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'F1'</span>, <span class="st">'DC'</span>): (<span class="dv">3</span>, <span class="dv">50</span>),            <span class="co"># Route from F1 to DC with capacity 50</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'F2'</span>, <span class="st">'DC'</span>): (<span class="dv">4</span>, <span class="dv">50</span>),            <span class="co"># Route from F2 to DC with capacity 50</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'DC'</span>, <span class="st">'W1'</span>): (<span class="dv">0</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)),  <span class="co"># Route from DC to W1</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'DC'</span>, <span class="st">'W2'</span>): (<span class="dv">2</span>, <span class="dv">60</span>),            <span class="co"># Route from DC to W2 with capacity 60</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Dummy'</span>, <span class="st">'W2'</span>): (<span class="dv">0</span>, <span class="bu">float</span>(<span class="st">'inf'</span>))  <span class="co"># Dummy route to W2</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This approach is very flexible. We can easily add or remove nodes and
+arcs by modifying these data structures.</p>
+</section>
+<section id="creating-the-optimization-model" class="level4" data-number="3.5.3">
+<h4 data-number="3.5.3" class="anchored" data-anchor-id="creating-the-optimization-model"><span class="header-section-number">3.5.3</span>
+Creating the Optimization Model</h4>
+<p>Now we create a Gurobi model and define the flow variables:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new model</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> gp.Model(<span class="st">"MinCostNetworkFlow"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create flow variables for each arc</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>flow <span class="op">=</span> {}</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, j), (cost, _) <span class="kw">in</span> arcs.items():</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    flow[(i, j)] <span class="op">=</span> model.addVar(name<span class="op">=</span><span class="ss">f'flow_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>, obj<span class="op">=</span>cost)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each variable <code>flow[(i, j)]</code> represents the amount flowing
+from node <code>i</code> to node <code>j</code>. The
+<code>obj=cost</code> parameter sets the coefficient in the objective
+function.</p>
+<section id="flow" class="level5" data-number="3.5.3.1">
+<h5 data-number="3.5.3.1" class="anchored" data-anchor-id="flow"><span class="header-section-number">3.5.3.1</span> <code>flow = {}</code></h5>
+<p>This initializes an empty Python dictionary called <code>flow</code>.
+This dictionary will store our decision variables, which represent the
+amount of product flowing along each arc in the network. The
+dictionary’s keys will be tuples representing arcs (from node <span class="math inline">\(i\)</span> to node <span class="math inline">\(j\)</span>), and the values will be Gurobi
+variable objects.</p>
+</section>
+<section id="arcs.items" class="level5" data-number="3.5.3.2">
+<h5 data-number="3.5.3.2" class="anchored" data-anchor-id="arcs.items"><span class="header-section-number">3.5.3.2</span>
+<code>arcs.items()</code></h5>
+<p>The <code>arcs</code> variable is a dictionary where:</p>
+<ul>
+<li>Each key is a tuple <code>(i, j)</code> representing an arc from
+node <span class="math inline">\(i\)</span> to node <span class="math inline">\(j\)</span>.</li>
+<li>Each value is another tuple <code>(cost, capacity)</code> containing
+the cost per unit of flow and the maximum capacity for that arc.</li>
+</ul>
+<p>The <code>items()</code> method returns an iterator over the
+key-value pairs in the dictionary, so <code>arcs.items()</code> produces
+pairs like: <code>((i, j), (cost, capacity))</code>.</p>
+<div id="0a9edb70" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> arcs.items():</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(('F1', 'W1'), (7, inf))
+(('F1', 'DC'), (3, 50))
+(('F2', 'DC'), (4, 50))
+(('DC', 'W1'), (0, inf))
+(('DC', 'W2'), (2, 60))
+(('Dummy', 'W2'), (0, inf))</code></pre>
+</div>
+</div>
+</section>
+<section id="for-i-j-cost-_-in-arcs.items" class="level5" data-number="3.5.3.3">
+<h5 data-number="3.5.3.3" class="anchored" data-anchor-id="for-i-j-cost-_-in-arcs.items"><span class="header-section-number">3.5.3.3</span>
+<code>for (i, j), (cost, _) in arcs.items():</code></h5>
+<p>This line uses Python’s tuple unpacking to extract values. For each
+iteration:</p>
+<ul>
+<li><code>(i, j)</code> captures the origin and destination nodes from
+the arc tuple.</li>
+<li><code>(cost, _)</code> captures the cost while ignoring the capacity
+(the underscore <code>_</code> is a Python convention for a variable you
+don’t intend to use).</li>
+</ul>
+<p>For example, if one entry in <code>arcs</code> is
+<code>('F1', 'DC'): (3, 50)</code>, then in that iteration:</p>
+<ul>
+<li><code>i</code> would be <code>'F1'</code> (the origin node)</li>
+<li><code>j</code> would be <code>'DC'</code> (the destination
+node)</li>
+<li><code>cost</code> would be <code>3</code> (the cost per unit of
+flow)</li>
+<li><code>_</code> would be <code>50</code> (the capacity, which we’re
+ignoring for now)</li>
+</ul>
+</section>
+<section id="flowi-j-model.addvarnamefflow_i_j-objcost" class="level5" data-number="3.5.3.4">
+<h5 data-number="3.5.3.4" class="anchored" data-anchor-id="flowi-j-model.addvarnamefflow_i_j-objcost"><span class="header-section-number">3.5.3.4</span>
+<code>flow[(i, j)] = model.addVar(name=f'flow_{i}_{j}', obj=cost)</code></h5>
+<p>For each arc, this line creates a Gurobi decision variable and adds
+it to our flow dictionary:</p>
+<ul>
+<li><code>model.addVar()</code> creates a new decision variable in the
+Gurobi model.</li>
+<li><code>name=f'flow_{i}_{j}'</code> gives the variable a descriptive
+name like <code>"flow_F1_DC"</code>.</li>
+<li><code>obj=cost</code> sets the variable’s coefficient in the
+objective function to the cost of this arc.</li>
+<li><code>flow[(i, j)] = ...</code> stores the created variable in our
+dictionary with the arc tuple as the key.</li>
+</ul>
+<p>By default, Gurobi variables are non-negative (<code>lb = 0</code>)
+and continuous, which is what we want for flow variables in this network
+problem.</p>
+</section>
+<section id="whats-happening-overall" class="level5" data-number="3.5.3.5">
+<h5 data-number="3.5.3.5" class="anchored" data-anchor-id="whats-happening-overall"><span class="header-section-number">3.5.3.5</span> What’s Happening
+Overall</h5>
+<p>This loop iterates through each possible shipping route (arc) in our
+network. For each arc, it:</p>
+<ol type="1">
+<li>Extracts the origin node, destination node, and shipping cost</li>
+<li>Creates a variable representing “how much to ship from origin to
+destination”</li>
+<li>Associates that variable with the arc’s cost in the objective
+function</li>
+<li>Stores the variable in a dictionary for later use when creating
+constraints</li>
+</ol>
+<p>After this loop completes, the <code>flow</code> dictionary contains
+all the decision variables our model needs, with each variable properly
+connected to its cost in the objective function. This is the foundation
+of our optimization model, we’re creating variables for each possible
+shipment route and telling Gurobi that we want to minimize the total
+shipping cost.</p>
+<p>The next parts of the code will add constraints to ensure flow
+conservation (what comes in equals what goes out at each node) and to
+enforce capacity limits on certain routes.</p>
+</section>
+</section>
+<section id="adding-flow-conservation-constraints" class="level4" data-number="3.5.4">
+<h4 data-number="3.5.4" class="anchored" data-anchor-id="adding-flow-conservation-constraints"><span class="header-section-number">3.5.4</span>
+Adding Flow Conservation Constraints</h4>
+<p>The most important constraints ensure flow conservation at each
+node:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add flow conservation constraints for each node</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> nodes:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sum of all flows leaving node i</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    outflow <span class="op">=</span> gp.quicksum(flow[(i, j)] <span class="cf">for</span> (i2, j) <span class="kw">in</span> arcs.keys() <span class="cf">if</span> i2 <span class="op">==</span> i)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sum of all flows entering node i</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    inflow  <span class="op">=</span> gp.quicksum(flow[(j, i)] <span class="cf">for</span> (j, i2) <span class="kw">in</span> arcs.keys() <span class="cf">if</span> i2 <span class="op">==</span> i)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Outflow - inflow = supply/demand</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    model.addConstr(outflow <span class="op">-</span> inflow <span class="op">==</span> supply_demand[i], name<span class="op">=</span><span class="ss">f'node_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This loop creates one constraint for each node. The constraint
+ensures that:</p>
+<ul>
+<li>For supply nodes: <span class="math inline">\(outflow - inflow =
+supply amount\)</span></li>
+<li>For demand nodes: <span class="math inline">\(outflow - inflow =
+-demand amount\)</span></li>
+<li>For transshipment nodes: <span class="math inline">\(outflow -
+inflow = 0\)</span></li>
+</ul>
+<section id="for-i-in-nodes" class="level5" data-number="3.5.4.1">
+<h5 data-number="3.5.4.1" class="anchored" data-anchor-id="for-i-in-nodes"><span class="header-section-number">3.5.4.1</span>
+<code>for i in nodes:</code></h5>
+<p>This loop iterates through each node in our network. For every node
+(whether it’s a factory, warehouse, or distribution center), we need to
+create a flow conservation constraint.</p>
+<p>Flow conservation is a fundamental principle in network flow models.
+It states that for any node in the network:</p>
+<ul>
+<li>The amount of flow entering the node, minus</li>
+<li>The amount of flow leaving the node,</li>
+<li>Must equal the node’s supply or demand value</li>
+</ul>
+<p>This mirrors real-world physical constraints: products don’t
+disappear or materialize within the network (except at supply or demand
+nodes).</p>
+</section>
+<section id="outflow-gp.quicksumflowi-j-for-i2-j-in-arcs.keys-if-i2-i" class="level5" data-number="3.5.4.2">
+<h5 data-number="3.5.4.2" class="anchored" data-anchor-id="outflow-gp.quicksumflowi-j-for-i2-j-in-arcs.keys-if-i2-i"><span class="header-section-number">3.5.4.2</span>
+<code>outflow = gp.quicksum(flow[(i, j)] for (i2, j) in arcs.keys() if i2 == i)</code></h5>
+<p>This line calculates the total flow leaving node <code>i</code>:</p>
+<ol type="1">
+<li><code>arcs.keys()</code> gives us all the arc tuples
+<code>(i2, j)</code> in our network.</li>
+<li><code>if i2 == i</code> filters for only those arcs where the origin
+node matches our current node <code>i</code>.</li>
+<li><code>flow[(i, j)]</code> retrieves the decision variable
+representing flow on the arc from node <code>i</code> to some other node
+<code>j</code>.</li>
+<li><code>gp.quicksum(...)</code> sums up all these flow variables.</li>
+</ol>
+<p>Essentially, we’re adding up all the flow variables for arcs that
+originate from node <code>i</code>.</p>
+<p>The reason for using <code>i2</code> here is that we’re unpacking
+tuples from <code>arcs.keys()</code>. Each tuple is an arc represented
+as <code>(origin, destination)</code>. We use <code>i2</code> as a
+temporary variable name to compare with our current node
+<code>i</code>.</p>
+</section>
+<section id="inflow-gp.quicksumflowj-i-for-j-i2-in-arcs.keys-if-i2-i" class="level5" data-number="3.5.4.3">
+<h5 data-number="3.5.4.3" class="anchored" data-anchor-id="inflow-gp.quicksumflowj-i-for-j-i2-in-arcs.keys-if-i2-i"><span class="header-section-number">3.5.4.3</span>
+<code>inflow = gp.quicksum(flow[(j, i)] for (j, i2) in arcs.keys() if i2 == i)</code></h5>
+<p>Similarly, this line calculates the total flow entering node
+<code>i</code>:</p>
+<ol type="1">
+<li><code>arcs.keys()</code> gives us all the arc tuples
+<code>(j, i2)</code> in our network.</li>
+<li><code>if i2 == i</code> filters for only those arcs where the
+destination node matches our current node <code>i</code>.</li>
+<li><code>flow[(j, i)]</code> retrieves the decision variable
+representing flow on the arc from some other node <code>j</code> to node
+<code>i</code>.</li>
+<li><code>gp.quicksum(...)</code> sums up all these flow variables.</li>
+</ol>
+<p>This time, we’re adding up all the flow variables for arcs that
+terminate at node <code>i</code>.</p>
+</section>
+<section id="model.addconstroutflow---inflow-supply_demandi-namefnode_i" class="level5" data-number="3.5.4.4">
+<h5 data-number="3.5.4.4" class="anchored" data-anchor-id="model.addconstroutflow---inflow-supply_demandi-namefnode_i"><span class="header-section-number">3.5.4.4</span>
+<code>model.addConstr(outflow - inflow == supply_demand[i], name=f'node_{i}')</code></h5>
+<p>Finally, we add the constraint to our model:</p>
+<ol type="1">
+<li><code>outflow - inflow</code> calculates the net flow (outgoing
+minus incoming) at node <code>i</code>.</li>
+<li><code>supply_demand[i]</code> retrieves the supply/demand value for
+node <code>i</code>:
+<ul>
+<li>Positive supply for supply nodes (more going out than coming
+in)</li>
+<li>Negative for demand nodes (more coming in than going out)</li>
+<li>Zero for transshipment nodes (what comes in must equal what goes
+out)</li>
+</ul></li>
+<li><code>model.addConstr(...)</code> adds this constraint to the Gurobi
+model.</li>
+<li><code>name=f'node_{i}'</code> gives the constraint a unique name for
+identification.</li>
+</ol>
+<p>The constraint enforces different behaviors depending on the node
+type:</p>
+<ul>
+<li><strong>Supply Nodes</strong>: If
+<code>supply_demand[i] = 50</code>, then
+<code>outflow - inflow = 50</code>, meaning the node sends out 50 more
+units than it receives.</li>
+<li><strong>Demand Nodes</strong>: If
+<code>supply_demand[i] = -30</code>, then
+<code>outflow - inflow = -30</code>, meaning the node receives 30 more
+units than it sends out.</li>
+<li><strong>Transshipment Nodes</strong>: If
+<code>supply_demand[i] = 0</code>, then
+<code>outflow - inflow = 0</code>, meaning everything that enters the
+node must also leave it.</li>
+</ul>
+</section>
+</section>
+<section id="adding-capacity-constraints" class="level4" data-number="3.5.5">
+<h4 data-number="3.5.5" class="anchored" data-anchor-id="adding-capacity-constraints"><span class="header-section-number">3.5.5</span>
+Adding Capacity Constraints</h4>
+<p>Some arcs have capacity limits:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add capacity constraints for each arc</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, j), (_, capacity) <span class="kw">in</span> arcs.items():</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> capacity <span class="op">&lt;</span> <span class="bu">float</span>(<span class="st">'inf'</span>):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        model.addConstr(flow[(i, j)] <span class="op">&lt;=</span> capacity, name<span class="op">=</span><span class="ss">f'capacity_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This only adds constraints for arcs with finite capacity. We use
+<code>float('inf')</code> to represent unlimited capacity.</p>
+<section id="for-i-j-_-capacity-in-arcs.items" class="level5" data-number="3.5.5.1">
+<h5 data-number="3.5.5.1" class="anchored" data-anchor-id="for-i-j-_-capacity-in-arcs.items"><span class="header-section-number">3.5.5.1</span>
+<code>for (i, j), (_, capacity) in arcs.items():</code></h5>
+<p>This loop iterates through each arc in our network and its
+corresponding capacity. Let’s break down the unpacking:</p>
+<ol type="1">
+<li><code>arcs.items()</code> returns pairs of
+<code>((i, j), (cost, capacity))</code> where:
+<ul>
+<li><code>(i, j)</code> is the arc from node <code>i</code> to node
+<code>j</code></li>
+<li><code>(cost, capacity)</code> contains the shipping cost and maximum
+capacity</li>
+</ul></li>
+<li><code>(i, j), (_, capacity)</code> unpacks these values:
+<ul>
+<li><code>i</code> is the origin node</li>
+<li><code>j</code> is the destination node</li>
+<li><code>_</code> is the cost (we use underscore because we don’t need
+the cost for capacity constraints)</li>
+<li><code>capacity</code> is the maximum amount that can flow on this
+arc</li>
+</ul></li>
+</ol>
+<p>For example, if arcs contains (‘F1’, ‘DC’): (3, 50), then in that
+iteration:</p>
+<ul>
+<li><code>i</code> would be <code>'F1'</code> (origin)</li>
+<li><code>j</code> would be <code>'DC'</code> (destination)</li>
+<li><code>_</code> would be <code>3</code> (cost, ignored here)</li>
+<li><code>capacity</code> would be <code>50</code> (maximum flow
+allowed)</li>
+</ul>
+</section>
+<section id="if-capacity-floatinf" class="level5" data-number="3.5.5.2">
+<h5 data-number="3.5.5.2" class="anchored" data-anchor-id="if-capacity-floatinf"><span class="header-section-number">3.5.5.2</span>
+<code>if capacity &lt; float('inf'):</code></h5>
+<p>Not all arcs need capacity constraints. Many routes have no practical
+limit, or their limit is so large that it won’t affect the optimal
+solution. In our code:</p>
+<ul>
+<li><code>float('inf')</code> represents infinity in Python</li>
+<li><code>capacity &lt; float('inf')</code> checks if the capacity is a
+finite number
+<ul>
+<li>If true, we need to add a capacity constraint</li>
+<li>If false (capacity is infinite), no constraint is needed</li>
+</ul></li>
+</ul>
+<p>This condition ensures we only add constraints where necessary,
+keeping our model streamlined.</p>
+</section>
+<section id="model.addconstrflowi-j-capacity-namefcapacity_i_j" class="level5" data-number="3.5.5.3">
+<h5 data-number="3.5.5.3" class="anchored" data-anchor-id="model.addconstrflowi-j-capacity-namefcapacity_i_j"><span class="header-section-number">3.5.5.3</span>
+<code>model.addConstr(flow[(i, j)] &lt;= capacity, name=f'capacity_{i}_{j}')</code></h5>
+<p>This line creates and adds the actual capacity constraint to our
+model:</p>
+<ol type="1">
+<li><code>flow[(i, j)]</code> accesses the decision variable
+representing flow on this arc</li>
+<li><code>flow[(i, j)] &lt;= capacity</code> creates a constraint saying
+the flow cannot exceed the capacity</li>
+<li><code>model.addConstr(...)</code> adds this constraint to the Gurobi
+model</li>
+<li><code>name=f'capacity_{i}_{j}'</code> gives the constraint a
+descriptive name like “capacity_F1_DC”</li>
+</ol>
+</section>
+</section>
+<section id="setting-the-objective-and-solving" class="level4" data-number="3.5.6">
+<h4 data-number="3.5.6" class="anchored" data-anchor-id="setting-the-objective-and-solving"><span class="header-section-number">3.5.6</span>
+Setting the Objective and Solving</h4>
+<p>Finally, we set the objective function and solve the model:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set objective to minimize total cost</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>model.ModelSense <span class="op">=</span> GRB.MINIMIZE</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimize the model</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>model.optimize()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="extracting-and-analyzing-the-solution" class="level4" data-number="3.5.7">
+<h4 data-number="3.5.7" class="anchored" data-anchor-id="extracting-and-analyzing-the-solution"><span class="header-section-number">3.5.7</span>
+Extracting and Analyzing the Solution</h4>
+<p>After solving, we can extract and analyze the results:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if an optimal solution was found</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> model.Status <span class="op">==</span> GRB.OPTIMAL:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the solution</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    flow_values <span class="op">=</span> {}</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), var <span class="kw">in</span> flow.items():</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the flow amount for this arc</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        flow_amount <span class="op">=</span> var.X</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Only include arcs with positive flow</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> flow_amount <span class="op">&gt;</span> <span class="fl">0.001</span>:  <span class="co"># Small threshold for floating-point errors</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>            flow_values[(i, j)] <span class="op">=</span> flow_amount</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Add to the total cost</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>            cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>            total_cost <span class="op">+=</span> flow_amount <span class="op">*</span> cost</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimal flows:"</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), flow <span class="kw">in</span> <span class="bu">sorted</span>(flow_values.items()):</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>flow<span class="sc">:.1f}</span><span class="ss"> units (cost: $</span><span class="sc">{</span>cost<span class="sc">}</span><span class="ss">/unit)"</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"&lt;br/&gt;Total transportation cost: $</span><span class="sc">{</span>total_cost<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"No optimal solution found. Status code: </span><span class="sc">{</span>model<span class="sc">.</span>Status<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This code extracts the flow values from the solution, calculates the
+total cost, and prints a summary of the optimal flows.</p>
+</section>
+<section id="all-together" class="level4" data-number="3.5.8">
+<h4 data-number="3.5.8" class="anchored" data-anchor-id="all-together"><span class="header-section-number">3.5.8</span>
+All Together</h4>
+<div id="1a433e41" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> GRB</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define nodes</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> [<span class="st">'F1'</span>, <span class="st">'F2'</span>, <span class="st">'DC'</span>, <span class="st">'W1'</span>, <span class="st">'W2'</span>, <span class="st">'Dummy'</span>]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define supply/demand at each node</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>supply_demand <span class="op">=</span> {</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'F1'</span>: <span class="dv">80</span>,    <span class="co"># Supply of 80 units</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'F2'</span>: <span class="dv">40</span>,    <span class="co"># Supply of 40 units</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'DC'</span>: <span class="dv">0</span>,     <span class="co"># Transshipment node (no net supply/demand)</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'W1'</span>: <span class="op">-</span><span class="dv">60</span>,   <span class="co"># Demand of 60 units</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'W2'</span>: <span class="op">-</span><span class="dv">90</span>,   <span class="co"># Demand of 90 units</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Dummy'</span>: <span class="dv">30</span>  <span class="co"># Dummy supply of 30 units</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define arcs with costs and capacities</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>arcs <span class="op">=</span> {</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'F1'</span>, <span class="st">'W1'</span>): (<span class="dv">7</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)),  <span class="co"># Direct route from F1 to W1</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'F1'</span>, <span class="st">'DC'</span>): (<span class="dv">3</span>, <span class="dv">50</span>),            <span class="co"># Route from F1 to DC with capacity 50</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'F2'</span>, <span class="st">'DC'</span>): (<span class="dv">4</span>, <span class="dv">50</span>),            <span class="co"># Route from F2 to DC with capacity 50</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'DC'</span>, <span class="st">'W1'</span>): (<span class="dv">0</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)),  <span class="co"># Route from DC to W1</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'DC'</span>, <span class="st">'W2'</span>): (<span class="dv">2</span>, <span class="dv">60</span>),            <span class="co"># Route from DC to W2 with capacity 60</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Dummy'</span>, <span class="st">'W2'</span>): (<span class="dv">0</span>, <span class="bu">float</span>(<span class="st">'inf'</span>))  <span class="co"># Dummy route to W2</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new model</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> gp.Model(<span class="st">"MinCostNetworkFlow"</span>)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Create flow variables for each arc</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>flow <span class="op">=</span> {}</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, j), (cost, _) <span class="kw">in</span> arcs.items():</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    flow[(i, j)] <span class="op">=</span> model.addVar(name<span class="op">=</span><span class="ss">f'flow_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>, obj<span class="op">=</span>cost)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Add flow conservation constraints for each node</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> nodes:</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sum of all flows leaving node i</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    outflow <span class="op">=</span> gp.quicksum(flow[(i, j)] <span class="cf">for</span> (i2, j) <span class="kw">in</span> arcs.keys() <span class="cf">if</span> i2 <span class="op">==</span> i)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sum of all flows entering node i</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    inflow <span class="op">=</span> gp.quicksum(flow[(j, i)] <span class="cf">for</span> (j, i2) <span class="kw">in</span> arcs.keys() <span class="cf">if</span> i2 <span class="op">==</span> i)</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Outflow - inflow = supply/demand</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    model.addConstr(outflow <span class="op">-</span> inflow <span class="op">==</span> supply_demand[i], name<span class="op">=</span><span class="ss">f'node_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Add capacity constraints for each arc</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, j), (_, capacity) <span class="kw">in</span> arcs.items():</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> capacity <span class="op">&lt;</span> <span class="bu">float</span>(<span class="st">'inf'</span>):</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        model.addConstr(flow[(i, j)] <span class="op">&lt;=</span> capacity, name<span class="op">=</span><span class="ss">f'capacity_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Set objective to minimize total cost</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>model.ModelSense <span class="op">=</span> GRB.MINIMIZE</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimize the model</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>model.optimize()</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if an optimal solution was found</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> model.Status <span class="op">==</span> GRB.OPTIMAL:</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the solution</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>    flow_values <span class="op">=</span> {}</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), var <span class="kw">in</span> flow.items():</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the flow amount for this arc</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>        flow_amount <span class="op">=</span> var.X</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Only include arcs with positive flow</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> flow_amount <span class="op">&gt;</span> <span class="fl">0.001</span>:  <span class="co"># Small threshold for floating-point errors</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>            flow_values[(i, j)] <span class="op">=</span> flow_amount</span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Add to the total cost</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>            cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>            total_cost <span class="op">+=</span> flow_amount <span class="op">*</span> cost</span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Optimal flows:"</span>)</span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), flow <span class="kw">in</span> <span class="bu">sorted</span>(flow_values.items()):</span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>        cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>flow<span class="sc">:.1f}</span><span class="ss"> units (cost: $</span><span class="sc">{</span>cost<span class="sc">}</span><span class="ss">/unit)"</span>)</span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"&lt;br/&gt;Total transportation cost: $</span><span class="sc">{</span>total_cost<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"No optimal solution found. Status code: </span><span class="sc">{</span>model<span class="sc">.</span>Status<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Set parameter Username
+Set parameter LicenseID to value 2609229
+Gurobi Optimizer version 12.0.1 build v12.0.1rc0 (win64 - Windows 11.0 (26100.2))
+
+CPU model: 13th Gen Intel(R) Core(TM) i9-13900H, instruction set [SSE2|AVX|AVX2]
+Thread count: 14 physical cores, 20 logical processors, using up to 20 threads
+
+Optimize a model with 9 rows, 6 columns and 15 nonzeros
+Model fingerprint: 0x34da7e99
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [2e+00, 7e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [3e+01, 9e+01]
+Presolve removed 9 rows and 6 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.4000000e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.01 seconds (0.00 work units)
+Optimal objective  6.400000000e+02
+Optimal flows:
+DC → W1: 30.0 units (cost: $0/unit)
+DC → W2: 60.0 units (cost: $2/unit)
+Dummy → W2: 30.0 units (cost: $0/unit)
+F1 → DC: 50.0 units (cost: $3/unit)
+F1 → W1: 30.0 units (cost: $7/unit)
+F2 → DC: 40.0 units (cost: $4/unit)
+&lt;br/&gt;Total transportation cost: $640.0</code></pre>
+</div>
+</div>
+</section>
+<section id="advantages-of-the-python-approach" class="level4" data-number="3.5.9">
+<h4 data-number="3.5.9" class="anchored" data-anchor-id="advantages-of-the-python-approach"><span class="header-section-number">3.5.9</span>
+Advantages of the Python Approach</h4>
+<p>The Python/Gurobi approach offers several advantages:</p>
+<ul>
+<li>Scales to very large networks (hundreds of nodes and arcs)</li>
+<li>Easier to modify and analyze multiple scenarios</li>
+<li>Can be integrated with other Python tools for data analysis and
+visualization</li>
+<li>Faster for complex problems</li>
+<li>More sophisticated error handling and reporting</li>
+</ul>
+<p>Here is a version of this problem with five factories, 3 distribution
+centers, and eight warehouse locations:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    %% Supply Nodes (Factories)
+    F1[Factory 1&lt;br/&gt;120 units]
+    F2[Factory 2&lt;br/&gt;150 units]
+    F3[Factory 3&lt;br/&gt;200 units]
+    F4[Factory 4&lt;br/&gt;180 units]
+    F5[Factory 5&lt;br/&gt;250 units]
+    
+    %% Transshipment Nodes (Distribution Centers)
+    DC1[Distribution Center 1]
+    DC2[Distribution Center 2]
+    DC3[Distribution Center 3]
+    
+    %% Demand Nodes (Warehouses)
+    W1[Warehouse 1&lt;br/&gt;-80 units]
+    W2[Warehouse 2&lt;br/&gt;-110 units]
+    W3[Warehouse 3&lt;br/&gt;-90 units]
+    W4[Warehouse 4&lt;br/&gt;-130 units]
+    W5[Warehouse 5&lt;br/&gt;-150 units]
+    W6[Warehouse 6&lt;br/&gt;-100 units]
+    W7[Warehouse 7&lt;br/&gt;-120 units]
+    W8[Warehouse 8&lt;br/&gt;-120 units]
+    
+    %% Factory to DC connections
+    F1 --&gt;|$3/unit&lt;br/&gt;Max 100| DC1
+    F1 --&gt;|$4/unit&lt;br/&gt;Max 80| DC2
+    F2 --&gt;|$4/unit&lt;br/&gt;Max 90| DC1
+    F2 --&gt;|$3/unit&lt;br/&gt;Max 100| DC2
+    F3 --&gt;|$3/unit&lt;br/&gt;Max 120| DC2
+    F3 --&gt;|$2/unit&lt;br/&gt;Max 150| DC3
+    F4 --&gt;|$4/unit&lt;br/&gt;Max 100| DC2
+    F4 --&gt;|$3/unit&lt;br/&gt;Max 110| DC3
+    F5 --&gt;|$5/unit&lt;br/&gt;Max 80| DC1
+    F5 --&gt;|$2/unit&lt;br/&gt;Max 200| DC3
+    
+    %% Sample direct Factory to Warehouse connections
+    F1 -.-&gt;|$8/unit| W1
+    F2 -.-&gt;|$8/unit| W2
+    F3 -.-&gt;|$9/unit| W4
+    F4 -.-&gt;|$10/unit| W5
+    F5 -.-&gt;|$8/unit| W8
+    
+    %% DC to Warehouse connections (showing representative examples)
+    DC1 --&gt;|$3/unit&lt;br/&gt;Max 100| W1
+    DC1 --&gt;|$4/unit&lt;br/&gt;Max 90| W2
+    DC1 --&gt;|$2/unit&lt;br/&gt;Max 120| W3
+    DC2 --&gt;|$3/unit&lt;br/&gt;Max 100| W3
+    DC2 --&gt;|$2/unit&lt;br/&gt;Max 150| W4
+    DC2 --&gt;|$4/unit&lt;br/&gt;Max 120| W5
+    DC3 --&gt;|$4/unit&lt;br/&gt;Max 90| W6
+    DC3 --&gt;|$3/unit&lt;br/&gt;Max 140| W7
+    DC3 --&gt;|$2/unit&lt;br/&gt;Max 120| W8
+    
+    %% Inter-DC connections
+    DC1 --&gt;|$1/unit&lt;br/&gt;Max 70| DC2
+    DC2 --&gt;|$1/unit&lt;br/&gt;Max 90| DC3
+    DC3 --&gt;|$2/unit&lt;br/&gt;Max 60| DC1
+    
+    %% Node styling
+    classDef supply fill:#d4f1c5,stroke:#333,stroke-width:1px
+    classDef transship fill:#f1e9c5,stroke:#333,stroke-width:1px
+    classDef demand fill:#c5daf1,stroke:#333,stroke-width:1px
+    
+    %% Apply styles
+    class F1,F2,F3,F4,F5 supply
+    class DC1,DC2,DC3 transship
+    class W1,W2,W3,W4,W5,W6,W7,W8 demand
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div id="1ab10d2a" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">Minimum Cost Network Flow Solver</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">This script reads supply chain network data from CSV files and </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">solves the minimum cost network flow problem using Gurobi optimizer.</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> GRB</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the node data</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Reading node data from nodes.csv..."</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>nodes_df <span class="op">=</span> pd.read_csv(<span class="vs">r'data\min_cost_ex_nodes.csv'</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the arc data</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Reading arc data from arcs.csv..."</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>arcs_df <span class="op">=</span> pd.read_csv(<span class="vs">r'data\min_cost_ex_arcs.csv'</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract node information</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> nodes_df[<span class="st">'node_id'</span>].tolist()</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>supply_demand <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(nodes_df[<span class="st">'node_id'</span>], nodes_df[<span class="st">'supply_demand'</span>]))</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>node_types <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(nodes_df[<span class="st">'node_id'</span>], nodes_df[<span class="st">'type'</span>]))</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Group nodes by type for reporting</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>factories <span class="op">=</span> [node <span class="cf">for</span> node, type_val <span class="kw">in</span> node_types.items() <span class="cf">if</span> type_val <span class="op">==</span> <span class="st">'Factory'</span>]</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>distribution_centers <span class="op">=</span> [node <span class="cf">for</span> node, type_val <span class="kw">in</span> node_types.items() <span class="cf">if</span> type_val <span class="op">==</span> <span class="st">'DC'</span>]</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>warehouses <span class="op">=</span> [node <span class="cf">for</span> node, type_val <span class="kw">in</span> node_types.items() <span class="cf">if</span> type_val <span class="op">==</span> <span class="st">'Warehouse'</span>]</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Check supply/demand balance</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>total_supply <span class="op">=</span> <span class="bu">sum</span>(v <span class="cf">for</span> v <span class="kw">in</span> supply_demand.values() <span class="cf">if</span> v <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>total_demand <span class="op">=</span> <span class="op">-</span><span class="bu">sum</span>(v <span class="cf">for</span> v <span class="kw">in</span> supply_demand.values() <span class="cf">if</span> v <span class="op">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total supply: </span><span class="sc">{</span>total_supply<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total demand: </span><span class="sc">{</span>total_demand<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> total_supply <span class="op">!=</span> total_demand:</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Warning: Supply and demand are not balanced!"</span>)</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Create arcs dictionary from DataFrame</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'inf' strings to actual infinity</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>arcs_df[<span class="st">'capacity'</span>] <span class="op">=</span> arcs_df[<span class="st">'capacity'</span>].replace(<span class="st">'inf'</span>, <span class="bu">float</span>(<span class="st">'inf'</span>))</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>arcs_df[<span class="st">'capacity'</span>] <span class="op">=</span> pd.to_numeric(arcs_df[<span class="st">'capacity'</span>])</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Create arcs dictionary</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>arcs <span class="op">=</span> {}</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, row <span class="kw">in</span> arcs_df.iterrows():</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    arcs[(row[<span class="st">'from_node'</span>], row[<span class="st">'to_node'</span>])] <span class="op">=</span> (row[<span class="st">'cost'</span>], row[<span class="st">'capacity'</span>])</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Network has </span><span class="sc">{</span><span class="bu">len</span>(nodes)<span class="sc">}</span><span class="ss"> nodes and </span><span class="sc">{</span><span class="bu">len</span>(arcs)<span class="sc">}</span><span class="ss"> arcs"</span>)</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new Gurobi model</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> gp.Model(<span class="st">"SupplyChainNetwork"</span>)</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Create flow variables for each arc</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>flow <span class="op">=</span> {}</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, j), (cost, _) <span class="kw">in</span> arcs.items():</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    flow[(i, j)] <span class="op">=</span> model.addVar(name<span class="op">=</span><span class="ss">f'flow_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>, obj<span class="op">=</span>cost)</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Add flow conservation constraints for each node</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> nodes:</span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sum of flows leaving node i</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    outflow <span class="op">=</span> gp.quicksum(flow[(i, j)] <span class="cf">for</span> (i2, j) <span class="kw">in</span> arcs.keys() <span class="cf">if</span> i2 <span class="op">==</span> i)</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sum of flows entering node i</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>    inflow <span class="op">=</span> gp.quicksum(flow[(j, i)] <span class="cf">for</span> (j, i2) <span class="kw">in</span> arcs.keys() <span class="cf">if</span> i2 <span class="op">==</span> i)</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Outflow - inflow = supply/demand</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>    model.addConstr(outflow <span class="op">-</span> inflow <span class="op">==</span> supply_demand[i], name<span class="op">=</span><span class="ss">f'node_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Add capacity constraints for each arc</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, j), (_, capacity) <span class="kw">in</span> arcs.items():</span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> capacity <span class="op">&lt;</span> <span class="bu">float</span>(<span class="st">'inf'</span>):</span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>        model.addConstr(flow[(i, j)] <span class="op">&lt;=</span> capacity, name<span class="op">=</span><span class="ss">f'capacity_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Set objective to minimize total cost</span></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>model.ModelSense <span class="op">=</span> GRB.MINIMIZE</span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve the model</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Solving the network flow problem..."</span>)</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>model.optimize()</span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if an optimal solution was found</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> model.Status <span class="op">==</span> GRB.OPTIMAL:</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate flow statistics</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>    active_arcs <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>    capacity_limited_arcs <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Dictionaries to track flows by node type</span></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>    factory_flows <span class="op">=</span> {f: <span class="dv">0</span> <span class="cf">for</span> f <span class="kw">in</span> factories}</span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>    dc_throughput <span class="op">=</span> {dc: <span class="dv">0</span> <span class="cf">for</span> dc <span class="kw">in</span> distribution_centers}</span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>    warehouse_inflows <span class="op">=</span> {w: <span class="dv">0</span> <span class="cf">for</span> w <span class="kw">in</span> warehouses}</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract solution</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>    flow_values <span class="op">=</span> {}</span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), var <span class="kw">in</span> flow.items():</span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>        flow_amount <span class="op">=</span> var.X</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> flow_amount <span class="op">&gt;</span> <span class="fl">0.001</span>:  <span class="co"># Only count non-zero flows</span></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>            flow_values[(i, j)] <span class="op">=</span> flow_amount</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>            active_arcs <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>            cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>            capacity <span class="op">=</span> arcs[(i, j)][<span class="dv">1</span>]</span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>            total_cost <span class="op">+=</span> flow_amount <span class="op">*</span> cost</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Check if arc is at capacity</span></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> capacity <span class="op">&lt;</span> <span class="bu">float</span>(<span class="st">'inf'</span>) <span class="kw">and</span> <span class="bu">abs</span>(flow_amount <span class="op">-</span> capacity) <span class="op">&lt;</span> <span class="fl">0.001</span>:</span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>                capacity_limited_arcs <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Update node statistics</span></span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="kw">in</span> factories:</span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>                factory_flows[i] <span class="op">+=</span> flow_amount</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="kw">in</span> distribution_centers:</span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>                dc_throughput[i] <span class="op">+=</span> flow_amount</span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> j <span class="kw">in</span> warehouses:</span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>                warehouse_inflows[j] <span class="op">+=</span> flow_amount</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Print results</span></span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">========== OPTIMAL SOLUTION FOUND =========="</span>)</span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Total transportation cost: $</span><span class="sc">{</span>total_cost<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Active arcs: </span><span class="sc">{</span>active_arcs<span class="sc">}</span><span class="ss"> out of </span><span class="sc">{</span><span class="bu">len</span>(arcs)<span class="sc">}</span><span class="ss"> possible"</span>)</span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Arcs at capacity: </span><span class="sc">{</span>capacity_limited_arcs<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Factory utilization</span></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">FACTORY UTILIZATION:"</span>)</span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> f <span class="kw">in</span> factories:</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>        utilization_pct <span class="op">=</span> (factory_flows[f] <span class="op">/</span> supply_demand[f]) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>f<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>factory_flows[f]<span class="sc">}</span><span class="ss"> units shipped (</span><span class="sc">{</span>utilization_pct<span class="sc">:.1f}</span><span class="ss">% of capacity)"</span>)</span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Distribution center throughput</span></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">DISTRIBUTION CENTER THROUGHPUT:"</span>)</span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> dc <span class="kw">in</span> distribution_centers:</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>dc<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>dc_throughput[dc]<span class="sc">}</span><span class="ss"> units processed"</span>)</span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Warehouse demand fulfillment</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">WAREHOUSE DEMAND FULFILLMENT:"</span>)</span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> w <span class="kw">in</span> warehouses:</span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>        received_pct <span class="op">=</span> (warehouse_inflows[w] <span class="op">/</span> (<span class="op">-</span>supply_demand[w])) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>w<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>warehouse_inflows[w]<span class="sc">}</span><span class="ss"> units received (</span><span class="sc">{</span>received_pct<span class="sc">:.1f}</span><span class="ss">% of demand)"</span>)</span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Detailed flow report</span></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">DETAILED FLOW REPORT (non-zero flows only):"</span>)</span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Factory to warehouse direct</span></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>    f_to_w <span class="op">=</span> [(i, j, flow_values[(i, j)]) <span class="cf">for</span> (i, j) <span class="kw">in</span> flow_values.keys() </span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>             <span class="cf">if</span> i <span class="kw">in</span> factories <span class="kw">and</span> j <span class="kw">in</span> warehouses]</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> f_to_w:</span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">  Factory → Warehouse (Direct):"</span>)</span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, j, amt <span class="kw">in</span> <span class="bu">sorted</span>(f_to_w):</span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>            cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"    </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>amt<span class="sc">:.1f}</span><span class="ss"> units (cost: $</span><span class="sc">{</span>cost<span class="sc">}</span><span class="ss">/unit, total: $</span><span class="sc">{</span>amt<span class="op">*</span>cost<span class="sc">:.1f}</span><span class="ss">)"</span>)</span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Factory to DC</span></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>    f_to_dc <span class="op">=</span> [(i, j, flow_values[(i, j)]) <span class="cf">for</span> (i, j) <span class="kw">in</span> flow_values.keys() </span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>              <span class="cf">if</span> i <span class="kw">in</span> factories <span class="kw">and</span> j <span class="kw">in</span> distribution_centers]</span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> f_to_dc:</span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">  Factory → Distribution Center:"</span>)</span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, j, amt <span class="kw">in</span> <span class="bu">sorted</span>(f_to_dc):</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a>            cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>            capacity <span class="op">=</span> arcs[(i, j)][<span class="dv">1</span>]</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>            at_capacity <span class="op">=</span> <span class="st">" (at capacity)"</span> <span class="cf">if</span> <span class="bu">abs</span>(amt <span class="op">-</span> capacity) <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"    </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>amt<span class="sc">:.1f}</span><span class="ss"> units (cost: $</span><span class="sc">{</span>cost<span class="sc">}</span><span class="ss">/unit, total: $</span><span class="sc">{</span>amt<span class="op">*</span>cost<span class="sc">:.1f}</span><span class="ss">)</span><span class="sc">{</span>at_capacity<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>    <span class="co"># DC to warehouse</span></span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a>    dc_to_w <span class="op">=</span> [(i, j, flow_values[(i, j)]) <span class="cf">for</span> (i, j) <span class="kw">in</span> flow_values.keys() </span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>              <span class="cf">if</span> i <span class="kw">in</span> distribution_centers <span class="kw">and</span> j <span class="kw">in</span> warehouses]</span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dc_to_w:</span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">  Distribution Center → Warehouse:"</span>)</span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, j, amt <span class="kw">in</span> <span class="bu">sorted</span>(dc_to_w):</span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a>            cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a>            capacity <span class="op">=</span> arcs[(i, j)][<span class="dv">1</span>]</span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>            at_capacity <span class="op">=</span> <span class="st">" (at capacity)"</span> <span class="cf">if</span> <span class="bu">abs</span>(amt <span class="op">-</span> capacity) <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"    </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>amt<span class="sc">:.1f}</span><span class="ss"> units (cost: $</span><span class="sc">{</span>cost<span class="sc">}</span><span class="ss">/unit, total: $</span><span class="sc">{</span>amt<span class="op">*</span>cost<span class="sc">:.1f}</span><span class="ss">)</span><span class="sc">{</span>at_capacity<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Inter-DC flows</span></span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>    dc_to_dc <span class="op">=</span> [(i, j, flow_values[(i, j)]) <span class="cf">for</span> (i, j) <span class="kw">in</span> flow_values.keys() </span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>               <span class="cf">if</span> i <span class="kw">in</span> distribution_centers <span class="kw">and</span> j <span class="kw">in</span> distribution_centers]</span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dc_to_dc:</span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">  Distribution Center → Distribution Center:"</span>)</span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, j, amt <span class="kw">in</span> <span class="bu">sorted</span>(dc_to_dc):</span>
+<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a>            cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>            capacity <span class="op">=</span> arcs[(i, j)][<span class="dv">1</span>]</span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>            at_capacity <span class="op">=</span> <span class="st">" (at capacity)"</span> <span class="cf">if</span> <span class="bu">abs</span>(amt <span class="op">-</span> capacity) <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"    </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> → </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>amt<span class="sc">:.1f}</span><span class="ss"> units (cost: $</span><span class="sc">{</span>cost<span class="sc">}</span><span class="ss">/unit, total: $</span><span class="sc">{</span>amt<span class="op">*</span>cost<span class="sc">:.1f}</span><span class="ss">)</span><span class="sc">{</span>at_capacity<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Export solution to CSV</span></span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a>    solution_data <span class="op">=</span> []</span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i, j), flow_amount <span class="kw">in</span> flow_values.items():</span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>        cost <span class="op">=</span> arcs[(i, j)][<span class="dv">0</span>]</span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>        capacity <span class="op">=</span> arcs[(i, j)][<span class="dv">1</span>]</span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a>        solution_data.append({</span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>            <span class="st">'from_node'</span>: i,</span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>            <span class="st">'to_node'</span>: j,</span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a>            <span class="st">'flow'</span>: flow_amount,</span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a>            <span class="st">'cost_per_unit'</span>: cost,</span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a>            <span class="st">'total_cost'</span>: flow_amount <span class="op">*</span> cost,</span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>            <span class="st">'capacity'</span>: capacity <span class="cf">if</span> capacity <span class="op">&lt;</span> <span class="bu">float</span>(<span class="st">'inf'</span>) <span class="cf">else</span> <span class="st">'unlimited'</span>,</span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a>            <span class="st">'at_capacity'</span>: <span class="st">'Yes'</span> <span class="cf">if</span> capacity <span class="op">&lt;</span> <span class="bu">float</span>(<span class="st">'inf'</span>) <span class="kw">and</span> <span class="bu">abs</span>(flow_amount <span class="op">-</span> capacity) <span class="op">&lt;</span> <span class="fl">0.001</span> <span class="cf">else</span> <span class="st">'No'</span></span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a>    solution_df <span class="op">=</span> pd.DataFrame(solution_data)</span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a>    solution_df.to_csv(<span class="st">'solution.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Solution details exported to 'solution.csv'"</span>)</span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"No optimal solution found. Status code: </span><span class="sc">{</span>model<span class="sc">.</span>Status<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Check your data for inconsistencies in supply/demand balance or network connectivity."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading node data from nodes.csv...
+Reading arc data from arcs.csv...
+Total supply: 900
+Total demand: 900
+Network has 16 nodes and 35 arcs
+
+Solving the network flow problem...
+Gurobi Optimizer version 12.0.1 build v12.0.1rc0 (win64 - Windows 11.0 (26100.2))
+
+CPU model: 13th Gen Intel(R) Core(TM) i9-13900H, instruction set [SSE2|AVX|AVX2]
+Thread count: 14 physical cores, 20 logical processors, using up to 20 threads
+
+Optimize a model with 41 rows, 35 columns and 95 nonzeros
+Model fingerprint: 0x46d73227
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+01]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [6e+01, 3e+02]
+Presolve removed 29 rows and 3 columns
+Presolve time: 0.00s
+Presolved: 12 rows, 32 columns, 54 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.2300000e+03   1.675000e+02   0.000000e+00      0s
+      12    5.1200000e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 12 iterations and 0.01 seconds (0.00 work units)
+Optimal objective  5.120000000e+03
+
+========== OPTIMAL SOLUTION FOUND ==========
+Total transportation cost: $5120.00
+Active arcs: 23 out of 35 possible
+Arcs at capacity: 9
+
+FACTORY UTILIZATION:
+  F1: 120.0 units shipped (100.0% of capacity)
+  F2: 150.0 units shipped (100.0% of capacity)
+  F3: 200.0 units shipped (100.0% of capacity)
+  F4: 180.0 units shipped (100.0% of capacity)
+  F5: 250.0 units shipped (100.0% of capacity)
+
+DISTRIBUTION CENTER THROUGHPUT:
+  DC1: 240.0 units processed
+  DC2: 240.0 units processed
+  DC3: 460.0 units processed
+
+WAREHOUSE DEMAND FULFILLMENT:
+  W1: 80.0 units received (100.0% of demand)
+  W2: 110.0 units received (100.0% of demand)
+  W3: 90.0 units received (100.0% of demand)
+  W4: 130.0 units received (100.0% of demand)
+  W5: 150.0 units received (100.0% of demand)
+  W6: 100.0 units received (100.0% of demand)
+  W7: 120.0 units received (100.0% of demand)
+  W8: 120.0 units received (100.0% of demand)
+
+DETAILED FLOW REPORT (non-zero flows only):
+
+  Factory → Warehouse (Direct):
+    F2 → W2: 20.0 units (cost: $8/unit, total: $160.0)
+
+  Factory → Distribution Center:
+    F1 → DC1: 100.0 units (cost: $3/unit, total: $300.0) (at capacity)
+    F1 → DC2: 20.0 units (cost: $4/unit, total: $80.0)
+    F2 → DC1: 30.0 units (cost: $4/unit, total: $120.0)
+    F2 → DC2: 100.0 units (cost: $3/unit, total: $300.0) (at capacity)
+    F3 → DC2: 50.0 units (cost: $3/unit, total: $150.0)
+    F3 → DC3: 150.0 units (cost: $2/unit, total: $300.0) (at capacity)
+    F4 → DC2: 70.0 units (cost: $4/unit, total: $280.0)
+    F4 → DC3: 110.0 units (cost: $3/unit, total: $330.0) (at capacity)
+    F5 → DC1: 50.0 units (cost: $5/unit, total: $250.0)
+    F5 → DC3: 200.0 units (cost: $2/unit, total: $400.0) (at capacity)
+
+  Distribution Center → Warehouse:
+    DC1 → W1: 80.0 units (cost: $3/unit, total: $240.0)
+    DC1 → W2: 90.0 units (cost: $4/unit, total: $360.0) (at capacity)
+    DC1 → W3: 70.0 units (cost: $2/unit, total: $140.0)
+    DC2 → W3: 20.0 units (cost: $3/unit, total: $60.0)
+    DC2 → W4: 130.0 units (cost: $2/unit, total: $260.0)
+    DC2 → W5: 20.0 units (cost: $4/unit, total: $80.0)
+    DC2 → W6: 70.0 units (cost: $3/unit, total: $210.0)
+    DC3 → W5: 130.0 units (cost: $2/unit, total: $260.0) (at capacity)
+    DC3 → W6: 30.0 units (cost: $4/unit, total: $120.0)
+    DC3 → W7: 120.0 units (cost: $3/unit, total: $360.0)
+    DC3 → W8: 120.0 units (cost: $2/unit, total: $240.0) (at capacity)
+
+  Distribution Center → Distribution Center:
+    DC3 → DC1: 60.0 units (cost: $2/unit, total: $120.0) (at capacity)
+
+Solution details exported to 'solution.csv'</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="example-2-oil-transport-problem" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="example-2-oil-transport-problem"><span class="header-section-number">4</span> Example
+2: Oil Transport Problem</h2>
+<p>Let’s look at another example. The Conch Oil Company needs to
+transport 30 million barrels of crude oil from Doha, Qatar to three
+European refineries:</p>
+<ul>
+<li>Rotterdam, Netherlands (6 million barrels)</li>
+<li>Toulon, France (15 million barrels)</li>
+<li>Palermo, Italy (9 million barrels)</li>
+</ul>
+<p>There are three possible routes:</p>
+<ol type="1">
+<li>Direct shipping around Africa (most expensive)</li>
+<li>Through the Suez Canal to Port Said, then to destinations</li>
+<li>From Suez to Damietta via pipeline (limited to 15 million barrels),
+then to destinations</li>
+</ol>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    Doha(Doha&lt;br/&gt;30M barrels)
+    Suez(Suez)
+    PortSaid(Port Said)
+    Damietta(Damietta)
+    Rotterdam(Rotterdam&lt;br/&gt;-6M barrels)
+    Toulon(Toulon&lt;br/&gt;-15M barrels)
+    Palermo(Palermo&lt;br/&gt;-9M barrels)
+    
+    Doha --&gt;|$1.20/barrel| Rotterdam
+    Doha --&gt;|$1.40/barrel| Toulon
+    Doha --&gt;|$1.35/barrel| Palermo
+    Doha --&gt;|$0.35/barrel| Suez
+    Suez --&gt;|$0.20/barrel| PortSaid
+    Suez --&gt;|$0.16/barrel&lt;br/&gt;Max 15M barrels| Damietta
+    PortSaid --&gt;|$0.27/barrel| Rotterdam
+    PortSaid --&gt;|$0.28/barrel| Toulon
+    PortSaid --&gt;|$0.19/barrel| Palermo
+    Damietta --&gt;|$0.25/barrel| Rotterdam
+    Damietta --&gt;|$0.20/barrel| Toulon
+    Damietta --&gt;|$0.15/barrel| Palermo
+    
+    style Doha fill:#d4f1c5
+    style Rotterdam fill:#c5daf1
+    style Toulon fill:#c5daf1
+    style Palermo fill:#c5daf1
+    style Suez fill:#f1e9c5
+    style PortSaid fill:#f1e9c5
+    style Damietta fill:#f1e9c5
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="optimal-solution-to-oil-transport-problem" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="optimal-solution-to-oil-transport-problem"><span class="header-section-number">4.1</span>
+Optimal Solution to Oil Transport Problem</h3>
+<p>The optimal solution ships all 30 million barrels from Doha to Suez.
+From there:</p>
+<ul>
+<li>15 million barrels go through the pipeline to Damietta (at
+capacity)</li>
+<li>15 million barrels go to Port Said</li>
+</ul>
+<p>The oil is then distributed to the refineries using the cheapest
+routes.</p>
+</section>
+</section>
+<section id="understanding-flow-conservation-constraints" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="understanding-flow-conservation-constraints"><span class="header-section-number">5</span>
+Understanding Flow Conservation Constraints</h2>
+<p>The most important constraint in network flow models is the flow
+conservation constraint. This ensures that for each node:</p>
+<ul>
+<li><strong>Supply nodes</strong>: outflow - inflow = supply amount</li>
+<li><strong>Demand nodes</strong>: outflow - inflow = -demand
+amount</li>
+<li><strong>Transshipment nodes</strong>: outflow - inflow = 0</li>
+</ul>
+<p>For example, at the distribution center (DC) in our first
+example:</p>
+<ul>
+<li>Inflow: 50 units from F1 + 40 units from F2 = 90 units</li>
+<li>Outflow: 30 units to W1 + 60 units to W2 = 90 units</li>
+<li>Net flow: 90 - 90 = 0 (as required for a transshipment node)</li>
+</ul>
+</section>
+<section id="scenario-analysis" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="scenario-analysis"><span class="header-section-number">6</span>
+Scenario Analysis</h2>
+<p>Let’s examine how the optimal solution changes when we modify the
+network:</p>
+<section id="scenario-1-route-closure" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="scenario-1-route-closure"><span class="header-section-number">6.1</span>
+Scenario 1: Route Closure</h3>
+<p>If we close the route from F1 to DC (by setting its capacity to 0),
+the model must find alternative routes. This might involve:</p>
+<ul>
+<li>Shipping more from F1 to W1 directly</li>
+<li>Using more of the dummy supply</li>
+<li>Potentially increasing total cost</li>
+</ul>
+</section>
+<section id="scenario-2-demand-change" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="scenario-2-demand-change"><span class="header-section-number">6.2</span>
+Scenario 2: Demand Change</h3>
+<p>If demand at W1 increases or decreases, the optimal flow pattern will
+change:</p>
+<ul>
+<li>More units might flow through the DC</li>
+<li>Direct shipments might become more or less economical</li>
+<li>The model will automatically find the new cost-minimizing
+solution</li>
+</ul>
+</section>
+</section>
+<section id="key-takeaways" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">7</span> Key
+Takeaways</h2>
+<ol type="1">
+<li><p><strong>Network Structure</strong>: Identify supply, demand, and
+transshipment nodes, as well as all potential shipping routes.</p></li>
+<li><p><strong>Supply-Demand Balance</strong>: Check if total supply
+equals total demand. If not, add dummy nodes as needed.</p></li>
+<li><p><strong>Flow Conservation</strong>: Ensure that flow is conserved
+at each node (what comes in must equal what goes out, except at
+supply/demand nodes).</p></li>
+<li><p><strong>Capacity Constraints</strong>: Some routes may have
+limits on how much can flow through them, which can significantly affect
+the optimal solution.</p></li>
+<li><p><strong>Excel vs.&nbsp;Python</strong>:</p>
+<ul>
+<li>Excel is good for smaller problems and quick changes</li>
+<li>Python/Gurobi is better for larger problems and automated scenario
+analysis</li>
+</ul></li>
+<li><p><strong>Scenario Analysis</strong>: By modifying parameters
+(costs, capacities, demands), you can analyze how the network would
+respond to different conditions.</p></li>
+</ol>
+</section>
+<section id="practice-exercises" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="practice-exercises"><span class="header-section-number">8</span>
+Practice Exercises</h2>
+<ol type="1">
+<li><p><strong>Basic Network Flow Problem</strong>: Consider a simple
+network with two supply nodes (50 and 70 units), two demand nodes (-40
+and -80 units), and arcs connecting each supply node to each demand node
+with different costs. Solve this manually.</p></li>
+<li><p><strong>Adding Transshipment Nodes</strong>: Extend the previous
+problem by adding one transshipment node that can be used as an
+intermediate point.</p></li>
+<li><p><strong>Capacity Constraints</strong>: Modify the problem further
+by adding capacity constraints to some arcs and observe how the solution
+changes.</p></li>
+</ol>
+</section>
+<section id="references-and-resources" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="references-and-resources"><span class="header-section-number">9</span>
+References and Resources</h2>
+<ol type="1">
+<li>Hillier &amp; Lieberman, “Introduction to Operations Research,”
+Chapter 9</li>
+<li>The <a href="https://gurobi.github.io/modeling-examples/">Gurobi
+Modeling Examples</a> repository</li>
+</ol>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("wvu-gscm-425\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../learning-modules/05-intro-to-gurobipy.html" class="pagination-link" aria-label="05 | Introduction to Optimization with Gurobi (gurobipy)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">05 | Introduction to Optimization
+with Gurobi (gurobipy)</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,17 @@
+node_id,type,supply_demand
+F1,Factory,120
+F2,Factory,150
+F3,Factory,200
+F4,Factory,180
+F5,Factory,250
+DC1,DC,0
+DC2,DC,0
+DC3,DC,0
+W1,Warehouse,-80
+W2,Warehouse,-110
+W3,Warehouse,-90
+W4,Warehouse,-130
+W5,Warehouse,-150
+W6,Warehouse,-100
+W7,Warehouse,-120
+W8,Warehouse,-120
