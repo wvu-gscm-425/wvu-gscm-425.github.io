@@ -246,7 +246,7 @@ Modules</span></a>
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a></li>
   <li><a href="#strings" id="toc-strings" class="nav-link" data-scroll-target="#strings"><span class="header-section-number">2</span> Strings</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#a-string-is-a-sequence" id="toc-a-string-is-a-sequence" class="nav-link" data-scroll-target="#a-string-is-a-sequence"><span class="header-section-number">2.1</span> A string is a
   sequence</a></li>
   <li><a href="#string-slices" id="toc-string-slices" class="nav-link" data-scroll-target="#string-slices"><span class="header-section-number">2.2</span> String slices</a></li>
@@ -254,10 +254,25 @@ Modules</span></a>
   immutable</a></li>
   <li><a href="#string-comparison" id="toc-string-comparison" class="nav-link" data-scroll-target="#string-comparison"><span class="header-section-number">2.4</span> String comparison</a></li>
   <li><a href="#string-methods" id="toc-string-methods" class="nav-link" data-scroll-target="#string-methods"><span class="header-section-number">2.5</span> String methods</a></li>
-  <li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link" data-scroll-target="#regular-expressions"><span class="header-section-number">2.6</span> Regular expressions</a></li>
+  <li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link" data-scroll-target="#regular-expressions"><span class="header-section-number">2.6</span> Regular expressions</a>
+  <ul class="collapse">
+  <li><a href="#a-simple-search-example" id="toc-a-simple-search-example" class="nav-link" data-scroll-target="#a-simple-search-example"><span class="header-section-number">2.6.1</span> A simple search
+  example</a></li>
+  <li><a href="#using-raw-strings" id="toc-using-raw-strings" class="nav-link" data-scroll-target="#using-raw-strings"><span class="header-section-number">2.6.2</span> Using raw strings</a></li>
+  <li><a href="#searching-in-a-file" id="toc-searching-in-a-file" class="nav-link" data-scroll-target="#searching-in-a-file"><span class="header-section-number">2.6.3</span> Searching in a
+  file</a></li>
+  <li><a href="#using-the-or-operator" id="toc-using-the-or-operator" class="nav-link" data-scroll-target="#using-the-or-operator"><span class="header-section-number">2.6.4</span> Using the “OR” operator
+  (<code>|</code>)</a></li>
+  <li><a href="#matching-startend-of-lines" id="toc-matching-startend-of-lines" class="nav-link" data-scroll-target="#matching-startend-of-lines"><span class="header-section-number">2.6.5</span> Matching start/end of
+  lines</a></li>
+  <li><a href="#more-on-regex-syntax" id="toc-more-on-regex-syntax" class="nav-link" data-scroll-target="#more-on-regex-syntax"><span class="header-section-number">2.6.6</span> More on regex
+  syntax</a></li>
+  <li><a href="#string-substitution" id="toc-string-substitution" class="nav-link" data-scroll-target="#string-substitution"><span class="header-section-number">2.6.7</span> String
+  substitution</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="header-section-number">3</span> Lists</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#a-list-is-a-sequence" id="toc-a-list-is-a-sequence" class="nav-link" data-scroll-target="#a-list-is-a-sequence"><span class="header-section-number">3.1</span> A list is a sequence</a></li>
   <li><a href="#lists-are-mutable" id="toc-lists-are-mutable" class="nav-link" data-scroll-target="#lists-are-mutable"><span class="header-section-number">3.2</span> Lists are mutable</a></li>
   <li><a href="#list-slices" id="toc-list-slices" class="nav-link" data-scroll-target="#list-slices"><span class="header-section-number">3.3</span> List slices</a></li>
@@ -272,7 +287,7 @@ Modules</span></a>
   <li><a href="#list-arguments" id="toc-list-arguments" class="nav-link" data-scroll-target="#list-arguments"><span class="header-section-number">3.11</span> List arguments</a></li>
   </ul></li>
   <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link" data-scroll-target="#dictionaries"><span class="header-section-number">4</span> Dictionaries</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#a-dictionary-is-a-mapping" id="toc-a-dictionary-is-a-mapping" class="nav-link" data-scroll-target="#a-dictionary-is-a-mapping"><span class="header-section-number">4.1</span> A dictionary is a
   mapping</a></li>
   <li><a href="#creating-dictionaries" id="toc-creating-dictionaries" class="nav-link" data-scroll-target="#creating-dictionaries"><span class="header-section-number">4.2</span> Creating
@@ -287,7 +302,7 @@ Modules</span></a>
   dictionaries</a></li>
   </ul></li>
   <li><a href="#tuples" id="toc-tuples" class="nav-link" data-scroll-target="#tuples"><span class="header-section-number">5</span> Tuples</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#tuples-are-sequences" id="toc-tuples-are-sequences" class="nav-link" data-scroll-target="#tuples-are-sequences"><span class="header-section-number">5.1</span> Tuples are sequences</a></li>
   <li><a href="#tuples-are-immutable" id="toc-tuples-are-immutable" class="nav-link" data-scroll-target="#tuples-are-immutable"><span class="header-section-number">5.2</span> Tuples are immutable</a></li>
   <li><a href="#tuple-assignment" id="toc-tuple-assignment" class="nav-link" data-scroll-target="#tuple-assignment"><span class="header-section-number">5.3</span> Tuple assignment</a></li>
@@ -302,7 +317,7 @@ Modules</span></a>
   keys</a></li>
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">6</span> Exercises</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#checking-for-a-word-in-a-sentence" id="toc-checking-for-a-word-in-a-sentence" class="nav-link" data-scroll-target="#checking-for-a-word-in-a-sentence"><span class="header-section-number">6.1</span> Checking for a word in a
   sentence</a></li>
   <li><a href="#finding-phone-numbers-with-different-formats" id="toc-finding-phone-numbers-with-different-formats" class="nav-link" data-scroll-target="#finding-phone-numbers-with-different-formats"><span class="header-section-number">6.2</span> Finding phone numbers with

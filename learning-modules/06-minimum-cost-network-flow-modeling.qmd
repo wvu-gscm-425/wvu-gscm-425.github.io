@@ -13,6 +13,9 @@ format:
       - text: "min_cost_ex_solution.csv"
         href: "data/min_cost_ex_solution.csv"
         icon: file-earmark-spreadsheet
+      - text: "optimal_flows.csv (Oil Transport Problem)"
+        href: "optimal_flows.csv"
+        icon: file-earmark-spreadsheet
 order: 6
 ---
 
@@ -44,7 +47,7 @@ A minimum cost network flow problem has three main components:
    - Flow must be conserved at each node (total inflow = total outflow, except at supply/demand nodes)
    - Total supply must equal total demand for the problem to have feasible solutions
 
-### Mathematical Formulation
+## Mathematical Formulation
 
 Let's define:
 
@@ -116,82 +119,7 @@ flowchart LR
     DS -->|$0/unit| W2
 ```
 
-### Excel Implementation
-
-For Excel implementation, we'll set up a table structure:
-
-1. Create a transportation table showing all possible routes
-2. Add columns for costs, capacities, and flow variables
-3. Set up flow conservation constraints for each node
-4. Use Solver to find the optimal solution
-
-### Step-by-Step Excel Implementation
-
-1. **Decision Variables Table**:
-   
-   | From | To | Flow | Cost/Unit | Total Cost | Capacity | At Capacity? |
-   |------|------|------|-----------|------------|----------|--------------|
-   | F1 | W1 | ? | 7 | ? | 999 | ? |
-   | F1 | DC | ? | 3 | ? | 50 | ? |
-   | F2 | DC | ? | 4 | ? | 50 | ? |
-   | DC | W1 | ? | 0 | ? | 999 | ? |
-   | DC | W2 | ? | 2 | ? | 60 | ? |
-   | Dummy | W2 | ? | 0 | ? | 999 | ? |
-
-2. **Node Flow Summary**:
-   
-   | Node | Supply/Demand | Inflow | Outflow | Net Flow | Constraint Met? |
-   |------|---------------|--------|---------|----------|-----------------|
-   | F1 | 80 | ? | ? | ? | ? |
-   | F2 | 40 | ? | ? | ? | ? |
-   | DC | 0 | ? | ? | ? | ? |
-   | W1 | -60 | ? | ? | ? | ? |
-   | W2 | -90 | ? | ? | ? | ? |
-   | Dummy | 30 | ? | ? | ? | ? |
-
-3. **Set Up Excel Solver**:
-   - Objective: Minimize total cost
-   - By changing: Flow variables
-   - Subject to: Flow conservation, capacity constraints, non-negativity
-
-### Excel Solution
-
-When we solve this using Excel Solver, we get the following optimal flows:
-
-- F1 → DC: 50 units (at capacity)
-- F1 → W1: 30 units
-- F2 → DC: 40 units
-- DC → W1: 30 units
-- DC → W2: 60 units (at capacity)
-- Dummy → W2: 30 units (unfulfilled demand)
-
-Total cost = $640
-
-```{mermaid}
-flowchart LR
-    F1(Factory 1<br/>80 units)
-    F2(Factory 2<br/>40 units)
-    DC(Distribution Center)
-    W1(Warehouse 1<br/>-60 units)
-    W2(Warehouse 2<br/>-90 units)
-    DS(Dummy Supply<br/>30 units)
-    
-    F1 -->|30 units<br/>$7/unit| W1
-    F1 -->|50 units<br/>$3/unit| DC
-    F2 -->|40 units<br/>$4/unit| DC
-    DC -->|30 units<br/>$0/unit| W1
-    DC -->|60 units<br/>$2/unit| W2
-    DS -->|30 units<br/>$0/unit| W2
-    
-    style F1 fill:#d4f1c5
-    style F2 fill:#d4f1c5
-    style DS fill:#d4f1c5
-    style W1 fill:#c5daf1
-    style W2 fill:#c5daf1
-    style DC fill:#f1e9c5
-```
-
-### Python Implementation
+### Solving with Python
 
 The Python implementation uses Gurobi Optimizer through its Python interface, `gurobipy`. Unlike Excel, which uses a tabular format, Python builds the model programmatically. Let's break down how this works step by step.
 
@@ -203,8 +131,6 @@ Here's the basic structure:
 4. Add flow conservation constraints
 5. Add capacity constraints
 6. Set the objective and solve the model
-
-#### Setting up the Environment
 
 First, we need to import the necessary libraries:
 
@@ -526,6 +452,7 @@ arcs = {
 
 # Create a new model
 model = gp.Model("MinCostNetworkFlow")
+model.Params.LogToConsole = 0 # should turn off unwanted gurobipy output
 
 # Create flow variables for each arc
 flow = {}
@@ -580,6 +507,30 @@ if model.Status == GRB.OPTIMAL:
     print(f"<br/>Total transportation cost: ${total_cost:.1f}")
 else:
     print(f"No optimal solution found. Status code: {model.Status}")
+```
+
+```{mermaid}
+flowchart LR
+    F1(Factory 1<br/>80 units)
+    F2(Factory 2<br/>40 units)
+    DC(Distribution Center)
+    W1(Warehouse 1<br/>-60 units)
+    W2(Warehouse 2<br/>-90 units)
+    DS(Dummy Supply<br/>30 units)
+    
+    F1 -->|30 units<br/>$7/unit| W1
+    F1 -->|50 units<br/>$3/unit| DC
+    F2 -->|40 units<br/>$4/unit| DC
+    DC -->|30 units<br/>$0/unit| W1
+    DC -->|60 units<br/>$2/unit| W2
+    DS -->|30 units<br/>$0/unit| W2
+    
+    style F1 fill:#d4f1c5
+    style F2 fill:#d4f1c5
+    style DS fill:#d4f1c5
+    style W1 fill:#c5daf1
+    style W2 fill:#c5daf1
+    style DC fill:#f1e9c5
 ```
 
 #### Advantages of the Python Approach
@@ -718,6 +669,7 @@ print(f"Network has {len(nodes)} nodes and {len(arcs)} arcs")
 
 # Create a new Gurobi model
 model = gp.Model("SupplyChainNetwork")
+model.Params.LogToConsole = 0
 
 # Create flow variables for each arc
 flow = {}
@@ -867,14 +819,17 @@ if model.Status == GRB.OPTIMAL:
     
     solution_df = pd.DataFrame(solution_data)
     solution_df.to_csv('solution.csv', index=False)
-    print("\nSolution details exported to 'solution.csv'")
+    print()
+    print(solution_df)
     
 else:
     print(f"No optimal solution found. Status code: {model.Status}")
     print("Check your data for inconsistencies in supply/demand balance or network connectivity.")
 ```
 
-## Example 2: Oil Transport Problem
+This is just for example, we will not being doing any problems like this in this course.
+
+## Example 02: Oil Transport Problem
 
 Let's look at another example. The Conch Oil Company needs to transport 30 million barrels of crude oil from Doha, Qatar to three European refineries:
 
@@ -922,72 +877,470 @@ flowchart LR
 
 ### Optimal Solution to Oil Transport Problem
 
-The optimal solution ships all 30 million barrels from Doha to Suez. From there:
+Let's implement a complete Python solution for the Conch Oil Company problem. We'll structure this similar to our previous example but add more detailed code comments to explain the logic.
 
-- 15 million barrels go through the pipeline to Damietta (at capacity)
-- 15 million barrels go to Port Said
+```{python}
+import gurobipy as gp
+from gurobipy import GRB
 
-The oil is then distributed to the refineries using the cheapest routes.
+# Define the nodes in our network
+nodes = ['Doha', 'Suez', 'PortSaid', 'Damietta', 'Rotterdam', 'Toulon', 'Palermo']
 
-## Understanding Flow Conservation Constraints
+# Define supply/demand at each node (in millions of barrels)
+supply_demand = {
+    'Doha': 30,        # Supply: 30M barrels at origin
+    'Suez': 0,         # Transshipment node: no net supply/demand
+    'PortSaid': 0,     # Transshipment node: no net supply/demand
+    'Damietta': 0,     # Transshipment node: no net supply/demand
+    'Rotterdam': -6,   # Demand: 6M barrels
+    'Toulon': -15,     # Demand: 15M barrels
+    'Palermo': -9      # Demand: 9M barrels
+}
 
-The most important constraint in network flow models is the flow conservation constraint. This ensures that for each node:
+# Define arcs with (cost, capacity) tuples
+# Format: (origin, destination): (cost per barrel, capacity in millions of barrels)
+arcs = {
+    # Direct routes from Doha to refineries
+    ('Doha', 'Rotterdam'): (1.20, float('inf')),
+    ('Doha', 'Toulon'): (1.40, float('inf')),
+    ('Doha', 'Palermo'): (1.35, float('inf')),
+    
+    # Route via Suez
+    ('Doha', 'Suez'): (0.35, float('inf')),
+    ('Suez', 'PortSaid'): (0.20, float('inf')),
+    ('Suez', 'Damietta'): (0.16, 15),  # Pipeline has 15M barrel capacity
+    
+    # Routes from Port Said to refineries
+    ('PortSaid', 'Rotterdam'): (0.27, float('inf')),
+    ('PortSaid', 'Toulon'): (0.28, float('inf')),
+    ('PortSaid', 'Palermo'): (0.19, float('inf')),
+    
+    # Routes from Damietta to refineries
+    ('Damietta', 'Rotterdam'): (0.25, float('inf')),
+    ('Damietta', 'Toulon'): (0.20, float('inf')),
+    ('Damietta', 'Palermo'): (0.15, float('inf'))
+}
 
-- **Supply nodes**: outflow - inflow = supply amount
-- **Demand nodes**: outflow - inflow = -demand amount
-- **Transshipment nodes**: outflow - inflow = 0
+# Create a new Gurobi model
+model = gp.Model("OilTransportProblem")
+model.Params.LogToConsole = 0
 
-For example, at the distribution center (DC) in our first example:
+# Create decision variables for flow on each arc
+# Each variable represents millions of barrels flowing on that route
+flow = {}
+for (i, j), (cost, _) in arcs.items():
+    # obj=cost sets this variable's coefficient in the objective function
+    flow[(i, j)] = model.addVar(name=f'flow_{i}_{j}', obj=cost)
 
-- Inflow: 50 units from F1 + 40 units from F2 = 90 units
-- Outflow: 30 units to W1 + 60 units to W2 = 90 units
-- Net flow: 90 - 90 = 0 (as required for a transshipment node)
+# Add flow conservation constraints
+# For each node: outflow - inflow = supply/demand
+for i in nodes:
+    # Calculate total outflow from node i
+    outflow = gp.quicksum(flow[(i, j)] for (i2, j) in arcs.keys() if i2 == i)
+    
+    # Calculate total inflow to node i
+    inflow = gp.quicksum(flow[(j, i)] for (j, i2) in arcs.keys() if i2 == i)
+    
+    # Set constraint: outflow - inflow = supply/demand for this node
+    model.addConstr(outflow - inflow == supply_demand[i], name=f'node_{i}')
 
-## Scenario Analysis
+# Add capacity constraints for arcs with limited capacity
+for (i, j), (_, capacity) in arcs.items():
+    if capacity < float('inf'):
+        model.addConstr(flow[(i, j)] <= capacity, name=f'capacity_{i}_{j}')
 
-Let's examine how the optimal solution changes when we modify the network:
+# Set objective to minimize total cost
+model.ModelSense = GRB.MINIMIZE
 
-### Scenario 1: Route Closure
+# Solve the model
+model.optimize()
+```
 
-If we close the route from F1 to DC (by setting its capacity to 0), the model must find alternative routes. This might involve:
+When executing this model, the solution shows that:
 
-- Shipping more from F1 to W1 directly
-- Using more of the dummy supply
-- Potentially increasing total cost
+1. All 30 million barrels are shipped from Doha to Suez
+2. From Suez, 15 million barrels go through the pipeline to Damietta (utilizing full capacity)
+3. The remaining 15 million barrels go to Port Said
+4. From Damietta and Port Said, the oil is distributed to the refineries through the most cost-effective routes
 
-### Scenario 2: Demand Change
+We can extract values from our model with the following code. You should be able to use the same code for similar models, like in the lab (hint hint):
 
-If demand at W1 increases or decreases, the optimal flow pattern will change:
+```{python}
+import pandas as pd
 
-- More units might flow through the DC
-- Direct shipments might become more or less economical
-- The model will automatically find the new cost-minimizing solution
+# Create a list to store flow data for the CSV
+flow_data = []
+total_cost = 0
 
-## Key Takeaways
+# Extract non-zero flows
+for (i, j), var in flow.items():
+    flow_amount = var.X
+    
+    # Filter out very small flows (numerical precision issues)
+    if flow_amount > 0.001:
+        # Get the cost for this arc
+        cost = arcs[(i, j)][0]
+        
+        # Calculate the cost contribution
+        flow_cost = flow_amount * cost
+        total_cost += flow_cost
+        
+        # Add a row with all relevant information
+        flow_data.append({
+            'origin': i,
+            'destination': j,
+            'flow': round(flow_amount, 2),
+            'cost_per_unit': cost,
+            'total_cost': round(flow_cost, 2),
+            'capacity': arcs[(i, j)][1] if arcs[(i, j)][1] < float('inf') else 'Unlimited'
+        })
 
-1. **Network Structure**: Identify supply, demand, and transshipment nodes, as well as all potential shipping routes.
+# Check if we have any flow data before proceeding
+if flow_data:
+    # Create a DataFrame from the flow data
+    flow_df = pd.DataFrame(flow_data)
+    
+    # Sort the DataFrame without assuming column names
+    if 'origin' in flow_df.columns and 'destination' in flow_df.columns:
+        flow_df = flow_df.sort_values(by=['origin', 'destination'])
+    
+    # Save to CSV
+    flow_df.to_csv('optimal_flows.csv', index=False)
+    
+    # Create a summary DataFrame with additional statistics
+    summary_data = [{
+        'metric': 'Total Cost',
+        'value': round(total_cost, 2)
+    }, {
+        'metric': 'Total Flow Units',
+        'value': round(sum(item['flow'] for item in flow_data), 2)
+    }, {
+        'metric': 'Number of Active Routes',
+        'value': len(flow_data)
+    }]
+    
+    summary_df = pd.DataFrame(summary_data)
+    summary_df.to_csv('solution_summary.csv', index=False)
+    
+    print(f"Solution exported to 'optimal_flows.csv' and 'solution_summary.csv'")
+    print(f"Total transportation cost: ${total_cost:.2f}")
+    print()
+    print(summary_df)
+```
 
-2. **Supply-Demand Balance**: Check if total supply equals total demand. If not, add dummy nodes as needed.
+This code:
 
-3. **Flow Conservation**: Ensure that flow is conserved at each node (what comes in must equal what goes out, except at supply/demand nodes).
+1. Creates a structured dataset with all key information for each flow
+2. Exports the detailed flows to 'optimal_flows.csv'
+3. Creates a separate summary file with key metrics
+4. Works with any network structure (not specific to the oil transport problem)
+5. Preserves the total cost calculation from the original code
 
-4. **Capacity Constraints**: Some routes may have limits on how much can flow through them, which can significantly affect the optimal solution.
+You can easily adapt this by:
 
-5. **Excel vs. Python**:
-   - Excel is good for smaller problems and quick changes
-   - Python/Gurobi is better for larger problems and automated scenario analysis
+1. Changing the column names if needed
+2. Adding more metrics to the summary file
+3. Modifying the rounding precision
+4. Adding more details to each flow record
 
-6. **Scenario Analysis**: By modifying parameters (costs, capacities, demands), you can analyze how the network would respond to different conditions.
-
-## Practice Exercises
-
-1. **Basic Network Flow Problem**: Consider a simple network with two supply nodes (50 and 70 units), two demand nodes (-40 and -80 units), and arcs connecting each supply node to each demand node with different costs. Solve this manually.
-
-2. **Adding Transshipment Nodes**: Extend the previous problem by adding one transshipment node that can be used as an intermediate point.
-
-3. **Capacity Constraints**: Modify the problem further by adding capacity constraints to some arcs and observe how the solution changes.
+The CSV output will have a clean, tabular structure that can be opened in Excel or other tools for further analysis or visualization.
 
 ## References and Resources
 
 1. Hillier & Lieberman, "Introduction to Operations Research," Chapter 9
 2. The [Gurobi Modeling Examples](https://gurobi.github.io/modeling-examples/) repository
+
+## Exercises
+
+### Simple Network Flow Problem
+
+A shipping company needs to transport goods from two origins (O1, O2) to three destinations (D1, D2, D3). The shipping costs (in $ per unit) and supply/demand quantities are shown below:
+
+**Supply and Demand**:
+
+- Origin O1 has 150 units available
+- Origin O2 has 250 units available
+- Destination D1 requires 100 units
+- Destination D2 requires 200 units
+- Destination D3 requires 100 units
+
+**Shipping Costs**:
+
+| From | To | Cost per unit |
+|:----:|:--:|:-------------:|
+| O1   | D1 | $5            |
+| O1   | D2 | $3            |
+| O1   | D3 | $6            |
+| O2   | D1 | $4            |
+| O2   | D2 | $6            |
+| O2   | D3 | $2            |
+
+Formulate and solve this minimum cost network flow problem.
+
+#### Solution
+
+The solution demonstrates how to model and solve a basic transportation problem using Gurobi. The key components include:
+
+1. Setting up the network structure with origins (O1, O2) and destinations (D1, D2, D3)
+2. Defining supply and demand quantities at each node
+3. Creating shipping costs between each origin-destination pair
+4. Formulating flow conservation constraints for all nodes
+5. Solving the model to find the minimum cost solution
+
+```{python}
+#| code-fold: true
+
+import gurobipy as gp
+from gurobipy import GRB
+import pandas as pd
+
+# Define the nodes in our network
+origins = ['O1', 'O2']
+destinations = ['D1', 'D2', 'D3']
+nodes = origins + destinations
+
+# Define supply/demand at each node
+supply_demand = {
+    'O1':  150,  # Origin 1 supplies 150 units
+    'O2':  250,  # Origin 2 supplies 250 units
+    'D1': -100,  # Destination 1 demands 100 units
+    'D2': -200,  # Destination 2 demands 200 units
+    'D3': -100   # Destination 3 demands 100 units
+}
+
+# Define shipping costs
+shipping_costs = {
+    ('O1', 'D1'): 5,
+    ('O1', 'D2'): 3,
+    ('O1', 'D3'): 6,
+    ('O2', 'D1'): 4,
+    ('O2', 'D2'): 6,
+    ('O2', 'D3'): 2
+}
+
+# Define arcs with (cost, capacity)
+arcs = {}
+for (origin, dest), cost in shipping_costs.items():
+    arcs[(origin, dest)] = (cost, float('inf'))  # All routes have unlimited capacity initially
+
+# Create a new Gurobi model
+model = gp.Model("SimpleTransportationProblem")
+model.Params.LogToConsole = 0
+
+# Create flow variables for each arc
+flow = {}
+for (i, j), (cost, _) in arcs.items():
+    flow[(i, j)] = model.addVar(name=f'flow_{i}_{j}', obj=cost)
+
+# Add flow conservation constraints
+for i in nodes:
+    # Sum of flows leaving node i
+    outflow = gp.quicksum(flow[(i, j)] for (i2, j) in arcs.keys() if i2 == i)
+    
+    # Sum of flows entering node i
+    inflow = gp.quicksum(flow[(j, i)] for (j, i2) in arcs.keys() if i2 == i)
+    
+    # Outflow - inflow = supply/demand
+    model.addConstr(outflow - inflow == supply_demand[i], name=f'node_{i}')
+
+# Set objective to minimize total cost
+model.ModelSense = GRB.MINIMIZE
+
+# Solve the model
+model.optimize()
+
+# Extract the solution
+flow_values = {}
+total_cost = 0
+
+for (i, j), var in flow.items():
+    flow_amount = var.X
+    
+    # Only include arcs with positive flow
+    if flow_amount > 0.001:
+        flow_values[(i, j)] = flow_amount
+        
+        # Add to the total cost
+        cost = arcs[(i, j)][0]
+        total_cost += flow_amount * cost
+
+print("\nOptimal shipping plan:")
+for (origin, dest), amount in sorted(flow_values.items()):
+    cost = arcs[(origin, dest)][0]
+    print(f"{origin} → {dest}: {amount:.1f} units (cost: ${cost}/unit, total: ${amount*cost:.1f})")
+
+print(f"\nTotal transportation cost: ${total_cost:.1f}")
+
+# Export results to CSV (as requested)
+flow_data = []
+for (i, j), amount in flow_values.items():
+    cost = arcs[(i, j)][0]
+    flow_data.append({
+        'origin': i,
+        'destination': j,
+        'flow': round(amount, 1),
+        'cost_per_unit': cost,
+        'total_cost': round(amount * cost, 1)
+    })
+
+flow_df = pd.DataFrame(flow_data)
+flow_df.to_csv('exercise1_solution.csv', index=False)
+print()
+print(flow_df)
+```
+
+The optimal solution shows how to allocate shipments to minimize the total transportation cost. In the optimal solution, we typically see that cheaper routes are preferred (like O1→D2 with cost $3/unit) over more expensive alternatives. The CSV export functionality demonstrates how to save results for further analysis.
+
+If you've noticed by now, a lot of the Python code is cookie-cutter once you create the initial setup.
+
+### Network with Capacity Constraints
+
+Extend Exercise 1 by adding the following capacity constraints:
+
+- The route from O1 to D2 can handle at most 80 units
+- The route from O2 to D3 can handle at most 60 units
+
+Answer the following:
+
+1. How do these constraints change the optimal solution?
+2. Which routes are now at capacity?
+3. How much does the total cost increase due to these constraints?
+
+#### Solution
+
+This solution extends Exercise 1 by adding capacity constraints on specific routes:
+
+- O1 to D2: maximum 80 units
+- O2 to D3: maximum 60 units
+
+The solution approach:
+
+1. Solves both the unconstrained and constrained versions of the problem
+2. Compares the solutions to understand the impact of capacity constraints
+3. Identifies which routes are at capacity in the optimal solution
+4. Calculates the cost increase due to the constraints
+
+```{python}
+# Define capacity constraints
+capacity_constraints = {
+    ('O1', 'D2'): 80,   # Route from O1 to D2 has max capacity of 80 units
+    ('O2', 'D3'): 60    # Route from O2 to D3 has max capacity of 60 units
+}
+
+# Update arcs with capacity constraints
+for (origin, dest) in capacity_constraints:
+    cost = arcs[(origin, dest)][0]
+    arcs[(origin, dest)] = (cost, capacity_constraints[(origin, dest)])
+
+    # Create a new Gurobi model
+model_constrained = gp.Model("CapacitatedTransportationProblem")
+model_constrained.Params.LogToConsole = 0
+
+# Create flow variables for each arc
+flow_constrained = {}
+for (i, j), (cost, _) in arcs.items():
+    flow_constrained[(i, j)] = model_constrained.addVar(name=f'flow_{i}_{j}', obj=cost)
+
+# Add flow conservation constraints
+for i in nodes:
+    # Sum of flows leaving node i
+    outflow = gp.quicksum(flow_constrained[(i, j)] for (i2, j) in arcs.keys() if i2 == i)
+    
+    # Sum of flows entering node i
+    inflow = gp.quicksum(flow_constrained[(j, i)] for (j, i2) in arcs.keys() if i2 == i)
+    
+    # Outflow - inflow = supply/demand
+    model_constrained.addConstr(outflow - inflow == supply_demand[i], name=f'node_{i}')
+
+# Add capacity constraints
+for (i, j), (_, capacity) in arcs.items():
+    if capacity < float('inf'):
+        model_constrained.addConstr(flow_constrained[(i, j)] <= capacity, name=f'capacity_{i}_{j}')
+
+# Set objective to minimize total cost
+model_constrained.ModelSense = GRB.MINIMIZE
+
+# Solve the model
+model_constrained.optimize()
+
+# Extract the solution
+flow_values_constrained = {}
+total_cost_constrained = 0
+
+for (i, j), var in flow_constrained.items():
+    flow_amount = var.X
+    
+    # Only include arcs with positive flow
+    if flow_amount > 0.001:
+        flow_values_constrained[(i, j)] = flow_amount
+        
+        # Add to the total cost
+        cost = arcs[(i, j)][0]
+        total_cost_constrained += flow_amount * cost
+
+print("\nConstrained Solution:")
+print("-" * 30)
+
+for (origin, dest), amount in sorted(flow_values_constrained.items()):
+    cost = arcs[(origin, dest)][0]
+    capacity = arcs[(origin, dest)][1]
+    
+    capacity_info = ""
+    if capacity < float('inf') and abs(amount - capacity) < 0.1:
+        capacity_info = " (AT CAPACITY)"
+    
+    print(f"{origin} → {dest}: {amount:.1f} units (cost: ${cost}/unit, total: ${amount*cost:.1f}){capacity_info}")
+
+print(f"\nTotal transportation cost: ${total_cost_constrained:.1f}")
+
+# Calculate cost difference
+cost_difference = total_cost_constrained - total_cost # from ex 1 solution
+percentage_increase = (cost_difference / total_cost) * 100
+
+print("\nCost Comparison:")
+print(f"Cost increase due to capacity constraints: ${cost_difference:.1f} ({percentage_increase:.1f}%)")
+
+# Export results to CSV
+flow_data = []
+
+# Add unconstrained solution data
+for (i, j), amount in flow_values.items():
+    cost = arcs[(i, j)][0]
+    capacity = arcs[(i, j)][1]
+    at_capacity = "Yes" if capacity < float('inf') and abs(amount - capacity) < 0.1 else "No"
+    
+    flow_data.append({
+        'scenario': "Unconstrained",
+        'origin': i,
+        'destination': j,
+        'flow': round(amount, 1),
+        'cost_per_unit': cost,
+        'total_cost': round(amount * cost, 1),
+        'capacity': capacity if capacity < float('inf') else "Unlimited",
+        'at_capacity': at_capacity
+    })
+
+# Add constrained solution data
+for (i, j), amount in flow_values_constrained.items():
+    cost = arcs[(i, j)][0]
+    capacity = arcs[(i, j)][1]
+    at_capacity = "Yes" if capacity < float('inf') and abs(amount - capacity) < 0.1 else "No"
+    
+    flow_data.append({
+        'scenario': "Constrained",
+        'origin': i,
+        'destination': j,
+        'flow': round(amount, 1),
+        'cost_per_unit': cost,
+        'total_cost': round(amount * cost, 1),
+        'capacity': capacity if capacity < float('inf') else "Unlimited",
+        'at_capacity': at_capacity
+    })
+
+flow_df = pd.DataFrame(flow_data)
+print(flow_df)
+```
+
+The comparison provides an important real-world insight: limited shipping capacity often leads to higher transportation costs as companies are forced to use less efficient routes. The solution exports detailed results to a CSV file for further analysis, showing both the unconstrained and constrained flows side by side.
+
+This exercise demonstrates how to implement and analyze capacity constraints in transportation networks, which is a common challenge in real-world supply chain management.

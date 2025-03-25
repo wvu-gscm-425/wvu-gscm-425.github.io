@@ -1,0 +1,7 @@
+origin,destination,flow,cost_per_unit,total_cost,capacity
+Damietta,Toulon,15.0,0.2,3.0,Unlimited
+Doha,Suez,30.0,0.35,10.5,Unlimited
+PortSaid,Palermo,9.0,0.19,1.71,Unlimited
+PortSaid,Rotterdam,6.0,0.27,1.62,Unlimited
+Suez,Damietta,15.0,0.16,2.4,15
+Suez,PortSaid,15.0,0.2,3.0,Unlimited

@@ -41,15 +41,15 @@ All Learning Modules will be available by the start of the week. It is expected 
 | 4    | 2025-02-03 | **03 \| Flow Control and Functions**                 | Lab 02                 |
 | 5    | 2025-02-10 | **04 \| Data Structures**                            | Lab 03                 |
 | 6    | 2025-02-17 | Test 01 (Modules 01-04) Prep                         | Lab 04                 |
-| 7    | 2025-02-24 | **05 \| Intro to Gurobi & Optimization**             | **Test 01**            |
-| 8    | 2025-03-03 | **06 \| Supply Chain Network Design**                | Lab 05                 |
-| 9    | 2025-03-10 | **07 \| Facility Location Models**                   | Lab 06                 |
-| 10   | 2025-03-17 | **08 \| Transportation & Transshipment**             | Lab 07                 |
-| 11   | 2025-03-24 | *Spring Recess*                                      | *Recess*               |
-| 12   | 2025-03-31 | Test 02 (Modules 05-08) Prep                         | Lab 08                 |
-| 13   | 2025-04-07 | **09 \| Network Design with Uncertainty**            | **Test 02**            |
-| 14   | 2025-04-14 | **10 \| Multi-Objective Optimization & Sensitivity** | Lab 09                 |
-| 15   | 2025-04-21 | Final Project Prep                                   | Lab 10                 |
-| 16   | 2025-04-28 | Presentations                                        | **Final Project**      |
+| 7    | 2025-02-24 | **Test 01**                                          |                        |
+| 8    | 2025-03-03 | **05 \| Intro to Gurobi & Optimization**             | **Test 01**            |
+| 9    | 2025-03-10 | **05 \| Intro to Gurobi & Optimization | Part 2**    |                        |
+| 10   | 2025-03-17 | *Spring Recess*                                      | *Recess*               |
+| 11   | 2025-03-24 | **06 \| Minimum Cost Network Flow Modeling**         | Lab 05                 |
+| 12   | 2025-03-31 |                                                      | Lab 06                 |
+| 13   | 2025-04-07 |                                                      |                        |
+| 14   | 2025-04-14 |                                                      |                        |
+| 15   | 2025-04-21 |                                                      |                        |
+| 16   | 2025-04-28 |                                                      |                        |
 | 17   | 2025-05-05 | Finals Week (No Final Exam)                          |                        |
 :::

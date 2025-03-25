@@ -40,7 +40,7 @@ format:
     link-external-newwindow: true
     other-links: false
     toc: true
-    toc-depth: 3
+    toc-depth: 4
     toc-expand: true
     page-layout: article
     code-overflow: scroll
