@@ -1221,6 +1221,8 @@ The solution approach:
 4. Calculates the cost increase due to the constraints
 
 ```{python}
+#| code-fold: true
+
 # Define capacity constraints
 capacity_constraints = {
     ('O1', 'D2'): 80,   # Route from O1 to D2 has max capacity of 80 units

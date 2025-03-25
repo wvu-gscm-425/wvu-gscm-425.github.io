@@ -541,7 +541,7 @@ GRB.MINIMIZE for setting the optimization direction.</p>
 Defining the Problem Structure</h4>
 <p>Next, we define our network structure using Python data
 structures:</p>
-<div id="d9e9d2cc" class="cell" data-execution_count="1">
+<div id="554be10b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define nodes</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> [<span class="st">'F1'</span>, <span class="st">'F2'</span>, <span class="st">'DC'</span>, <span class="st">'W1'</span>, <span class="st">'W2'</span>, <span class="st">'Dummy'</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -604,7 +604,7 @@ the cost per unit of flow and the maximum capacity for that arc.</li>
 <p>The <code>items()</code> method returns an iterator over the
 key-value pairs in the dictionary, so <code>arcs.items()</code> produces
 pairs like: <code>((i, j), (cost, capacity))</code>.</p>
-<div id="79980b9b" class="cell" data-execution_count="2">
+<div id="f3559dfc" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> arcs.items():</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -931,7 +931,7 @@ total cost, and prints a summary of the optimal flows.</p>
 <section id="all-together" class="level4" data-number="4.2.7">
 <h4 data-number="4.2.7" class="anchored" data-anchor-id="all-together"><span class="header-section-number">4.2.7</span>
 All Together</h4>
-<div id="093db2c9" class="cell" data-execution_count="3">
+<div id="8da9f76d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> GRB</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1154,7 +1154,7 @@ centers, and eight warehouse locations:</p>
 </div>
 </div>
 </div>
-<div id="177db580" class="cell" data-execution_count="4">
+<div id="aac4654b" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
@@ -1530,7 +1530,7 @@ Optimal Solution to Oil Transport Problem</h3>
 <p>Let’s implement a complete Python solution for the Conch Oil Company
 problem. We’ll structure this similar to our previous example but add
 more detailed code comments to explain the logic.</p>
-<div id="1976d7ba" class="cell" data-execution_count="5">
+<div id="4c51fee0" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> GRB</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1621,7 +1621,7 @@ refineries through the most cost-effective routes</li>
 <p>We can extract values from our model with the following code. You
 should be able to use the same code for similar models, like in the lab
 (hint hint):</p>
-<div id="28ae92a2" class="cell" data-execution_count="6">
+<div id="70c5ac24" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list to store flow data for the CSV</span></span>
@@ -1797,7 +1797,7 @@ destinations (D1, D2, D3)</li>
 <li>Formulating flow conservation constraints for all nodes</li>
 <li>Solving the model to find the minimum cost solution</li>
 </ol>
-<div id="06a7bb78" class="cell" data-execution_count="7">
+<div id="a6f42b87" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
@@ -1957,7 +1957,9 @@ constraints</li>
 <li>Identifies which routes are at capacity in the optimal solution</li>
 <li>Calculates the cost increase due to the constraints</li>
 </ol>
-<div id="4140f23e" class="cell" data-execution_count="8">
+<div id="4d6f6e59" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define capacity constraints</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>capacity_constraints <span class="op">=</span> {</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'O1'</span>, <span class="st">'D2'</span>): <span class="dv">80</span>,   <span class="co"># Route from O1 to D2 has max capacity of 80 units</span></span>
@@ -2076,6 +2078,7 @@ constraints</li>
 <span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a>flow_df <span class="op">=</span> pd.DataFrame(flow_data)</span>
 <span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flow_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Set parameter LogToConsole to value 0
 
