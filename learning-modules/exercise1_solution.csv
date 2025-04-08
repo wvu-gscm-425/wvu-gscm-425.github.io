@@ -1,5 +1,0 @@
-origin,destination,flow,cost_per_unit,total_cost
-O1,D2,150.0,3,450.0
-O2,D1,100.0,4,400.0
-O2,D2,50.0,6,300.0
-O2,D3,100.0,2,200.0

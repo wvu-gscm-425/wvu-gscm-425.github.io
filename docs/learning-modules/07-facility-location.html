@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mr.&nbsp;Ozan Ozbeker">
+
+<title>07 | Facility Location Models
+– GSCM 425: Supply Chain Network Design</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../learning-modules/06-minimum-cost-network-flow-modeling.html" rel="prev">
+<link href="../images/flying-wv-gold.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fdd8e41e452522482f81c6f67b0e9110.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7a1606e66d82e84606b9c82b411ee8d3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">07 | Facility Location Models</h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo-gscm-425.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course
+Information</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/grading-and-deliverables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grading &amp; Deliverables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/policies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Policies</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Learning
+Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/01-setting-up-your-workstation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01
+| Setting Up Your Workstation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/02-intro-to-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02
+| Intro to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/03-functions-flow-control-and-conditionals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 | Functions, Flow Control, &amp; Conditionals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/04-data-structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04
+| Strings, Lists, Dictionaries, and Tuples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/05-intro-to-gurobipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05
+| Introduction to Optimization with Gurobi (gurobipy)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/06-minimum-cost-network-flow-modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06
+| Minimum Cost Network Flow Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/07-facility-location.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">07
+| Facility Location Models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a></li>
+  <li><a href="#key-concepts-in-facility-location" id="toc-key-concepts-in-facility-location" class="nav-link" data-scroll-target="#key-concepts-in-facility-location"><span class="header-section-number">2</span> Key Concepts in Facility
+  Location</a>
+  <ul>
+  <li><a href="#single-facility-vs-multi-facility" id="toc-single-facility-vs-multi-facility" class="nav-link" data-scroll-target="#single-facility-vs-multi-facility"><span class="header-section-number">2.1</span> Single-facility vs
+  Multi-facility</a></li>
+  <li><a href="#why-is-facility-location-important" id="toc-why-is-facility-location-important" class="nav-link" data-scroll-target="#why-is-facility-location-important"><span class="header-section-number">2.2</span> Why is facility location
+  important?</a></li>
+  <li><a href="#metrics" id="toc-metrics" class="nav-link" data-scroll-target="#metrics"><span class="header-section-number">2.3</span> Metrics</a></li>
+  </ul></li>
+  <li><a href="#single-facility-location-model" id="toc-single-facility-location-model" class="nav-link" data-scroll-target="#single-facility-location-model"><span class="header-section-number">3</span> Single-Facility Location
+  Model</a>
+  <ul>
+  <li><a href="#example-1-single-warehouse-for-sunshine-tire-company" id="toc-example-1-single-warehouse-for-sunshine-tire-company" class="nav-link" data-scroll-target="#example-1-single-warehouse-for-sunshine-tire-company"><span class="header-section-number">3.1</span> Example 1: Single Warehouse
+  for Sunshine Tire Company</a>
+  <ul class="collapse">
+  <li><a href="#solving-with-python-gurobi" id="toc-solving-with-python-gurobi" class="nav-link" data-scroll-target="#solving-with-python-gurobi"><span class="header-section-number">3.1.1</span> Solving with Python
+  (Gurobi)</a></li>
+  <li><a href="#solution" id="toc-solution" class="nav-link" data-scroll-target="#solution"><span class="header-section-number">3.1.2</span> Solution</a></li>
+  <li><a href="#adding-constraints-or-alternative-objectives" id="toc-adding-constraints-or-alternative-objectives" class="nav-link" data-scroll-target="#adding-constraints-or-alternative-objectives"><span class="header-section-number">3.1.3</span> Adding Constraints or
+  Alternative Objectives</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#multi-facility-location-model" id="toc-multi-facility-location-model" class="nav-link" data-scroll-target="#multi-facility-location-model"><span class="header-section-number">4</span> Multi-Facility Location
+  Model</a>
+  <ul>
+  <li><a href="#example-2-multiple-warehouses-for-excellent-foods-inc." id="toc-example-2-multiple-warehouses-for-excellent-foods-inc." class="nav-link" data-scroll-target="#example-2-multiple-warehouses-for-excellent-foods-inc."><span class="header-section-number">4.1</span> Example 2: Multiple
+  Warehouses for <em>Excellent Foods Inc.</em></a>
+  <ul class="collapse">
+  <li><a href="#assignment-and-re-optimization-with-python" id="toc-assignment-and-re-optimization-with-python" class="nav-link" data-scroll-target="#assignment-and-re-optimization-with-python"><span class="header-section-number">4.1.1</span> Assignment and
+  Re-optimization with Python</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">6</span> Exercises</a>
+  <ul>
+  <li><a href="#center-of-gravity-calculation-single-facility" id="toc-center-of-gravity-calculation-single-facility" class="nav-link" data-scroll-target="#center-of-gravity-calculation-single-facility"><span class="header-section-number">6.1</span> Center of Gravity Calculation
+  (Single Facility)</a></li>
+  <li><a href="#multi-facility-assignment-intuition" id="toc-multi-facility-assignment-intuition" class="nav-link" data-scroll-target="#multi-facility-assignment-intuition"><span class="header-section-number">6.2</span> Multi-facility Assignment
+  Intuition</a></li>
+  <li><a href="#solving-a-multi-facility-problem" id="toc-solving-a-multi-facility-problem" class="nav-link" data-scroll-target="#solving-a-multi-facility-problem"><span class="header-section-number">6.3</span> Solving a Multi-Facility
+  Problem</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="data/multi_city_data.csv"><i class="bi bi-file-earmark-spreadsheet"></i>Customer Data (20 locations)</a></li><li><a href="data/multi_city_data_2.csv"><i class="bi bi-file-earmark-spreadsheet"></i>Exercise Data</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">07 | Facility Location Models</h1>
+<p class="subtitle lead">Optimizing Facility Placement in Supply Chain
+Networks</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Mr.&nbsp;Ozan
+Ozbeker <a href="mailto:ozan.ozbeker@mail.wvu.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://business.wvu.edu/academics/management-information-systems">
+            Management Information Systems and Supply Chain
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1</span>
+Overview</h2>
+<p>Facility location problems involve finding the best positions for one
+or more facilities (e.g.&nbsp;warehouses, plants, service centers) to
+minimize costs or improve service in a supply chain. These decisions are
+critical because facility locations impact transportation costs,
+response times, and customer service levels. In this module, you will
+learn how to:</p>
+<ol type="1">
+<li>Formulate single-facility location problems (one new facility) to
+minimize transportation cost, using Euclidean distance-based
+objectives.</li>
+<li>Extend to multi-facility location problems (multiple new facilities)
+where customer demand points must be assigned to the nearest
+facility.</li>
+<li>Understand nonlinear distance-based formulations (using Euclidean
+distance) and how to handle them in optimization (using squared
+distances for tractability).</li>
+<li>Implement and solve location models in Python with Gurobi, using
+simple data structures (lists/dictionaries) and loops for clarity.</li>
+<li>Interpret solutions and discuss trade-offs, including diminishing
+returns from adding more facilities.</li>
+<li>Throughout, we include conceptual questions and hands-on Python
+exercises to reinforce understanding. By the end, you will be able to
+model facility location decisions and solve them using optimization
+techniques.</li>
+</ol>
+<p>Throughout, we include conceptual questions and hands-on Python
+exercises to reinforce understanding. By the end, you will be able to
+model facility location decisions and solve them using optimization
+techniques.</p>
+</section>
+<section id="key-concepts-in-facility-location" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="key-concepts-in-facility-location"><span class="header-section-number">2</span> Key
+Concepts in Facility Location</h2>
+<p><strong>Facility location</strong> decisions aim to position
+facilities such that <strong>transportation costs or distances</strong>
+are minimized (or service metrics optimized). Key concepts include:</p>
+<ul>
+<li><strong>Demand points (customers)</strong>: Locations that require
+service (with given coordinates on a plane and demand volume).</li>
+<li><strong>Facility (warehouse/plant) location</strong>: The decision
+variables, typically the <span class="math inline">\((x, y)\)</span>
+coordinates, of the facility to be located.</li>
+<li><strong>Distance and cost</strong>: Usually, cost is proportional to
+distance traveled * demand. We often use Euclidean distance
+(straight-line distance) between a facility and a customer: <span class="math inline">\(\text{Distance}_i(x, y) = \sqrt{(x - x_i)^2 + (y -
+y_i)^2}\)</span>, where <span class="math inline">\((x_i, y_i)\)</span>
+are coordinates of customer <span class="math inline">\(i\)</span> and
+<span class="math inline">\((x,y)\)</span> is the facility location.
+<ul>
+<li>Total transport cost = <span class="math inline">\(\sum_{i}
+(\text{distance}{i}) \times (\text{demand}{i}) \times (\text{transport
+cost per unit distance})\)</span>.</li>
+</ul></li>
+<li><strong>Nonlinearity:</strong> The objective involving Euclidean
+distance is <strong>nonlinear</strong> (the distance formula has a
+square root). This makes the problem a <strong>non-linear programming
+(NLP)</strong> problem. However, it is a convex problem for a single
+facility (no local minima besides the global minimum).</li>
+<li><strong>Squared distance approximation</strong>: To use solvers like
+Gurobi (which handle linear and quadratic objectives), we often minimize
+the <strong>squared distance</strong>; <span class="math inline">\((x-x_i)^2 + (y-y_i)^2\)</span> instead. Minimizing
+squared distance will locate the facility similarly to minimizing actual
+distance (it places more weight on farther distances). The optimal
+location for squared distance is known as the <strong>weighted center of
+gravity</strong> of the demand points.</li>
+</ul>
+<section id="single-facility-vs-multi-facility" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="single-facility-vs-multi-facility"><span class="header-section-number">2.1</span>
+Single-facility vs Multi-facility</h3>
+<ul>
+<li><em>Single-facility location</em>: One facility to serve all demand
+points. We seek the best single location to minimize total distance
+costs.</li>
+<li><em>Multi-facility location</em>: Placing multiple facilities
+(e.g.&nbsp;multiple warehouses) and assigning each customer to the nearest
+(or most appropriate) facility. This is more complex because we must
+decide both <strong>facility locations</strong> and
+<strong>customer-facility assignments</strong> simultaneously. The
+problem becomes a location-allocation problem, often requiring heuristic
+or iterative methods (as it is generally an NP-hard problem when
+formulated exactly).</li>
+</ul>
+</section>
+<section id="why-is-facility-location-important" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="why-is-facility-location-important"><span class="header-section-number">2.2</span> Why
+is facility location important?</h3>
+<p>Proper placement of facilities can dramatically reduce transportation
+costs and improve service. For example, a company may reduce delivery
+distances by building regional warehouses closer to customers rather
+than serving an entire country from one central location. However, more
+facilities also mean higher fixed costs (which we <strong>do
+not</strong> explicitly model here, but in practice there is a
+trade-off).</p>
+</section>
+<section id="metrics" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="metrics"><span class="header-section-number">2.3</span>
+Metrics</h3>
+<p>While this module focuses on minimizing total distance (or cost) to
+customers (a typical objective, yielding a <strong>1-median</strong>
+problem on a plane), other metrics could be optimized:</p>
+<ul>
+<li><em>Minimize average distance per customer</em>: similar to total
+distance if total demand is fixed.</li>
+<li><em>Minimize maximum distance to any customer</em>: a minimax or
+covering radius objective (placing facility to minimize the farthest
+customer distance).</li>
+<li><em>Satisfy distance constraints</em>: e.g.&nbsp;ensure all customers are
+within a certain distance (which may require multiple facilities if one
+cannot cover all within the limit).</li>
+</ul>
+<p>We will primarily use the total (or weighted) distance objective,
+which is most common in cost minimization.</p>
+</section>
+</section>
+<section id="single-facility-location-model" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="single-facility-location-model"><span class="header-section-number">3</span>
+Single-Facility Location Model</h2>
+<p>In a single-facility problem, we want to find the coordinates <span class="math inline">\((x, y)\)</span> for a new facility that minimize
+the sum of distances to all customers weighted by their demand (and any
+transport cost rate).</p>
+<p>Mathematically:</p>
+<ul>
+<li>Let <span class="math inline">\(N\)</span> be the set of customer
+locations.</li>
+<li>For each customer <span class="math inline">\(i \in N\)</span>:
+<ul>
+<li><span class="math inline">\((x_i, y_i)\)</span> are known
+coordinates.</li>
+<li><span class="math inline">\(d_i\)</span> is the demand (or shipment
+volume) from the facility to <span class="math inline">\(i\)</span>
+(e.g.&nbsp;annual demand).</li>
+<li><span class="math inline">\(t_i\)</span> is the transport cost per
+unit distance for customer <span class="math inline">\(i\)</span> (if
+transport cost differs by route; often <span class="math inline">\(t_i\)</span> is the same for all if using the same
+transport mode)</li>
+</ul></li>
+<li>Decision variables: <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (continuous) = coordinates of the
+facility.</li>
+</ul>
+<p><strong>Objective (nonlinear)</strong>: Minimize total transport cost
+= <span class="math inline">\(\sum_{i \in N} d_i \cdot t_i \cdot
+\sqrt{(x - x_i)^2 + (y - y_i)^2}\)</span>. There are no explicit
+constraints on <span class="math inline">\((x,y)\)</span> (the facility
+can be located anywhere on the plane, unless specified otherwise).</p>
+<p>This is a <strong>continuous nonlinear optimization</strong> problem.
+The objective function is convex in <span class="math inline">\((x,y)\)</span>, so a global optimum can be found
+via calculus or iterative algorithms. However, standard linear solvers
+cannot be used directly due to the square root.</p>
+<p><strong>Using Squared Distances</strong>: To solve with a quadratic
+solver (like Gurobi’s QP capabilities), we often minimize <span class="math inline">\(\sum_i d_i t_i \big[(x - x_i)^2 + (y -
+y_i)^2\big]\)</span> instead. This removes the square root, making it a
+quadratic objective. The optimal <span class="math inline">\((x,y)\)</span> for the squared-distance objective
+is the weighted center-of-gravity:</p>
+<p><span class="math display">\[
+x^* = \frac{\sum_i d_i t_i x_i}{\sum_i d_i t_i}, \quad
+y^* = \frac{\sum_i d_i t_i y_i}{\sum_i d_i t_i}
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If transport cost per unit distance <span class="math inline">\(t_i\)</span> is uniform for all customers, it
+cancels out. Then <span class="math inline">\(x^*, y^*\)</span> are just
+demand-weighted averages of customer coordinates. This center-of-gravity
+is often used as a heuristic solution for the actual distance-based
+problem. For the true distance objective (with sqrt), the optimum tends
+to be somewhat closer to high-demand or far-away points than the
+center-of-gravity (since each additional mile hurts the objective
+linearly, not quadratically). In practice, the difference may be small,
+and the center-of-gravity provides a good starting point.</p>
+</div>
+</div>
+<section id="example-1-single-warehouse-for-sunshine-tire-company" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="example-1-single-warehouse-for-sunshine-tire-company"><span class="header-section-number">3.1</span>
+Example 1: Single Warehouse for Sunshine Tire Company</h3>
+<p><em>Sunshine Tire Company</em> is considering building a new
+distribution center to serve three major clients. The clients’ locations
+(in an XY grid coordinate system) and annual shipment volumes are given
+below:</p>
+<ul>
+<li><strong>Toledo</strong> – demand = 15,000 tons/year, coordinates
+<span class="math inline">\((1360, 1160)\)</span>.</li>
+<li><strong>Macomb</strong> – demand = 5,000 tons/year, coordinates
+<span class="math inline">\((980, 1070)\)</span>.</li>
+<li><strong>Allentown</strong> – demand = 11,000 tons/year, coordinates
+<span class="math inline">\((1840, 1150)\)</span>.</li>
+</ul>
+<p>Transport cost per ton-mile varies by client due to different freight
+contracts:</p>
+<ul>
+<li><strong>Toledo</strong>: $t = <span class="math inline">\(0.95\)</span> per ton-mile</li>
+<li><strong>Macomb</strong>: $t = <span class="math inline">\(1.25\)</span> per ton-mile</li>
+<li><strong>Allentown</strong>: $t = <span class="math inline">\(0.85\)</span> per ton-mile</li>
+</ul>
+<p><strong>Problem</strong>: Find the location <span class="math inline">\((x,y)\)</span> for the new DC that minimizes total
+annual transportation cost to these three clients.</p>
+<p>First, let’s formulate the model. Using squared distances for
+tractability, our objective is:</p>
+<p><span class="math display">\[
+\min \Big[
+15000(0.95)\big((x - 1360)^2 + (y - 1160)^2\big) +
+5000(1.25)\big((x - 980)^2 + (y - 1070)^2\big) +
+11000(0.85)\big((x - 1840)^2 + (y - 1150)^2\big)
+\Big]
+\]</span></p>
+<p>We can solve this using Python and Gurobi (as a quadratic program).
+We expect the optimal solution to correspond to a weighted average of
+the coordinates, weighted by <span class="math inline">\(d_i
+t_i\)</span> for each city.</p>
+<section id="solving-with-python-gurobi" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="solving-with-python-gurobi"><span class="header-section-number">3.1.1</span>
+Solving with Python (Gurobi)</h4>
+<p>We’ll use <code>gurobipy</code> to set up the decision variables and
+quadratic objective.</p>
+<div id="6fb51e26" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gurobipy <span class="im">as</span> gp</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> GRB</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Data for Sunshine Tire example</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>clients <span class="op">=</span> {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Toledo"</span>:    {<span class="st">"x"</span>: <span class="dv">1360</span>, <span class="st">"y"</span>: <span class="dv">1160</span>, <span class="st">"demand"</span>: <span class="dv">15000</span>, <span class="st">"cost_per_ton_mile"</span>: <span class="fl">0.95</span>},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Macomb"</span>:    {<span class="st">"x"</span>: <span class="dv">980</span>,  <span class="st">"y"</span>: <span class="dv">1070</span>, <span class="st">"demand"</span>: <span class="dv">5000</span>,  <span class="st">"cost_per_ton_mile"</span>: <span class="fl">1.25</span>},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Allentown"</span>: {<span class="st">"x"</span>: <span class="dv">1840</span>, <span class="st">"y"</span>: <span class="dv">1150</span>, <span class="st">"demand"</span>: <span class="dv">11000</span>, <span class="st">"cost_per_ton_mile"</span>: <span class="fl">0.85</span>}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create model</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> gp.Model(<span class="st">"SunshineTire_SingleFacility"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Decision variables: coordinates (x, y)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> m.addVar(name<span class="op">=</span><span class="st">"x_coord"</span>, lb<span class="op">=-</span>GRB.INFINITY, ub<span class="op">=</span>GRB.INFINITY)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> m.addVar(name<span class="op">=</span><span class="st">"y_coord"</span>, lb<span class="op">=-</span>GRB.INFINITY, ub<span class="op">=</span>GRB.INFINITY)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build quadratic objective</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>quad_expr <span class="op">=</span> gp.QuadExpr()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> city, data <span class="kw">in</span> clients.items():</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    xi, yi <span class="op">=</span> data[<span class="st">"x"</span>], data[<span class="st">"y"</span>]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> data[<span class="st">"demand"</span>] <span class="op">*</span> data[<span class="st">"cost_per_ton_mile"</span>]  <span class="co"># weight for this term</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    quad_expr <span class="op">+=</span> w <span class="op">*</span> ((x <span class="op">-</span> xi)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (y <span class="op">-</span> yi)<span class="op">**</span><span class="dv">2</span>) <span class="co"># Add w * [ (x - xi)^2 + (y - yi)^2 ] to objective</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>m.setObjective(quad_expr, GRB.MINIMIZE)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>m.optimize()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Output solution</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> m.Status <span class="op">==</span> GRB.OPTIMAL:</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Optimal location: x = </span><span class="sc">{</span>x<span class="sc">.</span>X<span class="sc">:.3f}</span><span class="ss">, y = </span><span class="sc">{</span>y<span class="sc">.</span>X<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute total annual transport cost using actual distances:</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> city, data <span class="kw">in</span> clients.items():</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        dist <span class="op">=</span> ((x.X <span class="op">-</span> data[<span class="st">"x"</span>])<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (y.X <span class="op">-</span> data[<span class="st">"y"</span>])<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span>  <span class="co"># Euclidean distance</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        cost <span class="op">=</span> data[<span class="st">"demand"</span>] <span class="op">*</span> data[<span class="st">"cost_per_ton_mile"</span>] <span class="op">*</span> dist</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        total_cost <span class="op">+=</span> cost</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Distance to </span><span class="sc">{</span>city<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>dist<span class="sc">:.1f}</span><span class="ss">, Annual cost: $</span><span class="sc">{</span>cost<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Total annual transport cost: $</span><span class="sc">{</span>total_cost<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Set parameter Username
+Set parameter LicenseID to value 2609229
+Gurobi Optimizer version 12.0.1 build v12.0.1rc0 (win64 - Windows 11.0 (26100.2))
+
+CPU model: 13th Gen Intel(R) Core(TM) i9-13900H, instruction set [SSE2|AVX|AVX2]
+Thread count: 14 physical cores, 20 logical processors, using up to 20 threads
+
+Optimize a model with 0 rows, 2 columns and 0 nonzeros
+Model fingerprint: 0xb23fb48c
+Model has 2 quadratic objective terms
+Coefficient statistics:
+  Matrix range     [0e+00, 0e+00]
+  Objective range  [7e+07, 9e+07]
+  QObjective range [6e+04, 6e+04]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [0e+00, 0e+00]
+Presolve removed 0 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Barrier solved model in 0 iterations and 0.00 seconds (0.00 work units)
+Optimal objective 2.94430988e+09
+Optimal location: x = 1430.787, y = 1138.023
+Distance to Toledo: 74.1, Annual cost: $1,056,213
+Distance to Macomb: 455.9, Annual cost: $2,849,317
+Distance to Allentown: 409.4, Annual cost: $3,827,777
+Total annual transport cost: $7,733,307</code></pre>
+</div>
+</div>
+<p>Running this model, Gurobi will find the optimal coordinates that
+minimize the quadratic objective. We then calculate the total cost at
+that location to interpret the result.</p>
+</section>
+<section id="solution" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="solution"><span class="header-section-number">3.1.2</span>
+Solution</h4>
+<p>The optimal coordinates are approximately <strong>(1430,
+1138)</strong>. This point is essentially the weighted center-of-gravity
+of the three clients, heavily influenced by Toledo and Allentown (the
+larger shipments) and their relatively lower transport rates. In fact,
+if we compute the weighted average manually:</p>
+<ul>
+<li>Horizontal (x) coordinate: <span class="math inline">\(\frac{(15000
+\cdot 0.95 \cdot 1360) + (5000 \cdot 1.25 \cdot 980) + (11000 \cdot 0.85
+\cdot 1840)}{(15000 \cdot 0.95) + (5000 \cdot 1.25) + (11000 \cdot
+0.85)} \approx 1430\)</span></li>
+<li>Vertical (y) coordinate: <span class="math inline">\(\approx
+1138\)</span></li>
+</ul>
+<p>This matches the solver result, confirming the center-of-gravity
+logic for the squared distance formulation.</p>
+<ul>
+<li><p><strong>Interpreting the cost</strong>: The total annual cost at
+this optimal location is about $7.73 million. Note that being closest to
+Toledo (which had the cheapest per-mile cost) is not as crucial as being
+centrally located to balance all costs. The chosen point lies somewhat
+between Toledo and Allentown. Interestingly, the solution coincides
+roughly with Toledo’s x-coordinate and Allentown’s y-coordinate – but
+that may be a coincidence of data.</p></li>
+<li><p><strong>Euclidean vs Squared Objective</strong>: If we had
+minimized actual distance (with the <code>sqrt</code>), the optimal
+point might shift slightly. For example, you could use specialized
+algorithms (like the Weiszfeld algorithm) to find the true
+distance-minimizing location (the geometric median). In this case,
+because Toledo and Allentown dominate, the true optimum might move a bit
+closer to those cities compared to the center-of-gravity. However, the
+difference is often minor for many practical cases. The squared-distance
+solution is a reasonable approximation.</p></li>
+<li><p><strong>Concept Check</strong>: <em>Why might the optimal
+location not be exactly at one of the customer cities?</em> Because that
+would favor that one customer too much while increasing distance to
+others. The optimum balances all weighted distances. Only in special
+cases—like one customer having an overwhelmingly large demand or cost
+weight—would the best location coincide with that customer’s
+location.</p></li>
+</ul>
+</section>
+<section id="adding-constraints-or-alternative-objectives" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="adding-constraints-or-alternative-objectives"><span class="header-section-number">3.1.3</span>
+Adding Constraints or Alternative Objectives</h4>
+<p>In some scenarios, you might have additional constraints. For
+example, Sunshine Tire could require that the new DC be within a certain
+maximum distance of each customer for service reasons. This would impose
+constraints like <span class="math inline">\(\sqrt{(x-x_i)^2+(y-y_i)^2}
+\leq D_{\max}\)</span> for each customer <span class="math inline">\(i\)</span>. These are nonlinear constraints
+(defining a feasible region as the intersection of circles of radius
+<span class="math inline">\(D_{\max}\)</span> around each customer). If
+<span class="math inline">\(D_{\max}\)</span> is too small to cover all
+points, the problem becomes infeasible unless we add more
+facilities.</p>
+<p>Alternatively, consider if Sunshine Tire wanted to <strong>minimize
+the maximum distance</strong> to any client (a minimax objective). The
+solution would try to centrally locate such that the farthest client is
+as close as possible. This is a different optimization criterion and
+might yield a different location than the min-sum solution. (Such a
+problem can be formulated by introducing a variable <span class="math inline">\(R\)</span> to represent the max distance and
+minimizing <span class="math inline">\(R\)</span> with constraints <span class="math inline">\(\sqrt{(x-x_i)^2+(y-y_i)^2} \le R\)</span> for all
+<span class="math inline">\(i\)</span>.)</p>
+<p>These variations highlight how objectives and constraints can change
+the outcome. In practice, you’d choose the formulation that best fits
+the company’s service targets.</p>
+<p><strong>Takeaway</strong>: For a single facility, the
+center-of-gravity method (weighted by demand and cost) gives a quick
+answer when using squared distance or as a starting point for iterative
+methods. If using a solver like Gurobi, we can implement the exact
+formulation with quadratic objective (or even the true distance using
+second-order cone techniques, albeit that’s more advanced). The optimal
+location balances the pull of all demand points according to their
+weight.</p>
+</section>
+</section>
+</section>
+<section id="multi-facility-location-model" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="multi-facility-location-model"><span class="header-section-number">4</span>
+Multi-Facility Location Model</h2>
+<p>Now suppose Sunshine Tire (or another company) can build
+<strong>multiple facilities</strong>. Multi-facility location problems
+involve deciding both <em>how to place several facilities and which
+facility serves each customer</em>.</p>
+<p>This is commonly referred to as a <strong>Location-Allocation
+problem</strong>: we are effectively clustering customers to the nearest
+facility and finding optimal facility positions for each cluster.</p>
+<p><strong>Key challenge</strong>: The assignment of customers to
+facilities and the facility locations influence each other. If we knew
+the assignments (which customers go to facility A vs facility B, etc.),
+we could compute the best location for each facility (as a
+single-facility problem on its cluster). Conversely, if we fix facility
+locations, customers should be assigned to the nearest (to minimize
+cost). But we don’t know either upfront, it’s a chicken-and-egg problem,
+and solving it exactly in one go is difficult because it becomes a large
+non-linear, non-convex optimization.</p>
+<p>In fact, an exact formulation of the multi-facility problem would
+involve binary assignment variables (for which facility serves which
+customer) and continuous location variables. This becomes a
+<strong>mixed-integer non-linear program (MINLP)</strong> that is
+generally hard to solve to optimality for large sets. Instead, we rely
+on heuristic or iterative methods. One common approach is analogous to
+the <strong>k-means clustering algorithm</strong> used in data
+science:</p>
+<p><strong>Iterative Algorithm for Multi-Facility Location</strong> (for
+a given number of facilities <span class="math inline">\(K\)</span>):</p>
+<ol type="1">
+<li><strong>Initialization</strong>: Guess initial locations for the
+<span class="math inline">\(K\)</span> facilities. (For example, choose
+<span class="math inline">\(K\)</span> customer locations as initial
+facility sites, or randomly distribute them, or even take the solution
+of the single-facility problem and perturb it for multiple
+centers.)</li>
+<li><strong>Assignment step</strong>: Assign each customer to the
+<strong>nearest</strong> facility (compute distance from each customer
+to each facility and pick the smallest). This creates <span class="math inline">\(K\)</span> clusters of customers.</li>
+<li><strong>Re-optimization step</strong>: For each cluster, recompute
+the best facility location for that cluster <em>independently</em>. In
+other words, treat each cluster as a single-facility problem and find
+the optimal <span class="math inline">\((x,y)\)</span> for that facility
+(usually the demand-weighted centroid of that cluster, using the
+squared-distance approach).</li>
+<li>Update the facility locations to these new coordinates.</li>
+<li>Repeat steps 2–4 until assignments no longer change (i.e., it
+converges). This usually yields a locally optimal solution.</li>
+</ol>
+<p>This heuristic is essentially the <em>K-means algorithm</em> (with
+demand weights, sometimes called <strong>weighted K-means</strong> or
+<strong>K-medians</strong> when minimizing distances). It will converge,
+although it might converge to a local (not global) optimum depending on
+the initial start. In practice, running the algorithm with multiple
+different initial guesses and picking the best solution can help.</p>
+<section id="example-2-multiple-warehouses-for-excellent-foods-inc." class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="example-2-multiple-warehouses-for-excellent-foods-inc."><span class="header-section-number">4.1</span>
+Example 2: Multiple Warehouses for <em>Excellent Foods Inc.</em></h3>
+<p>Consider <em>Excellent Foods Inc.</em>, a company that supplies
+canned goods. They have 20 customer locations (retailers/wholesalers)
+across a region. Each customer has a yearly demand (in truckloads) and
+known coordinates on a grid. The transport cost is approximately $1 per
+unit per distance (so we can just use distance × demand as the cost).
+The company wants to determine where to build warehouses to minimize
+total distribution cost.</p>
+<p>Initially, consider just <strong>one warehouse</strong> (this reduces
+to the single-facility problem we already solved conceptually). Then,
+evaluate <strong>two</strong>, <strong>three</strong>, up to
+<strong>ten</strong> warehouses to see how additional facilities reduce
+cost. Instead of formulating a giant MINLP, we’ll use the iterative
+location-allocation heuristic.</p>
+<p>The full dataset of 20 customers with their coordinates and demands
+is provided in the linked spreadsheet:</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Customer</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">X</th>
+<th style="text-align: right;">Demand</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Customer 1</td>
+<td style="text-align: right;">9.74</td>
+<td style="text-align: right;">8.18</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 2</td>
+<td style="text-align: right;">8.14</td>
+<td style="text-align: right;">7.46</td>
+<td style="text-align: right;">62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 3</td>
+<td style="text-align: right;">9.96</td>
+<td style="text-align: right;">3.56</td>
+<td style="text-align: right;">72</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 4</td>
+<td style="text-align: right;">5.13</td>
+<td style="text-align: right;">6.51</td>
+<td style="text-align: right;">103</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 5</td>
+<td style="text-align: right;">3.72</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 6</td>
+<td style="text-align: right;">7.04</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 7</td>
+<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">5.23</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 8</td>
+<td style="text-align: right;">9.72</td>
+<td style="text-align: right;">4.09</td>
+<td style="text-align: right;">78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 9</td>
+<td style="text-align: right;">5.98</td>
+<td style="text-align: right;">7.91</td>
+<td style="text-align: right;">87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 10</td>
+<td style="text-align: right;">0.54</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">94</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Customer</th>
+<th style="text-align: right;">Y</th>
+<th style="text-align: right;">X</th>
+<th style="text-align: right;">Demand</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Customer 11</td>
+<td style="text-align: right;">5.39</td>
+<td style="text-align: right;">4.22</td>
+<td style="text-align: right;">118</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 12</td>
+<td style="text-align: right;">1.56</td>
+<td style="text-align: right;">2.65</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 13</td>
+<td style="text-align: right;">9.45</td>
+<td style="text-align: right;">8.58</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 14</td>
+<td style="text-align: right;">6.74</td>
+<td style="text-align: right;">4.91</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 15</td>
+<td style="text-align: right;">2.15</td>
+<td style="text-align: right;">6.34</td>
+<td style="text-align: right;">81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 16</td>
+<td style="text-align: right;">5.69</td>
+<td style="text-align: right;">8.04</td>
+<td style="text-align: right;">105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 17</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">7.51</td>
+<td style="text-align: right;">156</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 18</td>
+<td style="text-align: right;">6.96</td>
+<td style="text-align: right;">2.18</td>
+<td style="text-align: right;">105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Customer 19</td>
+<td style="text-align: right;">6.03</td>
+<td style="text-align: right;">4.35</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer 20</td>
+<td style="text-align: right;">9.48</td>
+<td style="text-align: right;">5.77</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Coordinates are in some consistent unit, say tens of miles; demand is
+units of product shipped per year. Higher-numbered customers like 17
+have large demands, in this case 156, which will influence optimal
+facility placement.</p>
+</div>
+</div>
+<section id="assignment-and-re-optimization-with-python" class="level4" data-number="4.1.1">
+<h4 data-number="4.1.1" class="anchored" data-anchor-id="assignment-and-re-optimization-with-python"><span class="header-section-number">4.1.1</span>
+Assignment and Re-optimization with Python</h4>
+<p>We’ll solve this step by step for a given set of <span class="math inline">\(K\)</span> (number of warehouses). We will use the
+following packages to manipulate the data, run the k-means algorithm,
+and plot our results:</p>
+<div id="4e9c26a2" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> hypot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You can use the following to add them to your environment:
+<code>uv add pandas numpy altair</code></p>
+</div>
+</div>
+</div>
+<section id="helper-functions" class="level5" data-number="4.1.1.1">
+<h5 data-number="4.1.1.1" class="anchored" data-anchor-id="helper-functions"><span class="header-section-number">4.1.1.1</span> Helper Functions</h5>
+<p>First, we are going to create a few custom helper functions (use
+these in future exercises):</p>
+<ol type="1">
+<li>Shared utility functions for location-allocation (returned as
+callables):</li>
+</ol>
+<div id="46b9339e" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_location_model(df):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"X"</span>: <span class="st">"x"</span>, <span class="st">"Y"</span>: <span class="st">"y"</span>, <span class="st">"Demand"</span>: <span class="st">"demand"</span>}).copy()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> assign_customers(df, facilities):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        assignments <span class="op">=</span> []</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            distances <span class="op">=</span> [hypot(row[<span class="st">'x'</span>] <span class="op">-</span> fx, row[<span class="st">'y'</span>] <span class="op">-</span> fy) <span class="cf">for</span> fx, fy <span class="kw">in</span> facilities]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            assignments.append(np.argmin(distances))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.array(assignments)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> update_facilities(df, assignments, K):</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        facilities <span class="op">=</span> []</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(K):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            cluster <span class="op">=</span> df[assignments <span class="op">==</span> k]</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> cluster.empty:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                total_demand <span class="op">=</span> cluster[<span class="st">'demand'</span>].<span class="bu">sum</span>()</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                x_center <span class="op">=</span> (cluster[<span class="st">'x'</span>] <span class="op">*</span> cluster[<span class="st">'demand'</span>]).<span class="bu">sum</span>() <span class="op">/</span> total_demand</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                y_center <span class="op">=</span> (cluster[<span class="st">'y'</span>] <span class="op">*</span> cluster[<span class="st">'demand'</span>]).<span class="bu">sum</span>() <span class="op">/</span> total_demand</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                facilities.append((x_center, y_center))</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                facilities.append((<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> facilities</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> compute_total_cost(df, facilities, assignments):</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        total_cost <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, (fx, fy) <span class="kw">in</span> <span class="bu">enumerate</span>(facilities):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            cluster <span class="op">=</span> df[assignments <span class="op">==</span> i]</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> _, row <span class="kw">in</span> cluster.iterrows():</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                dist <span class="op">=</span> hypot(row[<span class="st">'x'</span>] <span class="op">-</span> fx, row[<span class="st">'y'</span>] <span class="op">-</span> fy)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                total_cost <span class="op">+=</span> row[<span class="st">'demand'</span>] <span class="op">*</span> dist</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> total_cost</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> assign_customers, update_facilities, compute_total_cost</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Solve the facility location problem for a specific range of K:</li>
+</ol>
+<div id="11eec33e" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_multi_facility_problem(df, K_values):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    assign_customers, update_facilities, compute_total_cost <span class="op">=</span> prepare_location_model(df)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"X"</span>: <span class="st">"x"</span>, <span class="st">"Y"</span>: <span class="st">"y"</span>, <span class="st">"Demand"</span>: <span class="st">"demand"</span>}).copy()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> K <span class="kw">in</span> K_values:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        initial <span class="op">=</span> df.sort_values(<span class="st">'demand'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(K)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        facilities <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(initial[<span class="st">'x'</span>], initial[<span class="st">'y'</span>]))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        prev_assignments <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            assignments <span class="op">=</span> assign_customers(df, facilities)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> np.array_equal(assignments, prev_assignments):</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            prev_assignments <span class="op">=</span> assignments</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            facilities <span class="op">=</span> update_facilities(df, assignments, K)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        cost <span class="op">=</span> compute_total_cost(df, facilities, assignments)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        results.append({<span class="st">"K"</span>: K, <span class="st">"Cost"</span>: cost})</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Plot cost vs.&nbsp;number of warehouses</li>
+</ol>
+<div id="9abf1264" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_elbow_curve(results_df):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> alt.Chart(results_df).mark_line(point<span class="op">=</span><span class="va">True</span>).encode(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span>alt.X(<span class="st">'K:O'</span>, title<span class="op">=</span><span class="st">'Number of Warehouses (K)'</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span>alt.Y(<span class="st">'Cost'</span>, title<span class="op">=</span><span class="st">'Total Distribution Cost'</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        tooltip<span class="op">=</span>[<span class="st">'K'</span>, <span class="st">'Cost'</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    ).properties(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">'Elbow Method: Cost vs. Number of Warehouses'</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Run the algorithm for a specific K:</li>
+</ol>
+<div id="5c6a08f7" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_k_facilities(df, K):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    assign_customers, update_facilities, _ <span class="op">=</span> prepare_location_model(df)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"X"</span>: <span class="st">"x"</span>, <span class="st">"Y"</span>: <span class="st">"y"</span>, <span class="st">"Demand"</span>: <span class="st">"demand"</span>}).copy()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    initial <span class="op">=</span> df.sort_values(<span class="st">'demand'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(K)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    facilities <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(initial[<span class="st">'x'</span>], initial[<span class="st">'y'</span>]))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    prev_assignments <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        assignments <span class="op">=</span> assign_customers(df, facilities)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.array_equal(assignments, prev_assignments):</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        prev_assignments <span class="op">=</span> assignments</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        facilities <span class="op">=</span> update_facilities(df, assignments, K)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'cluster'</span>] <span class="op">=</span> assignments</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    facilities_df <span class="op">=</span> pd.DataFrame(facilities, columns<span class="op">=</span>[<span class="st">'x'</span>, <span class="st">'y'</span>])</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    facilities_df[<span class="st">'cluster'</span>] <span class="op">=</span> [<span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(K)]</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df, facilities_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Plot customer and warehouse locations</li>
+</ol>
+<div id="3a51ee0e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_facilities_and_customers(df_customers, df_facilities):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df_customers[<span class="st">'type'</span>] <span class="op">=</span> <span class="st">'Customer'</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    df_customers[<span class="st">'size'</span>] <span class="op">=</span> df_customers[<span class="st">'demand'</span>] <span class="op">*</span> <span class="dv">5</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    df_customers[<span class="st">'label'</span>] <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    df_facilities[<span class="st">'type'</span>] <span class="op">=</span> <span class="st">'Warehouse'</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    df_facilities[<span class="st">'size'</span>] <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    df_facilities[<span class="st">'label'</span>] <span class="op">=</span> [<span class="st">'W'</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df_facilities))]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">=</span> pd.concat([</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        df_customers[[<span class="st">'x'</span>, <span class="st">'y'</span>, <span class="st">'cluster'</span>, <span class="st">'type'</span>, <span class="st">'size'</span>, <span class="st">'label'</span>]],</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        df_facilities[[<span class="st">'x'</span>, <span class="st">'y'</span>, <span class="st">'cluster'</span>, <span class="st">'type'</span>, <span class="st">'size'</span>, <span class="st">'label'</span>]]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    combined[<span class="st">'type'</span>] <span class="op">=</span> combined[<span class="st">'type'</span>].astype(<span class="bu">str</span>)  <span class="co"># ensure clean shape mapping</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    points <span class="op">=</span> (</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        alt.Chart(combined)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        .mark_point(filled<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        .encode(</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span>alt.Color(<span class="st">'cluster:N'</span>, title<span class="op">=</span><span class="st">'Cluster'</span>),</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            shape<span class="op">=</span>alt.Shape(</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                <span class="st">'type:N'</span>, </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                scale<span class="op">=</span>alt.Scale(</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                    domain<span class="op">=</span>[<span class="st">'Customer'</span>, <span class="st">'Warehouse'</span>], </span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">range</span><span class="op">=</span>[<span class="st">'circle'</span>, <span class="st">'triangle'</span>]</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>            size<span class="op">=</span><span class="st">'size'</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>            tooltip<span class="op">=</span>[<span class="st">'type'</span>, <span class="st">'x'</span>, <span class="st">'y'</span>, <span class="st">'label'</span>]</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> alt.Chart(df_facilities).mark_text(</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>        align<span class="op">=</span><span class="st">'left'</span>, dx<span class="op">=</span><span class="dv">8</span>, dy<span class="op">=-</span><span class="dv">8</span>, fontSize<span class="op">=</span><span class="dv">13</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    ).encode(</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, text<span class="op">=</span><span class="st">'label'</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (points <span class="op">+</span> labels).properties(</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">'Customer and Warehouse Locations'</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solving-steps" class="level5" data-number="4.1.1.2">
+<h5 data-number="4.1.1.2" class="anchored" data-anchor-id="solving-steps"><span class="header-section-number">4.1.1.2</span> Solving Steps</h5>
+<ol type="1">
+<li>Load in the data:</li>
+</ol>
+<div id="dec238b2" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The dataset contains customer coordinates (X, Y) and their demand.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/multi_city_data.csv'</span>)  <span class="co"># Update path as needed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Solve the multi-facility problem and look at costs for different
+number of warehouses.</li>
+</ol>
+<p><strong>Total Cost</strong>: The total cost with multiple facilities
+is the sum of each customer’s demand * distance to its assigned
+facility. As we add facilities, customers have shorter distances, so
+total cost decreases. We can plot or tabulate the cost vs <span class="math inline">\(K\)</span>:</p>
+<div id="7beab2f2" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> solve_multi_facility_problem(df, <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plot_elbow_curve(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+
+<style>
+  #altair-viz-e12319978fba48a2a642f6dd6ef8c5dd.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-e12319978fba48a2a642f6dd6ef8c5dd.vega-embed details,
+  #altair-viz-e12319978fba48a2a642f6dd6ef8c5dd.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-e12319978fba48a2a642f6dd6ef8c5dd"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-e12319978fba48a2a642f6dd6ef8c5dd") {
+      outputDiv = document.getElementById("altair-viz-e12319978fba48a2a642f6dd6ef8c5dd");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.20.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "5.20.1"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-d4a0a73816d17b7081b07d742ca3e578"}, "mark": {"type": "line", "point": true}, "encoding": {"tooltip": [{"field": "K", "type": "quantitative"}, {"field": "Cost", "type": "quantitative"}], "x": {"field": "K", "title": "Number of Warehouses (K)", "type": "ordinal"}, "y": {"field": "Cost", "title": "Total Distribution Cost", "type": "quantitative"}}, "title": "Elbow Method: Cost vs. Number of Warehouses", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-d4a0a73816d17b7081b07d742ca3e578": [{"K": 1, "Cost": 3907.359383316418}, {"K": 2, "Cost": 2808.2705949252045}, {"K": 3, "Cost": 2052.0029910352378}, {"K": 4, "Cost": 1644.837078936239}, {"K": 5, "Cost": 1486.7734288320141}, {"K": 6, "Cost": 1081.2306034343005}, {"K": 7, "Cost": 780.2422166947916}, {"K": 8, "Cost": 590.3770418781171}, {"K": 9, "Cost": 217.4822446854844}, {"K": 10, "Cost": 182.94480961114346}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>From these results, we observe <strong>diminishing marginal
+benefit</strong> for additional facilities. Going from 1 to 2 warehouses
+yielded a large cost reduction; 2 to 3 also yielded a large reduction;
+but by 4 to 5, the incremental savings were smaller. This is typical:
+the first few facilities dramatically cut distance because they
+eliminate the longest transport lanes, but beyond a point, new
+facilities only shave off smaller remaining distances.</p>
+<p>If we continued to <span class="math inline">\(K=20\)</span> (a
+warehouse for every customer), cost would drop to 0 because each
+customer would be at the same location as a warehouse (in theory). But
+of course, in reality, building 20 warehouses is impractical – and our
+model doesn’t include any fixed facility cost to penalize that.</p>
+<ol start="3" type="1">
+<li>Solve for facility locations &amp; create a plot:</li>
+</ol>
+<div id="25822c36" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_k4, facilities_k4 <span class="op">=</span> run_k_facilities(df, K<span class="op">=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7b6d3144" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_k4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Customer</th>
+<th data-quarto-table-cell-role="th">y</th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">demand</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Customer 1</td>
+<td>9.74</td>
+<td>8.18</td>
+<td>41</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Customer 2</td>
+<td>8.14</td>
+<td>7.46</td>
+<td>62</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Customer 3</td>
+<td>9.96</td>
+<td>3.56</td>
+<td>72</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Customer 4</td>
+<td>5.13</td>
+<td>6.51</td>
+<td>103</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Customer 5</td>
+<td>3.72</td>
+<td>2.10</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Customer 6</td>
+<td>7.04</td>
+<td>0.28</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Customer 7</td>
+<td>1.48</td>
+<td>5.23</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Customer 8</td>
+<td>9.72</td>
+<td>4.09</td>
+<td>78</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Customer 9</td>
+<td>5.98</td>
+<td>7.91</td>
+<td>87</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Customer 10</td>
+<td>0.54</td>
+<td>3.20</td>
+<td>94</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>Customer 11</td>
+<td>5.39</td>
+<td>4.22</td>
+<td>118</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>Customer 12</td>
+<td>1.56</td>
+<td>2.65</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>Customer 13</td>
+<td>9.45</td>
+<td>8.58</td>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>Customer 14</td>
+<td>6.74</td>
+<td>4.91</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>Customer 15</td>
+<td>2.15</td>
+<td>6.34</td>
+<td>81</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>Customer 16</td>
+<td>5.69</td>
+<td>8.04</td>
+<td>105</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>Customer 17</td>
+<td>0.80</td>
+<td>7.51</td>
+<td>156</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>Customer 18</td>
+<td>6.96</td>
+<td>2.18</td>
+<td>105</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>Customer 19</td>
+<td>6.03</td>
+<td>4.35</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>Customer 20</td>
+<td>9.48</td>
+<td>5.77</td>
+<td>7</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="8f21802b" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>facilities_k4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>5.980565</td>
+<td>1.063065</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>4.204720</td>
+<td>5.405920</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3.190453</td>
+<td>8.654943</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>7.555149</td>
+<td>6.452525</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="8a5700bb" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plot_facilities_and_customers(df_k4, facilities_k4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+
+<style>
+  #altair-viz-757616e504664231b8f568de55056797.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-757616e504664231b8f568de55056797.vega-embed details,
+  #altair-viz-757616e504664231b8f568de55056797.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-757616e504664231b8f568de55056797"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-757616e504664231b8f568de55056797") {
+      outputDiv = document.getElementById("altair-viz-757616e504664231b8f568de55056797");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.20.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "5.20.1"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"data": {"name": "data-9c53f69566674ce95ae3cb4693ea3921"}, "mark": {"type": "point", "filled": true}, "encoding": {"color": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "shape": {"field": "type", "scale": {"domain": ["Customer", "Warehouse"], "range": ["circle", "triangle"]}, "type": "nominal"}, "size": {"field": "size", "type": "quantitative"}, "tooltip": [{"field": "type", "type": "nominal"}, {"field": "x", "type": "quantitative"}, {"field": "y", "type": "quantitative"}, {"field": "label", "type": "nominal"}], "x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}}}, {"data": {"name": "data-097ae311b5d8cac676640360e221e8a6"}, "mark": {"type": "text", "align": "left", "dx": 8, "dy": -8, "fontSize": 13}, "encoding": {"text": {"field": "label", "type": "nominal"}, "x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}}}], "title": "Customer and Warehouse Locations", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-9c53f69566674ce95ae3cb4693ea3921": [{"x": 8.18, "y": 9.74, "cluster": 3, "type": "Customer", "size": 205, "label": ""}, {"x": 7.46, "y": 8.14, "cluster": 3, "type": "Customer", "size": 310, "label": ""}, {"x": 3.56, "y": 9.96, "cluster": 2, "type": "Customer", "size": 360, "label": ""}, {"x": 6.51, "y": 5.13, "cluster": 3, "type": "Customer", "size": 515, "label": ""}, {"x": 2.1, "y": 3.72, "cluster": 1, "type": "Customer", "size": 10, "label": ""}, {"x": 0.28, "y": 7.04, "cluster": 2, "type": "Customer", "size": 15, "label": ""}, {"x": 5.23, "y": 1.48, "cluster": 0, "type": "Customer", "size": 20, "label": ""}, {"x": 4.09, "y": 9.72, "cluster": 2, "type": "Customer", "size": 390, "label": ""}, {"x": 7.91, "y": 5.98, "cluster": 3, "type": "Customer", "size": 435, "label": ""}, {"x": 3.2, "y": 0.54, "cluster": 0, "type": "Customer", "size": 470, "label": ""}, {"x": 4.22, "y": 5.39, "cluster": 1, "type": "Customer", "size": 590, "label": ""}, {"x": 2.65, "y": 1.56, "cluster": 0, "type": "Customer", "size": 5, "label": ""}, {"x": 8.58, "y": 9.45, "cluster": 3, "type": "Customer", "size": 30, "label": ""}, {"x": 4.91, "y": 6.74, "cluster": 1, "type": "Customer", "size": 15, "label": ""}, {"x": 6.34, "y": 2.15, "cluster": 0, "type": "Customer", "size": 405, "label": ""}, {"x": 8.04, "y": 5.69, "cluster": 3, "type": "Customer", "size": 525, "label": ""}, {"x": 7.51, "y": 0.8, "cluster": 0, "type": "Customer", "size": 780, "label": ""}, {"x": 2.18, "y": 6.96, "cluster": 2, "type": "Customer", "size": 525, "label": ""}, {"x": 4.35, "y": 6.03, "cluster": 1, "type": "Customer", "size": 10, "label": ""}, {"x": 5.77, "y": 9.48, "cluster": 2, "type": "Customer", "size": 35, "label": ""}, {"x": 5.980565476190476, "y": 1.0630654761904763, "cluster": "0", "type": "Warehouse", "size": 500, "label": "W0"}, {"x": 4.20472, "y": 5.40592, "cluster": "1", "type": "Warehouse", "size": 500, "label": "W1"}, {"x": 3.1904528301886788, "y": 8.654943396226415, "cluster": "2", "type": "Warehouse", "size": 500, "label": "W2"}, {"x": 7.555148514851484, "y": 6.452524752475248, "cluster": "3", "type": "Warehouse", "size": 500, "label": "W3"}], "data-097ae311b5d8cac676640360e221e8a6": [{"x": 5.980565476190476, "y": 1.0630654761904763, "cluster": "0", "type": "Warehouse", "size": 500, "label": "W0"}, {"x": 4.20472, "y": 5.40592, "cluster": "1", "type": "Warehouse", "size": 500, "label": "W1"}, {"x": 3.1904528301886788, "y": 8.654943396226415, "cluster": "2", "type": "Warehouse", "size": 500, "label": "W2"}, {"x": 7.555148514851484, "y": 6.452524752475248, "cluster": "3", "type": "Warehouse", "size": 500, "label": "W3"}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>Just for curiosity, we can also look at <code>k=3</code> to
+compare:</p>
+<div id="ccc18dae" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_k3, facilities_k3 <span class="op">=</span> run_k_facilities(df, K<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plot_facilities_and_customers(df_k3, facilities_k3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+
+<style>
+  #altair-viz-8121307b038f4bc0950ebf3af08abc3e.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-8121307b038f4bc0950ebf3af08abc3e.vega-embed details,
+  #altair-viz-8121307b038f4bc0950ebf3af08abc3e.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-8121307b038f4bc0950ebf3af08abc3e"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-8121307b038f4bc0950ebf3af08abc3e") {
+      outputDiv = document.getElementById("altair-viz-8121307b038f4bc0950ebf3af08abc3e");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.20.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "5.20.1"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"data": {"name": "data-b5ec07eeb85a3a60f3aa92e64b02be0a"}, "mark": {"type": "point", "filled": true}, "encoding": {"color": {"field": "cluster", "title": "Cluster", "type": "nominal"}, "shape": {"field": "type", "scale": {"domain": ["Customer", "Warehouse"], "range": ["circle", "triangle"]}, "type": "nominal"}, "size": {"field": "size", "type": "quantitative"}, "tooltip": [{"field": "type", "type": "nominal"}, {"field": "x", "type": "quantitative"}, {"field": "y", "type": "quantitative"}, {"field": "label", "type": "nominal"}], "x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}}}, {"data": {"name": "data-0ac26df43d938cd74c513a2f0c94a586"}, "mark": {"type": "text", "align": "left", "dx": 8, "dy": -8, "fontSize": 13}, "encoding": {"text": {"field": "label", "type": "nominal"}, "x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}}}], "title": "Customer and Warehouse Locations", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-b5ec07eeb85a3a60f3aa92e64b02be0a": [{"x": 8.18, "y": 9.74, "cluster": 1, "type": "Customer", "size": 205, "label": ""}, {"x": 7.46, "y": 8.14, "cluster": 1, "type": "Customer", "size": 310, "label": ""}, {"x": 3.56, "y": 9.96, "cluster": 2, "type": "Customer", "size": 360, "label": ""}, {"x": 6.51, "y": 5.13, "cluster": 1, "type": "Customer", "size": 515, "label": ""}, {"x": 2.1, "y": 3.72, "cluster": 0, "type": "Customer", "size": 10, "label": ""}, {"x": 0.28, "y": 7.04, "cluster": 2, "type": "Customer", "size": 15, "label": ""}, {"x": 5.23, "y": 1.48, "cluster": 0, "type": "Customer", "size": 20, "label": ""}, {"x": 4.09, "y": 9.72, "cluster": 2, "type": "Customer", "size": 390, "label": ""}, {"x": 7.91, "y": 5.98, "cluster": 1, "type": "Customer", "size": 435, "label": ""}, {"x": 3.2, "y": 0.54, "cluster": 0, "type": "Customer", "size": 470, "label": ""}, {"x": 4.22, "y": 5.39, "cluster": 1, "type": "Customer", "size": 590, "label": ""}, {"x": 2.65, "y": 1.56, "cluster": 0, "type": "Customer", "size": 5, "label": ""}, {"x": 8.58, "y": 9.45, "cluster": 1, "type": "Customer", "size": 30, "label": ""}, {"x": 4.91, "y": 6.74, "cluster": 1, "type": "Customer", "size": 15, "label": ""}, {"x": 6.34, "y": 2.15, "cluster": 0, "type": "Customer", "size": 405, "label": ""}, {"x": 8.04, "y": 5.69, "cluster": 1, "type": "Customer", "size": 525, "label": ""}, {"x": 7.51, "y": 0.8, "cluster": 0, "type": "Customer", "size": 780, "label": ""}, {"x": 2.18, "y": 6.96, "cluster": 2, "type": "Customer", "size": 525, "label": ""}, {"x": 4.35, "y": 6.03, "cluster": 1, "type": "Customer", "size": 10, "label": ""}, {"x": 5.77, "y": 9.48, "cluster": 2, "type": "Customer", "size": 35, "label": ""}, {"x": 5.9576035502958575, "y": 1.0787869822485208, "cluster": "0", "type": "Warehouse", "size": 500, "label": "W0"}, {"x": 6.781157495256166, "y": 6.214648956356737, "cluster": "1", "type": "Warehouse", "size": 500, "label": "W1"}, {"x": 3.1904528301886788, "y": 8.654943396226415, "cluster": "2", "type": "Warehouse", "size": 500, "label": "W2"}], "data-0ac26df43d938cd74c513a2f0c94a586": [{"x": 5.9576035502958575, "y": 1.0787869822485208, "cluster": "0", "type": "Warehouse", "size": 500, "label": "W0"}, {"x": 6.781157495256166, "y": 6.214648956356737, "cluster": "1", "type": "Warehouse", "size": 500, "label": "W1"}, {"x": 3.1904528301886788, "y": 8.654943396226415, "cluster": "2", "type": "Warehouse", "size": 500, "label": "W2"}]}}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="summary" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="summary"><span class="header-section-number">5</span>
+Summary</h2>
+<p>In this module, we explored facility location models for supply chain
+network design:</p>
+<ul>
+<li><strong>Single-facility location</strong>: We learned to formulate
+the problem of finding the optimal single facility location to minimize
+total weighted distance to customers. By using a squared-distance
+approximation, we could solve it with Gurobi as a quadratic program. The
+solution is essentially a weighted average of customer locations
+(center-of-gravity), which balances the travel cost to all customers. We
+also discussed how additional constraints (like limiting maximum
+distance) or different objectives (minimax vs min-sum) could affect the
+solution.</li>
+<li><strong>Multi-facility location</strong>: We tackled the harder
+problem of placing multiple facilities. We introduced an iterative
+location-allocation heuristic (analogous to k-means clustering) to
+assign customers to the nearest facility and recompute facility
+positions until reaching a good solution. Through an example with 20
+customers, we saw that adding more facilities reduces total transport
+cost but with diminishing returns. This method gave us insight into how
+customers naturally cluster around local “centers of gravity” when
+multiple warehouses are allowed.</li>
+</ul>
+<p><strong>Practical implications</strong>: Companies often use such
+models to decide how many warehouses or plants to operate and where to
+locate them. The models can become more complex if including factors
+like facility fixed costs, capacities, or discrete candidate locations
+(those aspects lead to MILP formulations, which we will explore later).
+However, the fundamental trade-off remains: more facilities mean higher
+fixed costs but lower transportation costs (and vice versa). The tools
+learned here allow analyzing the transportation cost side of that
+trade-off by optimally placing a given number of facilities.</p>
+</section>
+<section id="exercises" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6</span>
+Exercises</h2>
+<section id="center-of-gravity-calculation-single-facility" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="center-of-gravity-calculation-single-facility"><span class="header-section-number">6.1</span>
+Center of Gravity Calculation (Single Facility)</h3>
+<p>Consider three customer locations with coordinates and demands: A at
+<span class="math inline">\((0,0)\)</span> with demand 10, B at <span class="math inline">\((10,0)\)</span> with demand 5, and C at <span class="math inline">\((5, 5)\)</span> with demand 5:</p>
+<ol type="1">
+<li>Compute the weighted center of gravity of these points (assuming
+equal transport cost per unit distance).</li>
+<li>If the facility is located at that center of gravity, what is the
+total distance-weighted cost?</li>
+<li>Try shifting the facility a bit in any direction, would the total
+cost increase or decrease? (This is a conceptual check to confirm it’s
+an optimum.)</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For 1: <span class="math inline">\(x^* = \frac{100 + 510 +
+55}{10+5+5}\)</span>, <span class="math inline">\(y^ = \frac{100 + 50 +
+55}{20}\)</span>. For 2: calculate <span class="math inline">\(10d(A,facility)+5d(B,facility)+5d(C,facility)\)</span>.
+For 3: consider symmetry, the center-of-gravity should balance the pull
+of all points, so moving any direction increases distance to some
+heavily weighted point more than it decreases to another.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Customer Data:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Customer</th>
+<th>Coordinates (x, y)</th>
+<th>Demand</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>(0, 0)</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>(10, 0)</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>(5, 5)</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Weighted Center of Gravity:</strong></p>
+<p><span class="math display">\[
+x^* = \frac{10 \cdot 0 + 5 \cdot 10 + 5 \cdot 5}{20} = 3.75, \quad
+y^* = \frac{10 \cdot 0 + 5 \cdot 0 + 5 \cdot 5}{20} = 1.25
+\]</span></p>
+<p><strong>Total Distance-Weighted Cost:</strong></p>
+<p><span class="math display">\[
+\text{Total Cost} = 10 \cdot d(A, \text{facility}) + 5 \cdot d(B,
+\text{facility}) + 5 \cdot d(C, \text{facility}) \approx \textbf{91.16}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="multi-facility-assignment-intuition" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="multi-facility-assignment-intuition"><span class="header-section-number">6.2</span>
+Multi-facility Assignment Intuition</h3>
+<p>Suppose you have four customers located at the four corners of a
+square region and all have equal demand. If you are to place <span class="math inline">\(K=2\)</span> facilities, where would you
+intuitively place them and which customers would each serve?</p>
+<ol type="1">
+<li>Draw a diagram of the four points and show two facility locations
+that make sense.</li>
+<li>Explain why your assignment of customers to facilities is optimal in
+terms of distance.</li>
+<li>How would the solution change if one of the four customers had a
+much higher demand than the others?</li>
+</ol>
+</section>
+<section id="solving-a-multi-facility-problem" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="solving-a-multi-facility-problem"><span class="header-section-number">6.3</span>
+Solving a Multi-Facility Problem</h3>
+<p>Use the new dataset of 15 customers provided in the sidebar
+(<code>Exercise Data</code>). Implement the iterative algorithm (or use
+the provided k-means helper functions) for different values of <span class="math inline">\(K\)</span>:</p>
+<ol type="1">
+<li>Load the dataset and plot the customer locations.</li>
+<li>For <span class="math inline">\(K = 2, 3, 4\)</span>, run the
+algorithm and record:</li>
+</ol>
+<ul>
+<li>The final total cost.</li>
+<li>The coordinates of the facility locations.</li>
+</ul>
+<ol start="3" type="1">
+<li>Plot customer clusters and facility positions using Altair or
+Matplotlib.</li>
+<li>Think about the trade-off you see between the number of warehouses
+and cost:</li>
+</ol>
+<ul>
+<li>At what point do diminishing returns appear?</li>
+<li>If the fixed cost of operating a warehouse is 500 units, how many
+warehouses should the company build?</li>
+</ul>
+<div class="callout callout-style-simple callout-none no-icon callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Results:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 30%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>K</th>
+<th>Total Cost</th>
+<th>Cluster Centers (x, y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>1571.11</td>
+<td>(1.66, 3.79), (7.82, 6.62)</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>1207.61</td>
+<td>(1.93, 1.65), (7.82, 6.62), (3.14, 9.55)</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>799.36</td>
+<td>(1.93, 1.65), (6.94, 4.67), (3.14, 9.55), (8.70, 2.39)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>As the number of warehouses <span class="math inline">\(K\)</span>
+increases, the total cost decreases.</li>
+<li>The largest drop in cost occurs between <span class="math inline">\(K = 2\)</span> and <span class="math inline">\(K =
+3\)</span>.</li>
+<li>Diminishing returns start to appear around <span class="math inline">\(K = 4\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("wvu-gscm-425\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../learning-modules/06-minimum-cost-network-flow-modeling.html" class="pagination-link" aria-label="06 | Minimum Cost Network Flow Models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">06 | Minimum Cost Network Flow
+Models</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
