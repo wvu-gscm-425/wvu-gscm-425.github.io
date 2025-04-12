@@ -76,17 +76,17 @@ Below is the table for your **Final Grade** calculation.
 
 |  S >=  |  U <=  | 50 <= P < 70 | 70 <= P < 80 | 80 <= P < 90 | P >= 90 |
 |:------:|:------:|:------------:|:------------:|:------------:|:-------:|
-|   10+  |    1   |       B      |       B      |       A      |    A    |
-|    9   |    2   |       B      |       B      |       B      |    A    |
-|    8   |    3   |       C      |       B      |       B      |    B    |
-|    7   |    4   |       C      |       C      |       B      |    B    |
-|    6   |    5   |       C      |       C      |       C      |    B    |
-|    5   |    6   |       D      |       C      |       C      |    C    |
-|    4   |    7   |       D      |       D      |       C      |    C    |
-|    3   |    8   |       F      |       D      |       D      |    C    |
-|    2   |    9   |       F      |       F      |       D      |    D    |
-|    1   |   10   |       F      |       F      |       F      |    D    |
-|    0   |   11+  |       F      |       F      |       F      |    F    |
+|   10   |    2   |       B      |       B      |       A      |    A    |
+|    9   |    3   |       B      |       B      |       B      |    A    |
+|    8   |    4   |       C      |       B      |       B      |    B    |
+|    7   |    5   |       C      |       C      |       B      |    B    |
+|    6   |    6   |       C      |       C      |       C      |    B    |
+|    5   |    7   |       D      |       C      |       C      |    C    |
+|    4   |    8   |       D      |       D      |       C      |    C    |
+|    3   |    9   |       F      |       D      |       D      |    C    |
+|    2   |   10   |       F      |       F      |       D      |    D    |
+|    1   |   11   |       F      |       F      |       F      |    D    |
+|    0   |   12   |       F      |       F      |       F      |    F    |
 
 ::: {.callout-note}
 Remember: "C" is a passing grade for GSCM courses.
