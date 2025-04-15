@@ -81,7 +81,7 @@ flowchart TD
   A["Decision: Drill or Sell?"]
 
   %% Sell Branch
-  A --> B1["Sell Land → Certain Profit = $90,000"]
+  A --> B1["Sell Land → Certain Profit = $90,000"] 
 
   %% Drill Branch
   A --> B2["Drill for Oil"]
