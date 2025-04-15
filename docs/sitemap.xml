@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/07-facility-location.html</loc>
-    <lastmod>2025-04-08T00:27:58.351Z</lastmod>
+    <loc>wvu-gscm-425.github.io/learning-modules/08-networks-under-uncertainty.html</loc>
+    <lastmod>2025-04-15T03:03:45.311Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/05-intro-to-gurobipy.html</loc>
-    <lastmod>2025-03-04T05:58:27.154Z</lastmod>
+    <loc>wvu-gscm-425.github.io/learning-modules/06-minimum-cost-network-flow-modeling.html</loc>
+    <lastmod>2025-03-25T02:32:59.285Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/03-functions-flow-control-and-conditionals.html</loc>
-    <lastmod>2025-02-04T04:22:35.818Z</lastmod>
+    <loc>wvu-gscm-425.github.io/learning-modules/04-data-structures.html</loc>
+    <lastmod>2025-02-08T16:18:42.095Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/01-setting-up-your-workstation.html</loc>
+    <loc>wvu-gscm-425.github.io/learning-modules/02-intro-to-python.html</loc>
     <lastmod>2025-02-04T04:21:22.664Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/course-information/schedule.html</loc>
-    <lastmod>2025-03-25T01:45:52.748Z</lastmod>
+    <loc>wvu-gscm-425.github.io/index.html</loc>
+    <lastmod>2025-02-04T04:21:22.663Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/course-information/policies.html</loc>
+    <loc>wvu-gscm-425.github.io/course-information/resources.html</loc>
     <lastmod>2025-02-04T04:21:22.437Z</lastmod>
   </url>
   <url>
@@ -29,23 +29,27 @@
     <lastmod>2025-04-12T21:49:30.759Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/course-information/resources.html</loc>
+    <loc>wvu-gscm-425.github.io/course-information/policies.html</loc>
     <lastmod>2025-02-04T04:21:22.437Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/index.html</loc>
-    <lastmod>2025-02-04T04:21:22.663Z</lastmod>
+    <loc>wvu-gscm-425.github.io/course-information/schedule.html</loc>
+    <lastmod>2025-03-25T01:45:52.748Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/02-intro-to-python.html</loc>
+    <loc>wvu-gscm-425.github.io/learning-modules/01-setting-up-your-workstation.html</loc>
     <lastmod>2025-02-04T04:21:22.664Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/04-data-structures.html</loc>
-    <lastmod>2025-02-08T16:18:42.095Z</lastmod>
+    <loc>wvu-gscm-425.github.io/learning-modules/03-functions-flow-control-and-conditionals.html</loc>
+    <lastmod>2025-02-04T04:22:35.818Z</lastmod>
   </url>
   <url>
-    <loc>wvu-gscm-425.github.io/learning-modules/06-minimum-cost-network-flow-modeling.html</loc>
-    <lastmod>2025-03-25T02:32:59.285Z</lastmod>
+    <loc>wvu-gscm-425.github.io/learning-modules/05-intro-to-gurobipy.html</loc>
+    <lastmod>2025-03-04T05:58:27.154Z</lastmod>
+  </url>
+  <url>
+    <loc>wvu-gscm-425.github.io/learning-modules/07-facility-location.html</loc>
+    <lastmod>2025-04-08T00:27:58.351Z</lastmod>
   </url>
 </urlset>

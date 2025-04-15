@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mr.&nbsp;Ozan Ozbeker">
+
+<title>08 | Designing Global Supply
+Chain Networks Under Uncertainty – GSCM 425: Supply Chain Network
+Design</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../learning-modules/07-facility-location.html" rel="prev">
+<link href="../images/flying-wv-gold.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fdd8e41e452522482f81c6f67b0e9110.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-7a1606e66d82e84606b9c82b411ee8d3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">08 | Designing Global Supply Chain Networks Under
+Uncertainty</h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/logo-gscm-425.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course
+Information</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/grading-and-deliverables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grading &amp; Deliverables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../course-information/policies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Policies</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Learning
+Modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/01-setting-up-your-workstation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01
+| Setting Up Your Workstation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/02-intro-to-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02
+| Intro to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/03-functions-flow-control-and-conditionals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 | Functions, Flow Control, &amp; Conditionals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/04-data-structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04
+| Strings, Lists, Dictionaries, and Tuples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/05-intro-to-gurobipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05
+| Introduction to Optimization with Gurobi (gurobipy)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/06-minimum-cost-network-flow-modeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06
+| Minimum Cost Network Flow Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/07-facility-location.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">07
+| Facility Location Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learning-modules/08-networks-under-uncertainty.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">08
+| Designing Global Supply Chain Networks Under Uncertainty</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a></li>
+  <li><a href="#uncertainty-in-supply-chain-network-design" id="toc-uncertainty-in-supply-chain-network-design" class="nav-link" data-scroll-target="#uncertainty-in-supply-chain-network-design"><span class="header-section-number">2</span> Uncertainty in Supply Chain
+  Network Design</a></li>
+  <li><a href="#decision-trees-as-a-tool-for-strategic-decisions" id="toc-decision-trees-as-a-tool-for-strategic-decisions" class="nav-link" data-scroll-target="#decision-trees-as-a-tool-for-strategic-decisions"><span class="header-section-number">3</span> Decision Trees as a Tool for
+  Strategic Decisions</a></li>
+  <li><a href="#the-concept-of-expected-value" id="toc-the-concept-of-expected-value" class="nav-link" data-scroll-target="#the-concept-of-expected-value"><span class="header-section-number">4</span> The Concept of Expected
+  Value</a></li>
+  <li><a href="#simple-example-goferbroke-oil-drilling-decision-tree" id="toc-simple-example-goferbroke-oil-drilling-decision-tree" class="nav-link" data-scroll-target="#simple-example-goferbroke-oil-drilling-decision-tree"><span class="header-section-number">5</span> Simple Example: Goferbroke Oil
+  Drilling Decision Tree</a></li>
+  <li><a href="#case-study-trips-logistics---lease-or-not-to-lease" id="toc-case-study-trips-logistics---lease-or-not-to-lease" class="nav-link" data-scroll-target="#case-study-trips-logistics---lease-or-not-to-lease"><span class="header-section-number">6</span> Case Study: Trips Logistics -
+  Lease or Not to Lease?</a>
+  <ul>
+  <li><a href="#option-1-spot-market-only" id="toc-option-1-spot-market-only" class="nav-link" data-scroll-target="#option-1-spot-market-only"><span class="header-section-number">6.1</span> Option 1: Spot Market
+  Only</a></li>
+  <li><a href="#option-2-3-year-fixed-lease" id="toc-option-2-3-year-fixed-lease" class="nav-link" data-scroll-target="#option-2-3-year-fixed-lease"><span class="header-section-number">6.2</span> Option 2: 3-Year Fixed
+  Lease</a></li>
+  <li><a href="#option-3-flexible-lease" id="toc-option-3-flexible-lease" class="nav-link" data-scroll-target="#option-3-flexible-lease"><span class="header-section-number">6.3</span> Option 3: Flexible
+  Lease</a></li>
+  <li><a href="#recap-expected-outcomes-for-each-option" id="toc-recap-expected-outcomes-for-each-option" class="nav-link" data-scroll-target="#recap-expected-outcomes-for-each-option"><span class="header-section-number">6.4</span> Recap: Expected Outcomes for
+  Each Option</a></li>
+  </ul></li>
+  <li><a href="#using-decision-trees-and-npv-for-decision-making" id="toc-using-decision-trees-and-npv-for-decision-making" class="nav-link" data-scroll-target="#using-decision-trees-and-npv-for-decision-making"><span class="header-section-number">7</span> Using Decision Trees and NPV
+  for Decision-Making</a>
+  <ul>
+  <li><a href="#excel-style-logic-for-the-case" id="toc-excel-style-logic-for-the-case" class="nav-link" data-scroll-target="#excel-style-logic-for-the-case"><span class="header-section-number">7.1</span> Excel-Style Logic for the
+  Case</a>
+  <ul class="collapse">
+  <li><a href="#calculate-annual-profit-given-strategy-and-scenario" id="toc-calculate-annual-profit-given-strategy-and-scenario" class="nav-link" data-scroll-target="#calculate-annual-profit-given-strategy-and-scenario"><span class="header-section-number">7.1.1</span> Calculate annual profit
+  given strategy and scenario</a></li>
+  <li><a href="#discount-the-profit-to-present-value" id="toc-discount-the-profit-to-present-value" class="nav-link" data-scroll-target="#discount-the-profit-to-present-value"><span class="header-section-number">7.1.2</span> Discount the profit to
+  present value</a></li>
+  <li><a href="#expected-npv" id="toc-expected-npv" class="nav-link" data-scroll-target="#expected-npv"><span class="header-section-number">7.1.3</span> Expected NPV</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><span class="header-section-number">8</span> Key Takeaways</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">08 | Designing Global Supply Chain Networks Under
+Uncertainty</h1>
+<p class="subtitle lead">Optimizing Decisions in Supply Chain
+Networks</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Mr.&nbsp;Ozan
+Ozbeker <a href="mailto:ozan.ozbeker@mail.wvu.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://business.wvu.edu/academics/management-information-systems">
+            Management Information Systems and Supply Chain
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1</span>
+Overview</h2>
+<p>In this module, we explore how <strong>uncertainty</strong>
+(e.g.&nbsp;fluctuating demand and prices) impacts global supply chain network
+design decisions. We will learn to use <strong>decision tress</strong>
+and <strong>expected value</strong> calculations to evaluate strategic
+choices under uncertainty, incorporating <strong>net present value
+(NPV)</strong> to account for time value of money. The goal is to equip
+you with a practical approach to making informed supply chain decisions
+despite an uncertain future.</p>
+</section>
+<section id="uncertainty-in-supply-chain-network-design" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="uncertainty-in-supply-chain-network-design"><span class="header-section-number">2</span>
+Uncertainty in Supply Chain Network Design</h2>
+<p>Global supply chain network design involves long-term decisions (like
+facility leases, capacity investments, or supplier contracts) that must
+be made <strong>before</strong> future conditions are known. In
+practice, key factors such as customer demand levels, market prices for
+reasources, and costs (like warehousing or transportation rates) are
+<strong>uncertain</strong>. For example:</p>
+<ul>
+<li>Future <strong>demand</strong> might surge or drop due to market
+trends, economic conditions, or unforeseen events.</li>
+<li><strong>Warehouse space costs</strong> or <strong>transportation
+rates</strong> might rise or fall with market swings.</li>
+<li>Exchange rates or commodity prices could fuctuate in a global
+network.</li>
+</ul>
+<p>Such uncertainties mean that a decision is optimal under one future
+scenario might be suboptimal under another. Designing a network that
+performs well across different possible futures is challenging but
+critical. We need tools to <strong>evaluate decisions under
+uncertainty</strong> and choose an option with the best overall
+performance (not just best-case or worst-case).</p>
+</section>
+<section id="decision-trees-as-a-tool-for-strategic-decisions" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="decision-trees-as-a-tool-for-strategic-decisions"><span class="header-section-number">3</span>
+Decision Trees as a Tool for Strategic Decisions</h2>
+<p>A <strong>decision tree</strong> is a visual and analytical tool that
+helps structure sequential decisions and random events over time. It
+resembels a branching tree:</p>
+<ul>
+<li><strong>Decision nodes</strong> (often drawn as squares) represent
+points where a decision-maker chooses and action (e.g.&nbsp;decides to lease
+a warehouse or not).</li>
+<li><strong>Chance nodes</strong> (often drawn as circles or diamonds)
+represent points of uncertainty, where different outcomes can occur with
+certain probabilities (e.g.&nbsp;demand could be <em>high</em> or
+<em>low</em> with given probabilities).</li>
+<li><strong>Branches</strong> from chance nodes represent the different
+outcomes, each branch labeled with the outcome and its probability.</li>
+<li><strong>End nodes</strong> (leaf nodes) represent final outcomes or
+payoffs from each combination of decisions and chance events.</li>
+</ul>
+<p>By laying out decisions and random events in a timeline, we can
+<strong>analyze each possible scenario</strong>, calculate its payoff
+(e.g.&nbsp;profit or NPV), and then determine the <em>expected</em> payoff of
+each decision.</p>
+<p><strong>Why use decision trees?</strong> There are especially helpful
+when decisions have to be made in stages and uncertainty folds over
+time. In supply chain design, we often must make an upfront choice (like
+capacity or contracting strategy) and then alter see how demand or costs
+actually turn out. Decision trees force us to consider all hte possible
+<em>states of the worlds</em> and plan for them in our analysis. They
+help avoid the trap of focusing on only a single forecast.</p>
+<div class=".callout-note">
+<p>In decision tree diagrams, it’s common to use <em>squares</em> for
+decisions and <em>circles</em> for chance events. We “solve” the tree by
+working backwards: first calculate values at the end nodes, then compute
+expected values at chance nodes, and finally identify the best decision
+at decision nodes.</p>
+</div>
+</section>
+<section id="the-concept-of-expected-value" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="the-concept-of-expected-value"><span class="header-section-number">4</span> The
+Concept of Expected Value</h2>
+<p>When making decisions under uncertainty, a key metric is the
+<strong>expected value (EV)</strong> or <strong>expected
+payoff</strong>. This is essentially the <em>probability-weighted
+average</em> of all possible outcommes. It tells us, on average, what
+payoff to expect if a certain decision were repeated many times under
+the same uncertainties.</p>
+<p>To calculate an expected value:</p>
+<ol type="1">
+<li>List all possible outcome scenarios for a decision.</li>
+<li>For each outcome, note its <strong>payoff</strong> (e.g.&nbsp;profit,
+NPV) and the <strong>probability</strong> of that outcome.</li>
+<li>Multiply each payoff by its probability.</li>
+<li>Sum up these products.</li>
+</ol>
+<p>Mathematically:</p>
+<p><span class="math display">\[\text{EV} = \sum_{i=1}^{n} p_i \cdot
+x_i\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(p_i\)</span> is the probability of the
+<span class="math inline">\(i\)</span>-th outcome</li>
+<li><span class="math inline">\(x_i\)</span> is the payoff of the <span class="math inline">\(i\)</span>-th outcome</li>
+<li><span class="math inline">\(n\)</span> is the total number of
+possible outcomes</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In simple terms:
+<strong><code>Expected Value = SUM(Probability of outcome X Payoff of outcome)</code></strong></p>
+</div>
+</div>
+<p>For example, if a decision could yield <strong>$100</strong> with 50%
+chance and <strong>$50</strong> with 50% chance, the expected value
+would be <code>100 * 0.5 + 50 * 0.5 = 75</code> aka $75. Essentially, if
+you were to take this risk repeatedly, you’d average $75 per attempt.
+Choosing the option with the highest expected value is a rational
+approach <em>if you are risk-neutral</em> (meaning you only care about
+long-run averages). In business, maximizing expected profit or NPV is a
+common objective.</p>
+<p>However, remeber that <strong>expected value is an average</strong>,
+actual outcomes in any single instance can be higher or lower. Tow
+decisions might have the same expected value but very different risk
+profiles. Depending on context, managers might also consider risk
+(variability of outcomes) and not just the average. In this module, we
+will focus on expected value as our decsion riterino, assuming risk
+neutraliy for simplicity.</p>
+</section>
+<section id="simple-example-goferbroke-oil-drilling-decision-tree" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="simple-example-goferbroke-oil-drilling-decision-tree"><span class="header-section-number">5</span> Simple
+Example: Goferbroke Oil Drilling Decision Tree</h2>
+<p>To illustrate decision trees and expected value, let’s start with a
+simple (non-supply-chain) example. The Goferbroke Company must decide
+whether to <strong>drill for oil</strong> on a piece of land or
+<strong>sell the land</strong> outright. This is a classic decision
+under uncertainty:</p>
+<ul>
+<li>If Goferbroke drills, there is a chance they find oil (leading to a
+big payoff) and a chance they find nothing (leading to a loss, since
+drilling costs money).</li>
+<li>If they sell the land, they get a certain, immediate payment (no
+risk).</li>
+</ul>
+<p>Suppose the company can sell the land now for <code>$90,000</code>.
+If they decide to drill instead, it will cost <code>$100,000</code> to
+drill. There is a <code>25%</code> chance they hit oil and earna revenue
+of <code>$800,000</code> from it. If oil is found, the net profit woul
+dbe roughly <code>$700,000</code> (after subtracking the $100K drilling
+cost). If no oil is found (<code>75%</code> chance), they earn nothing
+and actually lose the $100K drilling cost (net <code>-$100K</code>).</p>
+<p>We can draw a decision tree for this scenario:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["Decision: Drill or Sell?"]
+
+  %% Sell Branch
+  A --&gt; B1["Sell Land → Certain Profit = $90,000"]
+
+  %% Drill Branch
+  A --&gt; B2["Drill for Oil"]
+  B2 --&gt; C1["Oil Found (25%) → Profit = $700,000"]
+  B2 --&gt; C2["No Oil (75%) → Loss = -$100,000"]
+
+  %% Expected Value Calculation
+  C1 --&gt; D1["EV(Drill) = 0.25 × 700,000 + 0.75 × (–100,000) = $100,000"]
+  B1 --&gt; D2["EV(Sell) = 1.0 × 90,000 = $90,000"]
+
+  %% Highlight Best Choice
+  D1 --&gt; E1["✅ Choose Drill: Higher Expected Value"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>In this decision tree:</p>
+<ul>
+<li>The first node is a <strong>decision</strong> (drill or sell)</li>
+<li>If the decision is “Drill”, we move to a <strong>chance
+node</strong> with two possible outcomes: <strong>Oil Found</strong>
+(25% probability) yielding $700K profit, or <strong>No Oil</strong> (75%
+probability) yielding a -$100K (a loss).</li>
+<li>If the decion is “Sell”, there is no uncertainty (no chance node),
+the outcome is a guaranteed $90K profit.</li>
+</ul>
+<p>Now, let’s calculate the <strong>expected value</strong> for each
+decision:</p>
+<ul>
+<li><p><span class="math inline">\(\text{EV(Drill)} = 0.25 \times
+700{,}000 + 0.75 \times (-100{,}000) = 175{,}000 - 75{,}000 =
+100{,}000\)</span></p></li>
+<li><p><span class="math inline">\(\text{EV(Sell)} = 1.0 \times 90{,}000
+= 90{,}000\)</span></p></li>
+</ul>
+<p>Comparing the two, <em>drilling for oil</em> has a higher expected
+value ($100K vs $90K). So if Goferbroke is making the decision purely on
+expected monetary value, drilling is the better choice. Of course,
+drilling is riskier (you could lose money), but the high upside makes
+the average outcome better. A risk-neutral decision-maker would choose
+to drill.</p>
+<p>This simple example shows the mechanics of decision trees:</p>
+<ul>
+<li>We enumerate decisions and uncertainties.</li>
+<li>We calculate payoffs for each scenario.</li>
+<li>We use probabilities to find expected values.</li>
+<li>We choose the decision with the best expected outcome.</li>
+</ul>
+</section>
+<section id="case-study-trips-logistics---lease-or-not-to-lease" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="case-study-trips-logistics---lease-or-not-to-lease"><span class="header-section-number">6</span> Case
+Study: Trips Logistics - Lease or Not to Lease?</h2>
+<p><strong>Scenario</strong>: The general manager at <em>Trips
+Logistics</em> is planning the company’s warehouse capicity for the next
+three years. The company currently handles 100,000 units of product per
+year (current demand = 100k units/year). For every 1,000 units of
+demand, they need 1,000 sq. ft. of warehosue space (so currently, 100K
+units requires 100k sq. ft. of space per year).</p>
+<p>The manager faces <strong>uncertainty in demand and warehouse
+prices</strong> over the next 3 years:</p>
+<ul>
+<li><p>Each year, demand could <strong>increase by 20%</strong> or
+<strong>decrease by 20%</strong> (a simplified assumption of
+<em>binomial</em> demand uncertainty). For example, from 100k units,
+demand in a following year could go up to 120k (with 50% probability) or
+down to 80k (50% probability). These changes are assumed independent
+each year.</p></li>
+<li><p>Each year, the <strong>spot market price</strong> for warehouse
+space (the cost to get space on the open market for a year) could go
+<strong>up by 10%</strong> or <strong>down by 10%</strong>, each with
+50% probability. The current spot price is $1.20 per sq. ft. per year.
+So next year it might be $1.32 or $1.08, etc., again independent yearly
+fluctuations.</p></li>
+</ul>
+<p>The company has <strong>three options</strong> for securing warehouse
+space:</p>
+<ol type="1">
+<li><strong>Spot Market Only</strong>: Do <em>not</em> sign any
+long-term lease. Instead, acquire all needed warehouse space each year
+on the spot market at the prevailing market rate. This is the most
+flexible in capacity (you only pay for what you need each year) but
+exposes the firm to uncertain and potentially high costs if spot prices
+rise.</li>
+<li><strong>Fixed Lease</strong>: Sign a <strong>3-year fixed
+lease</strong> for a certain amount of space (in sq. ft.), at a
+locked-in rate per sq. ft. each year. Any demand above the leased amount
+must be met by buying additional space on the spot market. In this case,
+Trips Logistics can lease space at a cheaper rate than the current spot
+price (a long-term contract discount), but the lease is a
+<em>use-it-or-pay-for-it-anyway</em> commitment. If demand turns out
+lower than the leased volume, the company pays for unused space. If
+demand is higher, they still have to go to spot for the extra. In our
+scenario, the fixed lease cost is <strong>$1.00 per sq. ft. per
+year</strong> (versus spot $1.20).</li>
+<li><strong>Flexible Lease</strong>: Sign a <strong>3-year flexible
+lease</strong> that allows some adaptability in space usage.
+Specifically, this contract has a <strong>minimum commitment</strong>
+and a <strong>maximum limit</strong>. For example, Trips could have a
+flexible lease for up to 100,000 sq. ft., with a minimum payment
+equivalent to 60,000 sq. ft. This means each year they pay at least for
+60k sq. ft. (even if they use less), but they are allowed to use
+anywhere from 60k up to 100k at the fixed lease rate. Any requirement
+above the 100k limit would still go to the spot market. The flexible
+lease rate per sq. ft. might be similar to the fixed lease rate (let’s
+assume $1.00 per sq. ft. as well for simplicity). This option provides a
+middle ground – it protects against some demand uncertainty (you don’t
+overpay as much in low demand, and you have capacity for moderate
+growth) but usually comes with the cost of the unused minimum if demand
+is very low.</li>
+</ol>
+<p>Trips Logistics uses a discount rate of <strong>10% per year</strong>
+(for example purposes) to calculate NPV of profits over the 3-year
+horizon. Each unit of demand yields revenue of <strong>$1.22 per
+unit</strong> and the warehousing cost depends on the option chosen. We
+will evaluate each option by computing the expected <strong>3-year
+NPV</strong> of profit.</p>
+<p>Let’s break down how to analyze each option using a decision tree and
+expected value.</p>
+<section id="option-1-spot-market-only" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="option-1-spot-market-only"><span class="header-section-number">6.1</span>
+Option 1: Spot Market Only</h3>
+<p>If Trips relies <strong>entirely on the spot market</strong>, they
+will have <em>no fixed cost commitments</em>. Each year, the cost of
+warehousing will equal the <strong>spot price</strong> per sq. ft. times
+the space needed that year.</p>
+<ul>
+<li>If demand is <span class="math inline">\(D\)</span> units in a year,
+space needed = <span class="math inline">\(D\)</span> sq. ft. (since 1
+unit needs 1 sq. ft.).</li>
+<li>Revenue each year = $D * <span class="math inline">\(1.22\)</span>
+(per unit revenue).</li>
+<li>Cost each year = <span class="math inline">\(D * (\text{spot price
+per sq.ft.})\)</span>.</li>
+<li>Profit each year = Revenue – Cost = <span class="math inline">\(D*(1.22 - \text{spot price})\)</span>.</li>
+</ul>
+<p>Because spot price could be higher or lower than $1.22, the profit
+could be positive or even negative. For instance, if in a given year the
+spot price rises above <span class="math inline">\(1.22\)</span>,
+handling each unit actually incurs a loss (cost &gt; revenue). In
+another year, if spot price is below <span class="math inline">\(1.22\)</span>, each unit yields some profit.</p>
+<p>To evaluate the 3-year performance, we should compute the <strong>NPV
+of profit</strong> across the years for each possible scenario:</p>
+<ol type="1">
+<li><strong>Enumerate scenarios</strong>: We have uncertainty in demand
+(up or down each year) and price (up or down each year). After 3 years
+(two periods of change, from Year1 to Year2 and Year2 to Year3), there
+are multiple possible outcomes. For example, one scenario might be:
+demand goes up to 120k then up to 144k, while prices go up to 1.32 then
+up again to 1.452. Another scenario: demand goes down to 80k then down
+to 64k, prices down to 1.08 then down to 0.972, etc. Each scenario has a
+probability (for 2 independent demand moves and 2 independent price
+moves, there would be <span class="math inline">\(2^4 = 16\)</span>
+combinations, each 1/16 = 6.25% in the symmetric case).</li>
+<li><strong>Calculate profit in each year for that scenari</strong>o:
+Year by year, revenue <span class="math inline">\(= D_t * 1.22\)</span>,
+cost <span class="math inline">\(= D_t * p_t\)</span> (with <span class="math inline">\(p_t\)</span> the spot price that year). Compute
+profit <span class="math inline">\(= D_t*(1.22 - p_t)\)</span> for
+Year1, Year2, Year3.</li>
+<li><strong>Discount to present</strong>: Convert Year1 profit to
+present (Year0) by <span class="math inline">\(\div (1+0.1)^1\)</span>,
+Year2 profit by <span class="math inline">\(\div (1+0.1)^2\)</span>,
+Year3 by <span class="math inline">\(\div (1+0.1)^3\)</span>. Sum them
+to get scenario NPV.</li>
+<li><strong>Multiply by scenario probability, and sum for expected
+NPV.</strong></li>
+</ol>
+<p>This is a bit laborious to do by hand for all scenarios, but we can
+simplify by using the <strong>decision tree structure</strong> and
+<strong>backwards induction</strong>:</p>
+<ul>
+<li>Start at the final year (Year3): for each possible state
+(combination of demand and price at Year3), calculate that year’s
+profit.</li>
+<li>Work back to Year2: at Year2’s chance node, compute the
+<strong>expected discounted profit of Year3</strong> (the present value
+of Year3 profit) for each Year2 state. Add Year2’s own profit to that to
+get the expected total from Year2 onward for that state. This gives an
+<strong>expected payoff for each node at Year2</strong>.</li>
+<li>Work back to Year1 (initial decision): combine the outcomes from
+Year2 nodes to get the overall expected NPV.</li>
+</ul>
+<p>In practice, you can set this up in an Excel decision tree model. The
+end result is:</p>
+<ul>
+<li><strong>Expected NPV (Spot Market only) = $5,471</strong></li>
+</ul>
+<p>This expected NPV is quite low. Why so low? In many scenarios, using
+the spot market erodes profit:</p>
+<ul>
+<li>When demand is high, you have to buy a lot of space at high spot
+prices, greatly reducing profit (or even causing losses if price &gt;
+revenue per unit).</li>
+<li>When demand is low, you aren’t stuck with unused capacity costs
+(good), but you also don’t make much revenue (since volume is low). The
+savings in those low-demand scenarios don’t compensate enough for the
+losses in high-demand, high-price scenarios.</li>
+</ul>
+<p>In other words, while “pay-as-you-go” on the spot market is flexible
+(no wasted capacity), it can be very expensive when you need it most.
+The average outcome is not great for profitability.</p>
+</section>
+<section id="option-2-3-year-fixed-lease" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="option-2-3-year-fixed-lease"><span class="header-section-number">6.2</span>
+Option 2: 3-Year Fixed Lease</h3>
+<p>With the <strong>fixed lease option</strong>, Trips Logistics locks
+in a warehouse space for 3 years at a fixed rate (here $1.00 per sq. ft.
+per year). The question is <strong>how much space to lease</strong>. A
+logical choice might be to lease the current requirement (100,000 sq.
+ft.) to cover expected base demand. For our analysis, let’s assume they
+lease 100k sq. ft. for each of the 3 years at $1.00/sq.ft. (which equals
+the current demand).</p>
+<p>What happens under different demand scenarios?</p>
+<ul>
+<li><strong>Cost</strong>: Each year, they pay for 100k sq.ft * $1.00 =
+$100,000, regardless of actual demand. If demand exceeds 100k units, the
+extra units <em>beyond the lease</em> (each needing 1 sq.ft.) must be
+procured on spot market at the spot price. If demand is less than 100k,
+they still pay the full $100k (the unused portion is wasted cost).</li>
+<li><strong>Revenue</strong>: as before, <span class="math inline">\(1.22 * (units sold)\)</span>.</li>
+<li><strong>Profit</strong> Each year can be computed as:
+<ul>
+<li>If Demand <span class="math inline">\(D_t \le 100k\)</span>: Revenue
+<span class="math inline">\(= 1.22 D_t\)</span>; Cost $= 100k*$1.00
+(lease cost, since spot usage = 0 in this case); Profit <span class="math inline">\(= 1.22D_t - 100k*1.00\)</span>. Here, because
+<span class="math inline">\(D_t &lt; 100k\)</span>, we are paying for
+some space we don’t use. This reduces profit compared to a perfect
+scenario where you only pay for <span class="math inline">\(D_t\)</span>
+space.</li>
+<li>If Demand <span class="math inline">\(D_t &gt; 100k\)</span>:
+Revenue <span class="math inline">\(= 1.22 D_t\)</span>; Cost <span class="math inline">\(= 100k*1.00\)</span> (lease) <span class="math inline">\(+ (D_t - 100k)p_t\)</span> (spot for the extra
+units); Profit <span class="math inline">\(= 1.22D_t - [100k1.00 + (D_t
+- 100k)*p_t]\)</span>.</li>
+</ul></li>
+</ul>
+<p>We then discount and sum over 3 years for each scenario as before.
+The decision tree here has an initial decision (lease 100k) then chance
+nodes for demand and price each year. But one key difference:
+<strong>the decision to lease changes the cost structure</strong>, so
+the payoffs at the end nodes differ from the spot-only case.</p>
+<p>Intuitively, a fixed lease provides <strong>cost stability</strong>
+and a lower rate for the core 100k sq.ft., at the expense of
+<strong>less flexibility</strong>:</p>
+<ul>
+<li>In high demand scenarios, having the 100k at cheap rate is great
+(you only pay expensive spot for the overflow demand beyond 100k).</li>
+<li>In low demand scenarios, you end up paying for unused capacity (100k
+leased vs maybe only 80k needed, etc.), which hurts profits.</li>
+</ul>
+<p>We expect the fixed lease to perform better on average than spot-only
+if the cost saving on the bulk of the capacity outweighs the cost of
+unused capacity in bad times.</p>
+<p><strong>Result</strong>: Using decision tree analysis (with demand
++/-20% each year and price +/-10%), the <strong>Expected NPV (Fixed 100k
+Lease)</strong> comes out to around <strong>$38,364​</strong>. This is
+<em>much higher</em> than the spot-only option’s $5.5k. The long-term
+lease secures a lower cost, which significantly boosts profits in most
+scenarios, enough to offset the waste in low-demand cases. In fact, if
+we <strong>ignore uncertainty entirely</strong> and assume demand stays
+100k each year, the NPV of leasing would have been about $60k​.
+Accounting for uncertainty brings it down to ~$38k, but that’s still
+better than the ~$5k from going spot-only.</p>
+<p>To put it simply:</p>
+<ul>
+<li>The fixed lease dramatically increases expected profit by locking in
+a low unit cost for most of the capacity.</li>
+<li>But it isn’t perfect, if demand drops a lot, you pay for space you
+don’t use (reducing the gain), and if demand surges beyond your lease,
+you still face high spot costs on the overflow.</li>
+</ul>
+</section>
+<section id="option-3-flexible-lease" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="option-3-flexible-lease"><span class="header-section-number">6.3</span>
+Option 3: Flexible Lease</h3>
+<p>Finally, consider the <strong>flexible lease</strong> option. Trips
+can sign a contract, for example, for up to 100k sq.ft. at $1.00, with a
+commitment that they will pay at least for 60k sq.ft. each year (the
+minimum). This means:</p>
+<ul>
+<li>If actual demand requires ≤ 60k sq.ft., they <em>still pay for
+60k</em> (so effectively some cost is wasted if demand is very
+low).</li>
+<li>If demand requires between 60k and 100k sq.ft., they pay for exactly
+what they use (since it’s above the minimum, but within the max, the
+contract covers it fully at the fixed rate).</li>
+<li>If demand exceeds 100k, they use the full 100k from the lease and
+then must buy the extra on the spot market (just like the fixed lease
+case beyond the cap).</li>
+</ul>
+<p>This flexible contract reduces the wasted cost in low demand
+scenarios (because you commit to 60k instead of 100k), while still
+providing capacity for moderate growth (up to 100k) at the low rate. The
+trade-off might be that the supplier requires that 60k minimum payment
+as a guarantee. <strong>In reality, the Flexible Lease will cost more
+than the Fixed Lease, but less than spotprice, but our example keeps the
+$1.00 rate for simplicity</strong>.</p>
+<p>Let’s think through scenario outcomes with this flexible 60k–100k
+lease:</p>
+<ul>
+<li><strong>Low demand scenario (e.g.&nbsp;demand = 64k units)</strong>:
+Since demand is above the 60k minimum (64k &gt; 60k) but below 100k,
+Trips would pay for 64k at $1.00. However, because of the minimum
+clause, if demand were even lower (say 50k), they’d still pay for 60k.
+So worst-case unused cost happens if demand is below 60k.</li>
+<li><strong>Base or moderate demand (e.g.&nbsp;80k or 96k)</strong>: These
+are between 60k and 100k, so Trips pays exactly for the demand (since it
+exceeds min). No spot cost, all needs covered by the flexible lease, and
+no waste beyond the minimum (except they always pay at least 60k). For
+80k demand, they pay 80k<em>$1.00; for 96k, pay 96k</em>$1.00, etc.</li>
+<li><strong>High demand scenario (e.g.&nbsp;120k or 144k units)</strong>: The
+lease covers up to 100k at $1.00. Any demand beyond 100k must be bought
+on spot. So for 120k demand, cost = 100k<em><span class="math inline">\(1.00 + 20k*(\)</span>spot price); for 144k demand,
+cost = 100k</em><span class="math inline">\(1.00 + 44k*(\)</span>spot
+price), etc. Revenue is as usual 1.22 * demand. So in these cases, it
+behaves like the fixed lease for the first 100k, plus spot for the
+rest.</li>
+</ul>
+<p>By analyzing all scenarios (again using a decision tree or an Excel
+model), we can compute the expected NPV for the flexible option. We
+expect it to be the best of both worlds: it avoids a lot of wasted cost
+in low demand cases (unlike the fixed 100k lease) and still gives a
+large cheap capacity for high demand (unlike the all-spot option).
+Typically, this should yield the highest expected value, albeit perhaps
+the contract might cost a bit more in reality for that flexibility.</p>
+<p><strong>Result</strong>: The flexible lease (60k min, 100k max at
+$1.00) yields an <strong>Expected NPV ≈ $46,545</strong>, the highest of
+the three options​. This confirms that flexibility has value: about $8k
+higher NPV than the pure fixed lease, and far above the spot-only
+strategy.</p>
+<p>Why is it higher than the fixed lease?</p>
+<ul>
+<li>In low demand scenarios, the flexible lease doesn’t burn as much
+money on unused space (only pays 60k instead of 100k), preserving
+profit.</li>
+<li>In high demand scenarios, it still has the full 100k at low cost, so
+performance is similar to fixed lease in those cases (needing spot only
+for the overflow beyond 100k).</li>
+<li>Essentially, it minimizes regret in both extremes at a relatively
+small penalty (the guaranteed 60k payment even if demand is very
+low).</li>
+</ul>
+<p>It’s a concrete example of the benefit of a <em>flexible
+contract</em> in supply chain management, even if the flexible option
+had a slightly higher cost per unit or a minimum fee, it often
+outperforms inflexible choices when uncertainty is significant.</p>
+</section>
+<section id="recap-expected-outcomes-for-each-option" class="level3" data-number="6.4">
+<h3 data-number="6.4" class="anchored" data-anchor-id="recap-expected-outcomes-for-each-option"><span class="header-section-number">6.4</span>
+Recap: Expected Outcomes for Each Option</h3>
+<p>For clarity, here’s a summary of the expected NPV results from the
+Trips Logistics example (3-year horizon, in present value of
+profit):</p>
+<ul>
+<li>Option 1: All Spot Market: Expected NPV ≈ $5.5k (very low)​</li>
+<li>Option 2: Fixed Lease (100k sq.ft.): Expected NPV ≈ $38.4k</li>
+<li>Option 3: Flexible Lease (60k–100k sq.ft.): Expected NPV ≈
+$46.5k​</li>
+</ul>
+</section>
+</section>
+<section id="using-decision-trees-and-npv-for-decision-making" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="using-decision-trees-and-npv-for-decision-making"><span class="header-section-number">7</span> Using
+Decision Trees and NPV for Decision-Making</h2>
+<p>The Trips Logistics case illustrates how to apply <strong>decision
+tree analysis</strong> to a supply chain decision:</p>
+<ul>
+<li>We identified the <strong>decisions</strong> (lease options) and the
+<strong>uncertainties</strong> (annual demand and price changes).</li>
+<li>We laid out the <strong>decision tree</strong> with branches for
+each option and further branches for each possible outcome each
+year.</li>
+<li>We attached <strong>payoffs</strong> (profit/NPV) to each final
+branch of the tree.</li>
+<li>We calculated <strong>expected NPVs</strong> by working backward,
+combining probabilities and discounting future profits
+appropriately.</li>
+</ul>
+<p>In real problems, you might use software or spreadsheets to handle
+the complex arithmetic (as we did behind the scenes here). But
+conceptually, the process is accessible:</p>
+<ol type="1">
+<li><strong>Structure the problem</strong>: What decisions are we
+evaluating? What uncertainties affect the outcomes (and in what sequence
+do they occur)?</li>
+<li><strong>Estimate probabilities</strong>: Use forecasts or historical
+data to assign probabilities to different demand levels, price changes,
+etc. (In our example we assumed simple 50/50 chances for up/down moves
+each year.)</li>
+<li><strong>Estimate payoffs</strong>: For each combination of outcomes,
+determine the cash flows or profit.</li>
+<li><strong>Incorporate time value</strong>: Discount future cash flows
+to present values if the horizon is multi-period.</li>
+<li><strong>Compute expected values</strong>: Multiply outcomes by
+probabilities and sum them for each decision path.</li>
+<li><strong>Choose the best option</strong>: Based on highest expected
+NPV (or whichever criterion is relevant, could also consider risk, but
+here it’s EV).</li>
+</ol>
+<section id="excel-style-logic-for-the-case" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="excel-style-logic-for-the-case"><span class="header-section-number">7.1</span>
+Excel-Style Logic for the Case</h3>
+<p>To further clarify, let’s outline the <strong>Excel-style
+logic</strong> you might use in evaluating the Trips Logistics options.
+This is how you would break down the problem step-by-step (you can
+imagine these as formulas or cell calculations):</p>
+<section id="calculate-annual-profit-given-strategy-and-scenario" class="level4" data-number="7.1.1">
+<h4 data-number="7.1.1" class="anchored" data-anchor-id="calculate-annual-profit-given-strategy-and-scenario"><span class="header-section-number">7.1.1</span>
+Calculate annual profit given strategy and scenario</h4>
+<p>For each year <span class="math inline">\(t\)</span> and each
+strategy, you could compute:
+<code>Profit_t = Revenue_t - Cost_t</code>.</p>
+<p>For example, under <em>Fixed Lease</em>:</p>
+<ul>
+<li>If <code>Demand_t &lt;= LeaseCapacity</code>:
+<ul>
+<li><code>Cost_t = LeaseCapacity * LeaseRate</code> (pay for full lease,
+no spot)</li>
+<li><code>Profit_t = Demand_t * UnitRev – LeaseCapacity * LeaseRate</code></li>
+</ul></li>
+<li>If <code>Demand_t &gt; LeaseCapacity</code>:
+<ul>
+<li><code>Cost_t = LeaseCapacity * LeaseRate + (Demand_t – LeaseCapacity) * SpotPrice_t</code></li>
+<li><code>Profit_t = Demand_t * UnitRev – [LeaseCapacity * LeaseRate + (Demand_t – LeaseCapacity) * SpotPrice_t]</code></li>
+</ul></li>
+</ul>
+<p>Under <em>Spot Only</em>:
+<code>Cost_t = Demand_t * SpotPrice_t</code> (pay all on spot)</p>
+<p>Under <em>Flexible Lease</em>:</p>
+<ul>
+<li>If <code>Demand_t &lt;= MinCap</code>:
+<ul>
+<li><code>Cost_t = MinCap * LeaseRate</code> (you pay minimum even if
+not used fully)</li>
+<li><code>Profit_t = Demand_t * UnitRev – MinCap * LeaseRate</code></li>
+</ul></li>
+<li>If <code>MinCap &lt; Demand_t &lt;= MaxCap</code>:
+<ul>
+<li><code>Cost_t = Demand_t * LeaseRate</code> (pay for what you use,
+meeting minimum)</li>
+<li><code>Profit_t = Demand_t * UnitRev – Demand_t * LeaseRate</code></li>
+</ul></li>
+<li>If <code>Demand_t &gt; MaxCap</code>:
+<ul>
+<li><code>Cost_t = MaxCap * LeaseRate + (Demand_t – MaxCap) * SpotPrice_t</code></li>
+<li><code>Profit_t = Demand_t * UnitRev – [MaxCap * LeaseRate + (Demand_t – MaxCap) * SpotPrice_t]</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="discount-the-profit-to-present-value" class="level4" data-number="7.1.2">
+<h4 data-number="7.1.2" class="anchored" data-anchor-id="discount-the-profit-to-present-value"><span class="header-section-number">7.1.2</span>
+Discount the profit to present value</h4>
+<p>If Year1 profit = $X, Year2 profit = $Y, Year3 profit = $Z, and
+discount rate = 10%, then
+<code>NPV = $X/(1.1)^1 + $Y/(1.1)^2 + $Z/(1.1)^3</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If Year1 is counted as one period out. If we counted Year0 as now and
+Year1 as first, that’s the formula. Sometimes Year1 might be taken as
+(1.1)^0 if immediate, but assume each profit comes at year-end.</p>
+</div>
+</div>
+<p>In Excel, you might have cells for each year’s profit and then a
+formula for NPV.</p>
+</section>
+<section id="expected-npv" class="level4" data-number="7.1.3">
+<h4 data-number="7.1.3" class="anchored" data-anchor-id="expected-npv"><span class="header-section-number">7.1.3</span>
+Expected NPV</h4>
+<p>Enumerate each scenario (or use a tree formula). For each scenario,
+given its probability <code>p</code>, compute NPV as above, then
+multiply by <code>p</code>. Finally, sum across all scenarios.</p>
+<p>Example: Suppose four equally likely scenarios had NPVs of $50k,
+$40k, $20k, and $10k. Then Expected NPV = 0.25*(50+40+20+10)k =
+$30k.</p>
+<p>In our case, doing this for each strategy yields the expected NPVs
+listed earlier. <strong>Flexible lease wins with highest expected
+NPV</strong>.</p>
+</section>
+</section>
+</section>
+<section id="key-takeaways" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="key-takeaways"><span class="header-section-number">8</span> Key
+Takeaways</h2>
+<ul>
+<li><strong>Uncertainty matters</strong>: When designing supply chain
+networks (like deciding on capacity or contracts), accounting for
+uncertain demand and costs can change which option is best. Simply using
+average forecasts might mislead you. Tools like decision trees help
+explicitly consider variability.</li>
+<li><strong>Decision trees structure the problem</strong>: They break a
+complex, multi-period decision into manageable pieces, showing how each
+choice can lead to different outcomes. They are especially useful for
+multi-stage decisions under uncertainty.</li>
+<li><strong>Expected value guides choices under risk</strong>: By
+calculating expected NPV or profit, we can evaluate which strategy gives
+the best long-run performance. In our example, the flexible lease had
+the highest expected NPV​, making it the preferred strategy for a
+risk-neutral manager.</li>
+<li><strong>Net Present Value (NPV) integration</strong>: We
+incorporated time value of money, which is important for multi-year
+decisions. A dollar of profit next year is worth less than a dollar
+today – discounting ensures we fairly compare multi-year cash
+flows.</li>
+<li><strong>The value of flexibility</strong>: The case demonstrated
+that a flexible supply chain contract can add significant value under
+uncertainty. Paying for flexibility (in the form of a higher minimum
+cost or a slightly higher rate) can be worthwhile if it protects you in
+bad scenarios and allows you to capitalize on good scenarios. In the
+Trips Logistics example, flexibility in the lease led to the best
+expected outcome.</li>
+</ul>
+<p>Finally, while expected value is a powerful decision criterion,
+managers should also consider their <strong>risk tolerance</strong>. Two
+strategies with the same expected NPV might have different risk profiles
+(one might have a small chance of a very bad outcome, for instance).
+Decision trees can also incorporate utilities or risk considerations,
+but that’s beyond our scope here. For now, being able to compute and
+compare expected NPVs equips you with a fundamental decision-making tool
+for supply chain network design under uncertainty.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a></div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("wvu-gscm-425\.github\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../learning-modules/07-facility-location.html" class="pagination-link" aria-label="07 | Facility Location Models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">07 | Facility Location
+Models</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

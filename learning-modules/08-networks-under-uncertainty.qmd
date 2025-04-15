@@ -1,0 +1,314 @@
+---
+title: "08 | Designing Global Supply Chain Networks Under Uncertainty" 
+subtitle: "Optimizing Decisions in Supply Chain Networks" 
+format: html 
+order: 8
+---
+
+## Overview
+
+In this module, we explore how **uncertainty** (e.g. fluctuating demand and prices) impacts global supply chain network design decisions. We will learn to use **decision tress** and **expected value** calculations to evaluate strategic choices under uncertainty, incorporating **net present value (NPV)** to account for time value of money. The goal is to equip you with a practical approach to making informed supply chain decisions despite an uncertain future.
+
+## Uncertainty in Supply Chain Network Design
+
+Global supply chain network design involves long-term decisions (like facility leases, capacity investments, or supplier contracts) that must be made **before** future conditions are known. In practice, key factors such as customer demand levels, market prices for reasources, and costs (like warehousing or transportation rates) are **uncertain**. For example:
+
+- Future **demand** might surge or drop due to market trends, economic conditions, or unforeseen events.
+- **Warehouse space costs** or **transportation rates** might rise or fall with market swings.
+- Exchange rates or commodity prices could fuctuate in a global network.
+
+Such uncertainties mean that a decision is optimal under one future scenario might be suboptimal under another. Designing a network that performs well across different possible futures is challenging but critical. We need tools to **evaluate decisions under uncertainty** and choose an option with the best overall performance (not just best-case or worst-case).
+
+## Decision Trees as a Tool for Strategic Decisions
+
+A **decision tree** is a visual and analytical tool that helps structure sequential decisions and random events over time. It resembels a branching tree:
+
+- **Decision nodes** (often drawn as squares) represent points where a decision-maker chooses and action (e.g. decides to lease a warehouse or not).
+- **Chance nodes** (often drawn as circles or diamonds) represent points of uncertainty, where different outcomes can occur with certain probabilities (e.g. demand could be *high* or *low* with given probabilities).
+- **Branches** from chance nodes represent the different outcomes, each branch labeled with the outcome and its probability.
+- **End nodes** (leaf nodes) represent final outcomes or payoffs from each combination of decisions and chance events.
+
+By laying out decisions and random events in a timeline, we can **analyze each possible scenario**, calculate its payoff (e.g. profit or NPV), and then determine the *expected* payoff of each decision.
+
+**Why use decision trees?** There are especially helpful when decisions have to be made in stages and uncertainty folds over time. In supply chain design, we often must make an upfront choice (like capacity or contracting strategy) and then alter see how demand or costs actually turn out. Decision trees force us to consider all hte possible *states of the worlds* and plan for them in our analysis. They help avoid the trap of focusing on only a single forecast.
+
+::: .callout-note
+In decision tree diagrams, it's common to use *squares* for decisions and *circles* for chance events. We "solve" the tree by working backwards: first calculate values at the end nodes, then compute expected values at chance nodes, and finally identify the best decision at decision nodes.
+:::
+
+## The Concept of Expected Value
+
+When making decisions under uncertainty, a key metric is the **expected value (EV)** or **expected payoff**. This is essentially the *probability-weighted average* of all possible outcommes. It tells us, on average, what payoff to expect if a certain decision were repeated many times under the same uncertainties.
+
+To calculate an expected value:
+
+1. List all possible outcome scenarios for a decision.
+2. For each outcome, note its **payoff** (e.g. profit, NPV) and the **probability** of that outcome.
+3. Multiply each payoff by its probability.
+4. Sum up these products.
+
+Mathematically:
+
+$$\text{EV} = \sum_{i=1}^{n} p_i \cdot x_i$$
+
+Where:
+
+- $p_i$ is the probability of the $i$-th outcome
+- $x_i$ is the payoff of the $i$-th outcome
+- $n$ is the total number of possible outcomes
+
+::: {.callout-tip}
+In simple terms: **`Expected Value = SUM(Probability of outcome X Payoff of outcome)`**
+:::
+
+For example, if a decision could yield **$100** with 50% chance and **$50** with 50% chance, the expected value would be `100 * 0.5 + 50 * 0.5 = 75` aka $75. Essentially, if you were to take this risk repeatedly, you'd average $75 per attempt. Choosing the option with the highest expected value is a rational approach *if you are risk-neutral* (meaning you only care about long-run averages). In business, maximizing expected profit or NPV is a common objective.
+
+However, remeber that **expected value is an average**, actual outcomes in any single instance can be higher or lower. Tow decisions might have the same expected value but very different risk profiles. Depending on context, managers might also consider risk (variability of outcomes) and not just the average. In this module, we will focus on expected value as our decsion riterino, assuming risk neutraliy for simplicity.
+
+## Simple Example: Goferbroke Oil Drilling Decision Tree
+
+To illustrate decision trees and expected value, let's start with a simple (non-supply-chain) example. The Goferbroke Company must decide whether to **drill for oil** on a piece of land or **sell the land** outright. This is a classic decision under uncertainty:
+
+- If Goferbroke drills, there is a chance they find oil (leading to a big payoff) and a chance they find nothing (leading to a loss, since drilling costs money).
+- If they sell the land, they get a certain, immediate payment (no risk).
+
+Suppose the company can sell the land now for `$90,000`. If they decide to drill instead, it will cost `$100,000` to drill. There is a `25%` chance they hit oil and earna revenue of `$800,000` from it. If oil is found, the net profit woul dbe roughly `$700,000` (after subtracking the $100K drilling cost). If no oil is found (`75%` chance), they earn nothing and actually lose the $100K drilling cost (net `-$100K`).
+
+We can draw a decision tree for this scenario:
+
+```{mermaid}
+flowchart TD
+  A["Decision: Drill or Sell?"]
+
+  %% Sell Branch
+  A --> B1["Sell Land → Certain Profit = $90,000"]
+
+  %% Drill Branch
+  A --> B2["Drill for Oil"]
+  B2 --> C1["Oil Found (25%) → Profit = $700,000"]
+  B2 --> C2["No Oil (75%) → Loss = -$100,000"]
+
+  %% Expected Value Calculation
+  C1 --> D1["EV(Drill) = 0.25 × 700,000 + 0.75 × (–100,000) = $100,000"]
+  B1 --> D2["EV(Sell) = 1.0 × 90,000 = $90,000"]
+
+  %% Highlight Best Choice
+  D1 --> E1["✅ Choose Drill: Higher Expected Value"]
+```
+
+In this decision tree:
+
+- The first node is a **decision** (drill or sell)
+- If the decision is "Drill", we move to a **chance node** with two possible outcomes: **Oil Found** (25% probability) yielding $700K profit, or **No Oil** (75% probability) yielding a -$100K (a loss).
+- If the decion is "Sell", there is no uncertainty (no chance node), the outcome is a guaranteed $90K profit.
+
+Now, let's calculate the **expected value** for each decision:
+
+- $\text{EV(Drill)} = 0.25 \times 700{,}000 + 0.75 \times (-100{,}000) = 175{,}000 - 75{,}000 = 100{,}000$
+
+- $\text{EV(Sell)} = 1.0 \times 90{,}000 = 90{,}000$
+
+Comparing the two, *drilling for oil* has a higher expected value ($100K vs $90K). So if Goferbroke is making the decision purely on expected monetary value, drilling is the better choice. Of course, drilling is riskier (you could lose money), but the high upside makes the average outcome better. A risk-neutral decision-maker would choose to drill.
+
+This simple example shows the mechanics of decision trees:
+
+- We enumerate decisions and uncertainties.
+- We calculate payoffs for each scenario.
+- We use probabilities to find expected values.
+- We choose the decision with the best expected outcome.
+
+## Case Study: Trips Logistics - Lease or Not to Lease?
+
+**Scenario**: The general manager at *Trips Logistics* is planning the company's warehouse capicity for the next three years. The company currently handles 100,000 units of product per year (current demand = 100k units/year). For every 1,000 units of demand, they need 1,000 sq. ft. of warehosue space (so currently, 100K units requires 100k sq. ft. of space per year).
+
+The manager faces **uncertainty in demand and warehouse prices** over the next 3 years:
+
+- Each year, demand could **increase by 20%** or **decrease by 20%** (a simplified assumption of *binomial* demand uncertainty). For example, from 100k units, demand in a following year could go up to 120k (with 50% probability) or down to 80k (50% probability). These changes are assumed independent each year.
+
+- Each year, the **spot market price** for warehouse space (the cost to get space on the open market for a year) could go **up by 10%** or **down by 10%**, each with 50% probability. The current spot price is $1.20 per sq. ft. per year. So next year it might be $1.32 or $1.08, etc., again independent yearly fluctuations.
+
+The company has **three options** for securing warehouse space:
+
+1. **Spot Market Only**: Do *not* sign any long-term lease. Instead, acquire all needed warehouse space each year on the spot market at the prevailing market rate. This is the most flexible in capacity (you only pay for what you need each year) but exposes the firm to uncertain and potentially high costs if spot prices rise.
+2. **Fixed Lease**: Sign a **3-year fixed lease** for a certain amount of space (in sq. ft.), at a locked-in rate per sq. ft. each year. Any demand above the leased amount must be met by buying additional space on the spot market. In this case, Trips Logistics can lease space at a cheaper rate than the current spot price (a long-term contract discount), but the lease is a *use-it-or-pay-for-it-anyway* commitment. If demand turns out lower than the leased volume, the company pays for unused space. If demand is higher, they still have to go to spot for the extra. In our scenario, the fixed lease cost is **$1.00 per sq. ft. per year** (versus spot $1.20).
+3. **Flexible Lease**: Sign a **3-year flexible lease** that allows some adaptability in space usage. Specifically, this contract has a **minimum commitment** and a **maximum limit**. For example, Trips could have a flexible lease for up to 100,000 sq. ft., with a minimum payment equivalent to 60,000 sq. ft. This means each year they pay at least for 60k sq. ft. (even if they use less), but they are allowed to use anywhere from 60k up to 100k at the fixed lease rate. Any requirement above the 100k limit would still go to the spot market. The flexible lease rate per sq. ft. might be similar to the fixed lease rate (let's assume $1.00 per sq. ft. as well for simplicity). This option provides a middle ground – it protects against some demand uncertainty (you don't overpay as much in low demand, and you have capacity for moderate growth) but usually comes with the cost of the unused minimum if demand is very low.
+
+Trips Logistics uses a discount rate of **10% per year** (for example purposes) to calculate NPV of profits over the 3-year horizon. Each unit of demand yields revenue of **$1.22 per unit** and the warehousing cost depends on the option chosen. We will evaluate each option by computing the expected **3-year NPV** of profit.
+
+Let's break down how to analyze each option using a decision tree and expected value.
+
+### Option 1: Spot Market Only
+
+If Trips relies **entirely on the spot market**, they will have *no fixed cost commitments*. Each year, the cost of warehousing will equal the **spot price** per sq. ft. times the space needed that year.
+
+- If demand is $D$ units in a year, space needed = $D$ sq. ft. (since 1 unit needs 1 sq. ft.).
+- Revenue each year = $D * $1.22$ (per unit revenue).
+- Cost each year = $D * (\text{spot price per sq.ft.})$.
+- Profit each year = Revenue – Cost = $D*(1.22 - \text{spot price})$.
+
+Because spot price could be higher or lower than $1.22, the profit could be positive or even negative. For instance, if in a given year the spot price rises above $1.22$, handling each unit actually incurs a loss (cost > revenue). In another year, if spot price is below $1.22$, each unit yields some profit.
+
+To evaluate the 3-year performance, we should compute the **NPV of profit** across the years for each possible scenario:
+
+1. **Enumerate scenarios**: We have uncertainty in demand (up or down each year) and price (up or down each year). After 3 years (two periods of change, from Year1 to Year2 and Year2 to Year3), there are multiple possible outcomes. For example, one scenario might be: demand goes up to 120k then up to 144k, while prices go up to 1.32 then up again to 1.452. Another scenario: demand goes down to 80k then down to 64k, prices down to 1.08 then down to 0.972, etc. Each scenario has a probability (for 2 independent demand moves and 2 independent price moves, there would be $2^4 = 16$ combinations, each 1/16 = 6.25% in the symmetric case).
+2. **Calculate profit in each year for that scenari**o: Year by year, revenue $= D_t * 1.22$, cost $= D_t * p_t$ (with $p_t$ the spot price that year). Compute profit $= D_t*(1.22 - p_t)$ for Year1, Year2, Year3.
+3. **Discount to present**: Convert Year1 profit to present (Year0) by $\div (1+0.1)^1$, Year2 profit by $\div (1+0.1)^2$, Year3 by $\div (1+0.1)^3$. Sum them to get scenario NPV.
+4. **Multiply by scenario probability, and sum for expected NPV.**
+
+This is a bit laborious to do by hand for all scenarios, but we can simplify by using the **decision tree structure** and **backwards induction**:
+
+- Start at the final year (Year3): for each possible state (combination of demand and price at Year3), calculate that year's profit.
+- Work back to Year2: at Year2's chance node, compute the **expected discounted profit of Year3** (the present value of Year3 profit) for each Year2 state. Add Year2's own profit to that to get the expected total from Year2 onward for that state. This gives an **expected payoff for each node at Year2**.
+- Work back to Year1 (initial decision): combine the outcomes from Year2 nodes to get the overall expected NPV.
+
+In practice, you can set this up in an Excel decision tree model. The end result is:
+
+- **Expected NPV (Spot Market only) = $5,471**
+
+This expected NPV is quite low. Why so low? In many scenarios, using the spot market erodes profit:
+
+- When demand is high, you have to buy a lot of space at high spot prices, greatly reducing profit (or even causing losses if price > revenue per unit).
+- When demand is low, you aren't stuck with unused capacity costs (good), but you also don't make much revenue (since volume is low). The savings in those low-demand scenarios don't compensate enough for the losses in high-demand, high-price scenarios.
+
+In other words, while "pay-as-you-go" on the spot market is flexible (no wasted capacity), it can be very expensive when you need it most. The average outcome is not great for profitability.
+
+### Option 2: 3-Year Fixed Lease
+
+With the **fixed lease option**, Trips Logistics locks in a warehouse space for 3 years at a fixed rate (here $1.00 per sq. ft. per year). The question is **how much space to lease**. A logical choice might be to lease the current requirement (100,000 sq. ft.) to cover expected base demand. For our analysis, let's assume they lease 100k sq. ft. for each of the 3 years at $1.00/sq.ft. (which equals the current demand).
+
+What happens under different demand scenarios?
+
+- **Cost**: Each year, they pay for 100k sq.ft * $1.00 = $100,000, regardless of actual demand. If demand exceeds 100k units, the extra units *beyond the lease* (each needing 1 sq.ft.) must be procured on spot market at the spot price. If demand is less than 100k, they still pay the full $100k (the unused portion is wasted cost).
+- **Revenue**: as before, $1.22 * (units sold)$.
+- **Profit** Each year can be computed as:
+  - If Demand $D_t \le 100k$: Revenue $= 1.22 D_t$; Cost $= 100k*$1.00 (lease cost, since spot usage = 0 in this case); Profit $= 1.22D_t - 100k*1.00$. Here, because $D_t < 100k$, we are paying for some space we don't use. This reduces profit compared to a perfect scenario where you only pay for $D_t$ space.
+  - If Demand $D_t > 100k$: Revenue $= 1.22 D_t$; Cost $= 100k*1.00$ (lease) $+ (D_t - 100k)p_t$ (spot for the extra units); Profit $= 1.22D_t - [100k1.00 + (D_t - 100k)*p_t]$.
+
+We then discount and sum over 3 years for each scenario as before. The decision tree here has an initial decision (lease 100k) then chance nodes for demand and price each year. But one key difference: **the decision to lease changes the cost structure**, so the payoffs at the end nodes differ from the spot-only case.
+
+Intuitively, a fixed lease provides **cost stability** and a lower rate for the core 100k sq.ft., at the expense of **less flexibility**:
+
+- In high demand scenarios, having the 100k at cheap rate is great (you only pay expensive spot for the overflow demand beyond 100k).
+- In low demand scenarios, you end up paying for unused capacity (100k leased vs maybe only 80k needed, etc.), which hurts profits.
+
+We expect the fixed lease to perform better on average than spot-only if the cost saving on the bulk of the capacity outweighs the cost of unused capacity in bad times.
+
+**Result**: Using decision tree analysis (with demand +/-20% each year and price +/-10%), the **Expected NPV (Fixed 100k Lease)** comes out to around **$38,364​**. This is *much higher* than the spot-only option's $5.5k. The long-term lease secures a lower cost, which significantly boosts profits in most scenarios, enough to offset the waste in low-demand cases. In fact, if we **ignore uncertainty entirely** and assume demand stays 100k each year, the NPV of leasing would have been about $60k​. Accounting for uncertainty brings it down to ~$38k, but that's still better than the ~$5k from going spot-only.
+
+To put it simply:
+
+- The fixed lease dramatically increases expected profit by locking in a low unit cost for most of the capacity.
+- But it isn't perfect, if demand drops a lot, you pay for space you don't use (reducing the gain), and if demand surges beyond your lease, you still face high spot costs on the overflow.
+
+### Option 3: Flexible Lease
+
+Finally, consider the **flexible lease** option. Trips can sign a contract, for example, for up to 100k sq.ft. at $1.00, with a commitment that they will pay at least for 60k sq.ft. each year (the minimum). This means:
+
+- If actual demand requires ≤ 60k sq.ft., they *still pay for 60k* (so effectively some cost is wasted if demand is very low).
+- If demand requires between 60k and 100k sq.ft., they pay for exactly what they use (since it's above the minimum, but within the max, the contract covers it fully at the fixed rate).
+- If demand exceeds 100k, they use the full 100k from the lease and then must buy the extra on the spot market (just like the fixed lease case beyond the cap).
+
+This flexible contract reduces the wasted cost in low demand scenarios (because you commit to 60k instead of 100k), while still providing capacity for moderate growth (up to 100k) at the low rate. The trade-off might be that the supplier requires that 60k minimum payment as a guarantee. **In reality, the Flexible Lease will cost more than the Fixed Lease, but less than spotprice, but our example keeps the $1.00 rate for simplicity**.
+
+Let's think through scenario outcomes with this flexible 60k–100k lease:
+
+- **Low demand scenario (e.g. demand = 64k units)**: Since demand is above the 60k minimum (64k > 60k) but below 100k, Trips would pay for 64k at $1.00. However, because of the minimum clause, if demand were even lower (say 50k), they'd still pay for 60k. So worst-case unused cost happens if demand is below 60k.
+- **Base or moderate demand (e.g. 80k or 96k)**: These are between 60k and 100k, so Trips pays exactly for the demand (since it exceeds min). No spot cost, all needs covered by the flexible lease, and no waste beyond the minimum (except they always pay at least 60k). For 80k demand, they pay 80k*$1.00; for 96k, pay 96k*$1.00, etc.
+- **High demand scenario (e.g. 120k or 144k units)**: The lease covers up to 100k at $1.00. Any demand beyond 100k must be bought on spot. So for 120k demand, cost = 100k*$1.00 + 20k*($spot price); for 144k demand, cost = 100k*$1.00 + 44k*($spot price), etc. Revenue is as usual 1.22 * demand. So in these cases, it behaves like the fixed lease for the first 100k, plus spot for the rest.
+
+By analyzing all scenarios (again using a decision tree or an Excel model), we can compute the expected NPV for the flexible option. We expect it to be the best of both worlds: it avoids a lot of wasted cost in low demand cases (unlike the fixed 100k lease) and still gives a large cheap capacity for high demand (unlike the all-spot option). Typically, this should yield the highest expected value, albeit perhaps the contract might cost a bit more in reality for that flexibility.
+
+**Result**: The flexible lease (60k min, 100k max at $1.00) yields an **Expected NPV ≈ $46,545**, the highest of the three options​. This confirms that flexibility has value: about $8k higher NPV than the pure fixed lease, and far above the spot-only strategy.
+
+Why is it higher than the fixed lease?
+
+- In low demand scenarios, the flexible lease doesn't burn as much money on unused space (only pays 60k instead of 100k), preserving profit.
+- In high demand scenarios, it still has the full 100k at low cost, so performance is similar to fixed lease in those cases (needing spot only for the overflow beyond 100k).
+- Essentially, it minimizes regret in both extremes at a relatively small penalty (the guaranteed 60k payment even if demand is very low).
+
+It's a concrete example of the benefit of a *flexible contract* in supply chain management, even if the flexible option had a slightly higher cost per unit or a minimum fee, it often outperforms inflexible choices when uncertainty is significant.
+
+### Recap: Expected Outcomes for Each Option
+
+For clarity, here's a summary of the expected NPV results from the Trips Logistics example (3-year horizon, in present value of profit):
+
+- Option 1: All Spot Market: Expected NPV ≈ $5.5k (very low)​
+- Option 2: Fixed Lease (100k sq.ft.): Expected NPV ≈ $38.4k
+- Option 3: Flexible Lease (60k–100k sq.ft.): Expected NPV ≈ $46.5k​
+
+## Using Decision Trees and NPV for Decision-Making
+
+The Trips Logistics case illustrates how to apply **decision tree analysis** to a supply chain decision:
+
+- We identified the **decisions** (lease options) and the **uncertainties** (annual demand and price changes).
+- We laid out the **decision tree** with branches for each option and further branches for each possible outcome each year.
+- We attached **payoffs** (profit/NPV) to each final branch of the tree.
+- We calculated **expected NPVs** by working backward, combining probabilities and discounting future profits appropriately.
+
+In real problems, you might use software or spreadsheets to handle the complex arithmetic (as we did behind the scenes here). But conceptually, the process is accessible:
+
+1. **Structure the problem**: What decisions are we evaluating? What uncertainties affect the outcomes (and in what sequence do they occur)?
+2. **Estimate probabilities**: Use forecasts or historical data to assign probabilities to different demand levels, price changes, etc. (In our example we assumed simple 50/50 chances for up/down moves each year.)
+3. **Estimate payoffs**: For each combination of outcomes, determine the cash flows or profit.
+4. **Incorporate time value**: Discount future cash flows to present values if the horizon is multi-period.
+5. **Compute expected values**: Multiply outcomes by probabilities and sum them for each decision path.
+6. **Choose the best option**: Based on highest expected NPV (or whichever criterion is relevant, could also consider risk, but here it's EV).
+
+### Excel-Style Logic for the Case
+
+To further clarify, let's outline the **Excel-style logic** you might use in evaluating the Trips Logistics options. This is how you would break down the problem step-by-step (you can imagine these as formulas or cell calculations):
+
+#### Calculate annual profit given strategy and scenario
+
+For each year $t$ and each strategy, you could compute: `Profit_t = Revenue_t - Cost_t`.
+  
+For example, under *Fixed Lease*:
+  
+- If `Demand_t <= LeaseCapacity`:
+  - `Cost_t = LeaseCapacity * LeaseRate` (pay for full lease, no spot)
+  - `Profit_t = Demand_t * UnitRev – LeaseCapacity * LeaseRate`
+- If `Demand_t > LeaseCapacity`:
+  - `Cost_t = LeaseCapacity * LeaseRate + (Demand_t – LeaseCapacity) * SpotPrice_t`
+  - `Profit_t = Demand_t * UnitRev – [LeaseCapacity * LeaseRate + (Demand_t – LeaseCapacity) * SpotPrice_t]`
+
+Under *Spot Only*: `Cost_t = Demand_t * SpotPrice_t` (pay all on spot)
+
+Under *Flexible Lease*:
+
+- If `Demand_t <= MinCap`:
+  - `Cost_t = MinCap * LeaseRate` (you pay minimum even if not used fully)
+  - `Profit_t = Demand_t * UnitRev – MinCap * LeaseRate`
+- If `MinCap < Demand_t <= MaxCap`:
+  - `Cost_t = Demand_t * LeaseRate` (pay for what you use, meeting minimum)
+  - `Profit_t = Demand_t * UnitRev – Demand_t * LeaseRate`
+- If `Demand_t > MaxCap`:
+  - `Cost_t = MaxCap * LeaseRate + (Demand_t – MaxCap) * SpotPrice_t`
+  - `Profit_t = Demand_t * UnitRev – [MaxCap * LeaseRate + (Demand_t – MaxCap) * SpotPrice_t]`
+
+#### Discount the profit to present value
+
+If Year1 profit = $X, Year2 profit = $Y, Year3 profit = $Z, and discount rate = 10%, then `NPV = $X/(1.1)^1 + $Y/(1.1)^2 + $Z/(1.1)^3`.
+
+::: {.callout-note}
+If Year1 is counted as one period out. If we counted Year0 as now and Year1 as first, that's the formula. Sometimes Year1 might be taken as (1.1)^0 if immediate, but assume each profit comes at year-end.
+:::
+
+In Excel, you might have cells for each year's profit and then a formula for NPV.
+
+#### Expected NPV
+
+Enumerate each scenario (or use a tree formula). For each scenario, given its probability `p`, compute NPV as above, then multiply by `p`. Finally, sum across all scenarios.
+
+Example: Suppose four equally likely scenarios had NPVs of $50k, $40k, $20k, and $10k. Then Expected NPV = 0.25*(50+40+20+10)k = $30k.
+
+In our case, doing this for each strategy yields the expected NPVs listed earlier. **Flexible lease wins with highest expected NPV**.
+
+## Key Takeaways
+
+- **Uncertainty matters**: When designing supply chain networks (like deciding on capacity or contracts), accounting for uncertain demand and costs can change which option is best. Simply using average forecasts might mislead you. Tools like decision trees help explicitly consider variability.
+- **Decision trees structure the problem**: They break a complex, multi-period decision into manageable pieces, showing how each choice can lead to different outcomes. They are especially useful for multi-stage decisions under uncertainty.
+- **Expected value guides choices under risk**: By calculating expected NPV or profit, we can evaluate which strategy gives the best long-run performance. In our example, the flexible lease had the highest expected NPV​, making it the preferred strategy for a risk-neutral manager.
+- **Net Present Value (NPV) integration**: We incorporated time value of money, which is important for multi-year decisions. A dollar of profit next year is worth less than a dollar today – discounting ensures we fairly compare multi-year cash flows.
+- **The value of flexibility**: The case demonstrated that a flexible supply chain contract can add significant value under uncertainty. Paying for flexibility (in the form of a higher minimum cost or a slightly higher rate) can be worthwhile if it protects you in bad scenarios and allows you to capitalize on good scenarios. In the Trips Logistics example, flexibility in the lease led to the best expected outcome.
+
+Finally, while expected value is a powerful decision criterion, managers should also consider their **risk tolerance**. Two strategies with the same expected NPV might have different risk profiles (one might have a small chance of a very bad outcome, for instance). Decision trees can also incorporate utilities or risk considerations, but that's beyond our scope here. For now, being able to compute and compare expected NPVs equips you with a fundamental decision-making tool for supply chain network design under uncertainty.
